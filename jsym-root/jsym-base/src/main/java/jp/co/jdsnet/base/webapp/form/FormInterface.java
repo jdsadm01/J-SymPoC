@@ -4,9 +4,9 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
-import java.util.concurrent.ConcurrentHashMap;
 
 import jp.co.jdsnet.base.domain.dto.AbstractDTO;
+import jp.co.jdsnet.common.domain.vo.UserInfoVO;
 import jp.co.jdsnet.common.utils.FormatUtility;
 
 public interface FormInterface<T extends AbstractDTO> {
@@ -26,7 +26,14 @@ public interface FormInterface<T extends AbstractDTO> {
 	 * 必要な場合は各Formで実装する
 	 * @return DTO
 	 */
-	default T toDTO(ConcurrentHashMap<String,String> userMap) { return null; }
+	default T toDTO(UserInfoVO userMap) { return null; }
+	
+	/**
+	 * FormからDTOへ変換する
+	 * 必要な場合は各Formで実装する
+	 * @return DTO
+	 */
+	default T toDTO() { return null; }
 	
 //	/**
 //	 * DTOからFormへ変換する

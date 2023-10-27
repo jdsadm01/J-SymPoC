@@ -6,10 +6,12 @@ import jp.co.jdsnet.base.domain.dto.AbstractDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import lombok.AccessLevel;
 
 @Data
+@Setter(AccessLevel.NONE)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper=true)
 @NoArgsConstructor(access=AccessLevel.NONE)

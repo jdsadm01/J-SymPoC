@@ -1,10 +1,10 @@
 package jp.co.jdsnet.base.domain.dto;
 
-import java.util.Map;
-
+import jp.co.jdsnet.common.domain.vo.UserInfoVO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -13,8 +13,9 @@ import lombok.experimental.SuperBuilder;
  *
  */
 @Data
+@Setter(AccessLevel.NONE)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access=AccessLevel.NONE)
 public abstract class AbstractDTO implements Transformable {
-	private Map<String, String> userMap;
+	private UserInfoVO userInfo;
 }

@@ -65,7 +65,7 @@ public class AllStockServiceImpl implements AllStockService {
 		boolean isOnline = false; 
 		if(CheckSharedService.SERVICETIME_ONLINE.equals(
 				checkSharedService.checkServiceTime(
-						dto.getKaiskbcod(), dto.getUserMap().get("usrbun"), "VHJ002", "001", "S"))) {
+						dto.getKaiskbcod(), dto.getUserInfo().getUsrbun(), "VHJ002", "001", "S"))) {
 			isOnline = true;
 		}
 
@@ -75,8 +75,8 @@ public class AllStockServiceImpl implements AllStockService {
 		//会社チェック
 		KaishaEntity kaishaEntity;
 		try {
-			checkSharedService.checkDaikaiskbcod(dto.getKaiskbcod(), dto.getUserMap().get("daikaiskbcod"));
-			String checkcod = ("JDS".equals(dto.getUserMap().get("daikaiskbcod"))) ? dto.getKaiskbcod() : dto.getUserMap().get("kaiskbcod"); 
+			checkSharedService.checkDaikaiskbcod(dto.getKaiskbcod(), dto.getUserInfo().getDaikaiskbcod());
+			String checkcod = "JDS".equals(dto.getUserInfo().getDaikaiskbcod()) ? dto.getKaiskbcod() : dto.getUserInfo().getKaiskbcod(); 
 			kaishaEntity = kaishaMapper.select(KaishaEntity.builder().kaiskbcod(checkcod).build());
 			//checkSharedService.checkKyoten(kaishaEntity.getDaikaiskbcod(), dto.getUserMap().get("usrbun"));
 		} catch (Exception e) {

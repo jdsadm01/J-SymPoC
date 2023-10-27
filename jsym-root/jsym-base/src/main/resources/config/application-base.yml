@@ -3,12 +3,10 @@
 
 property:
   session:
-    userInfoKey: loginUser
-    idKey: connectSessionId
-    lockTime: 30 #分で指定
+    userInfoKey: LOGIN_USER_SESSION
+    idKey: CONNECT_SESSION_ID
+    lockTime: 60 #分で指定
     contextName: /jsym-home
-  userMapKey:
-    time: sessionTime
     
 
 #mybatis設定 警告は問題無し

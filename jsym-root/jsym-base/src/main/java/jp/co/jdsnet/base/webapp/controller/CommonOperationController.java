@@ -1,11 +1,10 @@
 package jp.co.jdsnet.base.webapp.controller;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import jakarta.servlet.http.HttpSession;
+import jp.co.jdsnet.common.domain.vo.UserInfoVO;
 
 public abstract class CommonOperationController {
 
@@ -15,8 +14,7 @@ public abstract class CommonOperationController {
     @Value("${property.session.userInfoKey}")
     private String userInfoKey;
 
-    @SuppressWarnings("unchecked")
-	protected ConcurrentHashMap<String,String> getUserMap() {
-		return (ConcurrentHashMap<String,String>)httpSession.getAttribute(userInfoKey);
+	protected UserInfoVO getUserInfo() {
+		return (UserInfoVO)httpSession.getAttribute(userInfoKey);
 	}
 }

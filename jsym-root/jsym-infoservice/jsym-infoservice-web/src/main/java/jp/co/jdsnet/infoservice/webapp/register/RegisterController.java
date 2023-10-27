@@ -1,8 +1,6 @@
 package jp.co.jdsnet.infoservice.webapp.register;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ConcurrentHashMap;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
+import jp.co.jdsnet.common.domain.vo.UserInfoVO;
 import jp.co.jdsnet.infoservice.webapp.controller.AllStockController;
 
 @Controller
@@ -23,21 +22,22 @@ public class RegisterController {
 
     @Value("${property.session.userInfoKey}")
     private String userInfoKey;
-    @Value("${property.session.lockTime}")
-    private int lockTime;
-    @Value("${property.userMapKey.time}")
-    private String sessionTimeKey;
+    @Value("${property.session.idKey}")
+    private String idKey;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model) {
-		ConcurrentHashMap<String,String> userMap = new ConcurrentHashMap<String,String>();
-		userMap.put("usrid", "test.userid");
-		userMap.put("usrnm", "テストレジスタ");
-		userMap.put("daikaiskbcod", "JDS");
-		userMap.put("kaiskbcod", "JDS");
-		userMap.put("usrbun", "JDS");
-		userMap.put(sessionTimeKey, LocalTime.now().plusMinutes(lockTime).format(DateTimeFormatter.ofPattern("HHmmss")));
-		httpSession.setAttribute(userInfoKey, userMap);
+    	httpSession.setAttribute(idKey, httpSession.getId());
+		httpSession.setAttribute(userInfoKey, 
+				UserInfoVO.builder()
+	    		.usrid("test.userid")
+	    		.usrnm("レジスタユーザー")
+	    		.daikaiskbcod("JDS")
+	    		.kaiskbcod("JDS")
+	    		.usrbun("JDS")
+	    		.mnugrpcod("100")
+	    		.lastAccessTime(LocalDateTime.now())
+	    		.build());
         return "register/menu";
 	}
 

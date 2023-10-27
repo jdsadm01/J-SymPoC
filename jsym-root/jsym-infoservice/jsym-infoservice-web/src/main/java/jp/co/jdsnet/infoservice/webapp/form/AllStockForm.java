@@ -3,7 +3,6 @@ package jp.co.jdsnet.infoservice.webapp.form;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.springframework.ui.Model;
@@ -11,14 +10,17 @@ import org.springframework.ui.Model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jp.co.jdsnet.base.webapp.form.FormInterface;
+import jp.co.jdsnet.common.domain.vo.UserInfoVO;
 import jp.co.jdsnet.infoservice.domain.dto.AllStockDTO;
 import jp.co.jdsnet.infoservice.webapp.copydata.AllStockCBData;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Data
+@Setter(AccessLevel.NONE)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class AllStockForm implements FormInterface<AllStockDTO>,Serializable {
@@ -28,7 +30,7 @@ public class AllStockForm implements FormInterface<AllStockDTO>,Serializable {
 	@NotBlank
 	@Size(max=3)
 	private String kaiskbcod;
-	@NotBlank(message= "{Not_Blank}")
+	@NotBlank
 	@Size(max=13)
 	private String kigbng;
 
@@ -56,9 +58,9 @@ public class AllStockForm implements FormInterface<AllStockDTO>,Serializable {
 	private String ttfld;
 	
 	@Override
-	public AllStockDTO toDTO(ConcurrentHashMap<String,String> userMap) {
+	public AllStockDTO toDTO(UserInfoVO userVO) {
 		return AllStockDTO.builder()
-				.userMap(userMap)
+				.userInfo(userVO)
 				.kaiskbcod(this.kaiskbcod)
 				.kigbng(this.kigbng)
 				.build();

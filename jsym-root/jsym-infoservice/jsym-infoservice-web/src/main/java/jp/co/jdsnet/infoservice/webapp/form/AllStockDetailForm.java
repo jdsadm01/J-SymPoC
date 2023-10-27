@@ -7,12 +7,14 @@ import jp.co.jdsnet.infoservice.domain.dto.AllStockDetailDTO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Data
+@Setter(AccessLevel.NONE)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access=AccessLevel.PRIVATE)
-public class AllStockDetailForm implements FormInterface,Serializable {
+public class AllStockDetailForm implements FormInterface<AllStockDetailDTO>,Serializable {
 
 	private static final long serialVersionUID = 1L;
 

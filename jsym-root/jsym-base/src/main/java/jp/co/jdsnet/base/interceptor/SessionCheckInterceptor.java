@@ -1,8 +1,6 @@
 package jp.co.jdsnet.base.interceptor;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ConcurrentHashMap;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jp.co.jdsnet.common.domain.vo.UserInfoVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -26,8 +25,6 @@ public class SessionCheckInterceptor implements HandlerInterceptor {
     private String contextName;
     @Value("${property.session.idKey}")
     private String idKey;
-    @Value("${property.userMapKey.time}")
-    private String sessionTimeKey;
     
     
     @Override
@@ -37,28 +34,21 @@ public class SessionCheckInterceptor implements HandlerInterceptor {
 			log.error("URL不正リクエスト");
 			return false;
 		}
-		@SuppressWarnings("unchecked")
-		ConcurrentHashMap<String,String> loginMap = (ConcurrentHashMap<String,String>)httpSession.getAttribute(userInfoKey);
-		if(loginMap == null) {
+		UserInfoVO usrInfo = (UserInfoVO)httpSession.getAttribute(userInfoKey);
+		if(usrInfo == null) {
 			log.error("Session情報未保持");
 			response.setStatus(500);
 			return false;
 		}
-		String sysTime = LocalTime.now()
-						.format(DateTimeFormatter.ofPattern("HHmmss"));
-		int sessionTime = loginMap.get(sessionTimeKey).transform(Integer::parseInt);
-		if(sysTime.transform(Integer::parseInt) > sessionTime) {
+		LocalDateTime thisAccessTime = LocalDateTime.now();
+		if(thisAccessTime.isAfter(usrInfo.getLastAccessTime().plusMinutes(lockTime))) {
 			response.setStatus(500);
 			return false;
 		} else {
-			loginMap.put(sessionTimeKey
-					, LocalTime.parse(sysTime, DateTimeFormatter.ofPattern("HHmmss"))
-						.plusMinutes(lockTime)
-						.format(DateTimeFormatter.ofPattern("HHmmss")));
+			usrInfo.setLastAccessTime(thisAccessTime);
 		}
-		System.out.println("sessintime:"+sessionTime);
-		httpSession.setAttribute(userInfoKey, loginMap);
-		httpSession.getServletContext().getContext(contextName).setAttribute(idKey, loginMap);
+		httpSession.setAttribute(userInfoKey, usrInfo);
+		httpSession.getServletContext().getContext(contextName).setAttribute(String.valueOf(httpSession.getAttribute(idKey)), usrInfo);
 		return true;
 	}
 }

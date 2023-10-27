@@ -45,7 +45,7 @@ public class AllStockController extends CommonOperationController {
 		} else {
 			try {
 			model.addAttribute("allStockForm"
-					, service.search(requestForm.toDTO(getUserMap())).transform(AllStockForm::toForm));
+					, service.search(requestForm.toDTO(getUserInfo())).transform(AllStockForm::toForm));
 			AllStockForm test = (AllStockForm)model.getAttribute("allStockForm");
 			new AllStockCBData(model, test);//TODO ダサイ！！
 
