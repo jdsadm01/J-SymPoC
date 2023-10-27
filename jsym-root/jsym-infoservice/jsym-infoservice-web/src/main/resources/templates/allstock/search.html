@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="h-100"
+    th:replace="~{template :: layout(title=#{title.allstock},title_icon='search',scripts=~{::script},links=~{::link},body=~{::body/content()})}">
+
+<!--/* 画面固有のCSS・JSがある場合はここで定義 */-->
+<head>
+	<link>
+	<script></script>
+</head>
+
+<body>
+<!--/* ページコンテンツ */-->
+<div class="d-flex flex-column h-100">
+<main class="flex-shrink-0 mt-3">
+	<form th:action="@{/allstock}" th:object="${allStockForm}" th:method="post">
+		<div class="container">
+			<div class="d-flex flex-row">
+				<div class="flex-col col-auto">
+					<label for="会社" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{kaiskbcod}"></label>
+					<input class="form-control p-1 text-uppercase" id="会社" type="text" th:field="*{kaiskbcod}" placeholder="会社" maxlength="3" aria-label="会社" list="daikailist">
+					<datalist id="daikailist">
+						<option th:each="kailst : *{daikaiskbcodList}"
+								th:value="${kailst}"/>
+					</datalist>
+				</div>
+				<div class="flex-col col-auto">
+					<label for="kigbng" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{kigbng}"></label>
+					<input class="form-control p-1 text-uppercase" id="kigbng" type="text" th:field="*{kigbng}" placeholder="記号番号" maxlength="13" aria-label="記号番号">
+				</div>
+			</div>
+			<div>
+				<span>サービス時間：</span>
+				<span th:text="${allStockForm.isInServiceTime}">
+			</div>
+			<div>
+				<span>権限：</span>
+				<span th:text="${allStockForm.isFavoriteAuthority}">
+			</div>
+			<div class="d-flex flex-row p-2">
+				<div class="col-2">
+					<button class="btn btn-outline-secondary" type="submit" name="btn_search">実行</button>
+				</div>
+			</div>
+			<div>
+				<ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
+				    <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
+				</ul>
+				<th:block th:text="${errors}"></th:block>
+				<!--
+				<table>
+					<tr th:if="${validationError}" th:each="error : ${validationError}">
+			            <td style="color: red;" th:text="${error}"></td>
+			        </tr>
+				</table>
+				-->
+			</div>
+	<th:block th:if="${(allStockForm.detailList != null) && !(#lists.isEmpty(allStockForm.detailList))}" class="container pt-1">
+		<div class="d-flex flex-row">
+			<div class="flex-col col-auto">
+				<label for="表示品番" class="form-label px-1 border-start border-primary border-5 fw-bolder">表示品番</label>
+				<span th:text="${allStockForm.hjihnb}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="タイトル" class="form-label px-1 border-start border-primary border-5 fw-bolder">タイトル</label>
+				<span th:text="${allStockForm.titnm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="アーティスト" class="form-label px-1 border-start border-primary border-5 fw-bolder">アーティスト</label>
+				<span th:text="${allStockForm.artnm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="売上累計" class="form-label px-1 border-start border-primary border-5 fw-bolder">売上累計</label>
+				<span th:text="${#numbers.formatInteger(allStockForm.uriruisur, 1, 'COMMA')}" class="form-control p-1 bg-primary text-light bg-opacity-75 text-end"/>
+			</div>
+		</div>
+		<div class="d-flex flex-row pt-2">
+			<div class="flex-col col-auto">
+				<label for="ランク" class="form-label px-1 border-start border-primary border-5 fw-bolder">ランク</label>
+				<!--
+				<span th:styleappend="(${allStockForm.rakcoderrkbn == '1'}? 'border: solid;border-color: red;') + (${allStockForm.rakcoderrkbn == '2'}? ';border: solid;border-color: green;')"
+					th:text="${allStockForm.tomrakcod}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+				-->
+				<span th:text="${allStockForm.tomrakcod}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="セット数" class="form-label px-1 border-start border-primary border-5 fw-bolder">セット数</label>
+				<span th:text="${allStockForm.setsuu}" class="form-control p-1 bg-primary text-light bg-opacity-75 text-end"/>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="発売日" class="form-label px-1 border-start border-primary border-5 fw-bolder">発売日</label>
+				<span th:text="${#temporals.format(allStockForm.getDateField('hbidte'), 'yy/MM/dd')}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="形態" class="form-label px-1 border-start border-primary border-5 fw-bolder">形態</label>
+				<span th:text="${allStockForm.ketcod}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="面替／再発品番" class="form-label px-1 border-start border-primary border-5 fw-bolder">面替／再発品番</label>
+				<th:block th:if="${allStockForm.mngflg == '1'}">
+					<span th:text="${allStockForm.mngflg} + ' ／ ' + ${allStockForm.rhbhnb}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+				</th:block>
+				<th:block th:if="${allStockForm.mngflg != '1'}">
+					<span th:text="${allStockForm.mngflg}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+				</th:block>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="税抜価格" class="form-label px-1 border-start border-primary border-5 fw-bolder">税抜価格</label>
+				<span th:text="${#numbers.formatInteger(allStockForm.znupri, 1, 'COMMA')}" class="form-control p-1 bg-primary text-light bg-opacity-75 text-end"/>
+			</div>
+			<div class="flex-col col-auto">
+				<label for="仕切単価" class="form-label px-1 border-start border-primary border-5 fw-bolder">仕切単価</label>
+				<span th:text="${#numbers.formatInteger(allStockForm.skrtanipn, 1, 'COMMA')}" class="form-control p-1 bg-primary text-light bg-opacity-75 text-end"/>
+			</div>
+<!--
+			<div class="flex-col col-md-2">
+				<label for="入庫予定日／予定数" class="form-label px-1 border-start border-primary border-5 fw-bolder">入庫予定日／予定数</label>
+				<span class="form-control p-1 bg-primary text-light bg-opacity-75">
+					<th:block th:if="${allStockForm.hatchuyoteiList.size()} == 1">
+						<span th:each="hatchuyotei:${allStockForm.hatchuyoteiList}"
+							th:text="${StringUtility.formatToyyMMdd_Srash(hatchuyotei.nki)} + ' ／ ' + ${#numbers.formatInteger(hatchuyotei.hacsur, 0, 'COMMA')}"/>
+					</th:block>
+					<th:block th:if="${allStockForm.hatchuyoteiList.size()} > 1">
+						<select>
+							<option th:each="hatchuyotei:${allStockForm.hatchuyoteiList}"
+								th:text="${StringUtility.formatToyyMMdd_Srash(hatchuyotei.nki)} + ' ／ ' + ${#numbers.formatInteger(hatchuyotei.hacsur, 0, 'COMMA')}"/>
+						</select>
+					</th:block>
+					<th:block th:if="${allStockForm.hatchuyoteiList.size()} == 0">
+						&nbsp;
+					</th:block>
+				</span>
+			</div>
+			<div class="flex-col col-md-1">
+				<label for="L" class="form-label px-1 border-start border-primary border-5 fw-bolder">L</label>
+				<th:block th:if="${allStockForm.syasgecod != ''}">
+					<span th:styleappend="${allStockForm.lerrkbn == '1'}? 'border: solid;border-color: red;'"
+						th:text="${allStockForm.syasgecod}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+				</th:block>
+				<th:block th:if="${allStockForm.syasgecod} == ''">
+					<span class="form-control p-1 bg-primary text-light bg-opacity-75">
+						&nbsp;
+					</span>
+				</th:block>
+			</div>
+-->
+		</div>
+
+		<div class="alt-table-responsive">
+			<table id="mytable" class="table table-striped table-hover table-bordered">
+				<thead class="bg-primary text-light row-cols-auto bg-opacity-75">
+					<tr class="text-center align-middle">
+						<th rowspan="2" class="p-1">倉庫</th>
+						<th rowspan="2" class="p-1">S</th>
+						<th rowspan="2" class="p-1">C</th>
+						<th rowspan="2" class="p-1">在庫数</th>
+						<th rowspan="2" class="p-1">可能数</th>
+						<th rowspan="2" class="p-1">確保数</th>
+						<th rowspan="2" class="p-1">注残数</th>
+						<th colspan="2" class="p-1">新譜初回</th>
+						<th rowspan="2" class="p-1">積送数</th>
+						<th rowspan="2" class="p-1">貸出残</th>
+						<th rowspan="2" class="p-1">未引当</th>
+						<th colspan="2" class="p-1">当日</th>
+						<th colspan="2" class="p-1">当月</th>
+					</tr>
+					<tr>
+						<th class="p-1">受注数</th>
+						<th class="p-1">出荷数</th>
+						<th class="p-1">受注数</th>
+						<th class="p-1">出荷数</th>
+						<th class="p-1">受注数</th>
+						<th class="p-1">出荷数</th>
+				</thead>
+				<tbody>
+					<tr th:each="detail : ${allStockForm.detailList}">
+						<td th:text="${detail.hjinm2}"></td>
+						
+						<!--<th:block th:if="${allStockForm.syacoderrkbn == '' || detail.syacod == null}">-->
+							<td th:text="${detail.syacod}"></td>
+						<!--
+						</th:block>
+						<th:block th:if="${allStockForm.syacoderrkbn != '' && formRow.syacod != null}">
+							<td th:styleappend="(${allStockForm.syacoderrkbn == '1'}? 'border: solid;border-color: red;') + (${allStockForm.syacoderrkbn == '2'}? ';border: solid;border-color: green;')"
+								th:text="${formRow.syacod}"></td>
+						</th:block>
+						-->
+						<td th:text="${detail.cchhinkbn}"></td>
+						<td th:text="${#numbers.formatInteger(detail.zaisur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.syaknosur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.zaikhokhasur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.chzkhasur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.sinjuckhasur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.sinsyasur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.sekzansur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.kdazansur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.ykesyakhasur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.todjucsur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.todsyasur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.tomjucsur, 1, 'COMMA')}" class="text-end"></td>
+						<td th:text="${#numbers.formatInteger(detail.tomsyasur, 1, 'COMMA')}" class="text-end"></td>
+					</tr>
+			</table>
+		</div>
+		<!-- DBCOPY -->
+		<div th:replace="copydata :: copy"></div>
+	</th:block>
+		</div>
+
+	</form>
+</main>
+
+</div>
+</body>
+
+</html>

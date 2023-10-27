@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+
+		<!--copy-->
+		<div th:fragment="copy">
+			<button id="btn_copy" type="button" class="btn-clipboard mt-0 me-0"
+					data-bs-toggle="tooltip" data-bs-placement="top"
+        			data-bs-custom-class="custom-tooltip">
+			  <i class="bi bi-clipboard"></i>
+			</button>
+			<textarea id="clipboardArea" style="display: none;" th:text="${CLIPBOARD_DATA_KEY}"></textarea>
+			<script type="text/javascript">
+				const successOptions = {
+					trigger: 'manual',
+					title: 'copied'
+				};
+				const failedOptions = {
+					trigger: 'manual',
+					title: 'copy fail!!'
+				};
+				const tooltipEl = document.getElementById('btn_copy');
+				const tooltip = new bootstrap.Tooltip(tooltipEl, successOptions);
+				const tooltip_fail = new bootstrap.Tooltip(tooltipEl, failedOptions);
+				
+				let ret = true; 
+				tooltipEl.addEventListener('show.bs.tooltip', () => {
+					setTimeout(() => {
+						tooltip.hide();
+						tooltip_fail.hide();
+					}, 800);
+				});
+				
+				tooltipEl.addEventListener('click', () => {
+					// コピー用のtextareaを生成
+					var tempArea = document.createElement('textarea');
+					tempArea.style.position ='absolute';
+					tempArea.style.opacity = 0;
+					tempArea.style.pointerEvents = 'none';
+					tempArea.value = document.getElementById('clipboardArea').value;
+
+					// 一時的にtextareaをページに追加して、コピー後に削除
+					document.body.appendChild(tempArea);
+					//tempArea.focus();
+					//tempArea.setSelectionRange(0, 999999);
+					tempArea.select();
+					let ret = document.execCommand('copy');
+					tempArea.parentNode.removeChild(tempArea);
+
+					//ちょっとカッコ悪いがどちらのtooltipを表示させるかでメッセージを変える方法ととる
+					if(ret) {
+						tooltip.show();
+					} else {
+						tooltip_fail.show();
+					}
+				});
+			</script>
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,13 @@
+plugins {
+	id 'application-conventions'
+}
+
+version = '0.0.2-SNAPSHOT'
+bootWar {
+	archiveFileName = 'infoservice.war'
+}
+dependencies {
+	implementation project(':jsym-base')
+	implementation project(':jsym-infoservice:jsym-infoservice-domain')
+	runtimeOnly project(':jsym-comm')
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.zaiko.AZaikoMapper">
+    <select id="select" resultType="AZaikoEntity">
+        SELECT *
+        FROM AESTOC01
+        <where>
+			DAIKAISKBCOD = #{daikaiskbcod}
+		</where>
+        WITH UR
+    </select>
+    <select id="selectAZaikoSkoSum" resultType="AZaikoEntity">
+        SELECT DAIKAISKBCOD,KIGBNG
+        	, SUM(ZAISUR) AS ZAISUR, SUM(ZAIKHOKHASUR) AS ZAIKHOKHASUR, SUM(SINJUCKHASUR) AS SINJUCKHASUR
+        	, SUM(SINSYASUR) AS SINSYASUR, SUM(CHZKHASUR) AS CHZKHASUR, SUM(YKESYAKHASUR) AS YKESYAKHASUR
+        	, SUM(SEKZANSUR) AS SEKZANSUR, SUM(KDAZANSUR) AS KDAZANSUR, SUM(TODJUCSUR) AS TODJUCSUR
+        	, SUM(TODSYASUR) AS TODSYASUR, SUM(TOMJUCSUR) AS TOMJUCSUR, SUM(TOMSYASUR) AS TOMSYASUR
+        FROM AESTOC01
+        <where>
+            DAIKAISKBCOD = #{daikaiskbcod}
+            AND KIGBNG = #{kigbng}
+            AND SKOCOD IN
+             <foreach item="skocod" collection="skocodList"
+				open="(" separator="," close=")">
+				#{skocod}
+			</foreach>
+        </where>
+        GROUP BY DAIKAISKBCOD,KIGBNG
+        WITH UR
+    </select>
+</mapper>

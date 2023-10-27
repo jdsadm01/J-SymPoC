@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:db2://internal-JDS-dev-aes-db-clb01-967901585.ap-northeast-1.elb.amazonaws.com:50005/DBTAE1
+    username: aetapl
+    password: AETAPL
+    hikari:
+      schema: AET
+  mvc:
+    log-request-details: true
+  main:
+    banner-mode: console
+    log-startup-info: true
+
+logging:
+  level:
+    web: debug
+    db: debug
+    tomcat: debug
+    '[jp.co.jdsnet]': debug
+  file:
+    path: C:\tst\app\log

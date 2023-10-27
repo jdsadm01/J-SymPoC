@@ -1,0 +1,8 @@
+dependencies {
+	implementation 'org.webjars:jquery:3.7.1'
+	implementation 'org.webjars:datatables:1.13.5'
+	implementation 'org.webjars.npm:bootstrap-icons:1.10.5'
+	implementation 'org.webjars:bootstrap-datepicker:1.10.0'
+	implementation 'org.webjars.npm:bootstrap5-toggle:5.0.6'
+	implementation 'org.webjars:webjars-locator:0.47'
+}

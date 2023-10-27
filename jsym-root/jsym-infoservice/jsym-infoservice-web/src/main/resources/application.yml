@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+    group:
+      common:
+        - base
+      dev:
+        - common
+        - dev
+        - dev-infoservice
+      test:
+        - common
+        - test
+
+#サーバー設定
+server:
+  servlet:
+    context-path: /infoservice

@@ -1,0 +1,17 @@
+plugins {
+	id 'base-conventions'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	}
+}
+dependencies {
+	compileOnly project(':jsym-comm')
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+}
+bootJar {
+	enabled = false
+}

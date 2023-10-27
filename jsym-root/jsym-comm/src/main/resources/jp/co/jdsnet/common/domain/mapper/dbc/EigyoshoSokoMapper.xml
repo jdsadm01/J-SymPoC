@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.dbc.EigyoshoSokoMapper">
+    <select id="selectEigSkoList" resultType="EigyoshoSokoEntity">
+        SELECT *
+        FROM VTBDBC08
+        <where>
+            DAIKAISKBCOD = #{daikaiskbcod}
+            AND PNLLSTID = #{pnllstid}
+            AND SYKKBN = #{sykkbn}
+            AND KAISKBCOD IN
+            <foreach item="kaiskbcod" collection="kaiskbcodList"
+				open="(" separator="," close=")">
+				#{kaiskbcod}
+			</foreach>
+			AND PNLLSTKBN = #{pnllstkbn}
+            AND UPDKBN <![CDATA[ <> ]]> 'D'
+		</where>
+		ORDER BY HJIJUN
+        WITH UR
+    </select>
+</mapper>

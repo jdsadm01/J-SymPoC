@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.KaishaMapper">
+    <select id="selectAll" resultType="KaishaEntity">
+        SELECT *
+        FROM AECOMP01
+        ORDER BY KAISKBCOD
+    </select>
+    <select id="select" resultType="KaishaEntity">
+        SELECT *
+        FROM AECOMP01
+        <where>
+			KAISKBCOD = #{kaiskbcod}
+		</where>
+        WITH UR
+    </select>
+    <select id="selectKaiskbcodList" resultType="String">
+        SELECT KAISKBCOD
+        FROM AECOMP01
+        <where>
+            DAIKAISKBCOD = #{daikaiskbcod}
+        </where>
+        ORDER BY KAISKBCOD
+        WITH UR
+    </select>
+    <select id="selectDaikaiskbcodList" resultType="String">
+        SELECT KAISKBCOD
+        FROM AECOMP01
+        <where>
+            KAIBUNKBN = '0'
+            <![CDATA[
+            AND UPDKBN <> 'D'
+            ]]>
+        </where>
+        ORDER BY DAIKAISKBCOD
+        WITH UR
+    </select>
+</mapper>

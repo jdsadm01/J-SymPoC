@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.dbc.SokoGroupMapper">
+    <select id="selectSkocodList" resultType="SokoGroupEntity">
+        SELECT *
+        FROM VTBDBC10
+        <where>
+            DAIKAISKBCOD = #{daikaiskbcod}
+            AND KAISKBCOD IN
+            <foreach item="kaiskbcod" collection="kaiskbcodList"
+				open="(" separator="," close=")">
+				#{kaiskbcod}
+			</foreach>
+			AND PNLLSTKBN = #{pnllstkbn}
+			AND SKOGRPCOD = #{skogrpcod}
+            AND UPDKBN <![CDATA[ <> ]]> 'D'
+		</where>
+        WITH UR
+    </select>
+</mapper>

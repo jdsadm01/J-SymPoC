@@ -1,0 +1,16 @@
+plugins {
+	id 'base-conventions'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+	implementation 'com.zaxxer:HikariCP:3.4.5'
+	runtimeOnly 'com.ibm.db2:jcc'
+}
+tasks.named("bootJar") {
+	enabled = false
+}
