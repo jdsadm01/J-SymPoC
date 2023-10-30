@@ -3,13 +3,13 @@
 	<body>
 
 		<!--copy-->
-		<div th:fragment="copy">
+		<div th:fragment="copy(form)">
 			<button id="btn_copy" type="button" class="btn-clipboard mt-0 me-0"
 					data-bs-toggle="tooltip" data-bs-placement="top"
         			data-bs-custom-class="custom-tooltip">
 			  <i class="bi bi-clipboard"></i>
 			</button>
-			<textarea id="clipboardArea" style="display: none;" th:text="${CLIPBOARD_DATA_KEY}"></textarea>
+			<textarea id="clipboardArea" style="display: none;" th:text="${form.dataBody}"></textarea>
 			<script type="text/javascript">
 				const successOptions = {
 					trigger: 'manual',

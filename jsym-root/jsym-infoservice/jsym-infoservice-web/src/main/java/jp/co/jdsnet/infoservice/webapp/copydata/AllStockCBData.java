@@ -1,15 +1,10 @@
 package jp.co.jdsnet.infoservice.webapp.copydata;
 
-import org.springframework.ui.Model;
-
 import jp.co.jdsnet.base.webapp.parts.CommonClipboardData;
 import jp.co.jdsnet.infoservice.webapp.form.AllStockForm;
 
 public class AllStockCBData extends CommonClipboardData<AllStockForm> {
 
-	public AllStockCBData(Model model, AllStockForm form) {
-		super(model, form);
-	}
 	@Override
 	protected void createClipboardData(AllStockForm form) {
 		//ヘッダー部

@@ -12,6 +12,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 import jp.co.jdsnet.base.webapp.controller.CommonOperationController;
 import jp.co.jdsnet.infoservice.domain.service.AllStockService;
 import jp.co.jdsnet.infoservice.webapp.copydata.AllStockCBData;
+//import jp.co.jdsnet.infoservice.webapp.copydata.AllStockCBData;
 import jp.co.jdsnet.infoservice.webapp.form.AllStockForm;
 import lombok.RequiredArgsConstructor;
 
@@ -44,11 +45,9 @@ public class AllStockController extends CommonOperationController {
 //					.collect(Collectors.toList()));
 		} else {
 			try {
-			model.addAttribute("allStockForm"
-					, service.search(requestForm.toDTO(getUserInfo())).transform(AllStockForm::toForm));
-			AllStockForm test = (AllStockForm)model.getAttribute("allStockForm");
-			new AllStockCBData(model, test);//TODO ダサイ！！
-
+				AllStockForm form = service.search(requestForm.toDTO(getUserInfo())).transform(AllStockForm::toForm);
+				form.setCopyData(AllStockCBData::new);
+				model.addAttribute("allStockForm", form);
 			} catch(Exception e) {
 				model.addAttribute("errors",e.getMessage());
 			}

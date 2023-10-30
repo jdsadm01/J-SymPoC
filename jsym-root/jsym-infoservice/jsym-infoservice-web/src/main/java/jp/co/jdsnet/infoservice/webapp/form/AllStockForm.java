@@ -5,25 +5,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.ui.Model;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import jp.co.jdsnet.base.webapp.form.DBCopyForm;
 import jp.co.jdsnet.base.webapp.form.FormInterface;
 import jp.co.jdsnet.common.domain.vo.UserInfoVO;
 import jp.co.jdsnet.infoservice.domain.dto.AllStockDTO;
 import jp.co.jdsnet.infoservice.webapp.copydata.AllStockCBData;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@Setter(AccessLevel.NONE)
+@EqualsAndHashCode(callSuper=false)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access=AccessLevel.PRIVATE)
-public class AllStockForm implements FormInterface<AllStockDTO>,Serializable {
+public class AllStockForm extends DBCopyForm<AllStockCBData> implements FormInterface<AllStockDTO>,Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -94,14 +93,6 @@ public class AllStockForm implements FormInterface<AllStockDTO>,Serializable {
 						.flatMap(x -> x.stream())
 						.map(t -> t.transform(AllStockDetailForm::toForm))
 						.collect(Collectors.toList()))
-//				.ttfld(test())
 				.build();
 	}
-	
-	private static String test() {
-		Model model = null;
-		new AllStockCBData(model, AllStockForm.builder().build());
-		return "a";
-	}
-
 }

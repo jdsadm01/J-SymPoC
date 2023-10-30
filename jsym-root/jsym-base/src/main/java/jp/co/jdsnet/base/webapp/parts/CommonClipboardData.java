@@ -3,14 +3,13 @@ package jp.co.jdsnet.base.webapp.parts;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-import org.springframework.ui.Model;
-
 import io.micrometer.common.util.StringUtils;
-import jp.co.jdsnet.base.webapp.form.FormInterface;
+import jp.co.jdsnet.base.webapp.form.DBCopyForm;
 import jp.co.jdsnet.common.utils.FormatUtility;
 import jp.co.jdsnet.common.utils.StringUtility;
 
-public abstract class CommonClipboardData <T extends FormInterface> {
+@SuppressWarnings("rawtypes")
+public abstract class CommonClipboardData <T extends DBCopyForm> {
 
 	/** クリップボードデータをrequestにセットするキー */
 	public static final String CLIPBOARD_DATA_KEY = "CLIPBOARD_DATA_KEY";
@@ -26,11 +25,10 @@ public abstract class CommonClipboardData <T extends FormInterface> {
 	/** クリップボードデータ */
 	protected StringBuilder cbData = new StringBuilder();
 	
-	protected CommonClipboardData(Model model, T form) {
+	public String getClipboardData(T form) {
 		createClipboardData(form);
-		model.addAttribute(CLIPBOARD_DATA_KEY, cbData.toString());
+		return cbData.toString();
 	}
-	
 	/**
 	 * クリップボードに送るデータを生成します。
 	 */
