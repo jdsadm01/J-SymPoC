@@ -54,8 +54,6 @@ public class AllStockForm extends DBCopyForm<AllStockCBData> implements FormInte
 	
 	private List<AllStockDetailForm> detailList;
 
-	private String ttfld;
-	
 	@Override
 	public AllStockDTO toDTO(UserInfoVO userVO) {
 		return AllStockDTO.builder()

@@ -54,6 +54,7 @@ public class AllStockServiceImpl implements AllStockService {
 				.daikaiskbcodList(lst.stream()
 						.map(t -> t.getDaikaiskbcod())
 						.distinct()
+						.sorted()
 						.collect(Collectors.toList()))
 				.isInServiceTime(isOnline)
 				.isFavoriteAuthority(isFavorite)
@@ -192,7 +193,7 @@ public class AllStockServiceImpl implements AllStockService {
 		//品番チェック
 		HinbanEntity hinbanEntity = kigbngCheckSharedService.getHinban(daikaiskbcod, kigbng);
 		if("D".equals(hinbanEntity.getUpdkbn())) {
-			throw new Exception();
+			throw new Exception("削除済みです。");
 		}
 		return hinbanEntity;
 	}
