@@ -12,4 +12,16 @@
 		</where>
         WITH UR
     </select>
+    <select id="selectByInputKigbng" resultType="HinbanEntity">
+        select *
+        from AEPROD01
+        <where>
+            DAIKAISKBCOD = #{daikaiskbcod}
+            and (KIGBNG = #{inpKigbng}
+                 or SRYHNB = #{inpKigbng}
+                 or JANCOD = #{inpKigbng})
+		</where>
+		order by UPDDTE desc, UPDJKK desc, KIGBNG
+        with ur
+    </select>
 </mapper>

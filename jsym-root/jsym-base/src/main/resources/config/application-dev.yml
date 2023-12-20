@@ -14,7 +14,7 @@ spring:
 logging:
   level:
     web: debug
-    db: debug
+    db: info
     tomcat: debug
     '[jp.co.jdsnet]': debug
   file:

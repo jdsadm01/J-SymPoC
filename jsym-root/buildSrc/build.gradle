@@ -5,17 +5,9 @@ repositories {
 	mavenCentral()
 }
 dependencies {
-	implementation "org.springframework.boot:spring-boot-gradle-plugin:3.1.5"
-	implementation "io.spring.gradle:dependency-management-plugin:1.1.0"
+	implementation "org.springframework.boot:spring-boot-gradle-plugin:3.2.0"
+	implementation "io.spring.gradle:dependency-management-plugin:1.1.4"
 }
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
-//task copyStaticFile(type: Copy){
-//	println "copyStaticFile from=${rootDir}/staticFiles to=${projectDir}/src/main/resources/static"
-//	from "${rootDir}/staticFiles"
-//	into "${projectDir}/src/main/resources/static"
-//}
-//task deploy {
-//	dependsOn (copyStaticFile, war)
-//}

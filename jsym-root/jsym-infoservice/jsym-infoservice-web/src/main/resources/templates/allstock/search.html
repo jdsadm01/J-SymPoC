@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" class="h-100"
-    th:replace="~{template :: layout(title=#{title.allstock},title_icon='search',scripts=~{::script},links=~{::link},body=~{::body/content()})}">
+    th:replace="~{template :: layout(title=#{title.allstock},title_icon='search'
+    				,scripts=~{::script},links=~{::link},body=~{::body/content()})}">
 
 <!--/* 画面固有のCSS・JSがある場合はここで定義 */-->
 <head>
@@ -208,7 +209,6 @@
 
 	</form>
 </main>
-
 </div>
 </body>
 

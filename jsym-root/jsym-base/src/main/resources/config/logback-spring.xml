@@ -4,13 +4,6 @@
 	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 	<include resource="org/springframework/boot/logging/logback/file-appender.xml" />
 
-    <!-- コンソール -->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
-
     <!-- ログ -->
 	<appender name="app_log" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_PATH}/jsymApplication.log</file>

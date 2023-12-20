@@ -1,0 +1,69 @@
+.radio-font-color{
+	color: var(--bs-gray-500);
+}
+i {
+	padding-right : 0.5rem;
+}
+i.right-side {
+	padding-right : 0;
+	padding-left : 0.5rem;
+}
+.input-field > label.short{
+	font-size: 12px;
+	top: 19px;
+	left: 10px;
+}
+.accordion-button:focus {
+	border-color: #000000;
+	box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+.ttl_3d2 {
+	padding: 0.5em 1em;
+	background-color: #e1eef5;
+	box-shadow: 5px -5px #4c9ac0;
+	position: relative;
+}
+.group-btn-left {
+	border-top-left-radius: var(--bs-border-radius-pill);
+	border-bottom-left-radius: var(--bs-border-radius-pill);
+}
+.group-btn-right {
+	border-top-right-radius: var(--bs-border-radius-pill);
+	border-bottom-right-radius: var(--bs-border-radius-pill);
+}
+.datepicker table tr td.class-sunday:not(.old):not(.new){
+	color: red;
+}
+.datepicker table tr td.class-saturday:not(.old):not(.new){
+	color: blue;
+}
+.datepicker table{
+	background-color: #E0FFFF;
+}
+.datepicker table tbody td,.datepicker table thead th.dow{
+	border: solid 1px #777;
+}
+.datepicker tfoot tr th.today{
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #f1e767 0%, #feb645 100%);
+}
+.datepicker tfoot tr th.today:hover{
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #f1e767 0%, #feb645 100%);
+}
+.datepicker tfoot tr th.clear{
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fdfbfb), to(#ebedee));
+  background: -webkit-linear-gradient(top, #fdfbfb 0%, #ebedee 100%);
+  background: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
+  -webkit-box-shadow: inset 1px 1px 1px #fff;
+  box-shadow: inset 1px 1px 1px #fff;
+}
+.datepicker tfoot tr th.clear:hover{
+  background: -webkit-gradient(linear, left bottom, left top, from(#fdfbfb), to(#ebedee));
+  background: -webkit-linear-gradient(bottom, #fdfbfb 0%, #ebedee 100%);
+  background: linear-gradient(to top, #fdfbfb 0%, #ebedee 100%);
+}

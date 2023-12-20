@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="h-100"
+    th:replace="~{template :: layout(title=#{title.recive.entry},title_icon='pencil-square'
+    				,scripts=~{::script},links=~{::link},body=~{::body/content()})}">
+
+<!--/* 画面固有のCSS・JSがある場合はここで定義 */-->
+<head>
+	<link rel="stylesheet" th:href="@{/css/ReceiveEntry.css}">
+	<script></script>
+</head>
+
+<body>
+<!--/* ページコンテンツ */-->
+<div class="d-flex flex-column h-100">
+<main class="flex-shrink-0 mt-3">
+	<form th:action="@{/receiveEntry}" th:object="${receiveEntryForm}" th:method="post">
+		<div class="container">
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-2">
+					<label for="daikaiskbcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{kaiskbcod}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="daikaiskbcod" type="text" th:field="*{daikaiskbcod}" maxlength="3" aria-label="会社">
+				</div>
+				<div class="flex-col col-lg-7">
+					<label for="trncod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{trncod}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="trncod" type="text" th:field="*{trncod}" aria-label="トラン">
+				</div>
+				<div class="flex-col col-lg-4">
+					<label for="tokcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tokcod}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="tokcod" type="text" th:field="*{tokcod}" maxlength="8" aria-label="得意先">
+				</div>
+				<div class="flex-col col-lg-2">
+					<label for="rmcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{rmcod}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="rmcod" type="text" th:field="*{rmcod}" aria-label="リマーク">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="hpnjurdte" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{hpnjurdte}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="hpnjurdte" type="text" th:value="${#temporals.format(receiveEntryForm.getDateField('hpnjurdte'), 'yy/MM/dd')}" maxlength="6" aria-label="受領日">
+					<input type="hidden" class="form-control p-1 text-uppercase" id="hpnjurdte" th:field="*{hpnjurdte}" maxlength="3">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="hpnutkbng" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{hpnutkbng}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="hpnutkbng" type="text" th:field="*{hpnutkbng}" maxlength="5" aria-label="受付No.">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="ttlsur" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{ttlsur}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="ttlsur" type="text" th:field="*{ttlsur}" maxlength="5" aria-label="合計枚数">
+				</div>
+			</div>
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-3">
+					<label for="kinhjikbn" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tankinhjikbn}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="kinhjikbn" type="text" th:field="*{kinhjikbn}" maxlength="8" aria-label="得意先">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="knrkbn" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{knrkbn}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="knrkbn" type="text" th:field="*{knrkbn}" maxlength="5" aria-label="管理">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="smtcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{smtcod}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="smtcod" type="text" th:field="*{smtcod}" maxlength="5" aria-label="仕向地">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="skrkrt" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{skrkrt}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="skrkrt" type="text" th:field="*{skrkrt}" maxlength="5" aria-label="管理">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="hpntsyukeflg" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{hpntsyukeflg}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="hpntsyukeflg" type="text" th:field="*{hpntsyukeflg}" maxlength="5" aria-label="管理">
+				</div>
+			</div>
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-2">
+					<label for="mscod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{mscod}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="mscod" type="text" th:field="*{mscod}" maxlength="2" aria-label="MS">
+				</div>
+				<div class="flex-col col-lg-11">
+					<label for="fmg1" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{fmg}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="fmg1" type="text" th:field="*{fmg1}" maxlength="24" aria-label="フリーメッセージ1">
+				</div>
+				<div class="flex-col col-lg-11">
+					<label for="fmg2"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="fmg2" type="text" th:field="*{fmg2}" maxlength="24" aria-label="フリーメッセージ2">
+				</div>
+			</div>
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-12">
+					<label for="toknm" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{toknm}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="toknm" type="text" th:field="*{toknm}" aria-label="得意先名">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="telbng" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{telbng}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="telbng" type="text" th:field="*{telbng}" aria-label="電話番号">
+				</div>
+				<div class="flex-col col-lg-2">
+					<label for="smedte" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{smedte}"></label>
+					<input readonly class="form-control p-1 text-uppercase" id="smedte" type="text" th:field="*{smedte}" aria-label="締日">
+				</div>
+			</div>
+			<div class="d-flex flex-row p-2">
+				<div class="col-2">
+					<button class="btn btn-outline-secondary" type="submit" name="btn_submit">送信</button>
+				</div>
+			</div>
+			<div>
+				<ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
+				    <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
+				</ul>
+				<th:block th:text="${errors}"></th:block>
+				<!--
+				<table>
+					<tr th:if="${validationError}" th:each="error : ${validationError}">
+			            <td style="color: red;" th:text="${error}"></td>
+			        </tr>
+				</table>
+				-->
+			</div>
+		</div>
+		
+		<div class="container">
+			<table id="mytable" class="table table-striped table-hover table-bordered">
+				<thead class="bg-primary text-light row-cols-auto bg-opacity-75">
+					<tr class="text-center align-middle">
+						<th rowspan="2" class="p-1">NO</th>
+						<th class="p-1">記号番号</th>
+						<th class="p-1">数量</th>
+						<th class="p-1">リマーク</th>
+						<th class="p-1">棚上</th>
+						<th class="p-1">単価</th>
+						<th class="p-1">金額</th>
+						<th class="p-1">発売日</th>
+						<th class="p-1">ランク</th>
+						<th class="p-1">セット</th>
+						<th class="p-1">添付</th>
+					</tr>
+					<tr>
+						<th class="p-1">表示品番</th>
+						<th colspan="9" class="p-1">タイトル／アーティスト</th>
+				</thead>
+				<tbody>
+					<th:block th:each="detail, st : *{detailList}">
+						<tr>
+							<td rowspan="2">
+								<span th:text="${st.count}"/>
+							</td>
+							<td>
+								<input readonly type="text" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].kigbng}" maxlength="13" aria-label="記号番号">
+							</td>
+							<td>
+								<input readonly type="text" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hpnsur}" maxlength="5" aria-label="数量">
+							</td>
+							<td>
+								<input readonly type="text" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].rmcod}" maxlength="2" aria-label="リマーク">
+							</td>
+							<td>
+								<span th:text="${detail.tnaste}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].tnaste}">
+							</td>
+							<td>
+								<span th:text="${detail.skrtan}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].skrtan}">
+							</td>
+							<td>
+								<span th:text="${detail.hpnkin}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hpnkin}">
+							</td>
+							<td>
+								<span th:text="${#temporals.format(detail.getDateField('hbidte'), 'yy/MM/dd')}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hbidte}">
+							</td>
+							<td>
+								<span th:text="${detail.tomrakcod}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].tomrakcod}">
+							</td>
+							<td>
+								<span th:text="${detail.setcod}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].setcod}">
+							</td>
+							<td>
+								<span th:text="${detail.tnpkbn}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].tnpkbn}">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span th:text="${detail.hjihnb}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hjihnb}">
+							</td>
+							<td colspan="9">
+								<span th:text="${detail.titnm}"></span>
+								<span>／</span>
+								<span th:text="${detail.artnm}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].titnm}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].artnm}">
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+
+	</form>
+</main>
+</div>
+</body>
+
+</html>

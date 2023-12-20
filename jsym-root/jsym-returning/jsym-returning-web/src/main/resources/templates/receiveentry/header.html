@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="h-100"
+    th:replace="~{template :: layout(title=#{title.recive.entry},title_icon='pencil-square'
+    				,scripts=~{::script},links=~{::link},body=~{::body/content()})}">
+
+<!--/* 画面固有のCSS・JSがある場合はここで定義 */-->
+<head>
+	<link rel="stylesheet" th:href="@{/css/ReceiveEntry.css}">
+	<script type="text/javascript" th:src="@{/js/ReceiveEntry.js}"></script>
+</head>
+
+<body>
+<!--/* ページコンテンツ */-->
+<div class="d-flex flex-column h-100">
+<main class="flex-shrink-0 mt-3">
+	<form th:action="@{/receiveEntry}" th:object="${receiveEntryForm}" th:method="post">
+		<div class="container">
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-2">
+					<label for="会社" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{kaiskbcod}"></label>
+					<select name="daikaiskbcod" th:field="*{daikaiskbcod}" class="form-select" aria-label="会社">
+						<option th:each="code : *{daikaiskbcodList}" th:value="${code}" th:text="${code}"/>
+					</select>
+					<th:block th:each="code : *{daikaiskbcodList}">
+						<input type="hidden" name="daikaiskbcodList" th:value="${code}">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-7">
+					<label for="trncod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{trncod}"></label>
+					<select name="trncod" th:field="*{trncod}" class="form-select" aria-label="トラン">
+						<option th:each="label : *{trncodList}" th:value="${label.value}"  th:text="${label.text}"/>
+					</select>
+					<th:block th:each="label, st : *{trncodList}">
+						<input type="hidden" th:field="*{trncodList[__${st.index}__].value}">
+						<input type="hidden" th:field="*{trncodList[__${st.index}__].text}">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-4">
+					<label for="tokcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tokcod}"></label>
+					<input class="form-control p-1 text-uppercase" id="tokcod" type="text" th:field="*{tokcod}" maxlength="8" aria-label="得意先">
+				</div>
+				<div class="flex-col col-lg-2">
+					<label for="rmcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{rmcod}"></label>
+					<select name="rmcod" class="form-select" aria-label="リマーク">
+						<option th:each="label : *{rmcodList}" th:value="${label.value}"  th:text="${label.text}"/>
+					</select>
+					<th:block th:each="label, st : *{rmcodList}">
+						<input type="hidden" th:field="*{rmcodList[__${st.index}__].value}">
+						<input type="hidden" th:field="*{rmcodList[__${st.index}__].text}">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="hpnjurdte" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{hpnjurdte}"></label>
+					<input class="form-control p-1 text-uppercase" id="hpnjurdte" type="text" th:field="*{hpnjurdte}" maxlength="6" aria-label="受領日">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="hpnutkbng" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{hpnutkbng}"></label>
+					<input class="form-control p-1 text-uppercase" id="hpnutkbng" type="text" th:field="*{hpnutkbng}" maxlength="5" aria-label="受付No.">
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="ttlsur" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{ttlsur}"></label>
+					<th:block th:if="*{trncod == '260B' || trncod == '262B'}">
+						<input class="form-control p-1 text-uppercase" id="ttlsur" type="text" th:field="*{ttlsur}" maxlength="5" aria-label="合計枚数">
+					</th:block>
+					<th:block th:unless="*{trncod == '260B' || trncod == '262B'}">
+						<input disabled class="form-control p-1 text-uppercase" id="ttlsur" type="text" th:field="*{ttlsur}" maxlength="5" aria-label="合計枚数">
+					</th:block>
+				</div>
+			</div>
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-3">
+					<label for="kinhjikbn" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tankinhjikbn}"></label>
+					<th:block th:if="*{trncod == '260B' || trncod == '260' || trncod == '287'}">
+						<select disabled name="kinhjikbn" class="form-select" aria-label="金額表示">
+							<option th:each="label : *{kinhjikbnList}" th:value="${label.value}" th:text="${label.text}"/>
+						</select>
+					</th:block>
+					<th:block th:unless="*{trncod == '260B' || trncod == '260' || trncod == '287'}">
+						<select name="kinhjikbn" class="form-select" aria-label="金額表示">
+							<option th:each="label : *{kinhjikbnList}" th:value="${label.value}" th:text="${label.text}"/>
+						</select>
+					</th:block>
+					<th:block th:each="label, st : *{kinhjikbnList}">
+						<input type="hidden" th:field="*{kinhjikbnList[__${st.index}__].value}">
+						<input type="hidden" th:field="*{kinhjikbnList[__${st.index}__].text}">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-2">
+					<label for="knrkbn" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{knrkbn}"></label>
+					<th:block th:if="*{trncod == '260B' || trncod == '262B' || trncod == '260' || trncod == '287'}">
+						<input class="form-control p-1 text-uppercase" id="knrkbn" type="text" th:field="*{knrkbn}" maxlength="5" aria-label="管理">
+					</th:block>
+					<th:block th:unless="*{trncod == '260B' || trncod == '262B' || trncod == '260' || trncod == '287'}">
+						<input disabled class="form-control p-1 text-uppercase" id="knrkbn" type="text" th:field="*{knrkbn}" maxlength="5" aria-label="管理">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-2">
+					<label for="smtcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{smtcod}"></label>
+					<th:block th:if="*{trncod == '292' || trncod == '277'}">
+						<input class="form-control p-1 text-uppercase" id="smtcod" type="text" th:field="*{smtcod}" maxlength="5" aria-label="仕向地">
+					</th:block>
+					<th:block th:unless="*{trncod == '292' || trncod == '277'}">
+						<input disabled class="form-control p-1 text-uppercase" id="smtcod" type="text" th:field="*{smtcod}" maxlength="5" aria-label="仕向地">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-2">
+					<label for="skrkrt" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{skrkrt}"></label>
+					<th:block th:if="*{trncod == '260B' || trncod == '260' || trncod == '287'}">
+						<input disabled class="form-control p-1 text-uppercase" id="skrkrt" type="text" th:field="*{skrkrt}" maxlength="5" aria-label="仕切率">
+					</th:block>
+					<th:block th:unless="*{trncod == '260B' || trncod == '260' || trncod == '287'}">
+						<input class="form-control p-1 text-uppercase" id="skrkrt" type="text" th:field="*{skrkrt}" maxlength="5" aria-label="仕切率">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="hpntsyukeflg" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{hpntsyukeflg}"></label>
+					<th:block th:if="*{trncod == '260B' || trncod == '260' || trncod == '287'}">
+						<select disabled name="hpntsyukeflg" class="form-select" aria-label="特殊受入">
+							<option th:each="label : *{hpntsyukeflgList}" th:value="${label.value}" th:text="${label.text}"/>
+						</select>
+					</th:block>
+					<th:block th:unless="*{trncod == '260B' || trncod == '260' || trncod == '287'}">
+						<select name="hpntsyukeflg" class="form-select" aria-label="特殊受入">
+							<option th:each="label : *{hpntsyukeflgList}" th:value="${label.value}" th:text="${label.text}"/>
+						</select>
+					</th:block>
+					<th:block th:each="label, st : *{hpntsyukeflgList}">
+						<input type="hidden" th:field="*{hpntsyukeflgList[__${st.index}__].value}">
+						<input type="hidden" th:field="*{hpntsyukeflgList[__${st.index}__].text}">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="locbng" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{locbng}"></label>
+					<th:block th:if="*{trncod == '287'}">
+						<input disabled class="form-control p-1 text-uppercase" id="locbng" type="text" th:field="*{locbng}" maxlength="10" aria-label="ロケーション番号">
+					</th:block>
+					<th:block th:unless="*{trncod == '287'}">
+						<input class="form-control p-1 text-uppercase" id="locbng" type="text" th:field="*{locbng}" maxlength="10" aria-label="ロケーション番号">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="tokdenbng1" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tokdenbng1}"></label>
+					<th:block th:if="*{trncod == '287'}">
+						<input disabled class="form-control p-1 text-uppercase" id="tokdenbng1" type="text" th:field="*{tokdenbng1}" maxlength="7" aria-label="指定伝１">
+					</th:block>
+					<th:block th:unless="*{trncod == '287'}">
+						<input class="form-control p-1 text-uppercase" id="tokdenbng1" type="text" th:field="*{tokdenbng1}" maxlength="7" aria-label="指定伝１">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="tokdenbng2" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tokdenbng2}"></label>
+					<th:block th:if="*{trncod == '287'}">
+						<input disabled class="form-control p-1 text-uppercase" id="tokdenbng2" type="text" th:field="*{tokdenbng2}" maxlength="7" aria-label="指定伝２">
+					</th:block>
+					<th:block th:unless="*{trncod == '287'}">
+						<input class="form-control p-1 text-uppercase" id="tokdenbng2" type="text" th:field="*{tokdenbng2}" maxlength="7" aria-label="指定伝２">
+					</th:block>
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="odrno" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{odrno}"></label>
+					<th:block th:if="*{trncod == '287'}">
+						<input disabled class="form-control p-1 text-uppercase" id="odrno" type="text" th:field="*{odrno}" maxlength="7" aria-label="オーダーNO">
+					</th:block>
+					<th:block th:unless="*{trncod == '287'}">
+						<input class="form-control p-1 text-uppercase" id="odrno" type="text" th:field="*{odrno}" maxlength="7" aria-label="オーダーNO">
+					</th:block>
+				</div>
+			</div>
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-2">
+					<label for="mscod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{mscod}"></label>
+					<input class="form-control p-1 text-uppercase" id="mscod" type="text" th:field="*{mscod}" maxlength="2" aria-label="MS">
+				</div>
+				<div class="flex-col col-lg-11">
+					<label for="fmg1" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{fmg}"></label>
+					<input class="form-control p-1 text-uppercase" id="fmg1" type="text" th:field="*{fmg1}" maxlength="24" aria-label="フリーメッセージ1">
+				</div>
+				<div class="flex-col col-lg-11">
+					<label for="fmg2" class="form-label"></label>
+					<input class="form-control p-1 text-uppercase" id="fmg2" type="text" th:field="*{fmg2}" maxlength="24" aria-label="フリーメッセージ2">
+				</div>
+			</div>
+			<div class="d-flex flex-row p-2">
+				<div class="col-2">
+					<button class="btn btn-outline-secondary" type="submit" name="btn_checkHeader">明細入力</button>
+				</div>
+			</div>
+			<div>
+				<ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
+				    <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
+				</ul>
+				<th:block th:text="${errors}"></th:block>
+				<!--
+				<table>
+					<tr th:if="${validationError}" th:each="error : ${validationError}">
+			            <td style="color: red;" th:text="${error}"></td>
+			        </tr>
+				</table>
+				-->
+			</div>
+		</div>
+
+	</form>
+</main>
+</div>
+</body>
+
+</html>

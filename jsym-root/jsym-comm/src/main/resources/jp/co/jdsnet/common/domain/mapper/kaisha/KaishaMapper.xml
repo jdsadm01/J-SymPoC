@@ -8,14 +8,6 @@
         FROM AECOMP01
         ORDER BY KAISKBCOD
     </select>
-    <select id="select" resultType="KaishaEntity">
-        SELECT *
-        FROM AECOMP01
-        <where>
-			KAISKBCOD = #{kaiskbcod}
-		</where>
-        WITH UR
-    </select>
     <select id="selectKaiskbcodList" resultType="String">
         SELECT KAISKBCOD
         FROM AECOMP01
@@ -26,15 +18,20 @@
         WITH UR
     </select>
     <select id="selectDaikaiskbcodList" resultType="String">
-        SELECT KAISKBCOD
-        FROM AECOMP01
+        select comp01.DAIKAISKBCOD
+        from AECOMP01 as comp01
+        <if test = "usrbun != 'JDS' and usrbun != 'MKR'">
+			inner join FTBKAI11 as kai11
+			on comp01.DAIKAISKBCOD = kai11.KAISKBCOD
+			and kai11.USRBUN = #{usrbun}
+			and kai11.KAIBUN = '0'
+			and kai11.UPDKBN <![CDATA[<>]]> 'D'
+		</if>
         <where>
-            KAIBUNKBN = '0'
-            <![CDATA[
-            AND UPDKBN <> 'D'
-            ]]>
+            comp01.KAIBUNKBN = '0'
+            AND comp01.UPDKBN <![CDATA[<>]]> 'D'
         </where>
-        ORDER BY DAIKAISKBCOD
-        WITH UR
+        order by comp01.DAIKAISKBCOD
+        with ur
     </select>
 </mapper>

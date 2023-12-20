@@ -3,6 +3,7 @@ home2
 muldemo3
 Servers
 /test
+/test-generator
 .gradle
 .settings
 .vscode

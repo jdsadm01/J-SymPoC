@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+    group:
+      common:
+        - base
+      dev:
+        - common
+        - dev
+        - dev-returning
+      test:
+        - common
+        - test
+
+#サーバー設定
+server:
+  servlet:
+    context-path: /returning

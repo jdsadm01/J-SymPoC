@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.henpin.GeneratedHenpinShijiMidashiMapper">
+    <select id="selectByPrimaryKey" resultType="HenpinShijiMidashiEntity">
+        SELECT *
+        FROM AERETU04
+        <where>
+			HPNSJIMDSID = #{hpnsjimdsid}
+		</where>
+        WITH UR
+    </select>
+    <insert id="insert" parameterType="HenpinShijiMidashiEntity">
+		insert into AERETU04
+		(
+			HPNSJIMDSID,
+			INPDTE,
+			BSHCOD,
+			SEQ,
+			HPNSJIKBN,
+			DAIKAISKBCOD,
+			SKOCOD,
+			HPNRELNO,
+			TOKCOD,
+			TRNCOD,
+			HPNUTKBNG,
+			HPNRYUKBN,
+			HPNJURDTE,
+			KNRKBN,
+			KINHJIKBN,
+			SMTCOD,
+			SKRKRT,
+			TOKDENBNG1,
+			TOKDENBNG2,
+			LOCBNG,
+			MTDDTE,
+			MTDBNG,
+			ODRNO,
+			HPNSUR,
+			HPNKIN,
+			MSCOD,
+			FMG1,
+			FMG2,
+			MSISUU,
+			HPNTSYUKEFLG,
+			SUKSGN,
+			CPUFULID,
+			WSSEQ4KT,
+			PRCKRUFLG,
+			STASTEFLG,
+			STAKJYZFLG,
+			DELFLG,
+			ERRARIFLG,
+			UPDKBN,
+			UPDDTE,
+			UPDJKK,
+			INPJKK,
+			TMUSTEFLG,
+			TMUKJYZFLG 
+		)
+		values
+		(
+			#{hpnsjimdsid},
+			#{inpdte},
+			#{bshcod},
+			#{seq},
+			#{hpnsjikbn},
+			#{daikaiskbcod},
+			#{skocod},
+			#{hpnrelno},
+			#{tokcod},
+			#{trncod},
+			#{hpnutkbng},
+			#{hpnryukbn},
+			#{hpnjurdte},
+			#{knrkbn},
+			#{kinhjikbn},
+			#{smtcod},
+			#{skrkrt},
+			#{tokdenbng1},
+			#{tokdenbng2},
+			#{locbng},
+			#{mtddte},
+			#{mtdbng},
+			#{odrno},
+			#{hpnsur},
+			#{hpnkin},
+			#{mscod},
+			#{fmg1},
+			#{fmg2},
+			#{msisuu},
+			#{hpntsyukeflg},
+			#{suksgn},
+			#{cpufulid},
+			#{wsseq4kt},
+			#{prckruflg},
+			#{stasteflg},
+			#{stakjyzflg},
+			#{delflg},
+			#{errariflg},
+			#{updkbn},
+			#{upddte},
+			#{updjkk},
+			#{inpjkk},
+			#{tmusteflg},
+			#{tmukjyzflg}
+		)
+	</insert>
+    <update  id="update" parameterType="HenpinShijiMidashiEntity">
+		update AERETU04
+		<set>
+			INPDTE = #{inpdte},
+			BSHCOD = #{bshcod},
+			SEQ = #{seq},
+			HPNSJIKBN = #{hpnsjikbn},
+			DAIKAISKBCOD = #{daikaiskbcod},
+			SKOCOD = #{skocod},
+			HPNRELNO = #{hpnrelno},
+			TOKCOD = #{tokcod},
+			TRNCOD = #{trncod},
+			HPNUTKBNG = #{hpnutkbng},
+			HPNRYUKBN = #{hpnryukbn},
+			HPNJURDTE = #{hpnjurdte},
+			KNRKBN = #{knrkbn},
+			KINHJIKBN = #{kinhjikbn},
+			SMTCOD = #{smtcod},
+			SKRKRT = #{skrkrt},
+			TOKDENBNG1 = #{tokdenbng1},
+			TOKDENBNG2 = #{tokdenbng2},
+			LOCBNG = #{locbng},
+			MTDDTE = #{mtddte},
+			MTDBNG = #{mtdbng},
+			ODRNO = #{odrno},
+			HPNSUR = #{hpnsur},
+			HPNKIN = #{hpnkin},
+			MSCOD = #{mscod},
+			FMG1 = #{fmg1},
+			FMG2 = #{fmg2},
+			MSISUU = #{msisuu},
+			HPNTSYUKEFLG = #{hpntsyukeflg},
+			SUKSGN = #{suksgn},
+			CPUFULID = #{cpufulid},
+			WSSEQ4KT = #{wsseq4kt},
+			PRCKRUFLG = #{prckruflg},
+			STASTEFLG = #{stasteflg},
+			STAKJYZFLG = #{stakjyzflg},
+			DELFLG = #{delflg},
+			ERRARIFLG = #{errariflg},
+			UPDKBN = #{updkbn},
+			UPDDTE = #{upddte},
+			UPDJKK = #{updjkk},
+			INPJKK = #{inpjkk},
+			TMUSTEFLG = #{tmusteflg},
+			TMUKJYZFLG = #{tmukjyzflg}
+		</set>
+		<where>
+			HPNSJIMDSID = #{hpnsjimdsid}
+		</where>
+	</update>
+	<delete id="delete" parameterType="HenpinShijiMidashiEntity">
+		delete from AERETU04
+		<where>
+			HPNSJIMDSID = #{hpnsjimdsid}
+		</where>
+	</delete>
+</mapper>

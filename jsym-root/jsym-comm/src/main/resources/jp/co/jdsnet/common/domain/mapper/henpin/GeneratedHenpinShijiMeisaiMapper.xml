@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.henpin.GeneratedHenpinShijiMeisaiMapper">
+    <select id="selectByPrimaryKey" resultType="HenpinShijiMeisaiEntity">
+        SELECT *
+        FROM AERETU05
+        <where>
+			HPNSJIMDSID = #{hpnsjimdsid}
+			and SEQ = #{seq}
+		</where>
+        WITH UR
+    </select>
+    <insert id="insert" parameterType="HenpinShijiMeisaiEntity">
+		insert into AERETU05
+		(
+			HPNSJIMDSID,
+			SEQ,
+			KIGBNG,
+			SKRTAN,
+			HPNSUR,
+			HPNKIN,
+			RMCOD,
+			ERRARIFLG,
+			UPDKBN,
+			UPDDTE,
+			UPDJKK,
+			TANKINSTEKBN,
+			ERRCOD 
+		)
+		values
+		(
+			#{hpnsjimdsid},
+			#{seq},
+			#{kigbng},
+			#{skrtan},
+			#{hpnsur},
+			#{hpnkin},
+			#{rmcod},
+			#{errariflg},
+			#{updkbn},
+			#{upddte},
+			#{updjkk},
+			#{tankinstekbn},
+			#{errcod}
+		)
+	</insert>
+    <update  id="update" parameterType="HenpinShijiMeisaiEntity">
+		update AERETU05
+		<set>
+			HPNSJIMDSID = #{hpnsjimdsid},
+			SEQ = #{seq},
+			KIGBNG = #{kigbng},
+			SKRTAN = #{skrtan},
+			HPNSUR = #{hpnsur},
+			HPNKIN = #{hpnkin},
+			RMCOD = #{rmcod},
+			ERRARIFLG = #{errariflg},
+			UPDKBN = #{updkbn},
+			UPDDTE = #{upddte},
+			UPDJKK = #{updjkk},
+			TANKINSTEKBN = #{tankinstekbn},
+			ERRCOD = #{errcod}
+		</set>
+		<where>
+			HPNSJIMDSID = #{hpnsjimdsid}
+			and SEQ = #{seq}
+		</where>
+	</update>
+	<delete id="delete" parameterType="HenpinShijiMeisaiEntity">
+		delete from AERETU05
+		<where>
+			HPNSJIMDSID = #{hpnsjimdsid}
+			and SEQ = #{seq}
+		</where>
+	</delete>
+</mapper>

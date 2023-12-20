@@ -1,10 +1,8 @@
 package jp.co.jdsnet.common.logic.Implement;
 
 import java.util.Locale;
-
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-
 import jp.co.jdsnet.common.domain.entity.kaisha.KaishaEntity;
 import jp.co.jdsnet.common.domain.mapper.kaisha.KaishaMapper;
 import jp.co.jdsnet.common.logic.CheckSharedService;
@@ -25,7 +23,7 @@ public class CheckSharedServiceImpl implements CheckSharedService {
 	public void checkDaikaiskbcod(String checkCode, String usrDaikaiskbcod) throws Exception {
 		if(!"JDS".equals(usrDaikaiskbcod)) return;
 		
-		KaishaEntity kaishaEntity = kaishaMapper.select(KaishaEntity.builder().kaiskbcod(checkCode).build());
+		KaishaEntity kaishaEntity = kaishaMapper.selectByPrimaryKey(KaishaEntity.builder().kaiskbcod(checkCode).build());
 		if(kaishaEntity == null) {
 			throw new Exception(messageSource.getMessage("error.error"
 					, new Object[] {messageSource.getMessage("kaiskbcod",null,Locale.getDefault())}

@@ -1,7 +1,6 @@
 package jp.co.jdsnet.base.webapp.form;
 
 import java.util.function.Supplier;
-
 import jp.co.jdsnet.base.webapp.parts.CommonClipboardData;
 import lombok.AccessLevel;
 import lombok.Data;

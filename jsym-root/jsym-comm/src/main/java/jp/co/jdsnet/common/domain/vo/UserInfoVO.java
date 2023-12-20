@@ -1,7 +1,6 @@
 package jp.co.jdsnet.common.domain.vo;
 
 import java.time.LocalDateTime;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,8 +41,24 @@ public class UserInfoVO {
 	@Builder.Default
 	private String mnugrpcod = "";
 	
-	/** 前回アクセス時間 */
+    /** CPUID */
+    @Builder.Default
+    private String cpuid = "";
+	
+    /** 端末ID */
+    @Builder.Default
+    private String tmlid = "";
+
+    /** 前回アクセス時間 */
 	@Setter
 	@Builder.Default
 	private LocalDateTime lastAccessTime = LocalDateTime.now();
+	
+	/**
+	 * CPUFULIDを返す
+	 * @return CPUID + 端末ID
+	 */
+	public String getCpufulid() {
+	  return this.cpuid + this.tmlid;
+	}
 }

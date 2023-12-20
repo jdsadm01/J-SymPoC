@@ -13,4 +13,15 @@
 		</where>
         WITH UR
     </select>
+    <select id="selectForTnasth" resultType="ZaikoJokenEntity">
+        select DAIKAISKBCOD,KIGBNG,SKOCOD,TNASTHKBN,TNASJIJOGSUR 
+        from AEWARE03
+        <where>
+			DAIKAISKBCOD = #{daikaiskbcod}
+			and KIGBNG = #{kigbng}
+			and SKOCOD in ('012','022')
+		</where>
+		order by SKOCOD desc
+        with ur
+    </select>
 </mapper>
