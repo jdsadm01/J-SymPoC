@@ -2,6 +2,7 @@ package jp.co.jdsnet.returning.webapp.form;
 
 import java.io.Serializable;
 import jakarta.validation.constraints.Size;
+import jp.co.jdsnet.base.annotation.CheckRelationRequired;
 import jp.co.jdsnet.base.webapp.form.FormInterface;
 import jp.co.jdsnet.returning.domain.dto.ReceiveEntryDetailDTO;
 import lombok.AccessLevel;
@@ -13,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 // @Setter(AccessLevel.NONE)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@CheckRelationRequired(condField = "kigbng", checkField = "hpnsur")
 public class ReceiveEntryDetailForm implements FormInterface<ReceiveEntryDetailDTO>, Serializable {
 
   private static final long serialVersionUID = 1L;

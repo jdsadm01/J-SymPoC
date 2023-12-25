@@ -8,14 +8,55 @@
  */
 
 rootProject.name = 'jsym-root'
+/* 共通アプリケーションJar */
 include 'jsym-comm'
+/* 基盤 */
 include 'jsym-base'
+/* ホーム */
 //include 'jsym-home'
 include 'jsym-home:jsym-home-domain'
 include 'jsym-home:jsym-home-web'
+/* 注残／貸出／経費 */
+//include 'jsym-backlendcost'
+include 'jsym-backlendcost:jsym-backlendcost-domain'
+include 'jsym-backlendcost:jsym-backlendcost-web'
+/* 共通 */
+//include 'jsym-businesscommon'
+include 'jsym-businesscommon:jsym-businesscommon-domain'
+include 'jsym-businesscommon:jsym-businesscommon-web'
+/* 情報サービス */
 //include 'jsym-infoservice'
 include 'jsym-infoservice:jsym-infoservice-domain'
 include 'jsym-infoservice:jsym-infoservice-web'
+/* マスター管理 */
+//include 'jsym-master'
+include 'jsym-master:jsym-master-domain'
+include 'jsym-master:jsym-master-web'
+/* 新譜 */
+//include 'jsym-newcat'
+include 'jsym-newcat:jsym-newcat-domain'
+include 'jsym-newcat:jsym-newcat-web'
+/* 生産／発注／償却 */
+//include 'jsym-prodorddep'
+include 'jsym-prodorddep:jsym-prodorddep-domain'
+include 'jsym-prodorddep:jsym-prodorddep-web'
+/* 返品 */
 //include 'jsym-returning'
 include 'jsym-returning:jsym-returning-domain'
 include 'jsym-returning:jsym-returning-web'
+/* 売上 */
+//include 'jsym-salesentry'
+include 'jsym-salesentry:jsym-salesentry-domain'
+include 'jsym-salesentry:jsym-salesentry-web'
+/* 出荷管理 */
+//include 'jsym-shipping'
+include 'jsym-shipping:jsym-shipping-domain'
+include 'jsym-shipping:jsym-shipping-web'
+/* 棚卸 */
+//include 'jsym-stocktake'
+include 'jsym-stocktake:jsym-stocktake-domain'
+include 'jsym-stocktake:jsym-stocktake-web'
+/* 振替／棚上／棚下 */
+//include 'jsym-transtna'
+include 'jsym-transtna:jsym-transtna-domain'
+include 'jsym-transtna:jsym-transtna-web'

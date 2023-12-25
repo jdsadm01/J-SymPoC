@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.groups.Default;
@@ -109,6 +110,7 @@ public class ReceiveEntryForm implements FormInterface<ReceiveEntryDTO>, Seriali
   
   private String smedte;
   
+  @Valid
   private List<ReceiveEntryDetailForm> detailList;
   
   private List<String> daikaiskbcodList;

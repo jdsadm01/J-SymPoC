@@ -1,0 +1,8 @@
+plugins {
+	id 'application-conventions'
+}
+
+dependencies {
+	implementation project(':jsym-base')
+	compileOnly project(':jsym-comm')
+}

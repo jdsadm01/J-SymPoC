@@ -14,27 +14,27 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @MapperScan("jp.co.jdsnet.common.domain.mapper")
 public class ReturningApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ReturningApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(ReturningApplication.class, args);
+  }
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		setRegisterErrorPageFilter(false);
-		return application.sources(ReturningApplication.class);
-	}
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    setRegisterErrorPageFilter(false);
+    return application.sources(ReturningApplication.class);
+  }
 
-    // 別のテンプレートフォルダを追加する
-    @Bean
-    public ClassLoaderTemplateResolver htmlTemplateResolver() {
-        ClassLoaderTemplateResolver baseTemplateResolver = new ClassLoaderTemplateResolver();
-        baseTemplateResolver.setPrefix("base_templates/"); //追加するテンプレートフォルダを指定
-        baseTemplateResolver.setSuffix(".html");
-        baseTemplateResolver.setTemplateMode(TemplateMode.HTML);
-        baseTemplateResolver.setCharacterEncoding("UTF-8");
-        baseTemplateResolver.setOrder(2); //読み込み順
-        baseTemplateResolver.setCheckExistence(true);
+  // 別のテンプレートフォルダを追加する
+  @Bean
+  public ClassLoaderTemplateResolver htmlTemplateResolver() {
+    ClassLoaderTemplateResolver baseTemplateResolver = new ClassLoaderTemplateResolver();
+    baseTemplateResolver.setPrefix("base_templates/"); // 追加するテンプレートフォルダを指定
+    baseTemplateResolver.setSuffix(".html");
+    baseTemplateResolver.setTemplateMode(TemplateMode.HTML);
+    baseTemplateResolver.setCharacterEncoding("UTF-8");
+    baseTemplateResolver.setOrder(2); // 読み込み順
+    baseTemplateResolver.setCheckExistence(true);
 
-        return baseTemplateResolver;
-    }
+    return baseTemplateResolver;
+  }
 }
