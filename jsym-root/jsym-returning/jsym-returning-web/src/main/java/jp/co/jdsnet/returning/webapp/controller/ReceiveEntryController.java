@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.validation.groups.Default;
 import jp.co.jdsnet.base.webapp.controller.CommonOperationController;
-import jp.co.jdsnet.common.domain.vo.UserInfoVO;
+import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import jp.co.jdsnet.returning.domain.service.ReceiveEntryService;
 import jp.co.jdsnet.returning.webapp.form.ReceiveEntryDetailForm;
 import jp.co.jdsnet.returning.webapp.form.ReceiveEntryForm;

@@ -7,7 +7,7 @@ import java.time.format.ResolverStyle;
 import java.util.List;
 import jp.co.jdsnet.base.domain.dto.AbstractDTO;
 import jp.co.jdsnet.base.webapp.parts.LabelData;
-import jp.co.jdsnet.common.domain.vo.UserInfoVO;
+import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import jp.co.jdsnet.common.utils.FormatUtility;
 
 public interface FormInterface<T extends AbstractDTO> {

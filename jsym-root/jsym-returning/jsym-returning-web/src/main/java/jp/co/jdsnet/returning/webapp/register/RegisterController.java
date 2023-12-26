@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpSession;
-import jp.co.jdsnet.common.domain.vo.UserInfoVO;
+import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import jp.co.jdsnet.returning.webapp.controller.ReceiveEntryController;
 
 @Controller

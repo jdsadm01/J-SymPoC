@@ -20,7 +20,7 @@
 </head>
 <body>
 	<!--/* header */-->
-	<div id="header" th:replace="layout :: header(title_icon=${title_icon}, title=${title})"></div>
+	<div id="header" th:replace="~{layout :: header(title_icon=${title_icon}, title=${title})}"></div>
 
 	<!--/* 各画面用JS */-->
 	<th:block th:replace="${scripts}" />
@@ -29,7 +29,7 @@
 	<div id="body" th:replace="${body}"></div>
 
 	<!--/* footer */-->
-	<div id="footer" th:replace="layout :: footer"></div>
+	<div id="footer" th:replace="~{layout :: footer}"></div>
 
 </body>
 </html>

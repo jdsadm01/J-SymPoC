@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import jakarta.servlet.http.HttpSession;
-import jp.co.jdsnet.common.domain.vo.UserInfoVO;
+import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 
 public abstract class CommonOperationController {
 

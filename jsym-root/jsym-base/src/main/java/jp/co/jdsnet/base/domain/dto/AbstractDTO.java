@@ -1,6 +1,6 @@
 package jp.co.jdsnet.base.domain.dto;
 
-import jp.co.jdsnet.common.domain.vo.UserInfoVO;
+import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

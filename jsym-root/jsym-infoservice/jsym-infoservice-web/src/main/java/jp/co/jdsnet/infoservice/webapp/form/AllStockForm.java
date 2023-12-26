@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 import jp.co.jdsnet.base.annotation.FieldOrder;
 import jp.co.jdsnet.base.webapp.form.DBCopyForm;
 import jp.co.jdsnet.base.webapp.form.FormInterface;
-import jp.co.jdsnet.common.domain.vo.UserInfoVO;
+import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import jp.co.jdsnet.infoservice.domain.dto.AllStockDTO;
 import jp.co.jdsnet.infoservice.webapp.copydata.AllStockCBData;
 import lombok.AccessLevel;

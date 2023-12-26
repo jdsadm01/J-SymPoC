@@ -12,7 +12,7 @@ import jp.co.jdsnet.base.annotation.CheckAsciiDigit;
 import jp.co.jdsnet.base.annotation.FormatDate;
 import jp.co.jdsnet.base.webapp.form.FormInterface;
 import jp.co.jdsnet.base.webapp.parts.LabelData;
-import jp.co.jdsnet.common.domain.vo.UserInfoVO;
+import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import jp.co.jdsnet.returning.domain.dto.ReceiveEntryDTO;
 import lombok.AccessLevel;
 import lombok.Data;

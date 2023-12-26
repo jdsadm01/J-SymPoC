@@ -39,9 +39,9 @@ public abstract class EntryServiceForHenpin<T> implements EntryService<T> {
     while (true) {
       midashiEntity = midashiEntity.toBuilder().seq(nextseq)
           .hpnsjimdsid(createHnpsjimdsid(midashiEntity, nextseq)).build();
-      System.out.println(midashiEntity.toString());
       try {
-        henpinShijiMidashiMapper.insert(midashiEntity);
+        System.out.println("INSERT_DUMMY DATA=" + midashiEntity.toString());
+        // henpinShijiMidashiMapper.insert(midashiEntity);
         break;
       } catch (DuplicateKeyException e) {
         nextseq++;
@@ -50,8 +50,8 @@ public abstract class EntryServiceForHenpin<T> implements EntryService<T> {
     final String hpnsjimdsid = midashiEntity.getHpnsjimdsid();
     createHenpinShijiMeisaiList(dto).stream()
         .map(t -> t.toBuilder().hpnsjimdsid(hpnsjimdsid).build()).forEach(t -> {
-          System.out.println(t.toString());
-          henpinShijiMeisaiMapper.insert(t);
+          System.out.println("INSERT_DUMMY DATA=" + t.toString());
+          // henpinShijiMeisaiMapper.insert(t);
         });
 
     return midashiEntity;

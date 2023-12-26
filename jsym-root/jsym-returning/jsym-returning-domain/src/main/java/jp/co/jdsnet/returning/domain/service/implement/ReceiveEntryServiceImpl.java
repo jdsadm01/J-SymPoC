@@ -186,9 +186,9 @@ public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryD
     // トランフルコード取得
     // バーコードなら明細のサマリーと分割
     TargetEntity target = entry("260  000", "SVCID_D020_00", dto);
+    System.out.println("INSERT_DUMMY DATA=" + target.toString());
     // targetMapper.insert(target);
-    System.out.println(target.toString());
-    throw new RuntimeException("ロールバックテスト");
+    // throw new RuntimeException("ロールバックテスト");
   }
 
   @Override
@@ -197,8 +197,10 @@ public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryD
         .daikaiskbcod(dto.getDaikaiskbcod()).tokcod(dto.getTokcod()).trncod(dto.getTrncod())
         .hpnjurdte(Integer.parseInt(dto.getHpnjurdte())).hpnutkbng(dto.getHpnutkbng())
         .knrkbn(dto.getKnrkbn()).kinhjikbn(dto.getKinhjikbn()).smtcod(dto.getSmtcod())
-        .skrkrt(Double.parseDouble(dto.getSkrkrt()))/*.tokdenbng1(dto.getTokdenbng1()).tokdenbng2(dto.getTokdenbng2())
-        .locbng(dto.getLocbng()).odrno(dto.getOdrno())*/.hpnsur(0).hpnkin(0).mscod(dto.getMscod())
+        /*
+         * .skrkrt(Double.parseDouble(dto.getSkrkrt())).tokdenbng1(dto.getTokdenbng1()).tokdenbng2(
+         * dto.getTokdenbng2()) .locbng(dto.getLocbng()).odrno(dto.getOdrno()).hpnsur(0).hpnkin(0)
+         */.mscod(dto.getMscod())
         .fmg1(dto.getFmg1()).fmg2(dto.getFmg2()).msisuu(dto.getDetailList().size())
         .hpntsyukeflg(dto.getHpntsyukeflg())/*.suksgn("")*/.cpufulid(dto.getUserInfo().getCpufulid())
         .wsseq4kt(0).prckruflg("0").delflg("0").errariflg("0").stakjyzflg("0").tmukjyzflg("0")
