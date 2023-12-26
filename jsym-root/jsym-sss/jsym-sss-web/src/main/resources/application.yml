@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: dev
+    group:
+      common:
+        - base
+      dev:
+        - common
+        - dev
+        - dev-sss
+      test:
+        - common
+        - test
+      prod:
+        - common
+        - prod
+
+#サーバー設定
+server:
+  servlet:
+    context-path: /sss

@@ -52,6 +52,10 @@ include 'jsym-salesentry:jsym-salesentry-web'
 //include 'jsym-shipping'
 include 'jsym-shipping:jsym-shipping-domain'
 include 'jsym-shipping:jsym-shipping-web'
+/* ＳＳＳ */
+//include 'jsym-sss'
+include 'jsym-sss:jsym-sss-domain'
+include 'jsym-sss:jsym-sss-web'
 /* 棚卸 */
 //include 'jsym-stocktake'
 include 'jsym-stocktake:jsym-stocktake-domain'
