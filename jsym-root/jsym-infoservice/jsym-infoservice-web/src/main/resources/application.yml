@@ -11,6 +11,9 @@ spring:
       test:
         - common
         - test
+      prod:
+        - common
+        - prod
 
 #サーバー設定
 server:

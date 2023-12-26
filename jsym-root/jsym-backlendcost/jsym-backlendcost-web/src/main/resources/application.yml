@@ -7,9 +7,13 @@ spring:
       dev:
         - common
         - dev
+        - dev-backlendcost
       test:
         - common
         - test
+      prod:
+        - common
+        - prod
 
 #サーバー設定
 server:

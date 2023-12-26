@@ -10,8 +10,11 @@ spring:
       test:
         - common
         - test
+      prod:
+        - common
+        - prod
 
 #サーバー設定
 server:
   servlet:
-    context-path: /infoservice
+    context-path: /jsym-home

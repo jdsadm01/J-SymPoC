@@ -7,11 +7,15 @@ spring:
       dev:
         - common
         - dev
+        - dev-salesentry
       test:
         - common
         - test
+      prod:
+        - common
+        - prod
 
 #サーバー設定
 server:
   servlet:
-    context-path: /businesscommon
+    context-path: /salesentry

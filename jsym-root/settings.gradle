@@ -60,3 +60,7 @@ include 'jsym-stocktake:jsym-stocktake-web'
 //include 'jsym-transtna'
 include 'jsym-transtna:jsym-transtna-domain'
 include 'jsym-transtna:jsym-transtna-web'
+/* アシスタント */
+//include 'jsym-assistant'
+include 'jsym-assistant:jsym-assistant-domain'
+include 'jsym-assistant:jsym-assistant-web'

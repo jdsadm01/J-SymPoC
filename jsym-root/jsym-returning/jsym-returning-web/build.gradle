@@ -4,7 +4,7 @@ plugins {
 
 version = '0.0.2-SNAPSHOT'
 bootWar {
-	archiveFileName = 'returning.war'
+	archiveFileName = 'jsym-returning.war'
 }
 dependencies {
 	implementation project(':jsym-base')
