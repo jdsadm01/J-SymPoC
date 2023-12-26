@@ -8,6 +8,6 @@ Servers
 .settings
 .vscode
 .project
-.classpath
+#.classpath
 bin
 build
