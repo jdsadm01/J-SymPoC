@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="jp.co.jdsnet.common.domain.mapper.chuzan.ChuzanMapper">
+	 <select id="selectCount" resultType="ChuzanEntity"></select>
+	 	SELECT count(1)
+	 	FROM AERORD12
+	 	<where>
+			 JUCDTE = #{jucdte}
+			 AND TOKCOD = #{tokcod}
+			 AND DSCOD = #{dscod}
+			 AND JUCMDSSEQ = #{jucmdsseq}
+			 AND JUCMSISEQ = #{jucmsiseq}
+			 AND SEQ = #{seq}
+		 </where>
+		 WITH UR
+	 </select>
+	 
+	 <select id="select" resultType="ChuzanEntity"></select>
+	 	SELECT *
+	 	FROM AERORD12
+	 	<where>
+			 JUCDTE = #{jucdte}
+			 AND TOKCOD = #{tokcod}
+			 AND DSCOD = #{dscod}
+			 AND JUCMDSSEQ = #{jucmdsseq}
+			 AND JUCMSISEQ = #{jucmsiseq}
+			 AND SEQ = #{seq}
+		 </where>
+		 WITH UR
+	 </select>
+ </mapper>
