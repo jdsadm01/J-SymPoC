@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDTO;
-import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDetailDTO;
 import jp.co.jdsnet.backlendcost.webapp.copydata.BackDeleteCBData;
 import jp.co.jdsnet.base.webapp.form.DBCopyForm;
 import jp.co.jdsnet.base.webapp.form.FormInterface;
@@ -49,8 +48,8 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
   private String hbidtefrom; // 発売日From
   private String hbidteto; // 発売日To
 
-  public BackDeleteDetailDTO toDTO() {
-    return BackDeleteDetailDTO.builder().kaiskbcod(this.kaiskbcod).mkrbuncod(this.mkrbuncod)
+  public BackDeleteDTO toDTO() {
+    return BackDeleteDTO.builder().kaiskbcod(this.kaiskbcod).mkrbuncod(this.mkrbuncod)
         .skocod(this.skocod).kigbng(this.kigbng).tokcod(this.tokcod).dscod(this.dscod)
         .eigcod(this.eigcod).tercod(this.tercod).prckbn(this.prckbn).jucdtefrom(this.jucdtefrom)
         .jucdteto(this.jucdteto).hbidtefrom(this.hbidtefrom).hbidteto(this.hbidteto).build();
@@ -58,10 +57,11 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
 
   public static BackDeleteForm toForm(BackDeleteDTO dto) {
 
-    return BackDeleteForm.builder().kaiskbcod(dto.kaiskbcod()).mkrbuncod(dto.mkrbuncod())
-        .skocod(dto.skocod()).kigbng(dto.kigbng()).tokcod(dto.tokcod()).dscod(dto.dscod())
-        .eigcod(dto.eigcod()).tercod(dto.tercod()).prckbn(dto.prckbn()).jucdtefrom(dto.jucdtefrom())
-        .jucdteto(dto.jucdteto()).hbidtefrom(dto.hbidtefrom()).hbidteto(dto.hbidteto()).build();
+    return BackDeleteForm.builder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
+        .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
+        .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
+        .prckbn(dto.getPrckbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
+        .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto()).build();
   }
 
 
@@ -83,8 +83,8 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
     radioTokcod = initRadioTokcod();
     model.addAttribute("radioTokCod", radioTokcod);
 
-    BackDeleteForm.setRadioTokcod("1");
-    model.addAttribute("BackDeleteForm", BackDeleteForm);
+    // BackDeleteForm.setRadioTokcod("1");
+    // model.addAttribute("BackDeleteForm", BackDeleteForm);
 
     return "createRadioTokcod";
   }

@@ -17,14 +17,23 @@ public interface BackDeleteService {
    * @param dto
    * @return
    * */
-  public BackDeleteDTO search(BackDeleteDTO dto) throws Exception;
-  
+  public BackDeleteDTO search(BackDeleteDTO dto, String button) throws Exception;
+
   /**
-   * 前100件・次100件照会処理
+   * 前100件照会処理
+   * 
    * @param dto
    * @return
-   * */
-  public BackDeleteDTO next100Search(BackDeleteDTO dto) throws Exception;
+   */
+  public BackDeleteDTO prev100Search(BackDeleteDTO dto, String button) throws Exception;
+  
+  /**
+   * 次100件照会処理
+   * 
+   * @param dto
+   * @return
+   */
+  public BackDeleteDTO next100Search(BackDeleteDTO dto, String button) throws Exception;
   
   /**
    * 削除入力チェック処理

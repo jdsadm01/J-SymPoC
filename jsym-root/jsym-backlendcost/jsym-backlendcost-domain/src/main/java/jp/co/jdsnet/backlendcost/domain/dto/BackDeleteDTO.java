@@ -26,10 +26,10 @@ public class BackDeleteDTO extends AbstractDTO {
   private String eigcod; // 営業所
   private String tercod; // テリトリー
   private String prckbn; // 処理区分
-  private String jucdtefrom; // 受注日From
-  private String jucdteto; // 受注日To
-  private String hbidtefrom; // 発売日From
-  private String hbidteto; // 発売日To
+  private int jucdtefrom; // 受注日From
+  private int jucdteto; // 受注日To
+  private int hbidtefrom; // 発売日From
+  private int hbidteto; // 発売日To
 
   // 明細部見出し部分
   private String titnm;
@@ -40,11 +40,15 @@ public class BackDeleteDTO extends AbstractDTO {
   private int chzsurTotal;
 
   private String allDeletechk; // 一括削除チェックボックス
+  private String updKbn;
 
   private List<BackDeleteDetailDTO> detailList;
 
   private List<LabelData> updKbnList; // 処理区分
   private List<BackDeleteDetailDTO> deleteList; // 削除チェックがされている明細
+
+  private List<String> pageKey;
+  private int pageNo;
 
 
 }

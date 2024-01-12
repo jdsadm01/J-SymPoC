@@ -3,31 +3,125 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="jp.co.jdsnet.common.domain.mapper.chuzan.ChuzanMapper">
-	 <select id="selectCount" resultType="ChuzanEntity"></select>
+	 <select id="selectCount" resultType="ChuzanEntity">
 	 	SELECT count(1)
 	 	FROM AERORD12
-	 	<where>
-			 JUCDTE = #{jucdte}
-			 AND TOKCOD = #{tokcod}
-			 AND DSCOD = #{dscod}
-			 AND JUCMDSSEQ = #{jucmdsseq}
-			 AND JUCMSISEQ = #{jucmsiseq}
-			 AND SEQ = #{seq}
+	 	
+		LEFT JOIN AECUST03
+		ON AERORD12.DAIKAISKBCOD = AECUST03.DAIAKAISKBCOD
+		AND AERORD12.TOKCOD = AECUST03.TOKCOD
+		
+		LEFT JOIN AEPROD08
+		ON AERORD12.DAIKAISKBCOD = AEPROD08.DAIKAISKBCOD
+		AND AERORD12.KIGBNG = AEPROD08.KIGBNG
+		
+		LEFT JOIN AEPROD01
+		ON AERORD12.
+		<where>
+			 AERORD12.CHZKICSJIZFLG &lt; &gt; 1 <!-- フラグ≠1 -->
+			 AND AERORD12.CHZSTSKBN &lt; &gt; 1
+			 AND AERORD12.DELFLG &lt; &gt; 1
+			 <choose>
+				 <when test="usrDaikaiskbcod != usrKaiskbcod AND usrBun == 'MKR' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 </when>
+				 <otherwise>
+					 AERORD12.KAISKBCOD = #{kaiskbcod}
+				 </otherwise>
+			 </choose>
+			 <if test="#{mkrbuncod} != ''">
+				 AEPROD01.MKRBUNCOD = #{mkrbuncod}
+			 </if>
+			 <if test="#{skocod} != ''">
+				 AERORD12.SKOCOD = #{skocod}
+			 </if>
+			 <if test="#{kigbng} != ''">
+				 AERORD12.KIGBNG = #{hjihnb}
+			 </if>
+			 <choose>
+				 <when test="#{tokcod} != '' AND #{radioTokcod} == 'tandokuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 </when>
+				 <when test="#{tokcod} != '' AND #{radioTokcod} == 'shuyakuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 </when>
+				 <otherwise>
+					 <!-- 処理なし -->
+				 </otherwise>
+			 </choose>
+			 <if test="#{dscod} != ''">
+				 AERORD12.DSCOD = #{dscod}
+			 </if>
+			 <if test="#{eigcod} != ''">
+				 AERORD12.EIGCOD = #{eigcod}
+			 </if>
+			 <if test="#{tercod} != ''">
+				 AERORD12.TERCOD = #{tercod}
+			 </if>
+			 <if test="#{jucdtefrom} != '' OR #{jucdteto} != '' ">
+				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
+ 			 </if>
+ 			 <if test="#{htbdtefrom} != '' OR #{htbdteto} != '' ">
+				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
+ 			 </if>
+			 
 		 </where>
 		 WITH UR
 	 </select>
 	 
-	 <select id="select" resultType="ChuzanEntity"></select>
+	 <select id="select" resultType="ChuzanEntity">
 	 	SELECT *
 	 	FROM AERORD12
 	 	<where>
-			 JUCDTE = #{jucdte}
-			 AND TOKCOD = #{tokcod}
-			 AND DSCOD = #{dscod}
-			 AND JUCMDSSEQ = #{jucmdsseq}
-			 AND JUCMSISEQ = #{jucmsiseq}
-			 AND SEQ = #{seq}
+			 AERORD12.CHZKICSJIZFLG &lt; &gt; 1 <!-- フラグ≠1 -->
+			 AND AERORD12.CHZSTSKBN &lt; &gt; 1
+			 AND AERORD12.DELFLG &lt; &gt; 1
+			 <choose>
+				 <when test="usrDaikaiskbcod != usrKaiskbcod AND usrBun == 'MKR' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 </when>
+				 <otherwise>
+					 AERORD12.KAISKBCOD = #{kaiskbcod}
+				 </otherwise>
+			 </choose>
+			 <if test="#{mkrbuncod} != ''">
+				 AEPROD01.MKRBUNCOD = #{mkrbuncod}
+			 </if>
+			 <if test="#{skocod} != ''">
+				 AERORD12.SKOCOD = #{skocod}
+			 </if>
+			 <if test="#{kigbng} != ''">
+				 AERORD12.KIGBNG = #{hjihnb}
+			 </if>
+			 <choose>
+				 <when test="#{tokcod} != '' AND #{radioTokcod} == 'tandokuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 </when>
+				 <when test="#{tokcod} != '' AND #{radioTokcod} == 'shuyakuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 </when>
+				 <otherwise>
+					 <!-- 処理なし -->
+				 </otherwise>
+			 </choose>
+			 <if test="#{dscod} != ''">
+				 AERORD12.DSCOD = #{dscod}
+			 </if>
+			 <if test="#{eigcod} != ''">
+				 AERORD12.EIGCOD = #{eigcod}
+			 </if>
+			 <if test="#{tercod} != ''">
+				 AERORD12.TERCOD = #{tercod}
+			 </if>
+			 <if test="#{jucdtefrom} != '' OR #{jucdteto} != '' ">
+				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
+ 			 </if>
+ 			 <if test="#{htbdtefrom} != '' OR #{htbdteto} != '' ">
+				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
+ 			 </if>
+			 
 		 </where>
 		 WITH UR
 	 </select>
+	 
  </mapper>

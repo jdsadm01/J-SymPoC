@@ -20,7 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class BackDeleteController extends CommonOperationController {
 
   private static final String TEMPLATE_DIR = "backdelete/";
-  private static final String TEMPLATE_SEARCH = TEMPLATE_DIR + "header";
+  private static final String TEMPLATE_HEADER = TEMPLATE_DIR + "header";
+  private static final String TEMPLATE_DETAIL = TEMPLATE_DIR + "detail";
+  private static final String TEMPLATE_DATAENTRY = TEMPLATE_DIR + "dataentry";
+  private static final String TEMPLATE_SUBMIT = TEMPLATE_DIR + "submit";
   private final BackDeleteService service;
 
   @GetMapping()
@@ -34,7 +37,7 @@ public class BackDeleteController extends CommonOperationController {
     model.addAttribute("BackDeleteForm", form);
 
     // 画面遷移 フォーカス
-    return TEMPLATE_SEARCH;
+    return TEMPLATE_HEADER;
 
   }
 
@@ -45,27 +48,81 @@ public class BackDeleteController extends CommonOperationController {
 
     if (result.hasErrors()) {
       // エラーの場合
+      return TEMPLATE_HEADER;
     } else {
-      // 正常終了の場合
-      BackDeleteForm form =
-          service.search(requestForm.toDTO(getUserInfo())).transform(BackDeleteForm::toForm);
-      form.setCopyData(BackDeleteCBData::new);
-      model.addAttribute("backDeleteForm", form);
+      try {
+
+        // 正常終了の場合
+        BackDeleteForm form = service.search(requestForm.toDTO(getUserInfo()), "search")
+            .transform(BackDeleteForm::toForm);
+        form.setCopyData(BackDeleteCBData::new);
+        model.addAttribute("backDeleteForm", form);
+
+      } catch (Exception e) {
+        model.addAttribute("errors", e.getMessage());
+        return TEMPLATE_HEADER;
+      }
+
     }
 
     // 画面遷移 フォーカス
-    return TEMPLATE_SEARCH;
+    return TEMPLATE_DETAIL;
   }
 
+
+  @RequestMapping(params = "btn_prev100search", method = POST)
+  public String prev100search(@Validated @ModelAttribute BackDeleteForm requestForm,
+      BindingResult result, Model model) throws Exception {
+
+    if (result.hasErrors()) {
+      // エラーの場合
+      return TEMPLATE_HEADER;
+    } else {
+      try {
+
+        // 正常終了の場合
+        BackDeleteForm form = service.prev100Search(requestForm.toDTO(getUserInfo()), "prev")
+            .transform(BackDeleteForm::toForm);
+        form.setCopyData(BackDeleteCBData::new);
+        model.addAttribute("backDeleteForm", form);
+
+      } catch (Exception e) {
+        model.addAttribute("errors", e.getMessage());
+        return TEMPLATE_HEADER;
+      }
+
+    }
+
+    // 画面遷移 フォーカス
+    return TEMPLATE_DETAIL;
+  }
 
 
   @RequestMapping(params = "btn_next100search", method = POST)
   public String next100search(@Validated @ModelAttribute BackDeleteForm requestForm,
       BindingResult result, Model model) throws Exception {
-    // 次100件
+
+    if (result.hasErrors()) {
+      // エラーの場合
+      return TEMPLATE_HEADER;
+    } else {
+      try {
+
+        // 正常終了の場合
+        BackDeleteForm form = service.next100Search(requestForm.toDTO(getUserInfo()), "next")
+            .transform(BackDeleteForm::toForm);
+        form.setCopyData(BackDeleteCBData::new);
+        model.addAttribute("backDeleteForm", form);
+
+      } catch (Exception e) {
+        model.addAttribute("errors", e.getMessage());
+        return TEMPLATE_HEADER;
+      }
+
+    }
 
     // 画面遷移 フォーカス
-    return TEMPLATE_SEARCH;
+    return TEMPLATE_DETAIL;
   }
 
   @RequestMapping(params = "btn_confirm", method = POST)
@@ -75,7 +132,7 @@ public class BackDeleteController extends CommonOperationController {
     // 削除チェック処理(入力確定)
 
     // 画面遷移 フォーカス
-    return TEMPLATE_SEARCH;
+    return TEMPLATE_DATAENTRY;
   }
 
   @RequestMapping(params = "btn_submit", method = POST)
@@ -84,7 +141,7 @@ public class BackDeleteController extends CommonOperationController {
     // 送信
 
     // 画面遷移 フォーカス
-    return TEMPLATE_SEARCH;
+    return TEMPLATE_SUBMIT;
 
   }
 
@@ -94,7 +151,7 @@ public class BackDeleteController extends CommonOperationController {
     // 戻る
 
     // 画面遷移 フォーカス
-    return TEMPLATE_SEARCH;
+    return TEMPLATE_HEADER;
 
   }
 
@@ -105,7 +162,7 @@ public class BackDeleteController extends CommonOperationController {
     // 初期
 
     // 画面遷移 フォーカス
-    return TEMPLATE_SEARCH;
+    return TEMPLATE_HEADER;
 
   }
 
