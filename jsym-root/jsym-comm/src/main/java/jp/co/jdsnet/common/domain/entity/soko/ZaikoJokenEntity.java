@@ -17,6 +17,9 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ZaikoJokenEntity extends GeneratedZaikoJokenEntity {
 
+  // 結合等の他テーブルカラム
+
+  /** タイトル */
   @Builder.Default
   private String artnm = "";
 
