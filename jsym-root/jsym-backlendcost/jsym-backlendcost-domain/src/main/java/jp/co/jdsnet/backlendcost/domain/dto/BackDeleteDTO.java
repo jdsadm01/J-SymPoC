@@ -30,6 +30,7 @@ public class BackDeleteDTO extends AbstractDTO {
   private int jucdteto; // 受注日To
   private int hbidtefrom; // 発売日From
   private int hbidteto; // 発売日To
+  private String delchk;
 
   // 明細部見出し部分
   private String titnm;

@@ -12,6 +12,7 @@ import jp.co.jdsnet.backlendcost.domain.service.BackDeleteService;
 import jp.co.jdsnet.backlendcost.webapp.copydata.BackDeleteCBData;
 import jp.co.jdsnet.backlendcost.webapp.form.BackDeleteForm;
 import jp.co.jdsnet.base.webapp.controller.CommonOperationController;
+import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -26,14 +27,18 @@ public class BackDeleteController extends CommonOperationController {
   private static final String TEMPLATE_SUBMIT = TEMPLATE_DIR + "submit";
   private final BackDeleteService service;
 
+  private String SEARCH = "S";
+  private String DELETE = "D";
+
   @GetMapping()
   public String init(Model model) {
     // 画面OPENの処理
-
+    UserInfoVO usrInfo = getUserInfo();
     // サービス時間チェック
 
     // 初期化
-    BackDeleteForm form = service.init("JDS", "JDS").transform(BackDeleteForm::toForm);
+    BackDeleteForm form = service.init(usrInfo.getDaikaiskbcod(), usrInfo.getUsrbun())
+        .transform(BackDeleteForm::toForm);
     model.addAttribute("BackDeleteForm", form);
 
     // 画面遷移 フォーカス
@@ -65,8 +70,15 @@ public class BackDeleteController extends CommonOperationController {
 
     }
 
-    // 画面遷移 フォーカス
-    return TEMPLATE_DETAIL;
+    if (SEARCH.equals(requestForm.getPrckbn())) {
+      // 画面遷移 フォーカス(処理区分：照会)
+      return TEMPLATE_DETAIL;
+    } else {
+      // 画面遷移 フォーカス(処理区分：削除)
+      return TEMPLATE_DATAENTRY;
+    }
+
+
   }
 
 
@@ -93,8 +105,13 @@ public class BackDeleteController extends CommonOperationController {
 
     }
 
-    // 画面遷移 フォーカス
-    return TEMPLATE_DETAIL;
+    if (SEARCH.equals(requestForm.getPrckbn())) {
+      // 画面遷移 フォーカス(処理区分：照会)
+      return TEMPLATE_DETAIL;
+    } else {
+      // 画面遷移 フォーカス(処理区分：削除)
+      return TEMPLATE_DATAENTRY;
+    }
   }
 
 
@@ -121,8 +138,13 @@ public class BackDeleteController extends CommonOperationController {
 
     }
 
-    // 画面遷移 フォーカス
-    return TEMPLATE_DETAIL;
+    if (SEARCH.equals(requestForm.getPrckbn())) {
+      // 画面遷移 フォーカス(処理区分：照会)
+      return TEMPLATE_DETAIL;
+    } else {
+      // 画面遷移 フォーカス(処理区分：削除)
+      return TEMPLATE_DATAENTRY;
+    }
   }
 
   @RequestMapping(params = "btn_confirm", method = POST)
@@ -140,9 +162,13 @@ public class BackDeleteController extends CommonOperationController {
       Model model) throws Exception {
     // 送信
 
-    // 画面遷移 フォーカス
-    return TEMPLATE_SUBMIT;
-
+    try {
+      service.submit(requestForm.toDTO(getUserInfo()));
+    } catch (Exception e) {
+      model.addAttribute("errors", e.getMessage());
+      return TEMPLATE_SUBMIT;
+    }
+    return init(model);
   }
 
   @RequestMapping(params = "btn_back", method = POST)
@@ -162,7 +188,7 @@ public class BackDeleteController extends CommonOperationController {
     // 初期
 
     // 画面遷移 フォーカス
-    return TEMPLATE_HEADER;
+    return init(model);
 
   }
 

@@ -84,6 +84,29 @@
 						<button class="btn btn-outline-secondary" type="initial" name="btn_initial">初期</button>
 					</div>
 				</div>
+				<!-- 四行目　(エラーメッセージエリア)-->
+				<div>
+					
+				</div>
+				<!-- 五行目　(情報表示エリア)-->
+				<div>
+					<th:block th:if="*{kigbng !=''}">
+					<div>
+						<label for="タイトル" th:text="#{titnm}"></label>
+					</div>
+					<div>
+						<label for="アーティスト" th:text="#{artnm}"></label>
+					</div>
+					</th:block>
+					<th:block th:if="*{tokcod !=''}">
+					<div>
+						<label for="得意先名" th:text="#{toknm}"></label>
+					</div>
+					<div>
+						<label for="DS名" th:text="#{dsnm}"></label>
+					</div>
+					</th:block>
+				</div>
 			</div>
 		</form>
 	</main>
