@@ -142,7 +142,11 @@
 					</thead>
 					<tbody>
 						<th:block th:each="detail, st :*{detailList}">
-							<td th:text="#{no}"><span th:text="${st.count}"/></td>
+							<td th:text="#{no}"><span th:text="${st.count}"/>
+							<div th:each="i : ${#numbers.sequecnce(1,${st.count})}" th:with="${i}">
+								<p th:text="${i}"></p>    
+								</div>
+							</td>
 							<td th:text="#{skocod}">
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].skocod}">
 							</td>

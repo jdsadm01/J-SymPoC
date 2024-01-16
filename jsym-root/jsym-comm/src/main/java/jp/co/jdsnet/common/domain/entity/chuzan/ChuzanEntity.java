@@ -18,6 +18,11 @@ import lombok.experimental.SuperBuilder;
 public class ChuzanEntity extends GeneratedChuzanEntity {
 
   // 注残以外のカラム
+  
+  /** no */
+  @Builder.Default
+  private int no = 0;
+
 
   // 品番
   /** タイトル */

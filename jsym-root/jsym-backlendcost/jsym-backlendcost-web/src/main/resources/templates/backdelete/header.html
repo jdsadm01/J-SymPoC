@@ -29,6 +29,7 @@
 					
 					<div th:each="item : ${radioTokcod}" class="form-check-inline"> 
 						<!-- 得意先ラジオボタン-->
+						<div class="radio" th:each="item : ${radioItem}">
 						<input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.key}" th:field="*{tokcod}">
 						<!-- 得意先ラベル-->
 						<label for="得意先" th:text="#{tokcod}"></label>
