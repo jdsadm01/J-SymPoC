@@ -29,7 +29,9 @@ public class BackDeleteDetailDTO extends AbstractDTO {
   private String toknm;
   private int jucdte;
   private int chzdeldte;
+  private String chzdelKbn;
   private String deletechk;
+
 
   // 付加情報
   private String daikaiskbcod;

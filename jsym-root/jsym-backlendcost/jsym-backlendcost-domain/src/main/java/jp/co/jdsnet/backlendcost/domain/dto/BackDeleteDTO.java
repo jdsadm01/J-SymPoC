@@ -44,6 +44,7 @@ public class BackDeleteDTO extends AbstractDTO {
   private String updKbn;
 
   private List<BackDeleteDetailDTO> detailList;
+  private List<String> detailBottomList;
 
   private List<LabelData> updKbnList; // 処理区分
   private List<BackDeleteDetailDTO> deleteList; // 削除チェックがされている明細

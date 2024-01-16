@@ -51,13 +51,6 @@ public interface BackDeleteService {
   
 
   /**
-   * 注残データ取得処理
-   * @param dto
-   * @return
-   * */
-  public void getChuzanData(BackDeleteDTO dto) throws Exception;
-  
-  /**
    * 部分初期化処理
    * @param dto
    * @return

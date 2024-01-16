@@ -1,9 +1,8 @@
 package jp.co.jdsnet.backlendcost.domain.service.implement;
 
-import static java.util.stream.Collectors.toList;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 import org.springframework.stereotype.Service;
 import io.micrometer.common.util.StringUtils;
@@ -54,6 +53,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     String usrbun = "";
     String daikaiskbcod = "";
+    boolean errflg = false;
 
     // サービス時間チェック
     boolean isOnline = false;
@@ -144,6 +144,11 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // ===↑整合性チェック===
+    // エラーがあったらここで帰る
+    if (errflg) {
+
+      return dto;
+    }
 
     // 品番情報取得
     if (!StringUtils.isBlank(dto.getKigbng())) {
@@ -155,8 +160,12 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       // 得意先情報取得
     }
 
+
     // 注残データ取得※別メソッド
-    getChuzanData(dto);
+    BackDeleteDetailDTO detailDto;
+    List<String> lastDataList = new ArrayList<>();// 100件目保持する用リスト
+
+    dto = getChuzanData(dto, button);
 
 
     // 検索処理終了 controllerに戻る
@@ -165,37 +174,39 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
         .updKbn(dto.getUpdKbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
         .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidtefrom())
-        .detailList(dto.getDetailList()).build();
+        .detailList(dto.getDetailList()).detailBottomList(dto.getDetailBottomList()).build();
 
   }
 
   /**
    * 注残データ取得処理
    */
-  public void getChuzanData(BackDeleteDTO dto, String button) {
+  public BackDeleteDTO getChuzanData(BackDeleteDTO dto, String button) {
 
     int pageNo = 0;
+    BackDeleteDetailDTO detailDto = null;
 
     // 前100、次100の場合のページキー
     List<String> keyList = new ArrayList<>();
 
     keyList = dto.getPageKey();
-    // 注残データの件数を取得するxmlにアクセスし(たぶんcountだけのsqlを作成する)件数を取得する
+    // 1.注残データの"件数"を取得する
     int chuzanDataCnt = chuzanMapper.selectCount(chuzanEntity, keyList);
 
     if (chuzanDataCnt == 0) {
       // 0件エラー
-      // errors.notExistData 該当するデータが存在しません。
-      return;
+      // errors.notExistData
+      return BackDeleteDTO.builder().build();
     } else if (chuzanDataCnt <= 10000) {
       // 件数上限突破エラー
-      // errors.exceed.reinput 件数制限を超えました。再度条件を指定してください。
-      return;
+      // errors.exceed.reinput
+      return BackDeleteDTO.builder().build();
     }
 
+    // 2.注残情報取得
     int pageKey = 0;
 
-    // 押下されたボタンによってどこの明細を取得するか変える
+    // まずページキー設定。押下されたボタンによってどこの明細を取得するか変える
     switch (button) {
       case "search":
 
@@ -216,46 +227,119 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     int detailBottomNo = (pageKey + 1) * 100;
     
     // 注残データを取得するxmlにアクセスし、データを取得する
-    //注残情報取得
     List<ChuzanEntity> chuzanEntityList = chuzanMapper.select("jds", detailTopNo);
 
-    
-    List<BackDeleteDetailDTO> detailList = chuzanEntityList.stream().map(t -> {
-      
+    // 3.代表会社設定(品番検索で必要)
+    String inputkaiskbcod = dto.getUserInfo().getDaikaiskbcod(); // ユーザー代表会社
+    if (dto.getKaiskbcod().equals(dto.getUserInfo().getKaiskbcod())
+        && "MKR".equals(dto.getUserInfo().getUsrbun())) {
+
+      inputkaiskbcod = dto.getKaiskbcod();
+    }
+
+    // 4.追加情報設定、リストに追加していく
+    List<BackDeleteDetailDTO> detailDTO = new ArrayList<>();
+    List<String> lastDataList = new ArrayList<>();// 100件目保持する用リスト
+
+    // 明細Noを設定 +1スタートなので一の位0スタート
+    AtomicInteger atomicNo = new AtomicInteger(detailTopNo - 1);
+
+    // ここからstreamスタート
+    chuzanEntityList.stream().forEach(t -> {
+      atomicNo.incrementAndGet();
+
+      // 2のリストに品番、得意先、注残削除区分を追加してリストを更新する。
+      String addchzdelkbn = "";
+
       if (!StringUtils.isBlank(dto.getKigbng())) {
         // 品番情報の追加
-        HinbanEntity hinbanEntity = getHinban("JDS", dto.getKigbng());
       }
       if (!StringUtils.isBlank(dto.getTokcod())) {
         // 得意先情報の追加
       }
 
-      if (t == (detailList.size())) {
-        // 明細が100件以上ある場合で100件目に表示する値は保持
-        List<BackDeleteDTO> lastDataList = new ArrayList<>();
-
-        lastDataList.add(chuzanEntity.getChzdte());
-        lastDataList.add(chuzanEntity.getchzjkk());
-        lastDataList.add(chuzanEntity.getchzrelno());
-        lastDataList.add(chuzanEntity.geteigcod());
-        lastDataList.add(chuzanEntity.kigbng());
-        lastDataList.add(chuzanEntity.tokcod());
-        lastDataList.add(chuzanEntity.dscod());
+      // 取得したレコードで比較。注残削除日区分を追加する
+      if (t.getChzdeldte() > t.getChzdelkjndte()) {
+        addchzdelkbn = "E";
+      } else if ("B".equals(t.getRmcod())) {
+        addchzdelkbn = "N";
+      } else {
+        addchzdelkbn = "";
       }
-      
-      return BackDeleteDetailDTO.builder()
-          .no(t)
-          .skocod(detailList.getChzskocod())
-          .kigbng(chuzanEntity.getKigbng())
-          .chzsur(chuzanEntity.getChzsur())
-          .tomrakcod(chuzanEntity.getTomrakcod()).hbidte(chuzanEntity.getHtbdte())
-          .usnjndte(chuzanEntity.getChzdte())
-          .urisyytencod(chuzanEntity.getUrisyytencod()).tokcod(chuzanEntity.getTokcod())
-          .dscod(chuzanEntity.getDscod()).toknm(chuzanEntity.getToknm1() + chuzanEntity.getToknm2())
-          .jucdte(chuzanEntity.getJucdte()).chzdeldte(addchzdelkbn)
-          .build();
 
-    }).collect(toList());
+      detailDTO.add(BackDeleteDetailDTO.builder().no(atomicNo.incrementAndGet())// 明細No
+          .skocod(chuzanEntity.getChzskocod())
+          .kigbng(chuzanEntity.getKigbng()).hjihnb(chuzanEntity.getHjihnb()) // 実際には追加品番情報から取得
+          .chzsur(chuzanEntity.getChzsur()).tomrakcod(chuzanEntity.getTomrakcod()) // 実際には追加品番情報から取得
+          .hbidte(chuzanEntity.getHtbdte()) // 実際には追加品番情報から取得
+          .usnjndte(chuzanEntity.getChzdte()).urisyytencod(chuzanEntity.getUrisyytencod())
+          .tokcod(chuzanEntity.getTokcod()).dscod(chuzanEntity.getDscod())
+          .toknm(chuzanEntity.getToknm1() + chuzanEntity.getToknm2()) // 実際には追加得意先情報から取得
+          .jucdte(chuzanEntity.getJucdte()).chzdeldte(chuzanEntity.getJucdte())
+          .chzdelKbn(addchzdelkbn).build());
+
+    });;
+
+    // 5.100件目は別で保持
+    detailDTO.stream().skip(100).limit(1).forEach(t -> {
+      lastDataList.add(String.valueOf(chuzanEntity.getChzdte()));
+      lastDataList.add(String.valueOf(chuzanEntity.getChzjkk()));
+      lastDataList.add(String.valueOf(chuzanEntity.getChzrelno()));
+      lastDataList.add(chuzanEntity.getEigcod());
+      lastDataList.add(chuzanEntity.getKigbng());
+      lastDataList.add(chuzanEntity.getTokcod());
+      lastDataList.add(chuzanEntity.getDscod());
+
+    });
+
+    // =====for文=====
+    // for (ChuzanEntity t : chuzanEntityList) {
+    //
+    // // 2のリストに品番、得意先、注残削除区分を追加してリストを更新する。
+    // String addchzdelkbn = "";
+    //
+    // if (!StringUtils.isBlank(dto.getKigbng())) {
+    // // 品番情報の追加
+    // }
+    // if (!StringUtils.isBlank(dto.getTokcod())) {
+    // // 得意先情報の追加
+    // }
+    //
+    // // 取得したレコードで比較。注残削除日区分を追加する
+    // if (t.getChzdeldte() > t.getChzdelkjndte()) {
+    // addchzdelkbn = "E";
+    // } else if ("B".equals(t.getRmcod())) {
+    // addchzdelkbn = "N";
+    // } else {
+    // addchzdelkbn = "";
+    // }
+    //
+    // detailDTO.add(BackDeleteDetailDTO.builder().no(i).skocod(chuzanEntity.getChzskocod())
+    // .kigbng(chuzanEntity.getKigbng()).hjihnb(chuzanEntity.getHjihnb()) // 実際には追加品番情報から取得
+    // .chzsur(chuzanEntity.getChzsur()).tomrakcod(chuzanEntity.getTomrakcod()) // 実際には追加品番情報から取得
+    // .hbidte(chuzanEntity.getHtbdte()) // 実際には追加品番情報から取得
+    // .usnjndte(chuzanEntity.getChzdte()).urisyytencod(chuzanEntity.getUrisyytencod())
+    // .tokcod(chuzanEntity.getTokcod()).dscod(chuzanEntity.getDscod())
+    // .toknm(chuzanEntity.getToknm1() + chuzanEntity.getToknm2()) // 実際には追加得意先情報から取得
+    // .jucdte(chuzanEntity.getJucdte()).chzdeldte(chuzanEntity.getJucdte())
+    // .chzdelKbn(addchzdelkbn).build());
+    // i++;
+    //
+    // if (i == 100) {
+    // // 明細が100件以上ある場合で100件目に表示する値は保持
+    // lastDataList.add(String.valueOf(chuzanEntity.getChzdte()));
+    // lastDataList.add(String.valueOf(chuzanEntity.getChzjkk()));
+    // lastDataList.add(String.valueOf(chuzanEntity.getChzrelno()));
+    // lastDataList.add(chuzanEntity.getEigcod());
+    // lastDataList.add(chuzanEntity.getKigbng());
+    // lastDataList.add(chuzanEntity.getTokcod());
+    // lastDataList.add(chuzanEntity.getDscod());
+    // }
+    //
+    // }
+
+    // 注残の取得データと100件目の明細を返却
+    return BackDeleteDTO.builder().deleteList(detailDTO).detailBottomList(lastDataList).build();
 
       
   }
@@ -265,6 +349,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
    * 前次100件処理
    */
   public BackDeleteDTO next100Search(BackDeleteDTO dto, String button) throws Exception {
+
     // サービス時間チェック
     // boolean isOnline = false;
     // if (CheckSharedService.SERVICETIME_ONLINE
@@ -272,28 +357,32 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     // isOnline = true;
     // }
 
+    BackDeleteDetailDTO detailDto = null;
+
     // 削除対象存在チェック
 
     // 表示されている明細のチェックボックスを全部確認する
     IntStream.range(0, 99).forEach(i -> {
       if (FLG_ON.equals(dto.getDelchk())) {
-        // 修正データが存在します。送信してください。
+        // 一つでも存在した時点で処理終了。「修正データが存在します。送信してください。」
         return;
-        // 一つでも存在した時点で処理終了。
       }
     });
 
+    // 以下検索処理と同じ
+
+    BackDeleteDTO newdto;
 
     // 注残データ取得※別メソッド
-    getChuzanData(dto);
+    newdto = getChuzanData(dto, button);
 
     // 検索処理終了 controllerに戻る
-    return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
-        .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
-        .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
-        .updKbn(dto.getUpdKbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
-        .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidtefrom())
-        .detailList(dto.getDetailList()).build();
+    return newdto.toBuilder().kaiskbcod(newdto.getKaiskbcod()).mkrbuncod(newdto.getMkrbuncod())
+        .skocod(newdto.getSkocod()).kigbng(newdto.getKigbng()).tokcod(newdto.getTokcod())
+        .dscod(newdto.getDscod()).eigcod(newdto.getEigcod()).tercod(newdto.getTercod())
+        .updKbn(newdto.getUpdKbn()).jucdtefrom(newdto.getJucdtefrom())
+        .jucdteto(newdto.getJucdteto()).hbidtefrom(newdto.getHbidtefrom())
+        .hbidteto(newdto.getHbidtefrom()).detailList(newdto.getDetailList()).build();
 
   }
 
@@ -306,26 +395,22 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     boolean updflg = false;
 
     //削除チェック個数
+    // ※ここの都合でlong型
     long delcnt = dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk())).count();
     //注残数サマリ
+    long chzsurTotal = 0;
     
     //一括削除にチェックされている場合は更新あり、明細行すべてにチェックをいれる
     if (FLG_ON.equals(dto.getAllDeletechk())) {
       updflg = true;
-      
+
       dto.getDetailList().stream().forEach(i -> {
         i.toBuilder().deletechk(FLG_ON);
+      });
 
-      });
-      
-      //全部足してるのでチェックされているものだけ足すよう改変
-      int chzsurTotal = 0;
-      
-      dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk())).map(t ->{
-        chzsurTotal = dto.getDetailList().stream().collect(Collectors.summingInt(dto.getChzCnt()));
-      });
-      
-      
+      chzsurTotal = dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk()))
+          .mapToLong(i -> delcnt)
+          .sum();
     }
 
     if(0 == delcnt) {
@@ -333,7 +418,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       return dto.toBuilder().build();
     }
 
-    return dto.toBuilder().build();;
+    // ▼▼▼▼▼▼▼▼強引にintにキャスト
+    return dto.toBuilder().chzsurTotal((int) chzsurTotal).build();
 
   }
 
@@ -351,6 +437,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     } else {
       // サービス時間外ですエラー
     }
+    // end
 
   }
 
@@ -371,15 +458,11 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
   @Override
   public BackDeleteDTO prev100Search(BackDeleteDTO dto, String button) throws Exception {
-    // TODO 自動生成されたメソッド・スタブ
-    return null;
+
+    return next100Search(dto, button);
   }
 
-  @Override
-  public void getChuzanData(BackDeleteDTO dto) throws Exception {
-    // TODO 自動生成されたメソッド・スタブ
 
-  }
 
   private HinbanEntity getHinban(String daikaiskbcod, String kigbng) throws Exception {
     // 品番チェック
