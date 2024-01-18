@@ -61,7 +61,7 @@
 			 <if test="#{jucdtefrom} != '' OR #{jucdteto} != '' ">
 				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
  			 </if>
- 			 <if test="#{htbdtefrom} != '' OR #{htbdteto} != '' ">
+ 			 <if test="#{htbdtefrom} != '' ">
 				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
  			 </if>
 			 
@@ -119,9 +119,62 @@
  			 <if test="#{htbdtefrom} != '' OR #{htbdteto} != '' ">
 				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
  			 </if>
+ 			 <if test="#{pageKey} != ''">
+				 AND CHAR (AERORD12.CHZDTE) || CHAR (AERORD12.CHZJKK) || CHAR (AERORD12.CHZRELNO) || CHAR (AERORD12.EIGCOD) || RTRIM(CHAR (AERORD12.KIGBNG)) || CHAR (AERORD12.TOKCOD) || CHAR (AERORD12.DSCOD) > #{pageKey}
+ 			 </if>
 			 
 		 </where>
 		 WITH UR
 	 </select>
+	 <update id="update" parameterType="ChuzanEntity">
+		 UPDATE AERORD12
+		 <set>
+			TRNCOD = #{trncod},
+			CHZBSHCOD = #{chzbshcod},
+			CHZSKOCOD = #{chzskocod},
+			CHZDTE = #{chzdte},
+			CHZJKK = #{chzjkk},
+			THCBNG = #{thcbng},
+			SJCOD = #{sjcod},
+			YKNCOD = #{ykncod},
+			MSCOD = #{mscod},
+			TANKINHJIFLG = #{tankinhjiflg},
+			DAIKAISKBCOD = #{daikaiskbcod},
+			KIGBNG = #{kigbng},
+			TRJCHZSUR = #{trjchzsur},
+			CHZSUR = #{chzsur},
+			TANKINSTEKBN = #{tankinstekbn},
+			SKRTAN = #{skrtan},
+			RMCOD = #{rmcod},
+			EIGCOD = #{eigcod},
+			TERCOD = #{tercod},
+			SKOSTEARIFLG = #{skosteariflg},
+			CHZRELNO = #{chzrelno},
+			CPUFULID = #{cpufulid},
+			WSSEQ7KT = #{wsseq7kt},
+			CHZKICSJIZFLG = #{chzkicsjizflg},
+			CHZSTSKBN = #{chzstskbn},
+			DELFLG = #{delflg},
+			USNJNDTE = #{usnjndte},
+			CCHFLG = #{cchflg},
+			CCHTIOKTKKBN = #{cchtioktkkbn},
+			CCHHATSKOCOD = #{cchhatskocod},
+			UPDKBN = #{updkbn},
+			UPDDTE = #{upddte},
+			UPDJKK = #{updjkk},
+			CHZDELDTE = #{chzdeldte},
+			CHZDELKJNDTE = #{chzdelkjndte},
+			FMG1 = #{fmg1},
+			FMG2 = #{fmg2}
+		 </set>
+		 <where>
+			JUCDTE = #{jucdte}
+			AND TOKCOD = #{tokcod}
+			AND DSCOD = #{dscod}
+			AND JUCMDSSEQ = #{jucmdsseq}
+			AND JUCMSISEQ = #{jucmsiseq}
+			AND SEQ = #{seq} 
+		 </where>
+	 </update>
 	 
  </mapper>

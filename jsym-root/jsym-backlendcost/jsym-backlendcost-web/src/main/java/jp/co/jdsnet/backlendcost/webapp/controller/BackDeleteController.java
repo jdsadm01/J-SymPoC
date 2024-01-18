@@ -4,6 +4,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,9 +18,13 @@ import jp.co.jdsnet.base.webapp.controller.CommonOperationController;
 import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 注残一括削除
+ */
+
 @RequiredArgsConstructor
 @Controller
-@RequestMapping(value = "/backlendcost")
+@RequestMapping(value = "/backdelete")
 public class BackDeleteController extends CommonOperationController {
 
   private static final String TEMPLATE_DIR = "backdelete/";
@@ -27,39 +34,53 @@ public class BackDeleteController extends CommonOperationController {
   private static final String TEMPLATE_SUBMIT = TEMPLATE_DIR + "submit";
   private final BackDeleteService service;
 
+  private final Validator validator;
+
   private String SEARCH = "S";
   private String DELETE = "D";
 
   @GetMapping()
   public String init(Model model) {
     // 画面OPENの処理
-    UserInfoVO usrInfo = getUserInfo();
-    // サービス時間チェック
 
+    UserInfoVO usrInfo = getUserInfo();
     // 初期化
-    BackDeleteForm form = service.init(usrInfo.getDaikaiskbcod(), usrInfo.getUsrbun())
-        .transform(BackDeleteForm::toForm);
-    model.addAttribute("BackDeleteForm", form);
+    BackDeleteForm form = service.init("JDS", "JDS").transform(BackDeleteForm::toForm);
+    model.addAttribute("backDeleteForm", form);
 
     // 画面遷移 フォーカス
     return TEMPLATE_HEADER;
 
   }
 
+  /**
+   * 見出し
+   * 
+   */
+
   @RequestMapping(params = "btn_search", method = POST)
-  public String search(@Validated @ModelAttribute BackDeleteForm requestForm, BindingResult result,
+  // public String search(@Validated @ModelAttribute BackDeleteForm requestForm, BindingResult
+  // result,
+  // Model model) throws Exception {
+  public String search(@ModelAttribute BackDeleteForm requestForm, Errors errors,
       Model model) throws Exception {
     // 検索条件入力チェック(実行)
 
-    if (result.hasErrors()) {
+    ValidationUtils.invokeValidator(validator, requestForm, errors);
+
+    // 2.注残情報取得
+
+    if (errors.hasErrors()) {
       // エラーの場合
+      model.addAttribute("backDeleteForm", requestForm);
       return TEMPLATE_HEADER;
     } else {
       try {
 
         // 正常終了の場合
-        BackDeleteForm form = service.search(requestForm.toDTO(getUserInfo()), "search")
-            .transform(BackDeleteForm::toForm);
+        BackDeleteForm form =
+            service.search(requestForm.toDTO(getUserInfo())).transform(BackDeleteForm::toForm);
+
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("backDeleteForm", form);
 
@@ -70,7 +91,7 @@ public class BackDeleteController extends CommonOperationController {
 
     }
 
-    if (SEARCH.equals(requestForm.getPrckbn())) {
+    if (SEARCH.equals(requestForm.getUpdkbn())) {
       // 画面遷移 フォーカス(処理区分：照会)
       return TEMPLATE_DETAIL;
     } else {
@@ -92,8 +113,10 @@ public class BackDeleteController extends CommonOperationController {
     } else {
       try {
 
+        int pageNo = requestForm.getPageNo() - 1;
+
         // 正常終了の場合
-        BackDeleteForm form = service.prev100Search(requestForm.toDTO(getUserInfo()), "prev")
+        BackDeleteForm form = service.prev100Search(requestForm.toDTO(getUserInfo()), pageNo)
             .transform(BackDeleteForm::toForm);
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("backDeleteForm", form);
@@ -105,7 +128,7 @@ public class BackDeleteController extends CommonOperationController {
 
     }
 
-    if (SEARCH.equals(requestForm.getPrckbn())) {
+    if (SEARCH.equals(requestForm.getUpdkbn())) {
       // 画面遷移 フォーカス(処理区分：照会)
       return TEMPLATE_DETAIL;
     } else {
@@ -125,8 +148,10 @@ public class BackDeleteController extends CommonOperationController {
     } else {
       try {
 
+        int pageNo = requestForm.getPageNo() + 1;
+
         // 正常終了の場合
-        BackDeleteForm form = service.next100Search(requestForm.toDTO(getUserInfo()), "next")
+        BackDeleteForm form = service.next100Search(requestForm.toDTO(getUserInfo()), pageNo)
             .transform(BackDeleteForm::toForm);
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("backDeleteForm", form);
@@ -138,7 +163,7 @@ public class BackDeleteController extends CommonOperationController {
 
     }
 
-    if (SEARCH.equals(requestForm.getPrckbn())) {
+    if (SEARCH.equals(requestForm.getUpdkbn())) {
       // 画面遷移 フォーカス(処理区分：照会)
       return TEMPLATE_DETAIL;
     } else {
@@ -176,6 +201,8 @@ public class BackDeleteController extends CommonOperationController {
       Model model) throws Exception {
     // 戻る
 
+
+
     // 画面遷移 フォーカス
     return TEMPLATE_HEADER;
 
@@ -191,6 +218,7 @@ public class BackDeleteController extends CommonOperationController {
     return init(model);
 
   }
+
 
 }
 

@@ -21,14 +21,14 @@ public class BackDeleteDetailDTO extends AbstractDTO {
   private String kigbng;
   private int chzsur;
   private String tomrakcod;
-  private int hbidte;
-  private int usnjndte; // 優先順日付
+  private String hbidte;
+  private String usnjndte; // 優先順日付
   private String urisyytencod;
   private String tokcod;
   private String dscod;
   private String toknm;
-  private int jucdte;
-  private int chzdeldte;
+  private String jucdte;
+  private String chzdeldte;
   private String chzdelKbn;
   private String deletechk;
 

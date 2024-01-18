@@ -6,8 +6,9 @@ import jp.co.jdsnet.common.domain.entity.chuzan.ChuzanEntity;
 
 @Mapper
 public interface ChuzanMapper {
-  List<ChuzanEntity> select(String daikaiskbcod, int startPage);
+  List<ChuzanEntity> select(String daikaiskbcod, String pageKey);
 
+  int selectCount(ChuzanEntity entity);
 
-  int selectCount(ChuzanEntity entity, List<String> pageKey);
+  void update(ChuzanEntity entity);
 }

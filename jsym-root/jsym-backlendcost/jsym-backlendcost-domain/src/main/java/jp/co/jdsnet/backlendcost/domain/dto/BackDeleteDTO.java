@@ -25,11 +25,11 @@ public class BackDeleteDTO extends AbstractDTO {
   private String dscod; // DS
   private String eigcod; // 営業所
   private String tercod; // テリトリー
-  private String prckbn; // 処理区分
-  private int jucdtefrom; // 受注日From
-  private int jucdteto; // 受注日To
-  private int hbidtefrom; // 発売日From
-  private int hbidteto; // 発売日To
+  private String updkbn; // 処理区分
+  private String jucdtefrom; // 受注日From
+  private String jucdteto; // 受注日To
+  private String hbidtefrom; // 発売日From
+  private String hbidteto; // 発売日To
   private String delchk;
 
   // 明細部見出し部分
@@ -46,10 +46,11 @@ public class BackDeleteDTO extends AbstractDTO {
   private List<BackDeleteDetailDTO> detailList;
   private List<String> detailBottomList;
 
-  private List<LabelData> updKbnList; // 処理区分
+  private List<LabelData> tokkbnList; // 得意先区分ラジオボタン用
+  private List<LabelData> updkbnList; // 処理区分
   private List<BackDeleteDetailDTO> deleteList; // 削除チェックがされている明細
 
-  private List<String> pageKey;
+  private String pageKey;
   private int pageNo;
 
 

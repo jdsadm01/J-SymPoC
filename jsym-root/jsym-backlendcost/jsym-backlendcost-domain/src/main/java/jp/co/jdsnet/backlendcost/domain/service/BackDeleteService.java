@@ -17,7 +17,7 @@ public interface BackDeleteService {
    * @param dto
    * @return
    * */
-  public BackDeleteDTO search(BackDeleteDTO dto, String button) throws Exception;
+  public BackDeleteDTO search(BackDeleteDTO dto) throws Exception;
 
   /**
    * 前100件照会処理
@@ -25,7 +25,7 @@ public interface BackDeleteService {
    * @param dto
    * @return
    */
-  public BackDeleteDTO prev100Search(BackDeleteDTO dto, String button) throws Exception;
+  public BackDeleteDTO prev100Search(BackDeleteDTO dto, int pageNo) throws Exception;
   
   /**
    * 次100件照会処理
@@ -33,7 +33,7 @@ public interface BackDeleteService {
    * @param dto
    * @return
    */
-  public BackDeleteDTO next100Search(BackDeleteDTO dto, String button) throws Exception;
+  public BackDeleteDTO next100Search(BackDeleteDTO dto, int pageNo) throws Exception;
   
   /**
    * 削除入力チェック処理
@@ -55,13 +55,13 @@ public interface BackDeleteService {
    * @param dto
    * @return
    * */
-  public void initPartOfForm() throws Exception;
+  public BackDeleteDTO initPartOfForm(String daikaiskbcod, String usrbun) throws Exception;
 
   /**
    * 戻る
    * @param dto
    * @return
    */
-  public void back() throws Exception;
+  public BackDeleteDTO back(BackDeleteDTO dto) throws Exception;
 
 }
