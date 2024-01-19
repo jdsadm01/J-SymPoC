@@ -38,6 +38,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   private String FLG_OFF = "0";
 
   ChuzanEntity chuzanEntity;
+  HinbanEntity hinbanEntity;
 
   /**
    * 画面OPEN時の処理
@@ -146,6 +147,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     // 品番情報取得
     if (!StringUtils.isBlank(dto.getKigbng())) {
       HinbanEntity hinbanEntity = getHinban(dto.getKaiskbcod(), dto.getKigbng());
+      // List<HinbanEntity> hinbanList = HinbanMapper.select
       titnm = hinbanEntity.getTitnm();
       artnm = hinbanEntity.getArtnm();
       hjihnb = hinbanEntity.getHjihnb();
@@ -197,14 +199,25 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     List<String> keyList = new ArrayList<>();
 
     String pageKey = dto.getPageKey();
+
+
+
+    ChuzanEntity input = chuzanEntity.builder().kaiskbcod(dto.getKaiskbcod().toUpperCase())
+        .daikaiskbcod(dto.getKaiskbcod().toUpperCase()).pageKey(pageKey).skocod(dto.getSkocod())
+        .mkrbuncod(dto.getMkrbuncod().toUpperCase()).kigbng(dto.getKigbng())
+        .tokcod(dto.getTokcod()).dscod(dto.getDscod()).eigcod(dto.getEigcod())
+        .tercod(dto.getTercod()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
+        .hbidtefrom(dto.getHbidtefrom()).hbidtefrom(dto.getHbidteto())
+        .usrDaikaiskbcod(dto.getUserInfo().getDaikaiskbcod())
+        .usrKaiskbcod(dto.getUserInfo().getKaiskbcod()).build();
     // 1.注残データの"件数"を取得する
-    int chuzanDataCnt = chuzanMapper.selectCount(chuzanEntity);
+    int chuzanDataCnt = chuzanMapper.selectCount(input);
 
     if (chuzanDataCnt == 0) {
       // 0件エラー
       // errors.notExistData
       return BackDeleteDTO.builder().build();
-    } else if (chuzanDataCnt <= 10000) {
+    } else if (chuzanDataCnt >= 10000) {
       // 件数上限突破エラー
       // errors.exceed.reinput
       return BackDeleteDTO.builder().build();
@@ -212,7 +225,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     
     // 注残データを取得するxmlにアクセスし、データを取得する
-    List<ChuzanEntity> chuzanEntityList = chuzanMapper.select("jds", pageKey);
+    List<ChuzanEntity> chuzanEntityList = chuzanMapper.select(input);
 
     // 3.代表会社設定(品番検索で必要)
     String inputkaiskbcod = dto.getUserInfo().getDaikaiskbcod(); // ユーザー代表会社
@@ -281,40 +294,39 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
 
       detailDTO.add(BackDeleteDetailDTO.builder().no(atomicNo.incrementAndGet())// 明細No
-          .skocod(chuzanEntity.getChzskocod())
-          .kigbng(chuzanEntity.getKigbng()).hjihnb(hjihnb) // 実際には追加品番情報から取得
-          .chzsur(chuzanEntity.getChzsur()).tomrakcod(tomrakcod) // 実際には追加品番情報から取得
+          .skocod(t.getSkocod()).kigbng(t.getKigbng()).hjihnb(hjihnb) // 実際には追加品番情報から取得
+          .chzsur(t.getChzsur()).tomrakcod(tomrakcod) // 実際には追加品番情報から取得
           .hbidte(hbidte) // 実際には追加品番情報から取得
-          .usnjndte(String.valueOf(chuzanEntity.getChzdte()))
-          .urisyytencod(chuzanEntity.getUrisyytencod())
-          .tokcod(chuzanEntity.getTokcod()).dscod(chuzanEntity.getDscod())
+          .usnjndte(String.valueOf(t.getChzdte())).urisyytencod(t.getUrisyytencod())
+          .tokcod(t.getTokcod()).dscod(t.getDscod())
           .toknm(toknm) // 実際には追加得意先情報から取得
-          .jucdte(String.valueOf(chuzanEntity.getJucdte()))
-          .chzdeldte(String.valueOf(chuzanEntity.getJucdte()) + addchzdelkbn).build());
+          .jucdte(String.valueOf(t.getJucdte()))
+          .chzdeldte(String.valueOf(t.getJucdte()) + addchzdelkbn).build());
 
     });;
 
 
     // 5.100件目は別で保持
     pageKey = "";
-    detailDTO.stream().skip(100).limit(1).forEach(t -> {
+    chuzanEntityList.stream().skip(99).limit(1).forEach(t -> {
 
-      lastDataList.add(String.valueOf(chuzanEntity.getChzdte()));
-      lastDataList.add(String.valueOf(chuzanEntity.getChzjkk()));
-      lastDataList.add(String.valueOf(chuzanEntity.getChzrelno()));
-      lastDataList.add(chuzanEntity.getEigcod());
-      lastDataList.add(chuzanEntity.getKigbng());
-      lastDataList.add(chuzanEntity.getTokcod());
-      lastDataList.add(chuzanEntity.getDscod());
+      lastDataList.add(String.valueOf(t.getChzdte()));
+      lastDataList.add(String.valueOf(t.getChzjkk()));
+      lastDataList.add(String.valueOf(t.getChzrelno()));
+      lastDataList.add(t.getEigcod());
+      lastDataList.add(t.getKigbng());
+      lastDataList.add(t.getTokcod());
+      lastDataList.add(t.getDscod());
 
     });
 
-    pageKey = getKey(lastDataList);
+    if (0 != lastDataList.size()) {
+      pageKey = getKey(lastDataList);
+    }
 
     // 注残の取得データと100件目の明細を返却
-    return BackDeleteDTO.builder().deleteList(detailDTO).pageKey(pageKey).build();
+    return BackDeleteDTO.builder().detailList(detailDTO).pageKey(pageKey).build();
 
-      
   }
   
   private String getKey(List<String> lastDataList) {

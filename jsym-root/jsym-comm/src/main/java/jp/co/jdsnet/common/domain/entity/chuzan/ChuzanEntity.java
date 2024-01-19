@@ -23,6 +23,35 @@ public class ChuzanEntity extends GeneratedChuzanEntity {
   @Builder.Default
   private int no = 0;
 
+  @Builder.Default
+  private String jucdtefrom = "";
+
+  @Builder.Default
+  private String jucdteto = "";
+
+  @Builder.Default
+  private String hbidtefrom = "";
+
+  @Builder.Default
+  private String hbidteto = "";
+
+  @Builder.Default
+  private String usrDaikaiskbcod = "";
+
+  @Builder.Default
+  private String usrKaiskbcod = "";
+
+
+  @Builder.Default
+
+  private String kaiskbcod = "";
+
+  @Builder.Default
+  private String skocod = "";
+
+  @Builder.Default
+  private String pageKey = "";
+
 
   // 品番
   /** タイトル */
@@ -32,6 +61,10 @@ public class ChuzanEntity extends GeneratedChuzanEntity {
   /** アーティスト */
   @Builder.Default
   private String artnm = "";
+
+  /** M分類 */
+  @Builder.Default
+  private String mkrbuncod = "";
 
   /** 表示品番 */
   @Builder.Default
@@ -67,5 +100,7 @@ public class ChuzanEntity extends GeneratedChuzanEntity {
   /** 売上集約店コード */
   @Builder.Default
   private String urisyytencod = "";
+
+
 
 }

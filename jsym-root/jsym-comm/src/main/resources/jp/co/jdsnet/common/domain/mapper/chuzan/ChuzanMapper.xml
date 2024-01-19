@@ -3,68 +3,73 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="jp.co.jdsnet.common.domain.mapper.chuzan.ChuzanMapper">
-	 <select id="selectCount" resultType="ChuzanEntity">
-	 	SELECT count(1)
+	 <select id="selectCount" resultType="int">
+	 	SELECT count(*)
 	 	FROM AERORD12
 	 	
 		LEFT JOIN AECUST03
-		ON AERORD12.DAIKAISKBCOD = AECUST03.DAIAKAISKBCOD
-		AND AERORD12.TOKCOD = AECUST03.TOKCOD
+		ON AERORD12.DAIKAISKBCOD = AECUST03.DAIKAISKBCOD
+		and AERORD12.TOKCOD = AECUST03.TOKCOD
 		
 		LEFT JOIN AEPROD08
 		ON AERORD12.DAIKAISKBCOD = AEPROD08.DAIKAISKBCOD
-		AND AERORD12.KIGBNG = AEPROD08.KIGBNG
+		and AERORD12.KIGBNG = AEPROD08.KIGBNG
 		
 		LEFT JOIN AEPROD01
-		ON AERORD12.
+		ON AERORD12.KIGBNG = AEPROD01.KIGBNG
 		<where>
-			 AERORD12.CHZKICSJIZFLG &lt; &gt; 1 <!-- フラグ≠1 -->
-			 AND AERORD12.CHZSTSKBN &lt; &gt; 1
-			 AND AERORD12.DELFLG &lt; &gt; 1
+			 AERORD12.CHZKICSJIZFLG <![CDATA[ <> ]]> '1'
+			 and AERORD12.CHZSTSKBN <![CDATA[ <> ]]> '1'
+			 and AERORD12.DELFLG <![CDATA[ <> ]]> '1'
+			 
 			 <choose>
-				 <when test="usrDaikaiskbcod != usrKaiskbcod AND usrBun == 'MKR' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 <when test="usrDaikaiskbcod != usrKaiskbcod and usrBun == 'MKR' ">
+					and AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
 				 </when>
 				 <otherwise>
-					 AERORD12.KAISKBCOD = #{kaiskbcod}
+					and AERORD12.DAIKAISKBCOD = #{kaiskbcod}
 				 </otherwise>
 			 </choose>
-			 <if test="#{mkrbuncod} != ''">
-				 AEPROD01.MKRBUNCOD = #{mkrbuncod}
+			 
+			 <if test="mkrbuncod != ''">
+				and AEPROD01.MKRBUNCOD = #{mkrbuncod}
 			 </if>
-			 <if test="#{skocod} != ''">
-				 AERORD12.SKOCOD = #{skocod}
+			 <if test="skocod != ''">
+				and AERORD12.CHZSKOCOD = #{skocod}
 			 </if>
-			 <if test="#{kigbng} != ''">
-				 AERORD12.KIGBNG = #{hjihnb}
+			 <if test="kigbng != ''">
+				and AERORD12.KIGBNG = #{hjihnb}
 			 </if>
+			  and AEPROD01.KAISKBCOD = #{kaiskbcod}  <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+			 <!--
 			 <choose>
-				 <when test="#{tokcod} != '' AND #{radioTokcod} == 'tandokuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 <when test="#{tokcod} != '' and #{radioTokcod} == 'tandokuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
 				 </when>
-				 <when test="#{tokcod} != '' AND #{radioTokcod} == 'shuyakuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 <when test="#{tokcod} != '' and #{radioTokcod} == 'shuyakuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
 				 </when>
 				 <otherwise>
-					 <!-- 処理なし -->
+					  処理なし 
 				 </otherwise>
 			 </choose>
+			 
 			 <if test="#{dscod} != ''">
-				 AERORD12.DSCOD = #{dscod}
+				and AERORD12.DSCOD = #{dscod}
 			 </if>
 			 <if test="#{eigcod} != ''">
-				 AERORD12.EIGCOD = #{eigcod}
+				and AERORD12.EIGCOD = #{eigcod}
 			 </if>
 			 <if test="#{tercod} != ''">
-				 AERORD12.TERCOD = #{tercod}
+				and AERORD12.TERCOD = #{tercod}
 			 </if>
-			 <if test="#{jucdtefrom} != '' OR #{jucdteto} != '' ">
-				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
+			 <if test="#{jucdtefrom} != '' or #{jucdteto} != '' ">
+				and AERORD12.JUCDTE BETWEEN #{jucdtefrom} and #{jucdteto}
  			 </if>
- 			 <if test="#{htbdtefrom} != '' ">
-				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
+ 			 <if test="#{hbidtefrom} != '' or #{hbidteto} != '' ">
+				and AERORD12.JUCDTE BETWEEN #{hbidtefrom} and #{hbidteto}
  			 </if>
-			 
+			 -->
 		 </where>
 		 WITH UR
 	 </select>
@@ -72,60 +77,79 @@
 	 <select id="select" resultType="ChuzanEntity">
 	 	SELECT *
 	 	FROM AERORD12
+	 	
+	 	LEFT JOIN AECUST03
+		ON AERORD12.DAIKAISKBCOD = AECUST03.DAIKAISKBCOD
+		and AERORD12.TOKCOD = AECUST03.TOKCOD
+		
+		LEFT JOIN AEPROD08
+		ON AERORD12.DAIKAISKBCOD = AEPROD08.DAIKAISKBCOD
+		and AERORD12.KIGBNG = AEPROD08.KIGBNG
+		
+		LEFT JOIN AEPROD01
+		ON AERORD12.KIGBNG = AEPROD01.KIGBNG
 	 	<where>
-			 AERORD12.CHZKICSJIZFLG &lt; &gt; 1 <!-- フラグ≠1 -->
-			 AND AERORD12.CHZSTSKBN &lt; &gt; 1
-			 AND AERORD12.DELFLG &lt; &gt; 1
+			 AERORD12.CHZKICSJIZFLG <![CDATA[ <> ]]> '1' <!-- フラグ≠1 -->
+			 and AERORD12.CHZSTSKBN <![CDATA[ <> ]]> '1'
+			 and AERORD12.DELFLG <![CDATA[ <> ]]> '1'
+			 <!--
 			 <choose>
-				 <when test="usrDaikaiskbcod != usrKaiskbcod AND usrBun == 'MKR' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+                 <when test="usrDaikaiskbcod != usrKaiskbcod and usrBun == 'MKR'">
+					and AEPROD01.KAISKBCOD = #{kaiskbcod} 
 				 </when>
 				 <otherwise>
-					 AERORD12.KAISKBCOD = #{kaiskbcod}
+					and AERORD12.DAIKAISKBCOD = #{kaiskbcod}
 				 </otherwise>
 			 </choose>
 			 <if test="#{mkrbuncod} != ''">
-				 AEPROD01.MKRBUNCOD = #{mkrbuncod}
+				and AEPROD01.MKRBUNCOD = #{mkrbuncod}
 			 </if>
 			 <if test="#{skocod} != ''">
-				 AERORD12.SKOCOD = #{skocod}
+				and AERORD12.CHZSKOCOD = #{skocod}
 			 </if>
 			 <if test="#{kigbng} != ''">
-				 AERORD12.KIGBNG = #{hjihnb}
+				and AERORD12.KIGBNG = #{hjihnb}
 			 </if>
+			  and AEPROD01.KAISKBCOD = #{kaiskbcod}
+			 
 			 <choose>
-				 <when test="#{tokcod} != '' AND #{radioTokcod} == 'tandokuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 <when test="#{tokcod} != '' and #{radioTokcod} == 'tandokuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
 				 </when>
-				 <when test="#{tokcod} != '' AND #{radioTokcod} == 'shuyakuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 <when test="#{tokcod} != '' and #{radioTokcod} == 'shuyakuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
 				 </when>
 				 <otherwise>
-					 <!-- 処理なし -->
+					  処理なし 
 				 </otherwise>
 			 </choose>
+
 			 <if test="#{dscod} != ''">
-				 AERORD12.DSCOD = #{dscod}
+				and AERORD12.DSCOD = #{dscod}
 			 </if>
 			 <if test="#{eigcod} != ''">
-				 AERORD12.EIGCOD = #{eigcod}
+				and AERORD12.EIGCOD = #{eigcod}
 			 </if>
 			 <if test="#{tercod} != ''">
-				 AERORD12.TERCOD = #{tercod}
+				and AERORD12.TERCOD = #{tercod}
 			 </if>
-			 <if test="#{jucdtefrom} != '' OR #{jucdteto} != '' ">
-				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
+
+			 <if test="#{jucdtefrom} != '' or #{jucdteto} != '' ">
+				and AERORD12.JUCDTE BETWEEN #{jucdtefrom} and #{jucdteto}
  			 </if>
- 			 <if test="#{htbdtefrom} != '' OR #{htbdteto} != '' ">
-				 AERORD12.JUCDTE BETWEEN #{jucdtefrom} AND #{jucdteto}
+ 			 <if test="#{hbidtefrom} != '' or #{hbidteto} != '' ">
+				and AERORD12.JUCDTE BETWEEN #{hbidtefrom} and #{hbidteto}
  			 </if>
+ 			 
  			 <if test="#{pageKey} != ''">
-				 AND CHAR (AERORD12.CHZDTE) || CHAR (AERORD12.CHZJKK) || CHAR (AERORD12.CHZRELNO) || CHAR (AERORD12.EIGCOD) || RTRIM(CHAR (AERORD12.KIGBNG)) || CHAR (AERORD12.TOKCOD) || CHAR (AERORD12.DSCOD) > #{pageKey}
+				and CHAR (AERORD12.CHZDTE) || CHAR (AERORD12.CHZJKK) || CHAR (AERORD12.CHZRELNO) || CHAR (AERORD12.EIGCOD) || RTRIM(CHAR (AERORD12.KIGBNG)) || CHAR (AERORD12.TOKCOD) || CHAR (AERORD12.DSCOD) > #{pageKey}
  			 </if>
-			 
+			 -->
 		 </where>
+		 FETCH FIRST 100 ROWS ONLY
 		 WITH UR
 	 </select>
+	 
 	 <update id="update" parameterType="ChuzanEntity">
 		 UPDATE AERORD12
 		 <set>
@@ -169,11 +193,11 @@
 		 </set>
 		 <where>
 			JUCDTE = #{jucdte}
-			AND TOKCOD = #{tokcod}
-			AND DSCOD = #{dscod}
-			AND JUCMDSSEQ = #{jucmdsseq}
-			AND JUCMSISEQ = #{jucmsiseq}
-			AND SEQ = #{seq} 
+			and TOKCOD = #{tokcod}
+			and DSCOD = #{dscod}
+			and JUCMDSSEQ = #{jucmdsseq}
+			and JUCMSISEQ = #{jucmsiseq}
+			and SEQ = #{seq} 
 		 </where>
 	 </update>
 	 

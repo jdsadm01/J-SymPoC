@@ -86,6 +86,7 @@ public class BackDeleteController extends CommonOperationController {
 
       } catch (Exception e) {
         model.addAttribute("errors", e.getMessage());
+        System.out.println(e);
         return TEMPLATE_HEADER;
       }
 

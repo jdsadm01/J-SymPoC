@@ -9,7 +9,7 @@
 
 <body>
 	<main>
-		<form action="@{/backdelete}" th:object="${backDeleteForm}" th:method="post">
+		<form th:action="@{/backdelete}" th:object="${backDeleteForm}" th:method="post">
 			<div class="container">
 					<!-- 一行目-->
 				<div class="d-flex flex-row">
@@ -172,7 +172,7 @@
 					</thead>
 					<tbody>
 						<th:block th:each="detail, st :*{detailList}">
-							<td th:text="#{no}">
+							<td>
 								<span th:text="${st.count}"/>
 								<!--
 								<div th:each="i : ${#numbers.sequecnce(1,${st.count})}" th:with="${i}">
@@ -181,56 +181,53 @@
 								-->
 							</td>
 							<td>
-								<span th:text="#{skocod}"></span>
+								<span th:text="${detail.skocod}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].skocod}">
 							</td>
 							<td>
-								<span th:text="#{kigbng}"></span>
+								<span th:text="${detail.kigbng}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].kigbng}">
 							</td>
 							<td>
-								<span th:text="#{chzsur}"></span>
+								<span th:text="${detail.chzsur}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzsur}">
 							</td>
 							<td>
-								<span th:text="#{hbidte}"></span>
+								<span th:text="${detail.hbidte}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hbidte}">
 							</td>
 							<td>
-								<span th:text="#{chzdte}"></span>
+								<span th:text="${detail.chzdte}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzdte}">
 							</td>
 							<td>
-								<span th:text="#{urisyytencod}"></span>
+								<span th:text="${detail.urisyytencod}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].urisyytencod}">
 							</td>
 							<td>
-								<span th:text="#{tokcod}"></span>
+								<span th:text="${detail.tokcod}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].tokcod}">
 							</td>
 							<td>
-								<span th:text="#{dscod}"></span>
+								<span th:text="${detail.dscod}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].dscod}">
 							</td>
 							<td class="hov">
-								<span th:text="#{toknm}"></span>
+								<span th:text="${detail.toknm}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].toknm}">
 								<span class="fullsize">得意先名フル</span>
 							</td>
 							<td>
-								<span th:text="#{jucdte}"></span>
+								<span th:text="${detail.jucdte}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].jucdte}">
 							</td>
 							<td>
-								<span th:text="#{usnjndte}"></span>
+								<span th:text="${detail.usnjndte}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].usnjndte}">
 							</td>
 						</th:block>
-
 					</tbody>
-					
-				</table>
-				
+				</table>			
 			</div>
 		</form>
 	</main>

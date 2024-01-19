@@ -102,6 +102,11 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
   private String pageKey;
   private int pageNo;
 
+  private String urisyytencod;
+  private String jucdte;
+  private String usnjndte;
+
+
 
   @Override
   public BackDeleteDTO toDTO(UserInfoVO userVo) {
@@ -115,6 +120,7 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
         .detailBottomList(this.detailBottomList).tokkbnList(this.tokkbnList)
         .updkbnList(this.updkbnList)
         .deleteList(this.deleteList).pageKey(this.pageKey).pageNo(this.pageNo)
+        .urisyytencod(this.urisyytencod).jucdte(this.jucdte).usnjndte(this.usnjndte)
         .build();
   }
 
@@ -130,6 +136,7 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
         .detailList(dto.getDetailList()).detailBottomList(dto.getDetailBottomList())
         .updkbnList(dto.getUpdkbnList()).tokkbnList(dto.getTokkbnList())
         .deleteList(dto.getDeleteList()).pageKey(dto.getPageKey())
+        .urisyytencod(dto.getUrisyytencod()).jucdte(dto.getJucdte()).usnjndte(dto.getUsnjndte())
         .pageNo(dto.getPageNo()).build();
   }
 
