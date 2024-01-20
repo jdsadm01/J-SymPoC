@@ -148,22 +148,20 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
   @Override
   public BackDeleteDTO toDTO(UserInfoVO userVo) {
     return BackDeleteDTO.builder().userInfo(userVo).kaiskbcod(this.kaiskbcod.toUpperCase())
-        .mkrbuncod(this.mkrbuncod)
-        .skocod(this.skocod).kigbng(this.kigbng).tokcod(this.tokcod).dscod(this.dscod)
-        .eigcod(this.eigcod).tercod(this.tercod).updkbn(this.updkbn).jucdtefrom(this.jucdtefrom)
-        .jucdteto(this.jucdteto).hbidtefrom(this.hbidtefrom).hbidteto(this.hbidteto)
-        .titnm(this.titnm).artnm(this.artnm).toknm(this.toknm).dsnm(this.dsnm).chzCnt(this.chzCnt)
-        .chzsurTotal(this.chzsurTotal).allDeletechk(this.allDeletechk)
-        .detailBottomList(this.detailBottomList).tokkbnList(this.tokkbnList)
-        .updkbnList(this.updkbnList).checkBoxDelete(this.checkBoxDelete)
+        .mkrbuncod(this.mkrbuncod).skocod(this.skocod).kigbng(this.kigbng).tokcod(this.tokcod)
+        .dscod(this.dscod).eigcod(this.eigcod).tercod(this.tercod).updkbn(this.updkbn)
+        .jucdtefrom(this.jucdtefrom).jucdteto(this.jucdteto).hbidtefrom(this.hbidtefrom)
+        .hbidteto(this.hbidteto).titnm(this.titnm).artnm(this.artnm).toknm(this.toknm)
+        .dsnm(this.dsnm).chzCnt(this.chzCnt).chzsurTotal(this.chzsurTotal)
+        .allDeletechk(this.allDeletechk).detailBottomList(this.detailBottomList)
+        .tokkbnList(this.tokkbnList).updkbnList(this.updkbnList).checkBoxDelete(this.checkBoxDelete)
         .detailList(Optional.ofNullable(this.detailList).stream().flatMap(x -> x.stream())
             .map(t -> t.toDTO()).collect(Collectors.toList()))
         .deleteList(Optional.ofNullable(this.deleteList).stream().flatMap(x -> x.stream())
             .map(t -> t.toDTO()).collect(Collectors.toList()))
         .pageKeyPrev(this.pageKeyPrev).pageKeyNow(this.pageKeyNow).pageKeyNext(this.pageKeyNext)
         .pageNo(this.pageNo).prevFlg(this.prevFlg).nextFlg(this.nextFlg)
-        .radioTokcod(this.radioTokcod)
-        .build();
+        .radioTokcod(this.radioTokcod).build();
   }
 
   /**
@@ -174,26 +172,22 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
    */
   public static BackDeleteForm toForm(BackDeleteDTO dto) {
 
-    return BackDeleteForm.builder().kaiskbcod(dto.getKaiskbcod())
-        .mkrbuncod(dto.getMkrbuncod())
+    return BackDeleteForm.builder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
         .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
         .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
         .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
         .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto()).titnm(dto.getTitnm())
         .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm()).chzCnt(dto.getChzCnt())
         .chzsurTotal(dto.getChzsurTotal()).allDeletechk(dto.getAllDeletechk())
-        .detailBottomList(dto.getDetailBottomList())
-        .updkbnList(dto.getUpdkbnList()).tokkbnList(dto.getTokkbnList())
-        .pageKeyPrev(dto.getPageKeyPrev()).pageKeyNow(dto.getPageKeyNow())
-        .pageKeyNext(dto.getPageKeyNext()).pageNo(dto.getPageNo())
-        .prevFlg(dto.isPrevFlg())
-        .nextFlg(dto.isNextFlg()).checkBoxDelete(dto.getCheckBoxDelete())
+        .detailBottomList(dto.getDetailBottomList()).updkbnList(dto.getUpdkbnList())
+        .tokkbnList(dto.getTokkbnList()).pageKeyPrev(dto.getPageKeyPrev())
+        .pageKeyNow(dto.getPageKeyNow()).pageKeyNext(dto.getPageKeyNext()).pageNo(dto.getPageNo())
+        .prevFlg(dto.isPrevFlg()).nextFlg(dto.isNextFlg()).checkBoxDelete(dto.getCheckBoxDelete())
         .detailList(Optional.ofNullable(dto.getDetailList()).stream().flatMap(x -> x.stream())
             .map(t -> t.transform(BackDeleteDetailForm::toForm)).collect(Collectors.toList()))
         .deleteList(Optional.ofNullable(dto.getDeleteList()).stream().flatMap(x -> x.stream())
             .map(t -> t.transform(BackDeleteDetailForm::toForm)).collect(Collectors.toList()))
-        .radioTokcod(dto.getRadioTokcod())
-        .build();
+        .radioTokcod(dto.getRadioTokcod()).build();
   }
 
   //

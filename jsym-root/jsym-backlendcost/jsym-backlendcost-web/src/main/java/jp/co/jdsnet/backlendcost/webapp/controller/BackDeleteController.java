@@ -69,8 +69,8 @@ public class BackDeleteController extends CommonOperationController {
   // public String search(@Validated @ModelAttribute BackDeleteForm requestForm, BindingResult
   // result,
   // Model model) throws Exception {
-  public String search(@ModelAttribute BackDeleteForm requestForm, Errors errors,
-      Model model) throws Exception {
+  public String search(@ModelAttribute BackDeleteForm requestForm, Errors errors, Model model)
+      throws Exception {
     // 検索条件入力チェック(実行)
 
     ValidationUtils.invokeValidator(validator, requestForm, errors);
@@ -224,8 +224,7 @@ public class BackDeleteController extends CommonOperationController {
 
   @RequestMapping(params = "btn_confirm", method = POST)
   public String chkInputDeleteData(@Validated @ModelAttribute BackDeleteForm requestForm,
-      BindingResult result,
-      Model model) throws Exception {
+      BindingResult result, Model model) throws Exception {
     // 削除チェック処理(入力確定)
     try {
       service.chkInputDeleteData(requestForm.toDTO(getUserInfo()));
@@ -258,19 +257,19 @@ public class BackDeleteController extends CommonOperationController {
     // 戻る
 
 
-      try {
+    try {
 
-        int pageNo = requestForm.getPageNo() - 1;
+      int pageNo = requestForm.getPageNo() - 1;
 
-        // 正常終了の場合
-        BackDeleteForm form =
-            service.back(requestForm.toDTO(getUserInfo())).transform(BackDeleteForm::toForm);
-        model.addAttribute("radioTokcod", form.getRadioTokcod());
-        model.addAttribute("backDeleteForm", form);
+      // 正常終了の場合
+      BackDeleteForm form =
+          service.back(requestForm.toDTO(getUserInfo())).transform(BackDeleteForm::toForm);
+      model.addAttribute("radioTokcod", form.getRadioTokcod());
+      model.addAttribute("backDeleteForm", form);
 
-      } catch (Exception e) {
-        model.addAttribute("errors", e.getMessage());
-        return TEMPLATE_HEADER;
+    } catch (Exception e) {
+      model.addAttribute("errors", e.getMessage());
+      return TEMPLATE_HEADER;
 
 
     }
@@ -283,8 +282,7 @@ public class BackDeleteController extends CommonOperationController {
 
   @RequestMapping(params = "btn_initial", method = POST)
   public String initPartOfForm(@Validated @ModelAttribute BackDeleteForm requestForm,
-      BindingResult result,
-      Model model) throws Exception {
+      BindingResult result, Model model) throws Exception {
     // 初期
 
     UserInfoVO usrInfo = getUserInfo();

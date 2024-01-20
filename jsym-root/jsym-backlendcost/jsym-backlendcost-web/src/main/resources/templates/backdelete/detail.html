@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" class="h-100"
-    th:replace="~{template :: layout(title=#{title.backdelete},title_icon='pencil-square'
+<html xmlns:th="http://www.thymeleaf.org" class="h-100" th:replace="~{template :: layout(title=#{title.backdelete},title_icon='pencil-square'
     				,scripts=~{::script},links=~{::link},body=~{::body/content()})}">
+
 <head>
-<link rel="stylesheet" th:href="@{/css/BackDelete.css}">
+	<link rel="stylesheet" th:href="@{/css/BackDelete.css}">
 	<script type="text/javascript" th:src="@{/js/BackDelete.js}"></script>
 </head>
 
@@ -11,126 +11,159 @@
 	<main>
 		<form th:action="@{/backdelete}" th:object="${backDeleteForm}" th:method="post">
 			<div class="container">
-					<!-- 一行目-->
+				<!-- 一行目-->
 				<div class="d-flex flex-row">
 					<div class="flex-col col-lg-2">
-						<label for="会社" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{kaiskbcod}"></label>	
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="kaiskbcod" type="text" th:field="*{kaiskbcod}" placeholder="会社" maxlength="3" aria-label="会社">
+						<label for="会社" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{kaiskbcod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="kaiskbcod"
+							type="text" th:field="*{kaiskbcod}" placeholder="会社" maxlength="3" aria-label="会社">
 					</div>
 					<div class="flex-col col-lg-2">
-						<label for="M分類" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{mkrbuncod}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="mkrbuncod" type="text" th:field="*{mkrbuncod}" placeholder="M分類" maxlength="1" aria-label="M分類">
+						<label for="M分類" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{mkrbuncod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="mkrbuncod"
+							type="text" th:field="*{mkrbuncod}" placeholder="M分類" maxlength="1" aria-label="M分類">
 					</div>
 					<div class="flex-col col-lg-2">
-						<label for="倉庫" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{skocod}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="skocod" type="text" th:field="*{skocod}" placeholder="倉庫" maxlength="3" aria-label="倉庫">
+						<label for="倉庫" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{skocod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="skocod" type="text"
+							th:field="*{skocod}" placeholder="倉庫" maxlength="3" aria-label="倉庫">
 					</div>
 					<div class="flex-col col-lg-4">
-						<label for="記号番号"  class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{kigbng}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="kigbng" type="text" th:field="*{kigbng}" placeholder="記号番号" maxlength="13" aria-label="記号番号">
+						<label for="記号番号" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{kigbng}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="kigbng" type="text"
+							th:field="*{kigbng}" placeholder="記号番号" maxlength="13" aria-label="記号番号">
 					</div>
-					
+
 					<div th:each="label : ${radioTokcod}" class="form-check-inline">
-                        <input type="radio"  class="form-check-input" th:text="${label.value}" th:value="${label.key}" th:field="*{tokkbn}">
-                    </div>
+						<input type="radio" class="form-check-input" th:text="${label.value}" th:value="${label.key}"
+							th:field="*{tokkbn}">
+					</div>
 
 					<div class="flex-col col-lg-2">
 						<!-- 得意先ラベル-->
-						<label for="得意先" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{tokcod}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="tokcod" type="text" th:field="*{tokcod}" placeholder="得意先" maxlength="8" aria-label="得意先">
+						<label for="得意先" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							　th:text="#{tokcod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="tokcod" type="text"
+							th:field="*{tokcod}" placeholder="得意先" maxlength="8" aria-label="得意先">
 					</div>
 
 					<div class="flex-col col-lg-2">
-						<label for="ＤＳ" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{dscod}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="dscod" type="text" th:field="*{dscod}" placeholder="ＤＳ" maxlength="3" aria-label="ＤＳ">
+						<label for="ＤＳ" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{dscod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="dscod" type="text"
+							th:field="*{dscod}" placeholder="ＤＳ" maxlength="3" aria-label="ＤＳ">
 					</div>
 					<div class="flex-col col-lg-2">
-						<label for="営業所" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{eigcod}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="eigcod" type="text" th:field="*{eigcod}" placeholder="営業所" maxlength="2" aria-label="営業所">
+						<label for="営業所" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{eigcod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="eigcod" type="text"
+							th:field="*{eigcod}" placeholder="営業所" maxlength="2" aria-label="営業所">
 					</div>
 					<div class="flex-col col-lg-2">
-						<label for="テリトリー" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tercod}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="tercod" type="text" th:field="*{tercod}" placeholder="テリトリー" maxlength="4" aria-label="テリトリー">
+						<label for="テリトリー" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{tercod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="tercod" type="text"
+							th:field="*{tercod}" placeholder="テリトリー" maxlength="4" aria-label="テリトリー">
 					</div>
-					<div class="flex-col col-lg-3"> 
+					<div class="flex-col col-lg-3">
 						<!-- 更新区分プルダウン-->
-						<label for="updkbn" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{updkbn}"></label>
+						<label for="updkbn" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{updkbn}"></label>
 						<select name="updkbn" th:field="*{updkbn}" class="form-select" aria-label="更新区分" disabled>
-							<option th:each="label : *{updkbnList}" th:value="${label.value}" th:text="${label.text}"/>
+							<option th:each="label : *{updkbnList}" th:value="${label.value}" th:text="${label.text}" />
 						</select>
 						<th:block th:each="label, st : *{updkbnList}">
 							<input type="hidden" th:field="*{updkbnList[__${st.index}__].value}">
 							<input type="hidden" th:field="*{updkbnList[__${st.index}__].text}">
 						</th:block>
 					</div>
-					
-					<div class="flex-col col-lg-3"> 
+
+					<div class="flex-col col-lg-3">
 						<!-- 更新区分-->
-						
-						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="updkbn" type="text" th:field="*{updkbn}" placeholder="更新区分" aria-label="更新区分">
+
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="updkbn" type="text"
+							th:field="*{updkbn}" placeholder="更新区分" aria-label="更新区分">
 					</div>
-				
+
 				</div>
-				
+
 				<!-- 二行目-->
 				<div class="d-flex flex-row">
 					<div class="flex-col col-lg-3">
-						<label for="受注日" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{jucdtefrom}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="jucdtefrom" type="text" th:field="*{jucdtefrom}" placeholder="受注日FROM" maxlength="6" aria-label="受注日">
+						<label for="受注日" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{jucdtefrom}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="jucdtefrom"
+							type="text" th:field="*{jucdtefrom}" placeholder="受注日FROM" maxlength="6" aria-label="受注日">
 					</div>
 					<div class="flex-col col-lg-1">
 						<label>～</label>
 						<p>～</p>
 					</div>
 					<div class="flex-col col-lg-3">
-						<label for="受注日" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{jucdteto}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="jucdteto" type="text" th:field="*{jucdteto}" placeholder="受注日TO" maxlength="6" aria-label="受注日">
+						<label for="受注日" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							th:text="#{jucdteto}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="jucdteto" type="text"
+							th:field="*{jucdteto}" placeholder="受注日TO" maxlength="6" aria-label="受注日">
 					</div>
 					<div class="flex-col col-lg-3">
-						<label for="発売日" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{hbidtefrom}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="hbidtefrom" type="text" th:field="*{hbidtefrom}" placeholder="発売日FROM" maxlength="6" aria-label="発売日">
+						<label for="発売日" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							　th:text="#{hbidtefrom}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="hbidtefrom"
+							type="text" th:field="*{hbidtefrom}" placeholder="発売日FROM" maxlength="6" aria-label="発売日">
 					</div>
 					<div class="flex-col col-lg-1">
 						<label>～</label>
 						<p>～</p>
 					</div>
 					<div class="flex-col col-lg-3">
-						<label for="発売日" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{hbidteto}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="hbidteto" type="text" th:field="*{hbidteto}" placeholder="発売日TO" maxlength="6" aria-label="発売日">
+						<label for="発売日" class="form-label px-1 border-start border-primary border-5 fw-bolder"
+							　th:text="#{hbidteto}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="hbidteto" type="text"
+							th:field="*{hbidteto}" placeholder="発売日TO" maxlength="6" aria-label="発売日">
 					</div>
 					<div class="flex-col col-lg-1">
-						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="pageNo" type="text" th:field="*{pageNo}" placeholder="ページ" maxlength="6" aria-label="ページ">
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="pageNo" type="text"
+							th:field="*{pageNo}" placeholder="ページ" maxlength="6" aria-label="ページ">
 					</div>
 					<div class="flex-col col-lg-1">
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyPrev" type="text" th:field="*{pageKeyPrev}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyNow" type="text" th:field="*{pageKeyNow}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyNext" type="text" th:field="*{pageKeyNext}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyPrev"
+							type="text" th:field="*{pageKeyPrev}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyPrev"
+							type="text" th:field="*{pageKeyNow}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyNext"
+							type="text" th:field="*{pageKeyNext}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
 					</div>
-					
+
 				</div>
-				
+
 				<!-- 三行目　（ボタンエリア)-->
 				<div class="d-flex flex-row">
 					<th:block th:if="*{prevFlg}">
 						<div>
-							<button class="btn btn-outline-secondary" type="prev100search" name="btn_prev100search">前100件</button>
+							<button class="btn btn-outline-secondary" type="prev100search"
+								name="btn_prev100search">前100件</button>
 						</div>
 					</th:block>
 
 					<th:block th:if="*{nextFlg}">
 						<div>
-							<button class="btn btn-outline-secondary" type="next100search" name="btn_next100search">次100件</button>
+							<button class="btn btn-outline-secondary" type="next100search"
+								name="btn_next100search">次100件</button>
 						</div>
 					</th:block>
 					<div>
 						<button class="btn btn-outline-secondary" type="back" name="btn_back">戻る</button>
 					</div>
 				</div>
-				
+
 				<!-- 四行目　(エラーメッセージエリア)-->
 				<div>
 					<ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
-				    	<li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
+						<li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
 					</ul>
 					<th:block th:text="${errors}"></th:block>
 
@@ -139,15 +172,15 @@
 			<div class="container">
 				<!-- 明細　(情報表示エリア)-->
 				<!-- 五行目　(情報表示エリア)-->
-				<th:block th:if="${kigbng !=null}" class="container pt-1">			
-					<div class="d-flex flex-row">		
+				<th:block th:if="${kigbng !=null}" class="container pt-1">
+					<div class="d-flex flex-row">
 						<div class="flex-col col-auto">
 							<label for="タイトル" th:text="#{titnm}"></label>
-							<span th:text="*{titnm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+							<span th:text="*{titnm}" class="form-control p-1 bg-primary text-light bg-opacity-75" />
 						</div>
 						<div class="flex-col col-auto">
 							<label for="アーティスト" th:text="#{artnm}"></label>
-							<span th:text="*{artnm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+							<span th:text="*{artnm}" class="form-control p-1 bg-primary text-light bg-opacity-75" />
 						</div>
 					</div>
 				</th:block>
@@ -155,31 +188,32 @@
 					<div class="d-flex flex-row">
 						<div class="flex-col col-auto">
 							<label for="得意先名" th:text="#{toknm}"></label>
-							<span th:text="*{toknm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+							<span th:text="*{toknm}" class="form-control p-1 bg-primary text-light bg-opacity-75" />
 						</div>
 						<div class="flex-col col-auto">
 							<label for="DS名" th:text="#{dsnm}"></label>
-							<span th:text="*{dsnm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+							<span th:text="*{dsnm}" class="form-control p-1 bg-primary text-light bg-opacity-75" />
 						</div>
 					</div>
 				</th:block>
 
 			</div>
-			
+
 			<div class="container">
 				<div class="d-flex flex-row">
-					
-				<div>
-					<label for="件数" th:text="#{chzCnt}"></label>
-					<input hidden id="chzCnt" type="text" th:field="*{chzCnt}" >
-					<span th:text="*{chzCnt}" th:field="*{chzCnt}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+
+					<div>
+						<label for="件数" th:text="#{chzCnt}"></label>
+						<input hidden id="chzCnt" type="text" th:field="*{chzCnt}">
+						<span th:text="*{chzCnt}" th:field="*{chzCnt}"
+							class="form-control p-1 bg-primary text-light bg-opacity-75" />
+					</div>
+					<div>
+						<label for="注残数合計" th:text="#{chzsurTotal}"></label>
+						<input hidden id="chzsurTotal" type="text" th:field="*{chzsurTotal}">
+						<span th:text="*{chzsurTotal}" class="form-control p-1 bg-primary text-light bg-opacity-75" />
+					</div>
 				</div>
-				<div>
-					<label for="注残数合計" th:text="#{chzsurTotal}"></label>
-					<input hidden id="chzsurTotal" type="text" th:field="*{chzsurTotal}" >
-					<span th:text="*{chzsurTotal}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
-				</div>
-			</div>
 
 			</div>
 			<div class="container">
@@ -203,65 +237,82 @@
 					<tbody>
 						<th:block th:each="detail, st :*{detailList}">
 							<tr>
-							<td>
-								<span th:text="${detail.no}"/>
-							</td>
-							<td>
-								<span th:text="${detail.skocod}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].skocod}">
-							</td>
-							<td>
-								<span th:text="${detail.hjihnb}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hjihnb}">
-							</td>
-							<td>
-								<span th:text="${detail.chzsur}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzsur}">
-							</td>
-							<td>
-								<span th:text="${#temporals.format(detail.getDateField('hbidte'), 'yy/MM/dd')}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hbidte}">
-							</td>
-							<td>
-								<span th:text="${#temporals.format(detail.getDateField('chzdeldte'), 'yy/MM/dd')}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzdeldte}">
-							</td>
-							<td>
-								<span th:text="${detail.urisyytencod}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].urisyytencod}">
-							</td>
-							<td>
-								<span th:text="${detail.tokcod}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].tokcod}">
-							</td>
-							<td>
-								<span th:text="${detail.dscod}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].dscod}">
-							</td>
-							<td class="hov">
-								<span th:text="${detail.toknm}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].toknm}">
-								<span class="fullsize" th:text="${detail.toknm}"></span>
-							</td>
-							<td>
-								<span th:text="${#temporals.format(detail.getDateField('jucdte'), 'yy/MM/dd')}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].jucdte}">
-							</td>
-							<td>
-								<span th:text="${#temporals.format(detail.getDateField('usnjndte'), 'yy/MM/dd')}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].usnjndte}">
-								<span th:text="${detail.chzdelKbn}"></span>
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzdelKbn}">
-							</td>
+								<td>
+									<span th:text="${detail.no}" />
+								</td>
+								<td>
+									<span th:text="${detail.skocod}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].skocod}">
+								</td>
+								<td>
+									<span th:text="${detail.hjihnb}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].hjihnb}">
+								</td>
+								<td>
+									<span th:text="${detail.chzsur}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].chzsur}">
+								</td>
+								<td>
+									<span
+										th:text="${#temporals.format(detail.getDateField('hbidte'), 'yy/MM/dd')}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].hbidte}">
+								</td>
+								<td>
+									<span
+										th:text="${#temporals.format(detail.getDateField('chzdeldte'), 'yy/MM/dd')}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].chzdeldte}">
+								</td>
+								<td>
+									<span th:text="${detail.urisyytencod}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].urisyytencod}">
+								</td>
+								<td>
+									<span th:text="${detail.tokcod}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].tokcod}">
+								</td>
+								<td>
+									<span th:text="${detail.dscod}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].dscod}">
+								</td>
+								<td class="hov">
+									<span th:text="${detail.toknm}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].toknm}">
+									<span class="fullsize" th:text="${detail.toknm}"></span>
+								</td>
+								<td>
+									<span
+										th:text="${#temporals.format(detail.getDateField('jucdte'), 'yy/MM/dd')}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].jucdte}">
+								</td>
+								<td>
+									<span
+										th:text="${#temporals.format(detail.getDateField('usnjndte'), 'yy/MM/dd')}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].usnjndte}">
+									<span th:text="${detail.chzdelKbn}"></span>
+									<input type="hidden" class="form-control p-1 text-uppercase"
+										th:field="*{detailList[__${st.index}__].chzdelKbn}">
+								</td>
 							</tr>
 						</th:block>
 					</tbody>
 				</table>
 				<!-- DBCOPY -->
-		<div th:replace="copydata :: copy(${BackDeleteForm})"></div>			
+				<div th:replace="copydata :: copy(${BackDeleteForm})"></div>
 			</div>
 		</form>
 	</main>
-	
+
 </body>
+
 </html>
