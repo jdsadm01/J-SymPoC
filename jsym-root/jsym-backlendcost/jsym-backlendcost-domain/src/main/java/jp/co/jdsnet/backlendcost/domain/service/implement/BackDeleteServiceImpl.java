@@ -3,7 +3,9 @@ package jp.co.jdsnet.backlendcost.domain.service.implement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
@@ -54,7 +56,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     // 項目の初期化
     return BackDeleteDTO.builder().kaiskbcod(daikaiskbcod).updkbnList(createUpdkbnList())
-        .tokkbnList(createTokkbnList()).build();
+        .pageKey("")
+        .radioTokcod(initRadioTokcod()).build();
   }
 
   /**
@@ -167,13 +170,11 @@ public class BackDeleteServiceImpl implements BackDeleteService {
           + tokuisakiAndDsVO.getDs().getDsnm2();
     }
 
-
     // 注残データ取得※別メソッド
     BackDeleteDetailDTO detailDto;
     List<String> lastDataList = new ArrayList<>();// 100件目保持する用リスト
 
     dto = getChuzanData(dto, 0);
-
 
     // 検索処理終了 controllerに戻る
     return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
@@ -181,8 +182,9 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
         .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
         .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidtefrom())
-        .titnm(titnm).artnm(artnm).toknm(toknm).dsnm(
-            dsnm)
+        .titnm(titnm).artnm(artnm).toknm(toknm).dsnm(dsnm).chzCnt(dto.getChzCnt())
+        .chzsurTotal(dto.getChzsurTotal())
+        .updkbnList(createUpdkbnList()).radioTokcod(initRadioTokcod())
         .detailList(dto.getDetailList()).detailBottomList(dto.getDetailBottomList())
         .build();
 
@@ -200,6 +202,10 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     String pageKey = dto.getPageKey();
 
+    if (Objects.isNull(pageKey)) {
+      pageKey = "";
+    }
+
 
 
     ChuzanEntity input = chuzanEntity.builder().kaiskbcod(dto.getKaiskbcod().toUpperCase())
@@ -207,7 +213,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         .mkrbuncod(dto.getMkrbuncod().toUpperCase()).kigbng(dto.getKigbng())
         .tokcod(dto.getTokcod()).dscod(dto.getDscod()).eigcod(dto.getEigcod())
         .tercod(dto.getTercod()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
-        .hbidtefrom(dto.getHbidtefrom()).hbidtefrom(dto.getHbidteto())
+        .hbidtefrom(dto.getHbidtefrom()).hbidtefrom(dto.getHbidteto()).pageKey(pageKey)
         .usrDaikaiskbcod(dto.getUserInfo().getDaikaiskbcod())
         .usrKaiskbcod(dto.getUserInfo().getKaiskbcod()).build();
     // 1.注残データの"件数"を取得する
@@ -239,12 +245,14 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     List<BackDeleteDetailDTO> detailDTO = new ArrayList<>();
     List<String> lastDataList = new ArrayList<>();// 100件目保持する用リスト
 
-    // 明細Noを設定 +1スタートなので一の位0スタート
-    AtomicInteger atomicNo = new AtomicInteger(dto.getPageNo() - 1);
+    // 明細Noを設定
+    AtomicInteger atomicNo = new AtomicInteger(dto.getPageNo());
+    AtomicInteger chzTotalCnt = new AtomicInteger(dto.getPageNo());
 
-    // ここからstreamスタート
+    atomicNo.addAndGet(pageNo * 100);
+
+    // ===================ここからstreamスタート
     chuzanEntityList.stream().forEach(t -> {
-      atomicNo.incrementAndGet();
 
       // 2のリストに品番、得意先、注残削除区分を追加してリストを更新する。
       String addchzdelkbn = "";
@@ -252,15 +260,15 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       TokuisakiAndDsVO tokuisakiAndDsVO = null;
       try {
         // 品番情報取得
-        if (!StringUtils.isBlank(dto.getKigbng())) {
-          hinbanEntity = getHinban(dto.getKaiskbcod(), dto.getKigbng());
+        if (!StringUtils.isBlank(t.getKigbng())) {
+          hinbanEntity = getHinban(dto.getKaiskbcod().toUpperCase(), t.getKigbng());
           // 記号番号取得
         }
 
         // 得意先情報取得
-        if (!StringUtils.isBlank(dto.getTokcod())) {
+        if (!StringUtils.isBlank(t.getTokcod())) {
           tokuisakiAndDsVO = dataGetSharedService
-              .getKyotsuAndKakushaTokuisakiData(dto.getKaiskbcod(), dto.getTokcod());
+              .getKyotsuAndKakushaTokuisakiData(dto.getKaiskbcod().toUpperCase(), t.getTokcod());
           // 得意先情報取得
         }
       } catch (Exception e) {
@@ -293,8 +301,9 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       }
 
 
+
       detailDTO.add(BackDeleteDetailDTO.builder().no(atomicNo.incrementAndGet())// 明細No
-          .skocod(t.getSkocod()).kigbng(t.getKigbng()).hjihnb(hjihnb) // 実際には追加品番情報から取得
+          .skocod(t.getChzskocod()).kigbng(t.getKigbng()).hjihnb(hjihnb) // 実際には追加品番情報から取得
           .chzsur(t.getChzsur()).tomrakcod(tomrakcod) // 実際には追加品番情報から取得
           .hbidte(hbidte) // 実際には追加品番情報から取得
           .usnjndte(String.valueOf(t.getChzdte())).urisyytencod(t.getUrisyytencod())
@@ -303,8 +312,10 @@ public class BackDeleteServiceImpl implements BackDeleteService {
           .jucdte(String.valueOf(t.getJucdte()))
           .chzdeldte(String.valueOf(t.getJucdte()) + addchzdelkbn).build());
 
-    });;
+      chzTotalCnt.getAndAdd(t.getChzsur());
 
+    });;
+    // ===================streamおわり
 
     // 5.100件目は別で保持
     pageKey = "";
@@ -325,7 +336,15 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // 注残の取得データと100件目の明細を返却
-    return BackDeleteDTO.builder().detailList(detailDTO).pageKey(pageKey).build();
+    return BackDeleteDTO.builder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
+        .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
+        .chzCnt(chuzanDataCnt).chzsurTotal(chzTotalCnt.incrementAndGet())
+        .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
+        .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
+        .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidtefrom())
+        .updkbnList(createUpdkbnList()).radioTokcod(initRadioTokcod()).detailList(detailDTO)
+        .pageNo(pageNo)
+        .pageKey(pageKey).build();
 
   }
   
@@ -355,9 +374,6 @@ public class BackDeleteServiceImpl implements BackDeleteService {
    */
   public BackDeleteDTO next100Search(BackDeleteDTO dto, int pageNo) throws Exception {
 
-
-    BackDeleteDetailDTO detailDto = null;
-
     // 削除対象存在チェック
 
     // 表示されている明細のチェックボックスを全部確認する
@@ -369,7 +385,6 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     });
 
     // 以下検索処理と同じ
-
     BackDeleteDTO newdto;
 
     // 注残データ取得※別メソッド
@@ -381,8 +396,11 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         .dscod(newdto.getDscod()).eigcod(newdto.getEigcod()).tercod(newdto.getTercod())
         .updkbn(newdto.getUpdkbn()).jucdtefrom(newdto.getJucdtefrom())
         .jucdteto(newdto.getJucdteto()).hbidtefrom(newdto.getHbidtefrom())
-        .hbidteto(newdto.getHbidtefrom()).detailList(newdto.getDetailList()).build();
-
+        .hbidteto(newdto.getHbidtefrom()).titnm(dto.getTitnm()).artnm(dto.getArtnm())
+        .toknm(dto.getToknm()).dsnm(dto.getDsnm()).chzCnt(newdto.getChzCnt())
+        .chzsurTotal(newdto.getChzsurTotal()).updkbnList(createUpdkbnList())
+        .radioTokcod(initRadioTokcod()).detailList(newdto.getDetailList())
+        .detailBottomList(newdto.getDetailBottomList()).build();
   }
 
 
@@ -446,8 +464,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     for (BackDeleteDetailDTO t : submitList) {
       ChuzanEntity submitEntity = ChuzanEntity.builder().delflg(FLG_ON).upddte(sysdate)
-          .updjkk(systime).updkbn("U").chzskocod(t.getSkocod()).kigbng(t.getKigbng())
-          .chzsur(t.getChzsur()).tomrakcod(t.getTomrakcod()).htbdte(Integer.valueOf(t.getHbidte()))
+          .updjkk(systime).updkbn("U").chzskocod(t.getSkocod()).hjihnb(t.getHjihnb())
+          .chzsur(t.getChzsur()).tomrakcod(t.getTomrakcod()).hbidte(Integer.valueOf(t.getHbidte()))
           .chzdte(Integer.valueOf(t.getChzdeldte())).urisyytencod(t.getUrisyytencod())
           .tokcod(t.getTokcod()).dscod(t.getDscod()).jucdte(Integer.valueOf(t.getJucdte()))
           .chzdeldte(Integer.valueOf(t.getChzdeldte())).build();
@@ -492,9 +510,6 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       // chuzanMapper.update();
 
     }
-    
-    
-
 
   }
 
@@ -512,7 +527,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     // }
 
     return BackDeleteDTO.builder().kaiskbcod(daikaiskbcod).updkbnList(createUpdkbnList())
-        .tokkbnList(createTokkbnList()).detailList(null).detailBottomList(null).build();
+        .pageKey("")
+        .radioTokcod(initRadioTokcod()).updkbnList(createUpdkbnList()).build();
 
   }
 
@@ -534,7 +550,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
         .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidtefrom()).titnm(dto.getTitnm())
         .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm())
-        .detailList(dto.getDetailList())
+        .detailList(dto.getDetailList()).updkbnList(createUpdkbnList())
+        .radioTokcod(initRadioTokcod()).pageKey("")
         .detailBottomList(dto.getDetailBottomList()).build();
 
   }
@@ -558,12 +575,13 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     return updkbnList;
   }
 
-  private List<LabelData> createTokkbnList() {
-    List<LabelData> tokkbnList = new ArrayList<>();
-    tokkbnList.add(LabelData.builder().value("1").text("単独店").build());
-    tokkbnList.add(LabelData.builder().value("2").text("集約店").build());
+  private Map<String, String> initRadioTokcod() {
 
-    return tokkbnList;
+    Map<String, String> radioTokcod = new LinkedHashMap<>();
+    radioTokcod.put("1", "単独店");
+    radioTokcod.put("2", "集約店");
+
+    return radioTokcod;
   }
 
 

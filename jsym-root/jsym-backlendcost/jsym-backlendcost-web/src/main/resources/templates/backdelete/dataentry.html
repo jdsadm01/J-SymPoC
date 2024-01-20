@@ -57,7 +57,7 @@
 							<input type="hidden" th:field="*{updkbnList[__${st.index}__].text}">
 						</th:block>
 					</div>
-				</div class="d-flex flex-row">
+				</div>
 				
 				<!-- 二行目-->
 				<div>
@@ -78,10 +78,16 @@
 				<!-- 三行目　（ボタンエリア)-->
 				<div>
 					<div>
-						<button class="btn btn-outline-secondary" type="search" name="btn_search">実行</button>
+						<button class="btn btn-outline-secondary" type="chkInputDeleteData" name="btn_confirm">入力確定</button>
 					</div>
 					<div>
-						<button class="btn btn-outline-secondary" type="initial" name="btn_initial">初期</button>
+						<button class="btn btn-outline-secondary" type="prev100search" name="btn_prev100search">前100件</button>
+					</div>
+					<div>
+						<button class="btn btn-outline-secondary" type="next100search" name="btn_next100search">次100件</button>
+					</div>
+					<div>
+						<button class="btn btn-outline-secondary" type="back" name="btn_back">戻る</button>
 					</div>
 				</div>
 				
@@ -112,17 +118,15 @@
 			
 			<!-- 明細 -->
 			<div class="countiner">
+			<div class="d-flex flex-row">
+					
 				<div>
 					<label for="件数" th:text="#{chzCnt}"></label>
-					<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{chzCnt}">
+					<span th:text="*{chzCnt}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
 				</div>
 				<div>
 					<label for="注残数合計" th:text="#{chzsurTotal}"></label>
-					<input type="hidden" class="form-control p-1 " th:field="*{chzsurTotal}">
-				</div>
-				<div>
-					<label for="注残数合計" th:text="#{allDeletechk}"></label>
-					<input type="checkbox" class="form-control p-1 " th:field="*{allDeletechk}">
+					<span th:text="*{chzsurTotal}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
 				</div>
 			</div>
 			

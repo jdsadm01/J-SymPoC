@@ -76,7 +76,7 @@ public class ChuzanEntity extends GeneratedChuzanEntity {
 
   /** 発売日 */
   @Builder.Default
-  private int htbdte = 0;
+  private int hbidte = 0;
 
   // 共通得意先
   /** 得意先名1 */

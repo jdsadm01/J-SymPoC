@@ -1,6 +1,7 @@
 package jp.co.jdsnet.backlendcost.domain.dto;
 
 import java.util.List;
+import java.util.Map;
 import jp.co.jdsnet.base.domain.dto.AbstractDTO;
 import jp.co.jdsnet.base.webapp.parts.LabelData;
 import lombok.AccessLevel;
@@ -32,11 +33,6 @@ public class BackDeleteDTO extends AbstractDTO {
   private String hbidteto; // 発売日To
   private String delchk;
 
-  // 明細項目
-  private String urisyytencod;
-  private String jucdte;
-  private String usnjndte;
-
   // 明細部見出し部分
   private String titnm;
   private String artnm;
@@ -49,6 +45,7 @@ public class BackDeleteDTO extends AbstractDTO {
   private String updKbn;
 
   private List<BackDeleteDetailDTO> detailList;
+
   private List<String> detailBottomList;
 
   private List<LabelData> tokkbnList; // 得意先区分ラジオボタン用
@@ -57,6 +54,9 @@ public class BackDeleteDTO extends AbstractDTO {
 
   private String pageKey;
   private int pageNo;
+
+  private Map<String, String> radioTokcod;
+  private String tokkbn;
 
 
 }

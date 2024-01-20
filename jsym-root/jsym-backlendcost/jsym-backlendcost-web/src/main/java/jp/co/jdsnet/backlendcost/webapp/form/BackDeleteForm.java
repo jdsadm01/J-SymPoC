@@ -2,10 +2,13 @@ package jp.co.jdsnet.backlendcost.webapp.form;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDTO;
-import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDetailDTO;
 import jp.co.jdsnet.backlendcost.webapp.copydata.BackDeleteCBData;
 import jp.co.jdsnet.base.annotation.CheckAsciiDigit;
 import jp.co.jdsnet.base.annotation.FormatDate;
@@ -92,21 +95,20 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
 
   private String allDeletechk; // 一括削除チェックボックス
 
-  private List<BackDeleteDetailDTO> detailList;
+  @Valid
+  private List<BackDeleteDetailForm> detailList;
+
   private List<String> detailBottomList;
 
   private List<LabelData> tokkbnList; // 得意先区分ラジオボタン用
   private List<LabelData> updkbnList; // 処理区分
-  private List<BackDeleteDetailDTO> deleteList; // 削除チェックがされている明細
+  private List<BackDeleteDetailForm> deleteList; // 削除チェックがされている明細
 
   private String pageKey;
   private int pageNo;
-
-  private String urisyytencod;
-  private String jucdte;
-  private String usnjndte;
-
-
+  // 以下ラジオボタン
+  private Map<String, String> radioTokcod;
+  private String tokkbn;
 
   @Override
   public BackDeleteDTO toDTO(UserInfoVO userVo) {
@@ -116,14 +118,24 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
         .eigcod(this.eigcod).tercod(this.tercod).updkbn(this.updkbn).jucdtefrom(this.jucdtefrom)
         .jucdteto(this.jucdteto).hbidtefrom(this.hbidtefrom).hbidteto(this.hbidteto)
         .titnm(this.titnm).artnm(this.artnm).toknm(this.toknm).dsnm(this.dsnm).chzCnt(this.chzCnt)
-        .chzsurTotal(this.chzsurTotal).allDeletechk(this.allDeletechk).detailList(this.detailList)
+        .chzsurTotal(this.chzsurTotal).allDeletechk(this.allDeletechk)
         .detailBottomList(this.detailBottomList).tokkbnList(this.tokkbnList)
         .updkbnList(this.updkbnList)
-        .deleteList(this.deleteList).pageKey(this.pageKey).pageNo(this.pageNo)
-        .urisyytencod(this.urisyytencod).jucdte(this.jucdte).usnjndte(this.usnjndte)
+        .detailList(Optional.ofNullable(this.detailList).stream().flatMap(x -> x.stream())
+            .map(t -> t.toDTO()).collect(Collectors.toList()))
+        .deleteList(Optional.ofNullable(this.deleteList).stream().flatMap(x -> x.stream())
+            .map(t -> t.toDTO()).collect(Collectors.toList()))
+        .pageKey(this.pageKey).pageNo(this.pageNo)
+        .radioTokcod(this.radioTokcod)
         .build();
   }
 
+  /**
+   * DTOからFormへ変換する.
+   *
+   * @param dto BackDeleteDTO
+   * @return form
+   */
   public static BackDeleteForm toForm(BackDeleteDTO dto) {
 
     return BackDeleteForm.builder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
@@ -133,24 +145,17 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
         .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto()).titnm(dto.getTitnm())
         .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm()).chzCnt(dto.getChzCnt())
         .chzsurTotal(dto.getChzsurTotal()).allDeletechk(dto.getAllDeletechk())
-        .detailList(dto.getDetailList()).detailBottomList(dto.getDetailBottomList())
+        .detailBottomList(dto.getDetailBottomList())
         .updkbnList(dto.getUpdkbnList()).tokkbnList(dto.getTokkbnList())
-        .deleteList(dto.getDeleteList()).pageKey(dto.getPageKey())
-        .urisyytencod(dto.getUrisyytencod()).jucdte(dto.getJucdte()).usnjndte(dto.getUsnjndte())
-        .pageNo(dto.getPageNo()).build();
+        .pageKey(dto.getPageKey()).pageNo(dto.getPageNo())
+        .detailList(Optional.ofNullable(dto.getDetailList()).stream().flatMap(x -> x.stream())
+            .map(t -> t.transform(BackDeleteDetailForm::toForm)).collect(Collectors.toList()))
+        .deleteList(Optional.ofNullable(dto.getDeleteList()).stream().flatMap(x -> x.stream())
+            .map(t -> t.transform(BackDeleteDetailForm::toForm)).collect(Collectors.toList()))
+        .radioTokcod(dto.getRadioTokcod())
+        .build();
   }
 
-  // // 以下ラジオボタン
-  // private Map<String, String> radioTokcod;
-  //
-  // private Map<String, String> initRadioTokcod() {
-  //
-  // Map<String, String> radioTokcod = new LinkedHashMap<>();
-  // radioTokcod.put("1", "単独店");
-  // radioTokcod.put("2", "単独店");
-  //
-  // return radioTokcod;
-  // }
   //
   // protected String createRadioTokcod(BackDeleteForm form, Model model) {
   //

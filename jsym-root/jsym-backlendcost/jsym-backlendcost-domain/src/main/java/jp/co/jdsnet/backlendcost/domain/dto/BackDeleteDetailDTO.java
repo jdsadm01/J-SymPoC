@@ -18,7 +18,7 @@ public class BackDeleteDetailDTO extends AbstractDTO {
   // 明細部明細部分
   private int no;
   private String skocod;
-  private String kigbng;
+  private String hjihnb;
   private int chzsur;
   private String tomrakcod;
   private String hbidte;
@@ -35,6 +35,6 @@ public class BackDeleteDetailDTO extends AbstractDTO {
 
   // 付加情報
   private String daikaiskbcod;
-  private String hjihnb;
+  private String kigbng;
 
 }
