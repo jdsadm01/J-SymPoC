@@ -31,7 +31,7 @@
 					</div>
 					
 					<div th:each="label : ${radioTokcod}" class="form-check-inline">
-                        <input readonly type="radio"  class="form-check-input " th:text="${label.value}" th:value="${label.key}" th:field="*{tokkbn}">
+                        <input type="radio"  class="form-check-input" th:text="${label.value}" th:value="${label.key}" th:field="*{tokkbn}">
                     </div>
 
 					<div class="flex-col col-lg-2">
@@ -50,18 +50,24 @@
 					</div>
 					<div class="flex-col col-lg-2">
 						<label for="テリトリー" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tercod}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="kigbng" type="text" th:field="*{tercod}" placeholder="テリトリー" maxlength="4" aria-label="テリトリー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="tercod" type="text" th:field="*{tercod}" placeholder="テリトリー" maxlength="4" aria-label="テリトリー">
 					</div>
 					<div class="flex-col col-lg-3"> 
 						<!-- 更新区分プルダウン-->
 						<label for="updkbn" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{updkbn}"></label>
-						<select name="updkbn" th:field="*{updkbn}" class="form-select" aria-label="更新区分">
+						<select name="updkbn" th:field="*{updkbn}" class="form-select" aria-label="更新区分" disabled>
 							<option th:each="label : *{updkbnList}" th:value="${label.value}" th:text="${label.text}"/>
 						</select>
 						<th:block th:each="label, st : *{updkbnList}">
-							<input type="hidden" th:field="*{updkbnList[__${st.index}__].value}" readonly>
-							<input type="hidden" th:field="*{updkbnList[__${st.index}__].text}" readonly>
+							<input type="hidden" th:field="*{updkbnList[__${st.index}__].value}">
+							<input type="hidden" th:field="*{updkbnList[__${st.index}__].text}">
 						</th:block>
+					</div>
+					
+					<div class="flex-col col-lg-3"> 
+						<!-- 更新区分-->
+						
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="updkbn" type="text" th:field="*{updkbn}" placeholder="更新区分" aria-label="更新区分">
 					</div>
 				
 				</div>
@@ -93,24 +99,29 @@
 						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="hbidteto" type="text" th:field="*{hbidteto}" placeholder="発売日TO" maxlength="6" aria-label="発売日">
 					</div>
 					<div class="flex-col col-lg-1">
-						<label for="ページナンバー" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{pageNo}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageNo" type="text" th:field="*{pageNo}" placeholder="ページ" maxlength="6" aria-label="ページ">
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="pageNo" type="text" th:field="*{pageNo}" placeholder="ページ" maxlength="6" aria-label="ページ">
 					</div>
 					<div class="flex-col col-lg-1">
-						<label for="ページキー" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{pageKey}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKey" type="text" th:field="*{pageKey}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyPrev" type="text" th:field="*{pageKeyPrev}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyNow" type="text" th:field="*{pageKeyNow}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyNext" type="text" th:field="*{pageKeyNext}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
 					</div>
 					
 				</div>
 				
 				<!-- 三行目　（ボタンエリア)-->
 				<div class="d-flex flex-row">
-					<div>
-						<button class="btn btn-outline-secondary" type="prev100search" name="btn_prev100search">前100件</button>
-					</div>
-					<div>
-						<button class="btn btn-outline-secondary" type="next100search" name="btn_next100search">次100件</button>
-					</div>
+					<th:block th:if="*{prevFlg}">
+						<div>
+							<button class="btn btn-outline-secondary" type="prev100search" name="btn_prev100search">前100件</button>
+						</div>
+					</th:block>
+
+					<th:block th:if="*{nextFlg}">
+						<div>
+							<button class="btn btn-outline-secondary" type="next100search" name="btn_next100search">次100件</button>
+						</div>
+					</th:block>
 					<div>
 						<button class="btn btn-outline-secondary" type="back" name="btn_back">戻る</button>
 					</div>
@@ -159,15 +170,16 @@
 				<div class="d-flex flex-row">
 					
 				<div>
-						<label for="件数" th:text="#{chzCnt}"></label>
-					<span th:text="*{chzCnt}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
-					</div>
-					<div>
-						<label for="注残数合計" th:text="#{chzsurTotal}"></label>
-						<span th:text="*{chzsurTotal}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
-					</div>
-					
+					<label for="件数" th:text="#{chzCnt}"></label>
+					<input hidden id="chzCnt" type="text" th:field="*{chzCnt}" >
+					<span th:text="*{chzCnt}" th:field="*{chzCnt}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
 				</div>
+				<div>
+					<label for="注残数合計" th:text="#{chzsurTotal}"></label>
+					<input hidden id="chzsurTotal" type="text" th:field="*{chzsurTotal}" >
+					<span th:text="*{chzsurTotal}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+				</div>
+			</div>
 
 			</div>
 			<div class="container">
@@ -238,11 +250,15 @@
 							<td>
 								<span th:text="${#temporals.format(detail.getDateField('usnjndte'), 'yy/MM/dd')}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].usnjndte}">
+								<span th:text="${detail.chzdelKbn}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzdelKbn}">
 							</td>
 							</tr>
 						</th:block>
 					</tbody>
-				</table>			
+				</table>
+				<!-- DBCOPY -->
+		<div th:replace="copydata :: copy(${BackDeleteForm})"></div>			
 			</div>
 		</form>
 	</main>

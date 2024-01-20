@@ -1,5 +1,6 @@
 package jp.co.jdsnet.backlendcost.domain.dto;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jp.co.jdsnet.base.domain.dto.AbstractDTO;
@@ -51,9 +52,17 @@ public class BackDeleteDTO extends AbstractDTO {
   private List<LabelData> tokkbnList; // 得意先区分ラジオボタン用
   private List<LabelData> updkbnList; // 処理区分
   private List<BackDeleteDetailDTO> deleteList; // 削除チェックがされている明細
+  private Map<Integer, String> checkBoxDelete;
+  private HashMap<Integer, String> keyMap;
+  private List<String> checkList;
 
-  private String pageKey;
+  private String pageKeyPrev;
+  private String pageKeyNow;
+  private String pageKeyNext;
   private int pageNo;
+  private boolean prevFlg;
+  private boolean nextFlg;
+
 
   private Map<String, String> radioTokcod;
   private String tokkbn;

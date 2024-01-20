@@ -32,9 +32,38 @@ public class BackDeleteDetailDTO extends AbstractDTO {
   private String chzdelKbn;
   private String deletechk;
 
-
-  // 付加情報
+  // 明細に出力しない注残項目(更新で使用)
+  private int jucmdsseq;
+  private int jucmeiseq;
+  private int seq;
+  private String trncod;
+  private int chzjkk;
+  private String thcbng;
+  private String sjcod;
+  private String ykncod;
+  private String mscod;
+  private String tankinhjiflg;
   private String daikaiskbcod;
   private String kigbng;
+  private int trjchzsur;
+  private String tankinstekbn;
+  private double skrtan;
+  private String rmcod;
+  private String eigcod;
+  private String tercod;
+  private String skosteariflg;
+  private int chzrelno;
+  private String cpufulid;
+  private int wsseq7kt;
+  private String chzkicsjizflg;
+  private String chzstskbn;
+  private String cchflg;
+  private String cchtioktkkbn;
+  private String cchhatskocod;
+  private int chzdelkjndte;
+  private String fmg1;
+  private String fmg2;
+
+
 
 }

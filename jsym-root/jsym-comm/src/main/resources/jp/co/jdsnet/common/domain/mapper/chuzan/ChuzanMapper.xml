@@ -43,33 +43,109 @@
 			  and AEPROD01.KAISKBCOD = #{kaiskbcod}  <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
 			 <!--
 			 <choose>
-				 <when test="#{tokcod} != '' and #{radioTokcod} == 'tandokuten' ">
+				 <when test="tokcod != '' and radioTokcod == 'tandokuten' ">
 					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
 				 </when>
-				 <when test="#{tokcod} != '' and #{radioTokcod} == 'shuyakuten' ">
+				 <when test="tokcod != '' and radioTokcod == 'shuyakuten' ">
 					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
 				 </when>
 				 <otherwise>
 					  処理なし 
 				 </otherwise>
 			 </choose>
-			 
-			 <if test="#{dscod} != ''">
+			  -->
+			 <if test="dscod != ''">
 				and AERORD12.DSCOD = #{dscod}
 			 </if>
-			 <if test="#{eigcod} != ''">
+			 <if test="eigcod != ''">
 				and AERORD12.EIGCOD = #{eigcod}
 			 </if>
-			 <if test="#{tercod} != ''">
+			 <if test="tercod != ''">
 				and AERORD12.TERCOD = #{tercod}
 			 </if>
-			 <if test="#{jucdtefrom} != '' or #{jucdteto} != '' ">
+			 <if test="jucdtefrom != 0 or jucdteto != 0 ">
 				and AERORD12.JUCDTE BETWEEN #{jucdtefrom} and #{jucdteto}
  			 </if>
- 			 <if test="#{hbidtefrom} != '' or #{hbidteto} != '' ">
+ 			 <if test="hbidtefrom != 0 or hbidteto != 0 ">
 				and AERORD12.JUCDTE BETWEEN #{hbidtefrom} and #{hbidteto}
  			 </if>
-			 -->
+ 			 <if test="pageKey != null or pageKey != ''">
+				and CHAR (AERORD12.CHZDTE) || CHAR (AERORD12.CHZJKK) || CHAR (AERORD12.CHZRELNO) || CHAR (AERORD12.EIGCOD) || RTRIM(CHAR (AERORD12.KIGBNG)) || CHAR (AERORD12.TOKCOD) || CHAR (AERORD12.DSCOD) <![CDATA[ > ]]> #{pageKey}
+ 			 </if>
+			
+		 </where>
+		 WITH UR
+	 </select>
+	 <select id="selectTotalchzSur" resultType="int">
+	 	SELECT SUM(AERORD12.CHZSUR)
+	 	FROM AERORD12
+	 	
+		LEFT JOIN AECUST03
+		ON AERORD12.DAIKAISKBCOD = AECUST03.DAIKAISKBCOD
+		and AERORD12.TOKCOD = AECUST03.TOKCOD
+		
+		LEFT JOIN AEPROD08
+		ON AERORD12.DAIKAISKBCOD = AEPROD08.DAIKAISKBCOD
+		and AERORD12.KIGBNG = AEPROD08.KIGBNG
+		
+		LEFT JOIN AEPROD01
+		ON AERORD12.KIGBNG = AEPROD01.KIGBNG
+		<where>
+			 AERORD12.CHZKICSJIZFLG <![CDATA[ <> ]]> '1'
+			 and AERORD12.CHZSTSKBN <![CDATA[ <> ]]> '1'
+			 and AERORD12.DELFLG <![CDATA[ <> ]]> '1'
+			 
+			 <choose>
+				 <when test="usrDaikaiskbcod != usrKaiskbcod and usrBun == 'MKR' ">
+					and AEPROD01.KAISKBCOD = #{kaiskbcod} <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+				 </when>
+				 <otherwise>
+					and AERORD12.DAIKAISKBCOD = #{kaiskbcod}
+				 </otherwise>
+			 </choose>
+			 
+			  <if test="mkrbuncod != ''">
+				and AEPROD01.MKRBUNCOD = #{mkrbuncod}
+			 </if>
+			 <if test="skocod != ''">
+				and AERORD12.CHZSKOCOD = #{skocod}
+			 </if>
+			 <if test="kigbng != ''">
+				and AERORD12.KIGBNG = #{hjihnb}
+			 </if>
+			  and AEPROD01.KAISKBCOD = #{kaiskbcod}  <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
+			 <!--
+			 <choose>
+				 <when test="tokcod != '' and radioTokcod == 'tandokuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
+				 </when>
+				 <when test="tokcod != '' and radioTokcod == 'shuyakuten' ">
+					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
+				 </when>
+				 <otherwise>
+					  処理なし 
+				 </otherwise>
+			 </choose>
+			  -->
+			 <if test="dscod != ''">
+				and AERORD12.DSCOD = #{dscod}
+			 </if>
+			 <if test="eigcod != ''">
+				and AERORD12.EIGCOD = #{eigcod}
+			 </if>
+			 <if test="tercod != ''">
+				and AERORD12.TERCOD = #{tercod}
+			 </if>
+			 <if test="jucdtefrom != 0 or jucdteto != 0 ">
+				and AERORD12.JUCDTE BETWEEN #{jucdtefrom} and #{jucdteto}
+ 			 </if>
+ 			 <if test="hbidtefrom != 0 or hbidteto != 0 ">
+				and AERORD12.JUCDTE BETWEEN #{hbidtefrom} and #{hbidteto}
+ 			 </if>
+ 			 <if test="pageKey != null or pageKey != ''">
+				and CHAR (AERORD12.CHZDTE) || CHAR (AERORD12.CHZJKK) || CHAR (AERORD12.CHZRELNO) || CHAR (AERORD12.EIGCOD) || RTRIM(CHAR (AERORD12.KIGBNG)) || CHAR (AERORD12.TOKCOD) || CHAR (AERORD12.DSCOD) <![CDATA[ > ]]> #{pageKey}
+ 			 </if>
+ 			 
 		 </where>
 		 WITH UR
 	 </select>
@@ -101,7 +177,7 @@
 					and AERORD12.DAIKAISKBCOD = #{kaiskbcod}
 				 </otherwise>
 			 </choose>
-			 <if test="mkrbuncod != ''">
+			  <if test="mkrbuncod != ''">
 				and AEPROD01.MKRBUNCOD = #{mkrbuncod}
 			 </if>
 			 <if test="skocod != ''">
@@ -110,9 +186,8 @@
 			 <if test="kigbng != ''">
 				and AERORD12.KIGBNG = #{hjihnb}
 			 </if>
-			 and AEPROD01.KAISKBCOD = #{kaiskbcod}
+			  and AEPROD01.KAISKBCOD = #{kaiskbcod}  <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
 			 <!--
-			 
 			 <choose>
 				 <when test="tokcod != '' and radioTokcod == 'tandokuten' ">
 					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
@@ -124,7 +199,7 @@
 					  処理なし 
 				 </otherwise>
 			 </choose>
-
+			  -->
 			 <if test="dscod != ''">
 				and AERORD12.DSCOD = #{dscod}
 			 </if>
@@ -134,21 +209,53 @@
 			 <if test="tercod != ''">
 				and AERORD12.TERCOD = #{tercod}
 			 </if>
-
-			 <if test="jucdtefrom != '' or jucdteto != '' ">
+			 <if test="jucdtefrom != 0 or jucdteto != 0 ">
 				and AERORD12.JUCDTE BETWEEN #{jucdtefrom} and #{jucdteto}
  			 </if>
- 			 <if test="hbidtefrom != '' or hbidteto != '' ">
+ 			 <if test="hbidtefrom != 0 or hbidteto != 0 ">
 				and AERORD12.JUCDTE BETWEEN #{hbidtefrom} and #{hbidteto}
  			 </if>
- 			 -->
  			 <if test="pageKey != null or pageKey != ''">
 				and CHAR (AERORD12.CHZDTE) || CHAR (AERORD12.CHZJKK) || CHAR (AERORD12.CHZRELNO) || CHAR (AERORD12.EIGCOD) || RTRIM(CHAR (AERORD12.KIGBNG)) || CHAR (AERORD12.TOKCOD) || CHAR (AERORD12.DSCOD) <![CDATA[ > ]]> #{pageKey}
  			 </if>
 			 
 		 </where>
+		 ORDER BY
+    AERORD12.CHZDTE
+    , AERORD12.CHZJKK
+    , AERORD12.CHZRELNO
+    , AERORD12.EIGCOD 
+    , AERORD12.KIGBNG
+    , AERORD12.TOKCOD
+    , AERORD12.DSCOD
+		 FETCH FIRST 100 ROWS ONLY
 		 WITH UR
 	 </select>
+	 
+	 <select id="selectOnly" resultType="ChuzanEntity">
+	 	SELECT *
+	 	FROM AERORD12
+	 	
+	 	<where>
+			 AERORD12.CHZKICSJIZFLG <![CDATA[ <> ]]> '1' <!-- フラグ≠1 -->
+			 and AERORD12.CHZSTSKBN <![CDATA[ <> ]]> '1'
+			 and AERORD12.DELFLG <![CDATA[ <> ]]> '1'
+			 
+			 <if test="jucdte != ''">
+				and AERORD12.JUCDTE = #{jucdte}
+			 </if>
+			 <if test="tokcod != ''">
+				and AERORD12.TOKCOD = #{tokcod}
+			 </if>
+			 <if test="dscod != ''">
+				and AERORD12.KIGBNG = #{dscod}
+			 </if>
+			 
+		 </where>
+		 WITH UR
+	 </select>
+	 
+	 
 	 
 	 <update id="update" parameterType="ChuzanEntity">
 		 UPDATE AERORD12

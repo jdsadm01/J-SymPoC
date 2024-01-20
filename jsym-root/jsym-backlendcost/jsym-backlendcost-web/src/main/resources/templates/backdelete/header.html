@@ -94,12 +94,18 @@
 						<input class="form-control p-1 text-uppercase" id="hbidteto" type="text" th:field="*{hbidteto}" placeholder="発売日TO" maxlength="6" aria-label="発売日">
 					</div>
 					<div class="flex-col col-lg-1">
-						<label for="ページナンバー" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{pageNo}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageNo" type="text" th:field="*{pageNo}" placeholder="ページ" maxlength="6" aria-label="ページ">
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="pageNo" type="text" th:field="*{pageNo}" placeholder="ページ" maxlength="6" aria-label="ページ">
 					</div>
 					<div class="flex-col col-lg-1">
-						<label for="ページキー" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{pageKey}"></label>
-						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKey" type="text" th:field="*{pageKey}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyPrev" type="text" th:field="*{pageKeyPrev}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyPrev" type="text" th:field="*{pageKeyNow}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyNext" type="text" th:field="*{pageKeyNext}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+					</div>
+					
+					<div class="flex-col col-lg-4">
+						<label>
+							<input class ="col-lg-1" type="checkbox" th:field="*{delchk}" />
+						</label>
 					</div>
 				</div>
 				
@@ -125,6 +131,7 @@
 
 				</div>
 			</div>
+
 			<div class="container">
 
 					<!-- 明細　(情報表示エリア)-->
@@ -161,13 +168,15 @@
 					
 				<div>
 					<label for="件数" th:text="#{chzCnt}"></label>
-					<span th:text="*{chzCnt}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+					<input hidden id="chzCnt" type="text" th:field="*{chzCnt}" >
+					<span th:text="*{chzCnt}" th:field="*{chzCnt}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
 				</div>
 				<div>
 					<label for="注残数合計" th:text="#{chzsurTotal}"></label>
+					<input hidden id="chzsurTotal" type="text" th:field="*{chzsurTotal}" >
 					<span th:text="*{chzsurTotal}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
 				</div>
-				</div>
+			</div>
 
 			</div>
 			<div class="container">
@@ -186,6 +195,9 @@
 							<th class="p-1" th:text="#{toknm}"></th>
 							<th class="p-1" th:text="#{jucdte}"></th>
 							<th class="p-1" th:text="#{usnjndte}"></th>
+							<th:block th:if="${updkbn =='D'}">
+							<th class="p-1" th:text="#{delchk}"></th>
+							</th:block>
 						</tr>
 					</thead>
 					<tbody>
@@ -238,7 +250,15 @@
 							<td>
 								<span th:text="${#temporals.format(detail.getDateField('usnjndte'), 'yy/MM/dd')}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].usnjndte}">
+								<span th:text="${detail.chzdelKbn}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzdelKbn}">
 							</td>
+							<th:block th:if="${updkbn =='D'}">
+							<td>
+									<span th:text="${detail.deletechk}"></span>
+									<input type="text" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].deletechk}" maxlength="1">
+							</td>
+							</th:block>
 							</tr>
 						</th:block>
 					</tbody>

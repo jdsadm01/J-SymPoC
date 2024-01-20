@@ -25,7 +25,7 @@ public interface BackDeleteService {
    * @param dto
    * @return
    */
-  public BackDeleteDTO prev100Search(BackDeleteDTO dto, int pageNo) throws Exception;
+  public BackDeleteDTO prev100Search(BackDeleteDTO dto, int pageNo, String Key) throws Exception;
   
   /**
    * 次100件照会処理
@@ -33,7 +33,7 @@ public interface BackDeleteService {
    * @param dto
    * @return
    */
-  public BackDeleteDTO next100Search(BackDeleteDTO dto, int pageNo) throws Exception;
+  public BackDeleteDTO next100Search(BackDeleteDTO dto, int pageNo, String Key) throws Exception;
   
   /**
    * 削除入力チェック処理

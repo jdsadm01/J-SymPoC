@@ -10,5 +10,7 @@ public interface ChuzanMapper {
 
   int selectCount(ChuzanEntity entity);
 
+  int selectTotalchzSur(ChuzanEntity entity);
+
   void update(ChuzanEntity entity);
 }

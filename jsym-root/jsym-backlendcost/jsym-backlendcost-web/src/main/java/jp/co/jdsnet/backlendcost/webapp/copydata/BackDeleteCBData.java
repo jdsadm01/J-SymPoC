@@ -48,6 +48,14 @@ public class BackDeleteCBData extends CommonClipboardData<BackDeleteForm> {
    * */
   private void editDetail(BackDeleteForm form) {
 
+    form.getDetailList().forEach(t -> {
+      addln(createStringSet(
+          new String[] {toText(t.getNo()), toText(t.getSkocod()), toText(t.getKigbng()),
+              toDigit(t.getChzsur()), toText(t.getHbidte()), toText(t.getChzdeldte()),
+              toText(t.getUrisyytencod()), toText(t.getTokcod()), toText(t.getDscod()),
+              toText(t.getToknm()), toText(t.getJucdte()), toText(t.getChzdeldte())}));
+    });
+
   }
 
 }

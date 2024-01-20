@@ -24,16 +24,16 @@ public class ChuzanEntity extends GeneratedChuzanEntity {
   private int no = 0;
 
   @Builder.Default
-  private String jucdtefrom = "";
+  private int jucdtefrom = 0;
 
   @Builder.Default
-  private String jucdteto = "";
+  private int jucdteto = 0;
 
   @Builder.Default
-  private String hbidtefrom = "";
+  private int hbidtefrom = 0;
 
   @Builder.Default
-  private String hbidteto = "";
+  private int hbidteto = 0;
 
   @Builder.Default
   private String usrDaikaiskbcod = "";

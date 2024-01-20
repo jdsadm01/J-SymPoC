@@ -1,196 +1,297 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" class="h-100"
+    th:replace="~{template :: layout(title=#{title.backdelete},title_icon='pencil-square'
+    				,scripts=~{::script},links=~{::link},body=~{::body/content()})}">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>注残一括削除</title>
+<link rel="stylesheet" th:href="@{/css/BackDelete.css}">
+	<script type="text/javascript" th:src="@{/js/BackDelete.js}"></script>
 </head>
+
 <body>
 	<main>
-		<form action="@{/backdelete}" th:object="${backDeleteForm}" th:method="post">
+		<form th:action="@{/backdelete}" th:object="${backDeleteForm}" th:method="post">
 			<div class="container">
-				<!-- 一行目-->
+					<!-- 一行目-->
 				<div class="d-flex flex-row">
-					<div>
+					<div class="flex-col col-lg-2">
 						<label for="会社" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{kaiskbcod}"></label>	
-						<input class="form-control p-1 text-uppercase" id="kaiskbcod" type="text" th:field="*{kaiskbcod}" placeholder="会社" maxlength="3" aria-label="会社">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="kaiskbcod" type="text" th:field="*{kaiskbcod}" placeholder="会社" maxlength="3" aria-label="会社">
 					</div>
-					<div>
-						<label for="M分類" th:text="#{mkrbuncod}"></label>
-						<input class="form-control p-1 text-uppercase" id="mkrbuncod" type="text" th:field="*{mkrbuncod}" placeholder="M分類" maxlength="1" aria-label="M分類">
+					<div class="flex-col col-lg-2">
+						<label for="M分類" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{mkrbuncod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="mkrbuncod" type="text" th:field="*{mkrbuncod}" placeholder="M分類" maxlength="1" aria-label="M分類">
 					</div>
-					<div>
-						<label for="倉庫" th:text="#{skocod}"></label>
-						<input class="form-control p-1 text-uppercase" id="skocod" type="text" th:field="*{skocod}" placeholder="倉庫" maxlength="3" aria-label="倉庫">
+					<div class="flex-col col-lg-2">
+						<label for="倉庫" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{skocod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="skocod" type="text" th:field="*{skocod}" placeholder="倉庫" maxlength="3" aria-label="倉庫">
 					</div>
-					<div  class="flex-col col-auto">
+					<div class="flex-col col-lg-4">
 						<label for="記号番号"  class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{kigbng}"></label>
-						<input class="form-control p-1 text-uppercase" id="kigbng" type="text" th:field="*{kigbng}" placeholder="記号番号" maxlength="13" aria-label="記号番号">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="kigbng" type="text" th:field="*{kigbng}" placeholder="記号番号" maxlength="13" aria-label="記号番号">
 					</div>
 					
-					<div th:each="item : ${radioTokcod}" class="form-check-inline"> 
-						<!-- 得意先ラジオボタン-->
-						<input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.key}" th:field="*{tokcod}">
+					<div th:each="label : ${radioTokcod}" class="form-check-inline">
+                        <input type="radio"  class="form-check-input" th:text="${label.value}" th:value="${label.key}" th:field="*{tokkbn}">
+                    </div>
+
+					<div class="flex-col col-lg-2">
 						<!-- 得意先ラベル-->
-						<label for="得意先" th:text="#{tokcod}"></label>
-						<input class="form-control p-1 text-uppercase" id="tokcod" type="text" th:field="*{tokcod}" placeholder="得意先" maxlength="8" aria-label="得意先">
+						<label for="得意先" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{tokcod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="tokcod" type="text" th:field="*{tokcod}" placeholder="得意先" maxlength="8" aria-label="得意先">
 					</div>
-					<div>
-						<label for="ＤＳ" th:text="#{dscod}"></label>
-						<input class="form-control p-1 text-uppercase" id="dscod" type="text" th:field="*{dscod}" placeholder="ＤＳ" maxlength="3" aria-label="ＤＳ">
+
+					<div class="flex-col col-lg-2">
+						<label for="ＤＳ" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{dscod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="dscod" type="text" th:field="*{dscod}" placeholder="ＤＳ" maxlength="3" aria-label="ＤＳ">
 					</div>
-					<div>
-						<label for="営業所" th:text="#{eigcod}"></label>
-						<input class="form-control p-1 text-uppercase" id="eigcod" type="text" th:field="*{eigcod}" placeholder="営業所" maxlength="2" aria-label="営業所">
+					<div class="flex-col col-lg-2">
+						<label for="営業所" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{eigcod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="eigcod" type="text" th:field="*{eigcod}" placeholder="営業所" maxlength="2" aria-label="営業所">
 					</div>
-					<div>
-						<label for="テリトリー" th:text="#{tercod}"></label>
-						<input class="form-control p-1 text-uppercase" id="kigbng" type="text" th:field="*{kigbng}" placeholder="テリトリー" maxlength="4" aria-label="テリトリー">
+					<div class="flex-col col-lg-2">
+						<label for="テリトリー" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tercod}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="kigbng" type="text" th:field="*{tercod}" placeholder="テリトリー" maxlength="4" aria-label="テリトリー">
 					</div>
-					<div> 
+					<div class="flex-col col-lg-3"> 
 						<!-- 更新区分プルダウン-->
 						<label for="updkbn" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{updkbn}"></label>
-						<select name="updkbn" class="form-select" aria-label="更新区分">
-							<option th:each="label : *{updkbn}" th:value="${label.value}"  th:text="${label.text}"/>
+						<select name="updkbn" th:field="*{updkbn}" class="form-select" aria-label="更新区分" disabled>
+							<option th:each="label : *{updkbnList}" th:value="${label.value}" th:text="${label.text}"/>
 						</select>
 						<th:block th:each="label, st : *{updkbnList}">
 							<input type="hidden" th:field="*{updkbnList[__${st.index}__].value}">
 							<input type="hidden" th:field="*{updkbnList[__${st.index}__].text}">
 						</th:block>
 					</div>
+					
+					<div class="flex-col col-lg-3"> 
+						<!-- 更新区分-->
+						
+						<input hidden class="form-control p-1 text-uppercase bg-dark-subtle" id="updkbn" type="text" th:field="*{updkbn}" placeholder="更新区分" aria-label="更新区分">
+					</div>
+				
 				</div>
 				
 				<!-- 二行目-->
-				<div>
-					<div>
-						<label for="受注日" th:text="#{jucdtefrom}"></label>
+				<div class="d-flex flex-row">
+					<div class="flex-col col-lg-3">
+						<label for="受注日" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{jucdtefrom}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="jucdtefrom" type="text" th:field="*{jucdtefrom}" placeholder="受注日FROM" maxlength="6" aria-label="受注日">
 					</div>
-					<div>
-						<label for="受注日" th:text="#{jucdteto}"></label>
+					<div class="flex-col col-lg-1">
+						<label>～</label>
+						<p>～</p>
 					</div>
-					<div>
-						<label for="発売日"　th:text="#{hbidtefrom}"></label>
+					<div class="flex-col col-lg-3">
+						<label for="受注日" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{jucdteto}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="jucdteto" type="text" th:field="*{jucdteto}" placeholder="受注日TO" maxlength="6" aria-label="受注日">
 					</div>
-					<div>
-						<label for="発売日"　th:text="#{hbidteto}"></label>
+					<div class="flex-col col-lg-3">
+						<label for="発売日" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{hbidtefrom}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="hbidtefrom" type="text" th:field="*{hbidtefrom}" placeholder="発売日FROM" maxlength="6" aria-label="発売日">
 					</div>
+					<div class="flex-col col-lg-1">
+						<label>～</label>
+						<p>～</p>
+					</div>
+					<div class="flex-col col-lg-3">
+						<label for="発売日" class="form-label px-1 border-start border-primary border-5 fw-bolder"　th:text="#{hbidteto}"></label>
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="hbidteto" type="text" th:field="*{hbidteto}" placeholder="発売日TO" maxlength="6" aria-label="発売日">
+					</div>
+					<div class="flex-col col-lg-1">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyPrev" type="text" th:field="*{pageKeyPrev}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyPrev" type="text" th:field="*{pageKeyNow}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+						<input readonly class="form-control p-1 text-uppercase bg-dark-subtle" id="pageKeyNext" type="text" th:field="*{pageKeyNext}" placeholder="ページキー" maxlength="99" aria-label="ページキー">
+					</div>
+					
 				</div>
 				
 				<!-- 三行目　（ボタンエリア)-->
-				<div>
+				<div class="d-flex flex-row">
 					<div>
 						<button class="btn btn-outline-secondary" type="chkInputDeleteData" name="btn_confirm">入力確定</button>
 					</div>
-					<div>
-						<button class="btn btn-outline-secondary" type="prev100search" name="btn_prev100search">前100件</button>
-					</div>
-					<div>
-						<button class="btn btn-outline-secondary" type="next100search" name="btn_next100search">次100件</button>
-					</div>
+					<th:block th:if="*{prevFlg}">
+						<div>
+							<button class="btn btn-outline-secondary" type="prev100search" name="btn_prev100search">前100件</button>
+						</div>
+					</th:block>
+
+					<th:block th:if="*{nextFlg}">
+						<div>
+							<button class="btn btn-outline-secondary" type="next100search" name="btn_next100search">次100件</button>
+						</div>
+					</th:block>
 					<div>
 						<button class="btn btn-outline-secondary" type="back" name="btn_back">戻る</button>
 					</div>
 				</div>
 				
-				<!-- 四行目　(情報表示エリア)-->
+				<!-- 四行目　(エラーメッセージエリア)-->
 				<div>
-					<th:block th:if="*{kigbng !=''}">
-					<div>
-						<label for="タイトル" th:text="#{titnm}"></label>
-						<input type="hidden" class="form-control p-1" th:field="*{titnm}">
-					</div>
-					<div>
-						<label for="アーティスト" th:text="#{artnm}"></label>
-						<input type="hidden" class="form-control p-1" th:field="*{artnm}">
-					</div>
-					</th:block>
-					<th:block th:if="*{tokcod !=''}">
-					<div>
-						<label for="得意先名" th:text="#{toknm}"></label>
-						<input type="hidden" class="form-control p-1" th:field="*{toknm}">
-					</div>
-					<div>
-						<label for="DS名" th:text="#{dsnm}"></label>
-						<input type="hidden" class="form-control p-1" th:field="*{dsnm}">
-					</div>
-					</th:block>
+					<ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
+				    	<li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
+					</ul>
+					<th:block th:text="${errors}"></th:block>
+
 				</div>
 			</div>
-			
-			<!-- 明細 -->
-			<div class="countiner">
-			<div class="d-flex flex-row">
-					
-				<div>
-					<label for="件数" th:text="#{chzCnt}"></label>
-					<span th:text="*{chzCnt}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
-				</div>
-				<div>
-					<label for="注残数合計" th:text="#{chzsurTotal}"></label>
-					<span th:text="*{chzsurTotal}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
-				</div>
+			<div class="container">
+				<!-- 明細　(情報表示エリア)-->
+				<!-- 五行目　(情報表示エリア)-->
+				<th:block th:if="${kigbng !=null}" class="container pt-1">			
+					<div class="d-flex flex-row">		
+						<div class="flex-col col-auto">
+							<label for="タイトル" th:text="#{titnm}"></label>
+							<span th:text="*{titnm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+						</div>
+						<div class="flex-col col-auto">
+							<label for="アーティスト" th:text="#{artnm}"></label>
+							<span th:text="*{artnm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+						</div>
+					</div>
+				</th:block>
+				<th:block th:if="${tokcod !=null}" class="container pt-1">
+					<div class="d-flex flex-row">
+						<div class="flex-col col-auto">
+							<label for="得意先名" th:text="#{toknm}"></label>
+							<span th:text="*{toknm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+						</div>
+						<div class="flex-col col-auto">
+							<label for="DS名" th:text="#{dsnm}"></label>
+							<span th:text="*{dsnm}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+						</div>
+					</div>
+				</th:block>
+
 			</div>
 			
 			<div class="container">
-				<table id="mytable">
-					<thead>
+				<div class="d-flex flex-row">
+					
+				<div>
+					<label for="件数" th:text="#{chzCnt}"></label>
+					<input hidden id="chzCnt" type="text" th:field="*{chzCnt}" >
+					<span th:text="*{chzCnt}" th:field="*{chzCnt}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+				</div>
+				<div>
+					<label for="注残数合計" th:text="#{chzsurTotal}"></label>
+					<input hidden id="chzsurTotal" type="text" th:field="*{chzsurTotal}" >
+					<span th:text="*{chzsurTotal}" class="form-control p-1 bg-primary text-light bg-opacity-75"/>
+				</div>
+				<div>
+						<label for="一括削除" th:text="#{allDeletechk}"></label>
+						<label class="my-checkbox"><input type="checkbox">
+						<span class="checkmark"></span>
+						<input type="checkbox" name="allDeletechk" th:checked="*{allDeletechk}" />
+						</label>
+						
+					</div>
+					
+				</div>
+
+			</div>
+			<div class="container">
+				<table id="mytable" class="table table-striped table-hover table-bordered">
+					<thead class="bg-primary text-light row-cols-auto bg-opacity-75">
 						<tr class="text-center align-middle">
-							<th th:text="#{no}"></th>
-							<th th:text="#{skocod}"></th>
-							<th th:text="#{kigbng}"></th>
-							<th th:text="#{chzsur}"></th>
-							<th th:text="#{hbidte}"></th>
-							<th th:text="#{chzdte}"></th>
-							<th th:text="#{urisyytencod}"></th>
-							<th th:text="#{tokcod}"></th>
-							<th th:text="#{dscod}"></th>
-							<th th:text="#{toknm}"></th>
-							<th th:text="#{jucdte}"></th>
-							<th th:text="#{usnjndte}"></th>
-							<th th:text="#{delchk}"></th>
+							<th class="p-1" th:text="#{no}"></th>
+							<th class="p-1" th:text="#{skocod}"></th>
+							<th class="p-1" th:text="#{kigbng}"></th>
+							<th class="p-1" th:text="#{chzsur}"></th>
+							<th class="p-1" th:text="#{hbidte}"></th>
+							<th class="p-1" th:text="#{chzdte}"></th>
+							<th class="p-1" th:text="#{urisyytencod}"></th>
+							<th class="p-1" th:text="#{tokcod}"></th>
+							<th class="p-1" th:text="#{dscod}"></th>
+							<th class="p-1" th:text="#{toknm}"></th>
+							<th class="p-1" th:text="#{jucdte}"></th>
+							<th class="p-1" th:text="#{usnjndte}"></th>
+							<th class="p-1" th:text="#{delchk}"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<th:block th:each="detail, st :*{detailList}">
-							<td th:text="#{no}"><span th:text="${st.count}"/></td>
-							<td th:text="#{skocod}">
+							<tr>
+							<td>
+								<span th:text="${detail.no}"/>
+							</td>
+							<td>
+								<span th:text="${detail.skocod}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].skocod}">
 							</td>
-							<td th:text="#{kigbng}">
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].kigbng}">
+							<td>
+								<span th:text="${detail.hjihnb}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hjihnb}">
 							</td>
-							<td th:text="#{chzsur}">
+							<td>
+								<span th:text="${detail.chzsur}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzsur}">
 							</td>
-							<td th:text="#{hbidte}">
+							<td>
+								<span th:text="${#temporals.format(detail.getDateField('hbidte'), 'yy/MM/dd')}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].hbidte}">
 							</td>
-							<td th:text="#{chzdte}">
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzdte}">
+							<td>
+								<span th:text="${#temporals.format(detail.getDateField('chzdeldte'), 'yy/MM/dd')}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzdeldte}">
 							</td>
-							<td th:text="#{urisyytencod}">
+							<td>
+								<span th:text="${detail.urisyytencod}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].urisyytencod}">
 							</td>
-							<td th:text="#{tokcod}">
+							<td>
+								<span th:text="${detail.tokcod}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].tokcod}">
 							</td>
-							<td th:text="#{dscod}">
+							<td>
+								<span th:text="${detail.dscod}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].dscod}">
 							</td>
-							<td th:text="#{toknm}">
+							<td class="hov">
+								<span th:text="${detail.toknm}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].toknm}">
+								<span class="fullsize" th:text="${detail.toknm}"></span>
 							</td>
-							<td th:text="#{jucdte}">
+							<td>
+								<span th:text="${#temporals.format(detail.getDateField('jucdte'), 'yy/MM/dd')}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].jucdte}">
 							</td>
-							<td th:text="#{usnjndte}">
+							<td>
+								<span th:text="${#temporals.format(detail.getDateField('usnjndte'), 'yy/MM/dd')}"></span>
 								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].usnjndte}">
+								<span th:text="${detail.chzdelKbn}"></span>
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].chzdelKbn}">
 							</td>
-							<td th:checkbox="#{delchk}">
-								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].delchk}">
+							<td>
+								
+								<span th:text="${detail.deletechk}"></span>
+								<input type="text" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].deletechk}" maxlength="1">
+								<!--
+								<label for="" th:text="${detail.deletechk}">
+								
+
+								<span th:text="${detail.deletechk}"></span>
+								<label class="my-checkbox"><input type="checkbox">
+								<span class="checkmark"></span>
+								<input type="checkbox" name="deletechk" th:value="1" th:field="*{detailList[__${st.index}__].deletechk == 1}">
+
+
+
+								<input type="checkbox" name="deletechk" th:value="1" th:field="*{detailList[__${st.index}__].deletechk}">
+								<input type="hidden" name="_deletechk" th:value="1">
+								
+								<input type="checkbox" name="deletechk" th:value="${position.key}" th:checked="${#lists.contains(actives, position.key)}" />
+    							<th:block th:text="${position.value}"></th:block>
+    							
+								</label>
+								-->
 							</td>
+
+							</tr>
 						</th:block>
 					</tbody>
-				</table>
+				</table>			
 			</div>
 		</form>
 	</main>

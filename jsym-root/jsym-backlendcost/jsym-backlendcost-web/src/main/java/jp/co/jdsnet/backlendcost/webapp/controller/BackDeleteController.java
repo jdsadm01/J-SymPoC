@@ -57,6 +57,7 @@ public class BackDeleteController extends CommonOperationController {
     // 画面遷移 フォーカス
     return TEMPLATE_HEADER;
 
+
   }
 
   /**
@@ -90,6 +91,7 @@ public class BackDeleteController extends CommonOperationController {
 
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("radioTokcod", form.getRadioTokcod());
+        model.addAttribute("deleteCheckBoxes", form.getCheckBoxDelete());
         model.addAttribute("backDeleteForm", form);
 
       } catch (Exception e) {
@@ -116,6 +118,8 @@ public class BackDeleteController extends CommonOperationController {
   public String prev100search(@Validated @ModelAttribute BackDeleteForm requestForm,
       BindingResult result, Model model) throws Exception {
 
+
+
     if (result.hasErrors()) {
       // エラーの場合
       return TEMPLATE_HEADER;
@@ -124,12 +128,39 @@ public class BackDeleteController extends CommonOperationController {
 
         int pageNo = requestForm.getPageNo() - 1;
 
+        switch (pageNo) {
+
+          case 0:
+            requestForm.setPageKeyPrev("");
+            requestForm.setPageKeyNow("");
+            break;
+          case 1:
+            requestForm.setPageKeyNow(requestForm.getPageKeyPrev());
+            requestForm.setPageKeyPrev("");
+
+            break;
+
+          default:
+            requestForm.setPageKeyNext(requestForm.getPageKeyNow());
+            requestForm.setPageKeyNow(requestForm.getPageKeyPrev());
+            break;
+        }
+
         // 正常終了の場合
-        BackDeleteForm form = service.prev100Search(requestForm.toDTO(getUserInfo()), pageNo)
+        BackDeleteForm form = service
+            .prev100Search(requestForm.toDTO(getUserInfo()), pageNo, requestForm.getPageKeyNow())
             .transform(BackDeleteForm::toForm);
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("radioTokcod", form.getRadioTokcod());
         model.addAttribute("backDeleteForm", form);
+
+        if (SEARCH.equals(form.getUpdkbn())) {
+          // 画面遷移 フォーカス(処理区分：照会)
+          return TEMPLATE_DETAIL;
+        } else {
+          // 画面遷移 フォーカス(処理区分：削除)
+          return TEMPLATE_DATAENTRY;
+        }
 
       } catch (Exception e) {
         model.addAttribute("errors", e.getMessage());
@@ -138,13 +169,7 @@ public class BackDeleteController extends CommonOperationController {
 
     }
 
-    if (SEARCH.equals(requestForm.getUpdkbn())) {
-      // 画面遷移 フォーカス(処理区分：照会)
-      return TEMPLATE_DETAIL;
-    } else {
-      // 画面遷移 フォーカス(処理区分：削除)
-      return TEMPLATE_DATAENTRY;
-    }
+
   }
 
 
@@ -158,10 +183,24 @@ public class BackDeleteController extends CommonOperationController {
     } else {
       try {
 
+
         int pageNo = requestForm.getPageNo() + 1;
+        switch (pageNo) {
+
+          case 1:
+            requestForm.setPageKeyNow(requestForm.getPageKeyNext());
+            break;
+
+          default:
+            requestForm.setPageKeyPrev(requestForm.getPageKeyNow());
+            requestForm.setPageKeyNow(requestForm.getPageKeyNext());
+            break;
+        }
+
 
         // 正常終了の場合
-        BackDeleteForm form = service.next100Search(requestForm.toDTO(getUserInfo()), pageNo)
+        BackDeleteForm form = service
+            .next100Search(requestForm.toDTO(getUserInfo()), pageNo, requestForm.getPageKeyNow())
             .transform(BackDeleteForm::toForm);
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("radioTokcod", form.getRadioTokcod());
@@ -188,9 +227,15 @@ public class BackDeleteController extends CommonOperationController {
       BindingResult result,
       Model model) throws Exception {
     // 削除チェック処理(入力確定)
+    try {
+      service.chkInputDeleteData(requestForm.toDTO(getUserInfo()));
+    } catch (Exception e) {
+      model.addAttribute("errors", e.getMessage());
+      return TEMPLATE_DATAENTRY;
+    }
 
     // 画面遷移 フォーカス
-    return TEMPLATE_DATAENTRY;
+    return TEMPLATE_SUBMIT;
   }
 
   @RequestMapping(params = "btn_submit", method = POST)
