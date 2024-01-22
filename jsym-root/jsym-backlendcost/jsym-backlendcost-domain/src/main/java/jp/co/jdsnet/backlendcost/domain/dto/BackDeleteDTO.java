@@ -62,6 +62,7 @@ public class BackDeleteDTO extends AbstractDTO {
   private int pageNo;
   private boolean prevFlg;
   private boolean nextFlg;
+  private String nextGamenMode;
 
 
   private Map<String, String> radioTokcod;

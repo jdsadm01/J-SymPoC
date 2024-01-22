@@ -39,7 +39,7 @@
 					</div>
 
 					<div th:each="label : ${radioTokcod}" class="form-check-inline">
-						<input type="radio" class="form-check-input" th:text="${label.value}" th:value="${label.key}"
+						<input type="radio" name="tokkbn" style="pointer-events:none;" class="form-check-input" th:text="${label.value}" th:value="${label.key}"
 							th:field="*{tokkbn}">
 					</div>
 
@@ -238,7 +238,8 @@
 						<th:block th:each="detail, st :*{detailList}">
 							<tr>
 								<td>
-									<span th:text="${detail.no}" />
+									<span th:text="${detail.no}"/>
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].no}">
 								</td>
 								<td>
 									<span th:text="${detail.skocod}"></span>
@@ -308,7 +309,7 @@
 					</tbody>
 				</table>
 				<!-- DBCOPY -->
-				<div th:replace="copydata :: copy(${BackDeleteForm})"></div>
+				<div th:replace="copydata :: copy(${backDeleteForm})"></div>
 			</div>
 		</form>
 	</main>

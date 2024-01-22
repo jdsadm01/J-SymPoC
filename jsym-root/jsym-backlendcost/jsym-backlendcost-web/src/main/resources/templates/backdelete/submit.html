@@ -39,7 +39,7 @@
 					</div>
 
 					<div th:each="label : ${radioTokcod}" class="form-check-inline">
-						<input type="radio" class="form-check-input" th:text="${label.value}" th:value="${label.key}"
+						<input type="radio" name="tokkbn" style="pointer-events:none;" class="form-check-input" th:text="${label.value}" th:value="${label.key}"
 							th:field="*{tokkbn}">
 					</div>
 
@@ -205,15 +205,10 @@
 					</div>
 					<div>
 						<label for="一括削除" th:text="#{allDeletechk}"></label>
-						<label class="my-checkbox"><input type="checkbox">
-							<span class="checkmark"></span>
-							<input type="checkbox" name="allDeletechk" th:checked="*{allDeletechk}" />
+							<input type="checkbox" style="opacity: 1;pointer-events:none;" name="allDeletechk" th:value="1" th:field="*{allDeletechk}">
 						</label>
-
 					</div>
-
 				</div>
-
 			</div>
 			<div class="container">
 				<table id="mytable" class="table table-striped table-hover table-bordered">
@@ -231,15 +226,24 @@
 							<th class="p-1" th:text="#{toknm}"></th>
 							<th class="p-1" th:text="#{jucdte}"></th>
 							<th class="p-1" th:text="#{usnjndte}"></th>
-							<th class="p-1" th:text="#{delchk}"></th>
+							<th class="p-1" th:text="#{deletechk}"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<th:block th:each="detail, st :*{detailList}">
 							<tr>
-								<td>
-									<span th:text="${detail.no}" />
+								<th:block th:if="*{detailList[__${st.index}__].deletechk == '1'}">
+									<td style="background: #FF0000">
+									<span  th:text="${detail.no}"/>
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].no}">
 								</td>
+								</th:block>
+								<th:block th:unless="*{detailList[__${st.index}__].deletechk == '1'}">
+									<td>
+									<span th:text="${detail.no}" />
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].no}">
+								</td>
+								</th:block>
 								<td>
 									<span th:text="${detail.skocod}"></span>
 									<input type="hidden" class="form-control p-1 text-uppercase"
@@ -304,29 +308,7 @@
 										th:field="*{detailList[__${st.index}__].chzdelKbn}">
 								</td>
 								<td>
-
-									<span th:text="${detail.deletechk}"></span>
-									<input type="text" class="form-control p-1 text-uppercase"
-										th:field="*{detailList[__${st.index}__].deletechk}" maxlength="1">
-									<!--
-								<label for="" th:text="${detail.deletechk}">
-								
-
-								<span th:text="${detail.deletechk}"></span>
-								<label class="my-checkbox"><input type="checkbox">
-								<span class="checkmark"></span>
-								<input type="checkbox" name="deletechk" th:value="1" th:field="*{detailList[__${st.index}__].deletechk == 1}">
-
-
-
-								<input type="checkbox" name="deletechk" th:value="1" th:field="*{detailList[__${st.index}__].deletechk}">
-								<input type="hidden" name="_deletechk" th:value="1">
-								
-								<input type="checkbox" name="deletechk" th:value="${position.key}" th:checked="${#lists.contains(actives, position.key)}" />
-    							<th:block th:text="${position.value}"></th:block>
-    							
-								</label>
-								-->
+									<input readonly type="checkbox" style="opacity: 1; pointer-events:none;" name="deletechk" th:value="1" th:field="*{detailList[__${st.index}__].deletechk}">
 								</td>
 
 							</tr>

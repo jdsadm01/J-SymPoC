@@ -40,20 +40,17 @@
 			 <if test="kigbng != ''">
 				and AERORD12.KIGBNG = #{hjihnb}
 			 </if>
-			  and AEPROD01.KAISKBCOD = #{kaiskbcod}  <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
-			 <!--
 			 <choose>
-				 <when test="tokcod != '' and radioTokcod == 'tandokuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
+				 <when test="tokcod != '' and tokkbn == '1' ">
+					 AERORD12.TOKCOD = #{tokcod}  
 				 </when>
-				 <when test="tokcod != '' and radioTokcod == 'shuyakuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
+				 <when test="tokcod != '' and tokkbn == '2' ">
+					 AECUST03.TOKCOD = #{tokcod} 
 				 </when>
 				 <otherwise>
-					  処理なし 
+
 				 </otherwise>
 			 </choose>
-			  -->
 			 <if test="dscod != ''">
 				and AERORD12.DSCOD = #{dscod}
 			 </if>
@@ -113,20 +110,18 @@
 			 <if test="kigbng != ''">
 				and AERORD12.KIGBNG = #{hjihnb}
 			 </if>
-			  and AEPROD01.KAISKBCOD = #{kaiskbcod}  <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
-			 <!--
 			 <choose>
-				 <when test="tokcod != '' and radioTokcod == 'tandokuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
+				 <when  test="tokcod != '' and tokkbn == '1' ">
+					 AERORD12.TOKCOD = #{tokcod}  
 				 </when>
-				 <when test="tokcod != '' and radioTokcod == 'shuyakuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
+				 <when test="tokcod != '' and tokkbn == '2' ">
+					 AECUST03.TOKCOD = #{tokcod} 
 				 </when>
 				 <otherwise>
-					  処理なし 
+
 				 </otherwise>
 			 </choose>
-			  -->
+
 			 <if test="dscod != ''">
 				and AERORD12.DSCOD = #{dscod}
 			 </if>
@@ -186,20 +181,18 @@
 			 <if test="kigbng != ''">
 				and AERORD12.KIGBNG = #{hjihnb}
 			 </if>
-			  and AEPROD01.KAISKBCOD = #{kaiskbcod}  <!-- ※AEPROD01との結合条件が仕様書に書いてない -->
-			 <!--
+			 
 			 <choose>
-				 <when test="tokcod != '' and radioTokcod == 'tandokuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
+				 <when test="tokcod != '' and tokkbn == '1' ">
+					 AERORD12.TOKCOD = #{tokcod}  
 				 </when>
-				 <when test="tokcod != '' and radioTokcod == 'shuyakuten' ">
-					 AEPROD01.KAISKBCOD = #{kaiskbcod}  ※AEPROD01との結合条件が仕様書に書いてない 
+				 <when test="tokcod != '' and tokkbn == '2' ">
+					 AECUST03.TOKCOD = #{tokcod} 
 				 </when>
 				 <otherwise>
-					  処理なし 
+
 				 </otherwise>
 			 </choose>
-			  -->
 			 <if test="dscod != ''">
 				and AERORD12.DSCOD = #{dscod}
 			 </if>

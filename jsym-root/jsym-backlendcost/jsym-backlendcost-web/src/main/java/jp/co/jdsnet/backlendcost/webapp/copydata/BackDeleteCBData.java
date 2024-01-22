@@ -2,6 +2,7 @@ package jp.co.jdsnet.backlendcost.webapp.copydata;
 
 import jp.co.jdsnet.backlendcost.webapp.form.BackDeleteForm;
 import jp.co.jdsnet.base.webapp.parts.CommonClipboardData;
+import jp.co.jdsnet.common.utils.FormatUtility;
 
 public class BackDeleteCBData extends CommonClipboardData<BackDeleteForm> {
 
@@ -51,9 +52,11 @@ public class BackDeleteCBData extends CommonClipboardData<BackDeleteForm> {
     form.getDetailList().forEach(t -> {
       addln(createStringSet(
           new String[] {toText(t.getNo()), toText(t.getSkocod()), toText(t.getKigbng()),
-              toDigit(t.getChzsur()), toText(t.getHbidte()), toText(t.getChzdeldte()),
+              toDigit(t.getChzsur()), toDate(FormatUtility.convertYYYYMMDD(t.getHbidte())),
+              toDate(FormatUtility.convertYYYYMMDD(t.getChzdeldte())),
               toText(t.getUrisyytencod()), toText(t.getTokcod()), toText(t.getDscod()),
-              toText(t.getToknm()), toText(t.getJucdte()), toText(t.getChzdeldte())}));
+              toText(t.getToknm()), toDate(FormatUtility.convertYYYYMMDD(t.getJucdte())),
+              toDate(FormatUtility.convertYYYYMMDD(t.getChzdeldte()))}));
     });
 
   }

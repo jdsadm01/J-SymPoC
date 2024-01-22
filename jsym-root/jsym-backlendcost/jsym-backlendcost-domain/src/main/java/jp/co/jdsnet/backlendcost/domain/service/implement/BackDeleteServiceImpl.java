@@ -248,7 +248,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         .mkrbuncod(dto.getMkrbuncod().toUpperCase()).kigbng(dto.getKigbng())
         .tokcod(dto.getTokcod()).dscod(dto.getDscod()).eigcod(dto.getEigcod())
         .tercod(dto.getTercod()).jucdtefrom(jucdtefrom).jucdteto(jucdteto).hbidtefrom(hbidtefrom)
-        .hbidteto(hbidteto)
+        .hbidteto(hbidteto).tokkbn(dto.getTokkbn())
         .usrDaikaiskbcod(dto.getUserInfo().getDaikaiskbcod())
         .usrKaiskbcod(dto.getUserInfo().getKaiskbcod()).build();
     // 1.注残データの"件数"を取得する
@@ -426,21 +426,49 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     // 削除対象存在チェック
     boolean endflg = false;
-    // 表示されている明細のチェックボックスを全部確認する
-    List<BackDeleteDetailDTO> detailDTO = dto.getDetailList();
+    boolean updflg = false;
 
+    boolean prevflg = false; // 前100件ボタン表示
+    boolean nextflg = false; // 次100件ボタン表示
 
-    if (endflg) {
+    // 削除チェック個数
+    // ※ここの都合でlong型
+    long delcnt = dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk())).count();
+    // 注残数サマリ
+    long chzsurTotal = 0;
+
+    // 一括削除にチェックされている場合は更新あり、明細行すべてにチェックをいれる
+    if (FLG_ON.equals(dto.getAllDeletechk())) {
+      delcnt = 1; // とりあえず1
+    }
+
+    if (0 != delcnt) {
+
+      if (0 != pageNo - 1) {
+        prevflg = true;
+      }
+      if (0 < dto.getChzCnt() - (pageNo) * 100) {
+        nextflg = true;
+      }
+
+      // チェックされている明細があるので次のページに進めません
       return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
           .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
           .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
           .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
           .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto()).titnm(dto.getTitnm())
           .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm()).chzCnt(dto.getChzCnt())
-          .chzsurTotal(dto.getChzsurTotal()).prevFlg(dto.isPrevFlg()).nextFlg(dto.isNextFlg())
+          .chzsurTotal(dto.getChzsurTotal()).prevFlg(prevflg).nextFlg(nextflg)
+          .allDeletechk(dto.getAllDeletechk())
           .updkbnList(createUpdkbnList()).radioTokcod(initRadioTokcod())
           .detailList(dto.getDetailList()).detailBottomList(dto.getDetailBottomList())
-          .checkBoxDelete(getCheckBoxDelete(1)).build();
+          .build();
+    }
+
+
+
+    if (endflg) {
+
     }
 
     // 以下検索処理と同じ
@@ -449,8 +477,6 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     // 注残データ取得※別メソッド
     newdto = getChuzanData(dto, pageNo, key);
 
-    boolean prevflg = false; // 前100件ボタン表示
-    boolean nextflg = false; // 次100件ボタン表示
 
     if (0 != pageNo) {
       prevflg = true;
@@ -504,7 +530,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     if(0 == delcnt) {
       //処理に該当するデータが存在しません。
-      return dto.toBuilder().build();
+      return dto.toBuilder().nextGamenMode("").radioTokcod(initRadioTokcod()).build();
     }
 
     // ▼▼▼▼▼▼▼▼強引にintにキャスト
@@ -514,7 +540,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         .tercod(dto.getTercod()).updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom())
         .jucdteto(dto.getJucdteto()).hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidtefrom())
         .titnm(dto.getTitnm()).artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm())
-        .detailList(dto.getDetailList()).updkbnList(createUpdkbnList())
+        .detailList(dto.getDetailList()).updkbnList(createUpdkbnList()).nextGamenMode("submit")
         .radioTokcod(initRadioTokcod()).pageKeyPrev(dto.getPageKeyPrev())
         .pageKeyNow(dto.getPageKeyNow()).pageKeyNext(dto.getPageKeyNext())
         .detailBottomList(dto.getDetailBottomList())

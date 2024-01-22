@@ -52,6 +52,10 @@ public class ChuzanEntity extends GeneratedChuzanEntity {
   @Builder.Default
   private String pageKey = "";
 
+  @Builder.Default
+  private String tokkbn = "";
+
+
 
   // 品番
   /** タイトル */

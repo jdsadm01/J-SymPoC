@@ -104,11 +104,11 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
   private String toknm;
   private String dsnm;
 
-  private int chzCnt;
-  private int chzsurTotal;
+  private int chzCnt; // 注残数
+  private int chzsurTotal; // 注残合計数
 
-  @Pattern(regexp = "true")
-  private String allDeletechk;
+  @Pattern(regexp = "1")
+  private String allDeletechk; // 一括削除
 
   // public String getallDeletechk() {
   // return allDeletechk;
@@ -119,27 +119,29 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
   //
 
   @Valid
-  private List<BackDeleteDetailForm> detailList;
+  private List<BackDeleteDetailForm> detailList; // 明細リスト
 
-  private List<String> detailBottomList;
+  private List<String> detailBottomList; // 明細最後リスト※※※未使用
 
   private List<LabelData> tokkbnList; // 得意先区分ラジオボタン用
   private List<LabelData> updkbnList; // 処理区分
-  private List<BackDeleteDetailForm> deleteList; // 削除チェックがされている明細
+  private List<BackDeleteDetailForm> deleteList; // 削除チェックがされている明細を取得する
 
+  // 前次100件で使用するキー
   private String pageKeyPrev;
   private String pageKeyNow;
   private String pageKeyNext;
-  private int pageNo;
+
+  private int pageNo; // 現在のページNo(0スタート)
+
   private boolean prevFlg;
   private boolean nextFlg;
-  private boolean delchk;
 
   private Map<String, String> radioTokcod;
   private String tokkbn;
   private List<String> checkList;
 
-
+  private String nextGamenMode;
   private Map<Integer, String> checkBoxDelete;
   private HashMap<Integer, String> keyMap;
 
@@ -152,6 +154,7 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
         .dscod(this.dscod).eigcod(this.eigcod).tercod(this.tercod).updkbn(this.updkbn)
         .jucdtefrom(this.jucdtefrom).jucdteto(this.jucdteto).hbidtefrom(this.hbidtefrom)
         .hbidteto(this.hbidteto).titnm(this.titnm).artnm(this.artnm).toknm(this.toknm)
+        .tokkbn(this.tokkbn)
         .dsnm(this.dsnm).chzCnt(this.chzCnt).chzsurTotal(this.chzsurTotal)
         .allDeletechk(this.allDeletechk).detailBottomList(this.detailBottomList)
         .tokkbnList(this.tokkbnList).updkbnList(this.updkbnList).checkBoxDelete(this.checkBoxDelete)
@@ -161,6 +164,7 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
             .map(t -> t.toDTO()).collect(Collectors.toList()))
         .pageKeyPrev(this.pageKeyPrev).pageKeyNow(this.pageKeyNow).pageKeyNext(this.pageKeyNext)
         .pageNo(this.pageNo).prevFlg(this.prevFlg).nextFlg(this.nextFlg)
+        .nextGamenMode(this.nextGamenMode)
         .radioTokcod(this.radioTokcod).build();
   }
 
@@ -177,12 +181,14 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
         .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
         .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
         .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto()).titnm(dto.getTitnm())
-        .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm()).chzCnt(dto.getChzCnt())
+        .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm()).tokkbn(dto.getTokkbn())
+        .chzCnt(dto.getChzCnt())
         .chzsurTotal(dto.getChzsurTotal()).allDeletechk(dto.getAllDeletechk())
         .detailBottomList(dto.getDetailBottomList()).updkbnList(dto.getUpdkbnList())
         .tokkbnList(dto.getTokkbnList()).pageKeyPrev(dto.getPageKeyPrev())
         .pageKeyNow(dto.getPageKeyNow()).pageKeyNext(dto.getPageKeyNext()).pageNo(dto.getPageNo())
-        .prevFlg(dto.isPrevFlg()).nextFlg(dto.isNextFlg()).checkBoxDelete(dto.getCheckBoxDelete())
+        .prevFlg(dto.isPrevFlg()).nextFlg(dto.isNextFlg()).nextGamenMode(dto.getNextGamenMode())
+        .checkBoxDelete(dto.getCheckBoxDelete())
         .detailList(Optional.ofNullable(dto.getDetailList()).stream().flatMap(x -> x.stream())
             .map(t -> t.transform(BackDeleteDetailForm::toForm)).collect(Collectors.toList()))
         .deleteList(Optional.ofNullable(dto.getDeleteList()).stream().flatMap(x -> x.stream())

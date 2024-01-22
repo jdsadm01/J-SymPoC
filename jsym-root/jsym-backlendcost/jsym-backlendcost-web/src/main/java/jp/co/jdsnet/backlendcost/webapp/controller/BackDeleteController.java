@@ -227,12 +227,30 @@ public class BackDeleteController extends CommonOperationController {
       BindingResult result, Model model) throws Exception {
     // 削除チェック処理(入力確定)
     try {
-      service.chkInputDeleteData(requestForm.toDTO(getUserInfo()));
+      BackDeleteForm form = service.chkInputDeleteData(requestForm.toDTO(getUserInfo())).transform(BackDeleteForm::toForm);
+      model.addAttribute("radioTokcod", form.getRadioTokcod());
+      model.addAttribute("backDeleteForm", form);
+
+      if (!"submit".equals(form.getNextGamenMode())) {
+        // チェックに引っ掛かった場合entryを再表示する
+
+        switch (form.getNextGamenMode()) {
+          case "submit":
+            return TEMPLATE_SUBMIT;
+
+          default:
+            // エラーがあった場合送信処理画面に行かない
+            return TEMPLATE_DATAENTRY;
+
+        }
+
+      }
+
     } catch (Exception e) {
       model.addAttribute("errors", e.getMessage());
       return TEMPLATE_DATAENTRY;
     }
-
+    
     // 画面遷移 フォーカス
     return TEMPLATE_SUBMIT;
   }
@@ -244,6 +262,7 @@ public class BackDeleteController extends CommonOperationController {
 
     try {
       service.submit(requestForm.toDTO(getUserInfo()));
+
     } catch (Exception e) {
       model.addAttribute("errors", e.getMessage());
       return TEMPLATE_SUBMIT;
