@@ -91,6 +91,7 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
   public boolean isTextEmpty() {
     // ここに任意の相関チェックを実装
     if (StringUtils.isEmpty(mkrbuncod) && StringUtils.isEmpty(kigbng) && StringUtils.isEmpty(tokcod)
+        && StringUtils.isEmpty(eigcod)
         && StringUtils.isEmpty(jucdtefrom) && StringUtils.isEmpty(jucdteto)
         && StringUtils.isEmpty(hbidtefrom) && StringUtils.isEmpty(hbidteto)) {
       return false;
