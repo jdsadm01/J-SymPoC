@@ -43,7 +43,6 @@ public class ChuzanEntity extends GeneratedChuzanEntity {
 
 
   @Builder.Default
-
   private String kaiskbcod = "";
 
   @Builder.Default

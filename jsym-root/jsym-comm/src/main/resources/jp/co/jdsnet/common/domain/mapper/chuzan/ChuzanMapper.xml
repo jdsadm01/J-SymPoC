@@ -38,17 +38,17 @@
 				and AERORD12.CHZSKOCOD = #{skocod}
 			 </if>
 			 <if test="kigbng != ''">
-				and AERORD12.KIGBNG = #{hjihnb}
+				and AERORD12.KIGBNG = #{kigbng}
 			 </if>
-			 <choose>
-				 <when test="tokcod != '' and tokkbn == '1' ">
-					 AERORD12.TOKCOD = #{tokcod}  
+			<choose>
+				 <when test="tokcod != '' and tokkbn == &quot;1&quot;">
+					and AERORD12.TOKCOD = #{tokcod}
 				 </when>
-				 <when test="tokcod != '' and tokkbn == '2' ">
-					 AECUST03.TOKCOD = #{tokcod} 
+				 <when test="tokcod != '' and tokkbn == &quot;2&quot;">
+					and AECUST03.TOKCOD = #{tokcod}
 				 </when>
 				 <otherwise>
-
+					and AERORD12.DAIKAISKBCOD = #{kaiskbcod}
 				 </otherwise>
 			 </choose>
 			 <if test="dscod != ''">
@@ -108,20 +108,19 @@
 				and AERORD12.CHZSKOCOD = #{skocod}
 			 </if>
 			 <if test="kigbng != ''">
-				and AERORD12.KIGBNG = #{hjihnb}
+				and AERORD12.KIGBNG = #{kigbng}
 			 </if>
 			 <choose>
-				 <when  test="tokcod != '' and tokkbn == '1' ">
-					 AERORD12.TOKCOD = #{tokcod}  
+				 <when test="tokcod != '' and tokkbn == &quot;1&quot;">
+					and AERORD12.TOKCOD = #{tokcod}
 				 </when>
-				 <when test="tokcod != '' and tokkbn == '2' ">
-					 AECUST03.TOKCOD = #{tokcod} 
+				 <when test="tokcod != '' and tokkbn == &quot;2&quot;">
+					and AECUST03.TOKCOD = #{tokcod}
 				 </when>
 				 <otherwise>
-
+					and AERORD12.DAIKAISKBCOD = #{kaiskbcod}
 				 </otherwise>
 			 </choose>
-
 			 <if test="dscod != ''">
 				and AERORD12.DSCOD = #{dscod}
 			 </if>
@@ -179,20 +178,20 @@
 				and AERORD12.CHZSKOCOD = #{skocod}
 			 </if>
 			 <if test="kigbng != ''">
-				and AERORD12.KIGBNG = #{hjihnb}
+				and AERORD12.KIGBNG = #{kigbng}
 			 </if>
-			 
 			 <choose>
-				 <when test="tokcod != '' and tokkbn == '1' ">
-					 AERORD12.TOKCOD = #{tokcod}  
+				 <when test="tokcod != '' and tokkbn == &quot;1&quot;">
+					and AERORD12.TOKCOD = #{tokcod}
 				 </when>
-				 <when test="tokcod != '' and tokkbn == '2' ">
-					 AECUST03.TOKCOD = #{tokcod} 
+				 <when test="tokcod != '' and tokkbn == &quot;2&quot;">
+					and AECUST03.TOKCOD = #{tokcod}
 				 </when>
 				 <otherwise>
-
+					and AERORD12.DAIKAISKBCOD = #{kaiskbcod}
 				 </otherwise>
 			 </choose>
+
 			 <if test="dscod != ''">
 				and AERORD12.DSCOD = #{dscod}
 			 </if>

@@ -91,6 +91,7 @@ public class BackDeleteController extends CommonOperationController {
 
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("radioTokcod", form.getRadioTokcod());
+        form.setTokkbn(requestForm.getTokkbn());
         model.addAttribute("deleteCheckBoxes", form.getCheckBoxDelete());
         model.addAttribute("backDeleteForm", form);
 
@@ -152,6 +153,7 @@ public class BackDeleteController extends CommonOperationController {
             .transform(BackDeleteForm::toForm);
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("radioTokcod", form.getRadioTokcod());
+        form.setTokkbn(requestForm.getTokkbn());
         model.addAttribute("backDeleteForm", form);
 
         if (SEARCH.equals(form.getUpdkbn())) {
@@ -204,6 +206,7 @@ public class BackDeleteController extends CommonOperationController {
             .transform(BackDeleteForm::toForm);
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("radioTokcod", form.getRadioTokcod());
+        form.setTokkbn(requestForm.getTokkbn());
         model.addAttribute("backDeleteForm", form);
 
       } catch (Exception e) {
@@ -229,6 +232,7 @@ public class BackDeleteController extends CommonOperationController {
     try {
       BackDeleteForm form = service.chkInputDeleteData(requestForm.toDTO(getUserInfo())).transform(BackDeleteForm::toForm);
       model.addAttribute("radioTokcod", form.getRadioTokcod());
+      form.setTokkbn(requestForm.getTokkbn());
       model.addAttribute("backDeleteForm", form);
 
       if (!"submit".equals(form.getNextGamenMode())) {
@@ -284,6 +288,7 @@ public class BackDeleteController extends CommonOperationController {
       BackDeleteForm form =
           service.back(requestForm.toDTO(getUserInfo())).transform(BackDeleteForm::toForm);
       model.addAttribute("radioTokcod", form.getRadioTokcod());
+      form.setTokkbn(requestForm.getTokkbn());
       model.addAttribute("backDeleteForm", form);
 
     } catch (Exception e) {
