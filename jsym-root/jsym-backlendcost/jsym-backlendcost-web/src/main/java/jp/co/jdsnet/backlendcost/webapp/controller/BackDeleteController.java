@@ -64,7 +64,6 @@ public class BackDeleteController extends CommonOperationController {
    * 見出し
    * 
    */
-
   @RequestMapping(params = "btn_search", method = POST)
   // public String search(@Validated @ModelAttribute BackDeleteForm requestForm, BindingResult
   // result,
@@ -114,12 +113,12 @@ public class BackDeleteController extends CommonOperationController {
 
   }
 
-
+  /**
+   * 前100件(処理は次100件と同じ)
+   */
   @RequestMapping(params = "btn_prev100search", method = POST)
   public String prev100search(@Validated @ModelAttribute BackDeleteForm requestForm,
       BindingResult result, Model model) throws Exception {
-
-
 
     if (result.hasErrors()) {
       // エラーの場合
@@ -149,7 +148,7 @@ public class BackDeleteController extends CommonOperationController {
 
         // 正常終了の場合
         BackDeleteForm form = service
-            .prev100Search(requestForm.toDTO(getUserInfo()), pageNo, requestForm.getPageKeyNow())
+            .next100Search(requestForm.toDTO(getUserInfo()), pageNo, requestForm.getPageKeyNow())
             .transform(BackDeleteForm::toForm);
         form.setCopyData(BackDeleteCBData::new);
         model.addAttribute("radioTokcod", form.getRadioTokcod());
@@ -174,7 +173,9 @@ public class BackDeleteController extends CommonOperationController {
 
   }
 
-
+  /**
+   * 次100件
+   */
   @RequestMapping(params = "btn_next100search", method = POST)
   public String next100search(@Validated @ModelAttribute BackDeleteForm requestForm,
       BindingResult result, Model model) throws Exception {
@@ -274,6 +275,9 @@ public class BackDeleteController extends CommonOperationController {
     return init(model);
   }
 
+  /**
+   * 戻る処理
+   */
   @RequestMapping(params = "btn_back", method = POST)
   public String back(@Validated @ModelAttribute BackDeleteForm requestForm, BindingResult result,
       Model model) throws Exception {
@@ -304,6 +308,9 @@ public class BackDeleteController extends CommonOperationController {
 
   }
 
+  /**
+   * 部分初期化処理
+   */
   @RequestMapping(params = "btn_initial", method = POST)
   public String initPartOfForm(@Validated @ModelAttribute BackDeleteForm requestForm,
       BindingResult result, Model model) throws Exception {

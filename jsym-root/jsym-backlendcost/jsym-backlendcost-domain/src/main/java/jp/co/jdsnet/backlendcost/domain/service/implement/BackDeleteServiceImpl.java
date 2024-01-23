@@ -9,20 +9,22 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import io.micrometer.common.util.StringUtils;
 import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDTO;
 import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDetailDTO;
 import jp.co.jdsnet.backlendcost.domain.service.BackDeleteService;
 import jp.co.jdsnet.base.webapp.parts.LabelData;
 import jp.co.jdsnet.common.domain.entity.chuzan.ChuzanEntity;
+import jp.co.jdsnet.common.domain.entity.chuzan.GeneratedChuzanEntity;
 import jp.co.jdsnet.common.domain.entity.hinban.HinbanEntity;
 import jp.co.jdsnet.common.domain.entity.kaisha.KaishaEntity;
 import jp.co.jdsnet.common.domain.mapper.chuzan.ChuzanMapper;
-import jp.co.jdsnet.common.domain.mapper.hinban.HinbanMapper;
 import jp.co.jdsnet.common.domain.vo.TokuisakiAndDsVO;
 import jp.co.jdsnet.common.logic.CheckSharedService;
 import jp.co.jdsnet.common.logic.DataGetSharedService;
 import jp.co.jdsnet.common.logic.KigbngCheckSharedService;
+import jp.co.jdsnet.common.utils.StringUtility;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -33,13 +35,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   private final KigbngCheckSharedService kigbngCheckSharedService;
   private final DataGetSharedService dataGetSharedService;
   private final ChuzanMapper chuzanMapper;
-  private final HinbanMapper hinbanMapper;
   private final String SHUYAKUTENMODE = "2";
   private String FLG_ON = "1";
-  private String FLG_OFF = "0";
-
-  ChuzanEntity chuzanEntity;// TODO 不要
-  HinbanEntity hinbanEntity;// TODO 不要
 
   /**
    * 画面OPEN時の処理
@@ -170,9 +167,6 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // 注残データ取得※別メソッド
-    BackDeleteDetailDTO detailDto;
-    List<String> lastDataList = new ArrayList<>();// 100件目保持する用リスト
-
     dto = getChuzanData(dto, 0, "");
 
     boolean prevflg = false; // 前100件ボタン表示
@@ -186,12 +180,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // 検索処理終了 controllerに戻る
-    // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
-    return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
-        .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
-        .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
-        .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
-        .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto())
+    return dto.toBuilder()
         .titnm(titnm).artnm(artnm).toknm(toknm).dsnm(dsnm).chzCnt(dto.getChzCnt())
         .chzsurTotal(dto.getChzsurTotal()).prevFlg(prevflg).nextFlg(nextflg)
         .updkbnList(createUpdkbnList()).radioTokcod(initRadioTokcod())
@@ -242,10 +231,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       }
     }
 
-
-
-    // TODO chuzanEntity.builder()～ではなくChuzanEntity.builder()
-    ChuzanEntity input = chuzanEntity.builder().kaiskbcod(dto.getKaiskbcod().toUpperCase())
+    ChuzanEntity input = ChuzanEntity.builder().kaiskbcod(dto.getKaiskbcod().toUpperCase())
         .daikaiskbcod(dto.getKaiskbcod().toUpperCase()).pageKey(pageKey).skocod(dto.getSkocod())
         .mkrbuncod(dto.getMkrbuncod().toUpperCase()).kigbng(dto.getKigbng())
         .tokcod(dto.getTokcod()).dscod(dto.getDscod()).eigcod(dto.getEigcod())
@@ -253,6 +239,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         .hbidteto(hbidteto).tokkbn(dto.getTokkbn())
         .usrDaikaiskbcod(dto.getUserInfo().getDaikaiskbcod())
         .usrKaiskbcod(dto.getUserInfo().getKaiskbcod()).build();
+
     // 1.注残データの"件数"を取得する
     int chuzanDataCnt = chuzanMapper.selectCount(input);
 
@@ -266,10 +253,10 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       return BackDeleteDTO.builder().build();
     }
 
+    // 注残数の合計を取得する
     int chuzanTotalchzSur = chuzanMapper.selectTotalchzSur(input);
 
-    
-    // 注残データを取得するxmlにアクセスし、データを取得する
+    // 注残データを取得する
     List<ChuzanEntity> chuzanEntityList = chuzanMapper.select(input);
 
     // 3.代表会社設定(品番検索で必要)
@@ -286,7 +273,6 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     // 明細Noを設定
     AtomicInteger meiNo = new AtomicInteger(0);
-
 
     meiNo.addAndGet(pageNo * 100);
 
@@ -339,9 +325,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
             + tokuisakiAndDsVO.getKyotsuTokuisaki().getToknm2();
       }
 
-
-
-      // TODO RORD12の項目は全て必要？更新の為に持たせようとしてるなら不要。
+      // 取得した注残データを格納
       detailDTO.add(BackDeleteDetailDTO.builder().no(meiNo.incrementAndGet())// 明細No
           .skocod(t.getChzskocod()).kigbng(t.getKigbng()).hjihnb(hjihnb) // 実際には追加品番情報から取得
           .chzsur(t.getChzsur()).tomrakcod(tomrakcod) // 実際には追加品番情報から取得
@@ -352,15 +336,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
           .jucdte(String.valueOf(t.getJucdte()))
           .chzdeldte(String.valueOf(t.getJucdte())).chzdelKbn(addchzdelkbn)
           .jucmdsseq(t.getJucmdsseq())
-          .jucmeiseq(t.getJucmsiseq()).seq(t.getSeq()).trncod(t.getTrncod()).chzjkk(t.getChzjkk())
-          .thcbng(t.getThcbng()).sjcod(t.getSjcod()).ykncod(t.getYkncod()).mscod(t.getMscod())
-          .tankinhjiflg(t.getTankinhjiflg()).daikaiskbcod(t.getDaikaiskbcod()).kigbng(t.getKigbng())
-          .trjchzsur(t.getTrjchzsur()).tankinstekbn(t.getTankinstekbn()).skrtan(t.getSkrtan())
-          .rmcod(t.getRmcod()).eigcod(t.getEigcod()).tercod(t.getTercod())
-          .skosteariflg(t.getSkosteariflg()).chzrelno(t.getChzrelno()).cpufulid(t.getCpufulid())
-          .wsseq7kt(t.getWsseq7kt()).chzkicsjizflg(t.getChzkicsjizflg()).chzstskbn(t.getChzstskbn())
-          .cchflg(t.getCchflg()).cchtioktkkbn(t.getCchtioktkkbn()).cchhatskocod(t.getCchhatskocod())
-          .chzdelkjndte(t.getChzdelkjndte()).fmg1(t.getFmg1()).fmg2(t.getFmg2()).build());
+          .jucmeiseq(t.getJucmsiseq()).seq(t.getSeq()).build());
 
     });
     // ===================streamおわり
@@ -407,29 +383,12 @@ public class BackDeleteServiceImpl implements BackDeleteService {
         + StringUtils.truncate(lastDataList.get(4), 13, " ")
         + StringUtils.truncate(lastDataList.get(5), 8, " ")
             + StringUtils.truncate(lastDataList.get(6), 3, " ");
-
-
-
   }
-
-  /**
-   * 前100件処理 次100件処理と同じなので呼び出して終了 TODO Controllerでnext100Searchを呼べばいい。わざわざこれを作る必要が無い
-   */
-  @Override
-  public BackDeleteDTO prev100Search(BackDeleteDTO dto, int PageNo, String key) throws Exception {
-
-    return next100Search(dto, PageNo, key);
-  }
-
   
   /**
    * 前次100件処理
    */
   public BackDeleteDTO next100Search(BackDeleteDTO dto, int pageNo, String key) throws Exception {
-
-    // 削除対象存在チェック
-    boolean endflg = false;
-    boolean updflg = false;
 
     boolean prevflg = false; // 前100件ボタン表示
     boolean nextflg = false; // 次100件ボタン表示
@@ -437,12 +396,10 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     // 削除チェック個数
     // ※ここの都合でlong型
     long delcnt = dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk())).count();
-    // 注残数サマリ
-    long chzsurTotal = 0;
 
     // 一括削除にチェックされている場合は更新あり、明細行すべてにチェックをいれる
     if (FLG_ON.equals(dto.getAllDeletechk())) {
-      delcnt = 1; // とりあえず1
+      delcnt = (long) dto.getDetailList().size();;
     }
 
     if (0 != delcnt) {
@@ -455,24 +412,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       }
 
       // チェックされている明細があるので次のページに進めません
-      // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
-      return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
-          .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
-          .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
-          .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
-          .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto()).titnm(dto.getTitnm())
-          .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm()).chzCnt(dto.getChzCnt())
-          .chzsurTotal(dto.getChzsurTotal()).prevFlg(prevflg).nextFlg(nextflg)
-          .allDeletechk(dto.getAllDeletechk())
-          .updkbnList(createUpdkbnList()).radioTokcod(initRadioTokcod())
-          .detailList(dto.getDetailList()).detailBottomList(dto.getDetailBottomList())
+      return dto.toBuilder().prevFlg(prevflg).nextFlg(nextflg).radioTokcod(initRadioTokcod())
           .build();
-    }
-
-
-
-    if (endflg) {
-
     }
 
     // 以下検索処理と同じ
@@ -490,16 +431,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // 検索処理終了 controllerに戻る
-    // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
-    return newdto.toBuilder().kaiskbcod(newdto.getKaiskbcod()).mkrbuncod(newdto.getMkrbuncod())
-        .skocod(newdto.getSkocod()).kigbng(newdto.getKigbng()).tokcod(newdto.getTokcod())
-        .dscod(newdto.getDscod()).eigcod(newdto.getEigcod()).tercod(newdto.getTercod())
-        .updkbn(newdto.getUpdkbn()).jucdtefrom(newdto.getJucdtefrom())
-        .jucdteto(newdto.getJucdteto()).hbidtefrom(newdto.getHbidtefrom())
-        .hbidteto(newdto.getHbidteto()).titnm(dto.getTitnm()).artnm(dto.getArtnm())
-        .toknm(dto.getToknm()).dsnm(dto.getDsnm()).chzCnt(dto.getChzCnt())
-        .chzsurTotal(dto.getChzsurTotal()).prevFlg(prevflg).nextFlg(nextflg)
-        .updkbnList(createUpdkbnList())
+    return newdto.toBuilder().prevFlg(prevflg).nextFlg(nextflg)
         .radioTokcod(initRadioTokcod()).detailList(newdto.getDetailList())
         .checkBoxDelete(getCheckBoxDelete(dto.getDetailList().size()))
         .detailBottomList(newdto.getDetailBottomList()).build();
@@ -539,17 +471,9 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // ▼▼▼▼▼▼▼▼強引にintにキャスト
-    // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
-    return dto.toBuilder().chzsurTotal((int) chzsurTotal).kaiskbcod(dto.getKaiskbcod())
-        .mkrbuncod(dto.getMkrbuncod()).skocod(dto.getSkocod()).kigbng(dto.getKigbng())
-        .tokcod(dto.getTokcod()).dscod(dto.getDscod()).eigcod(dto.getEigcod())
-        .tercod(dto.getTercod()).updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom())
-        .jucdteto(dto.getJucdteto()).hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidtefrom())
-        .titnm(dto.getTitnm()).artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm())
-        .detailList(dto.getDetailList()).updkbnList(createUpdkbnList()).nextGamenMode("submit")
+    return dto.toBuilder().chzsurTotal((int) chzsurTotal).nextGamenMode("submit")
         .radioTokcod(initRadioTokcod()).pageKeyPrev(dto.getPageKeyPrev())
         .pageKeyNow(dto.getPageKeyNow()).pageKeyNext(dto.getPageKeyNext())
-        .detailBottomList(dto.getDetailBottomList())
         .build();
 
   }
@@ -558,7 +482,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   /**
    * 送信処理
    */
-  // TODO トランザクション指定のアノテーションが足りない。
+  @Transactional
   public void submit(BackDeleteDTO dto) throws Exception {
 
     // ユーザー権限チェック
@@ -580,67 +504,25 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     // TODO 更新対象固定ではなく、チェックボックスから選択されたものが対象となるように。
     // TODO 更新時の流れ：主キーで検索⇒返ってきたEntityに変更項目をセット⇒変更したEntityでupdate
     for (BackDeleteDetailDTO t : submitList) {
+
       if (!"1".equals(t.getDeletechk())) {
+        // チェックされていない明細は対象としない
         continue;
       }
-//      ChuzanEntity submitEntity = ChuzanEntity.builder().delflg(FLG_ON).upddte(sysdate)
-//          .updjkk(systime).updkbn("U").jucdte(Integer.valueOf(t.getJucdte())).tokcod(t.getTokcod())
-//          .dscod(t.getDscod())
-//          .chzskocod(t.getSkocod()).hjihnb(t.getHjihnb())
-//          .chzsur(t.getChzsur()).tomrakcod(t.getTomrakcod()).hbidte(Integer.valueOf(t.getHbidte()))
-//          .chzdte(Integer.valueOf(t.getChzdeldte())).urisyytencod(t.getUrisyytencod())
-//          .tokcod(t.getTokcod()).dscod(t.getDscod()).jucdte(Integer.valueOf(t.getJucdte()))
-//          .chzdeldte(Integer.valueOf(t.getChzdeldte())).build();
+
+      ChuzanEntity updData = ChuzanEntity.builder().jucdte(Integer.valueOf(t.getJucdte()))
+          .tokcod(t.getTokcod()).dscod(t.getDscod()).jucmdsseq(t.getJucmdsseq())
+          .jucmsiseq(t.getJucmeiseq()).seq(t.getSeq()).build();
+
+      // 注残データを取得する
+      GeneratedChuzanEntity updChuzanEntityList = chuzanMapper.selectOnly(updData);
       
-// ChuzanEntity submitEntity = ChuzanEntity.builder().delflg(FLG_ON).upddte(sysdate)
-// .updjkk(systime).updkbn("U").jucdte(Integer.valueOf(t.getJucdte())).tokcod(t.getTokcod())
-// .dscod(t.getDscod()).build();
-
-      ChuzanEntity submitEntity = ChuzanEntity.builder().delflg(FLG_ON).upddte(sysdate)
-          .updjkk(systime).updkbn("U").jucdte(211220).tokcod("99011454").dscod("").jucmdsseq(1)
-          .jucmsiseq(1).seq(1).build();
-
-      System.out.println(submitEntity);
-      chuzanMapper.update(submitEntity);
-    }
+      updChuzanEntityList =
+          ChuzanEntity.builder().delflg(FLG_ON).updkbn("U").upddte(sysdate).updjkk(systime).build();
 
 
-    // TODO ここより下は何？
-
-    //チェックのついた行だけ抜粋
-    
-    String kari = "kari";
-    int intkari = 0;
-
-
-    ChuzanEntity entity = null;
-    for (BackDeleteDetailDTO t : dto.getDetailList()) {
-      entity = null;
-      // entity.toBuilder().jucdte(Integer.valueOf(t.getJucdte()))
-      // .tokcod(t.getTokcod())
-      // .dscod(t.getDscod())
-      // .jucmdsseq(intkari)
-      // .jucmsiseq(intkari)
-      // .seq(intkari)
-      // .trncod(kari)
-      // .
-
-      // entity.toBuilder().daikaiskbcod(t.getDaikaiskbcod())
-      // .chzskocod(t.getSkocod())
-      // .kigbng(t.getKigbng())
-      // .eigcod(t.getEigCod())
-      // .tercod(t.tercod())
-      // .tokcod(t.getTokcod())
-      // .tokkbn()
-      // .dscod()
-      // .mk
-      //
-      //
-      //
-      //
-      //
-      // chuzanMapper.update();
-
+      chuzanMapper.update(updChuzanEntityList);
+      System.out.println("update= " + updChuzanEntityList);
     }
 
   }
@@ -676,16 +558,9 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     // isOnline = true;
     // }
 
-    // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
-    return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
-        .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
-        .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
-        .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
-        .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidtefrom()).titnm(dto.getTitnm())
-        .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm())
-        .detailList(dto.getDetailList()).updkbnList(createUpdkbnList())
+    return dto.toBuilder()
         .radioTokcod(initRadioTokcod()).pageKeyPrev("").pageKeyNow("").pageKeyNext("")
-        .detailBottomList(dto.getDetailBottomList()).build();
+        .build();
 
   }
 
@@ -730,40 +605,9 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   private String getNumKey(String key, int col) {
 
     String str = key;
-    str = lpad(str, col, "0");
+    str = StringUtility.lpad(str, col, "0");
 
     return str;
   }
-
-
-  // TODO StringUtilityにある
-  /**
-   * 文字列の左字埋めを行います。
-   * 
-   * @param target 字埋め対象の文字列
-   * @param length 字埋め後の文字列長
-   * @param pad 追加される文字
-   * @return targetの前にpadが追加された文字列。追加された結果がlength以上の長さになるときは、(結果の長さ-length)からの部分文字列。
-   * @exception NullPointerException 引数がnullの場合
-   * @exception IllegalArgumentException lengthが負の場合
-   * @exception IllegalArgumentException padが空の文字列の場合
-   */
-  public static String lpad(String target, int length, String pad) {
-    if (target == null || pad == null)
-      throw new java.lang.NullPointerException();
-    if (length < 0)
-      throw new java.lang.IllegalArgumentException("lenght is too small");
-    if (pad.equals(""))
-      throw new java.lang.IllegalArgumentException("pad has no character");
-
-    StringBuffer sb = new StringBuffer(target);
-    while (sb.length() < length) {
-      sb.insert(0, pad);
-    }
-
-    return sb.substring(sb.length() - length);
-  }
-
-
 
 }

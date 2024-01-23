@@ -248,6 +248,9 @@
 								<td>
 									<span th:text="${detail.no}" />
 									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].no}">
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].jucmdsseq}">
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].jucmeiseq}">
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].seq}">
 								</td>
 								<td>
 									<span th:text="${detail.skocod}"></span>

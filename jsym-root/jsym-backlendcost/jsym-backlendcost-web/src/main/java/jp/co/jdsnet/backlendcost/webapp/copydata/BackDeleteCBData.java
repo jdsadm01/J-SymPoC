@@ -79,6 +79,7 @@ public class BackDeleteCBData extends CommonClipboardData<BackDeleteForm> {
         new String[] {("label.no"), 
             ("label.skocod"), 
             ("label.kigbng"),
+            ("label.hjihnb"),
             ("label.chzsur"), 
             ("label.hbidte"),
             ("label.usnjndte"),
@@ -99,6 +100,7 @@ public class BackDeleteCBData extends CommonClipboardData<BackDeleteForm> {
     form.getDetailList().forEach(t -> {
       addln(createStringSet(
           new String[] {toText(t.getNo()), toText(t.getSkocod()), toText(t.getKigbng()),
+              toText(t.getHjihnb()),
               toDigit(t.getChzsur()), toDate(FormatUtility.convertYYYYMMDD(t.getHbidte())),
               toDate(FormatUtility.convertYYYYMMDD(t.getUsnjndte())),
               toText(t.getUrisyytencod()), toText(t.getTokcod()), toText(t.getDscod()),

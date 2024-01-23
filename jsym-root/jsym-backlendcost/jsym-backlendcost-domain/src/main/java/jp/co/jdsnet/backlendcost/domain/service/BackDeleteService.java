@@ -20,14 +20,6 @@ public interface BackDeleteService {
   public BackDeleteDTO search(BackDeleteDTO dto) throws Exception;
 
   /**
-   * 前100件照会処理
-   * 
-   * @param dto
-   * @return
-   */
-  public BackDeleteDTO prev100Search(BackDeleteDTO dto, int pageNo, String Key) throws Exception;
-  
-  /**
    * 次100件照会処理
    * 
    * @param dto
