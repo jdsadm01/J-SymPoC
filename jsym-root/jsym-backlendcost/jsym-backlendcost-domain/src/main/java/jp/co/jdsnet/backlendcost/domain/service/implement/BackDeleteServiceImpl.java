@@ -501,11 +501,9 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     int sysdate = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("yyMMdd")));
     int systime = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("HHmmss")));
 
-    // TODO 更新対象固定ではなく、チェックボックスから選択されたものが対象となるように。
-    // TODO 更新時の流れ：主キーで検索⇒返ってきたEntityに変更項目をセット⇒変更したEntityでupdate
     for (BackDeleteDetailDTO t : submitList) {
 
-      if (!"1".equals(t.getDeletechk())) {
+      if (!FLG_ON.equals(t.getDeletechk())) {
         // チェックされていない明細は対象としない
         continue;
       }
@@ -517,9 +515,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       // 注残データを取得する
       GeneratedChuzanEntity updChuzanEntityList = chuzanMapper.selectOnly(updData);
       
-      updChuzanEntityList =
-          ChuzanEntity.builder().delflg(FLG_ON).updkbn("U").upddte(sysdate).updjkk(systime).build();
-
+      updChuzanEntityList = updChuzanEntityList.toBuilder().delflg(FLG_ON).updkbn("U")
+          .upddte(sysdate).updjkk(systime).build();
 
       chuzanMapper.update(updChuzanEntityList);
       System.out.println("update= " + updChuzanEntityList);
