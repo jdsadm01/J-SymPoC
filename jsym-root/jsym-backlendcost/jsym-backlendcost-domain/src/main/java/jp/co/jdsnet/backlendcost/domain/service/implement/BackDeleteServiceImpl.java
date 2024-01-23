@@ -38,8 +38,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   private String FLG_ON = "1";
   private String FLG_OFF = "0";
 
-  ChuzanEntity chuzanEntity;
-  HinbanEntity hinbanEntity;
+  ChuzanEntity chuzanEntity;// TODO 不要
+  HinbanEntity hinbanEntity;// TODO 不要
 
   /**
    * 画面OPEN時の処理
@@ -186,6 +186,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // 検索処理終了 controllerに戻る
+    // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
     return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
         .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
         .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
@@ -243,6 +244,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
 
 
+    // TODO chuzanEntity.builder()～ではなくChuzanEntity.builder()
     ChuzanEntity input = chuzanEntity.builder().kaiskbcod(dto.getKaiskbcod().toUpperCase())
         .daikaiskbcod(dto.getKaiskbcod().toUpperCase()).pageKey(pageKey).skocod(dto.getSkocod())
         .mkrbuncod(dto.getMkrbuncod().toUpperCase()).kigbng(dto.getKigbng())
@@ -339,6 +341,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
 
 
+      // TODO RORD12の項目は全て必要？更新の為に持たせようとしてるなら不要。
       detailDTO.add(BackDeleteDetailDTO.builder().no(meiNo.incrementAndGet())// 明細No
           .skocod(t.getChzskocod()).kigbng(t.getKigbng()).hjihnb(hjihnb) // 実際には追加品番情報から取得
           .chzsur(t.getChzsur()).tomrakcod(tomrakcod) // 実際には追加品番情報から取得
@@ -410,7 +413,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   }
 
   /**
-   * 前100件処理 次100件処理と同じなので呼び出して終了
+   * 前100件処理 次100件処理と同じなので呼び出して終了 TODO Controllerでnext100Searchを呼べばいい。わざわざこれを作る必要が無い
    */
   @Override
   public BackDeleteDTO prev100Search(BackDeleteDTO dto, int PageNo, String key) throws Exception {
@@ -452,6 +455,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
       }
 
       // チェックされている明細があるので次のページに進めません
+      // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
       return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
           .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
           .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
@@ -486,6 +490,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // 検索処理終了 controllerに戻る
+    // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
     return newdto.toBuilder().kaiskbcod(newdto.getKaiskbcod()).mkrbuncod(newdto.getMkrbuncod())
         .skocod(newdto.getSkocod()).kigbng(newdto.getKigbng()).tokcod(newdto.getTokcod())
         .dscod(newdto.getDscod()).eigcod(newdto.getEigcod()).tercod(newdto.getTercod())
@@ -534,6 +539,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
     // ▼▼▼▼▼▼▼▼強引にintにキャスト
+    // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
     return dto.toBuilder().chzsurTotal((int) chzsurTotal).kaiskbcod(dto.getKaiskbcod())
         .mkrbuncod(dto.getMkrbuncod()).skocod(dto.getSkocod()).kigbng(dto.getKigbng())
         .tokcod(dto.getTokcod()).dscod(dto.getDscod()).eigcod(dto.getEigcod())
@@ -552,6 +558,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   /**
    * 送信処理
    */
+  // TODO トランザクション指定のアノテーションが足りない。
   public void submit(BackDeleteDTO dto) throws Exception {
 
     // ユーザー権限チェック
@@ -570,6 +577,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     int sysdate = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("yyMMdd")));
     int systime = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("HHmmss")));
 
+    // TODO 更新対象固定ではなく、チェックボックスから選択されたものが対象となるように。
+    // TODO 更新時の流れ：主キーで検索⇒返ってきたEntityに変更項目をセット⇒変更したEntityでupdate
     for (BackDeleteDetailDTO t : submitList) {
       if (!"1".equals(t.getDeletechk())) {
         continue;
@@ -596,6 +605,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     }
 
 
+    // TODO ここより下は何？
 
     //チェックのついた行だけ抜粋
     
@@ -666,6 +676,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     // isOnline = true;
     // }
 
+    // TODO インスタンス変数からBuilderクラスを呼ぶ場合は変更があった項目のみをセットする。
     return dto.toBuilder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
         .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
         .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
@@ -725,7 +736,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   }
 
 
-
+  // TODO StringUtilityにある
   /**
    * 文字列の左字埋めを行います。
    * 

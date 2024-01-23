@@ -35,7 +35,7 @@ public class BackDeleteDetailForm implements FormInterface<BackDeleteDetailDTO>,
   @Pattern(regexp = "1")
   private String deletechk;
 
-  // 明細に出力しない注残項目(更新で使用)
+  // 明細に出力しない注残項目(更新で使用) TODO 更新の為だけに保持しているなら不要
   private int jucmdsseq;
   private int jucmeiseq;
   private int seq;
