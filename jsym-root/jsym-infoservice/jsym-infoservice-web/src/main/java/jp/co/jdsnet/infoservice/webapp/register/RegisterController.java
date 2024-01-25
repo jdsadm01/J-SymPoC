@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpSession;
 import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import jp.co.jdsnet.infoservice.webapp.controller.AllStockController;
+import jp.co.jdsnet.infoservice.webapp.controller.HintokResultController;
 
 @Controller
 public class RegisterController {
     @Autowired
     private HttpSession httpSession;
 	@Autowired
-	private AllStockController controller;
+    private AllStockController allStockController;
+    @Autowired
+    private HintokResultController hintokResultController;
 
     @Value("${property.session.userInfoKey}")
     private String userInfoKey;
@@ -41,7 +44,12 @@ public class RegisterController {
 
 	@RequestMapping(value = "/register/allstock")
 	public String allstock(Model model) {
-		return controller.init(model);
+      return allStockController.init(model);
+    }
+
+    @RequestMapping(value = "/register/hintokResult")
+    public String hintokResult(Model model) {
+      return hintokResultController.init(model);
     }
 	
 }

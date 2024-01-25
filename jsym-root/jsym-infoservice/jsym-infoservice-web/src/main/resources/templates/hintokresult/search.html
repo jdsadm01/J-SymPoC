@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="h-100"
+    th:replace="~{newtemplate :: layout(sysnm='情報サービス',title='品番／得意先別実績照会'
+    				,scripts=~{::script},links=~{::link},body=~{::body/content()})}">
+
+<!--/* 画面固有のCSS・JSがある場合はここで定義 */-->
+<head>
+	<link rel="stylesheet" th:href="@{/css/hintokResult.css}">
+	<script></script>
+</head>
+
+<body>
+<!--/* ページコンテンツ */-->
+<main>
+	<form th:action="@{/hintokResult}" th:object="${hintokResultForm}" th:method="post">
+		<div class="main">
+		<div class="frame-18">
+          <div class="frame-20">
+            <div class="frame-21">
+              <div class="frame-22">
+                <div class="text-wrapper-15">照会条件</div>
+                <div class="input">
+                  <div class="frame-23"><div class="string">実績照会</div></div>
+                  <img class="img-2" src="@{/img/arrow-down-1.svg}" />
+                </div>
+                <div class="text-wrapper-16">詳細条件を設定</div>
+              </div>
+              <div class="frame-24">
+                <div class="frame-25">
+                  <div class="text-wrapper-17">会社</div>
+                  <div class="text-wrapper-18">
+					  <span th:text="${hintokResultForm.kaiskbcod}">
+                  </div>
+                </div>
+                <div class="frame-26">
+                  <div class="text-wrapper-17">照会内容</div>
+                  <div class="text-wrapper-18">
+					  <span th:text="${hintokResultForm.kknfrm}">
+					  ～
+					  <span th:text="${hintokResultForm.kknto}">
+				  </div>
+                </div>
+                <div class="frame-26">
+                  <div class="text-wrapper-17">伝票日付</div>
+                  <div class="text-wrapper-18">
+					  <span th:text="${hintokResultForm.dendtefrm}">
+					  ～
+					  <span th:text="${hintokResultForm.dendteto}">
+				  </div>
+                </div>
+                <div class="frame-26">
+                  <div class="text-wrapper-17">集計方法</div>
+                  <div class="text-wrapper-18"><span th:text="${hintokResultForm.prctype}"></div>
+                </div>
+                <div class="frame-26">
+                  <div class="text-wrapper-17">実績表示</div>
+                  <div class="text-wrapper-18"><span th:text="${hintokResultForm.resultdisp}"></div>
+                </div>
+                <div class="frame-26">
+                  <div class="text-wrapper-17">指定内容</div>
+                  <div class="text-wrapper-18"><span th:text="${hintokResultForm.stenyo}"></div>
+                </div>
+                <div class="frame-26">
+                  <div class="text-wrapper-17">集約店指定</div>
+                  <div class="text-wrapper-18"><span th:text="${hintokResultForm.inputtype}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+
+        <div class="frame-27">
+          <div class="frame-28">
+            <div class="title-2"><div class="text-wrapper-19">照会結果</div></div>
+            <div class="frame-29">
+              <div class="frame-30">
+                <div class="text-wrapper-20">集約店番号</div>
+                <div class="text-wrapper-21">
+					<span th:text="${hintokResultForm.tokcod}">
+				</div>
+              </div>
+              <div class="frame-31">
+                <div class="text-wrapper-22">集約店名</div>
+                <div class="text-wrapper-23">
+					<span th:text="${hintokResultForm.toknm}">
+				</div>
+              </div>
+              <div class="frame-32">
+                <div class="text-wrapper-24">売上金額</div>
+                <div class="text-wrapper-25">
+					<span th:text="${hintokResultForm.urikin}">
+				</div>
+              </div>
+              <div class="frame-33">
+                <div class="frame-34"><div class="text-wrapper-24">売上数</div></div>
+                <div class="frame-35"><div class="text-wrapper-26">
+					<span th:text="${hintokResultForm.urisuu}">
+				</div></div>
+              </div>
+              <div class="frame-32">
+                <div class="text-wrapper-24">返品数</div>
+                <div class="text-wrapper-25">
+					<span th:text="${hintokResultForm.hpnsuu}">
+				</div>
+              </div>
+              <div class="frame-32">
+                <div class="text-wrapper-24">NET数</div>
+                <div class="text-wrapper-25">
+					<span th:text="${hintokResultForm.netsuu}">
+				</div>
+              </div>
+              <div class="frame-32">
+                <div class="text-wrapper-24">返品金額</div>
+                <div class="text-wrapper-25">
+					<span th:text="${hintokResultForm.hpnkin}">
+				</div>
+              </div>
+              <div class="frame-32">
+                <div class="text-wrapper-24">NET金額</div>
+                <div class="text-wrapper-25">
+					<span th:text="${hintokResultForm.netkin}">
+				</div>
+              </div>
+            </div>
+          </div>
+          <div class="frame-36">
+            <div class="frame-37">
+              <div class="frame-38">
+                <div class="frame-25">
+                  <div class="text-wrapper-27">300件中</div>
+                  <div class="text-wrapper-27">1 ~ 10件</div>
+                </div>
+                <div class="input-2">
+                  <img class="icon-2" src="@{img/icon-13.svg}" />
+                  <div class="string-2">売上順</div>
+                  <img class="img-2" src="@{img/arrow-down.svg}" />
+                </div>
+              </div>
+            </div>
+            <div class="frame-39">
+              <div class="frame-40">
+                <div class="row-header">
+                  <img class="img" src="@{img/icon-2.svg}" />
+                  <div class="text-wrapper-28">得意先番号</div>
+                  <div class="text-wrapper-29">得意先名</div>
+                  <div class="text-wrapper-28">シェア</div>
+                  <div class="text-wrapper-30">伝票日付</div>
+                  <div class="text-wrapper-31">売上数</div>
+                  <div class="text-wrapper-32">返品数</div>
+                  <div class="text-wrapper-32">NET数</div>
+                  <div class="text-wrapper-33">売上金額</div>
+                  <div class="text-wrapper-33">返品金額</div>
+                  <div class="text-wrapper-33">NET金額</div>
+                </div>
+                <th:block th:each="detail, st : *{detailList}">
+					<div th:class="${st.odd ? 'row' : 'row-3'}">
+	                  <img class="img" src="@{img/icon-2.svg}" />
+	                  <div class="text-wrapper-34"><span th:text="${detail.tokcod}"/></div>
+	                  <div class="text-wrapper-35"><span th:text="${detail.toknm}"/></div>
+	                  <div class="text-wrapper-36"><span th:text="${detail.share}"/></div>
+	                  <div class="text-wrapper-37"><span th:text="${detail.dendte}"/></div>
+	                  <div class="text-wrapper-38"><span th:text="${detail.urisuu}"/></div>
+	                  <div class="text-wrapper-39"><span th:text="${detail.hpnsuu}"/></div>
+	                  <div class="text-wrapper-39"><span th:text="${detail.netsuu}"/></div>
+	                  <div class="text-wrapper-40"><span th:text="${detail.urikin}"/></div>
+	                  <div class="text-wrapper-40"><span th:text="${detail.hpnkin}"/></div>
+	                  <div class="text-wrapper-40"><span th:text="${detail.netkin}"/></div>
+	                </div>
+                </th:block>
+
+              <div class="frame-41">
+                <div class="frame-25">
+                  <div class="text-wrapper-27">300件中</div>
+                  <div class="text-wrapper-27">1 ~ 10件</div>
+                </div>
+                <div class="frame-42">
+                  <div class="frame-25">
+                    <img class="frame-43" src="img/frame-2608224.svg" />
+                    <div class="icon-wrapper"><img class="icon-3" src="img/icon-1.svg" /></div>
+                  </div>
+                  <div class="frame-4">
+                    <div class="frame-44"><div class="text-wrapper-42">1</div></div>
+                    <div class="frame-45"><div class="element-3">2</div></div>
+                    <div class="frame-45"><div class="element-3">3</div></div>
+                    <div class="frame-45"><div class="element-3">4</div></div>
+                    <div class="frame-45"><div class="element-3">5</div></div>
+                    <img class="image" src="img/image.svg" />
+                    <div class="frame-45"><div class="text-wrapper-43">30</div></div>
+                  </div>
+                  <div class="frame-25">
+                    <div class="icon-wrapper"><img class="icon-3" src="img/icon.svg" /></div>
+                    <img class="frame-43" src="img/frame-2608227.svg" />
+                  </div>
+                </div>
+                <div class="frame-46">
+                  <div class="text-wrapper-27">300件中</div>
+                  <div class="text-wrapper-27">1 ~ 10件</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+	</form>
+</main>
+</div>
+</body>
+
+</html>

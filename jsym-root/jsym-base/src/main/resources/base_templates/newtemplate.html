@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout (sysnm, title, scripts, links, body)">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${title}"/>
+	<!--/* favicon */-->
+	<link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+	<link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/apple-touch-icon.png}">
+	<link rel="icon" th:href="@{/favicon.ico}" sizes="any">
+	<link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicon-32x32.png}">
+	<link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon-16x16.png}">
+	<link rel="manifest" th:href="@{/img/manifest.json}">
+	<!--/* 共通CSS */-->
+	<link rel="stylesheet" th:href="@{/css/globals.css}">
+	<link rel="stylesheet" th:href="@{/css/styleguide.css}">
+	<!--/* 各画面用CSS */-->
+	<th:block th:replace="${links}"/>
+	
+</head>
+<body>
+	<div class="design">
+		<!--/* sidebar */-->
+		<div id="sidebar" th:replace="~{newlayout :: sidebar}"></div>
+	
+		<!--/* header */-->
+		<div id="header" th:replace="~{newlayout :: header(sysnm=${sysnm}, title=${title})}"></div>
+	
+		<!--/* 各画面用JS */-->
+		<th:block th:replace="${scripts}" />
+	
+		<!--/* body */-->
+		<div id="body" th:replace="${body}"></div>
+	</div>
+</body>
+</html>

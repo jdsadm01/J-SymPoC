@@ -1,0 +1,32 @@
+:root {
+  --textmain: rgba(26, 26, 28, 1);
+  --textdescription: rgba(98, 98, 100, 1);
+  --body-l-font-family: "NotoSans JP-Regular", Helvetica;
+  --body-l-font-weight: 400;
+  --body-l-font-size: 16px;
+  --body-l-letter-spacing: 0.64px;
+  --body-l-line-height: 170.00000476837158%;
+  --body-l-font-style: normal;
+  --common-bold-m-font-family: "NotoSans JP-Bold", Helvetica;
+  --common-bold-m-font-weight: 700;
+  --common-bold-m-font-size: 12px;
+  --common-bold-m-letter-spacing: 0.15px;
+  --common-bold-m-line-height: 150%;
+  --common-bold-m-font-style: normal;
+  --drop-shadow: 0px 3px 28px 0px rgba(26, 26, 28, 0.15);
+  --shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+  --glass-shadow: 0px 0px 20px 0px rgba(140, 140, 140, 0.15);
+  --collection-1-main: rgba(42, 42, 45, 1);
+  --collection-1-text-white: rgba(255, 255, 255, 1);
+  --collection-1-text-main: rgba(26, 26, 28, 1);
+  --collection-1-white: rgba(255, 255, 255, 1);
+  --collection-1-border-line: rgba(26, 26, 28, 0.1);
+  --collection-1-outlined: rgba(26, 26, 28, 0.6);
+  --collection-1-zissekisyokai: rgba(80, 217, 229, 1);
+  --collection-1-button-line: rgba(26, 26, 28, 0.3);
+  --collection-1-background: rgba(242, 242, 242, 1);
+  --collection-1-storoke-black: rgba(36, 36, 38, 1);
+  --variable-collection-calendar-red: rgba(240, 77, 35, 1);
+  --variable-collection-description: rgba(98, 98, 100, 1);
+  --variable-collection-white-duplicate: rgba(255, 255, 255, 1);
+}
