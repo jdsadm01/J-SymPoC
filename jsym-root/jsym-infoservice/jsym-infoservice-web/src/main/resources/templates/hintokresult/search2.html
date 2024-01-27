@@ -22,6 +22,9 @@
 </head>
 <body>
 	<div class="design">
+      <div class="ellipse"></div>
+      <div class="div"></div>
+      <div class="ellipse-2"></div>
 
       <div class="sidebar">
         <div class="frame">
@@ -189,7 +192,7 @@
         </div>
       </div>
 
-	　　<div class="main">
+	    <div class="main">
 <header>
         <div class="frame-18">
           <div class="title">
@@ -203,8 +206,8 @@
         </div>
 </header>
 
-<main>
-	<form th:action="@{/hintokResult}" th:object="${hintokResultForm}" th:method="post">
+<form th:action="@{/hintokResult}" th:object="${hintokResultForm}" th:method="post">
+  <main>
 		<div class="frame-18">
           <div class="frame-20">
             <div class="frame-21">
@@ -226,17 +229,17 @@
                 <div class="frame-26">
                   <div class="text-wrapper-17">照会内容</div>
                   <div class="text-wrapper-18">
-					  <span th:text="${hintokResultForm.kknfrm}">
-					  ～
-					  <span th:text="${hintokResultForm.kknto}">
+					  <span th:text="${hintokResultForm.kknfrm}"/>
+                      ～
+					  <span th:text="${hintokResultForm.kknto}"/>
 				  </div>
                 </div>
                 <div class="frame-26">
                   <div class="text-wrapper-17">伝票日付</div>
                   <div class="text-wrapper-18">
-					  <span th:text="${hintokResultForm.dendtefrm}">
+					  <span th:text="${hintokResultForm.dendtefrm}"/>
 					  ～
-					  <span th:text="${hintokResultForm.dendteto}">
+					  <span th:text="${hintokResultForm.dendteto}"/>
 				  </div>
                 </div>
                 <div class="frame-26">
@@ -279,37 +282,37 @@
               <div class="frame-32">
                 <div class="text-wrapper-24">売上金額</div>
                 <div class="text-wrapper-25">
-					<span th:text="${hintokResultForm.urikin}">
+					<span th:text="${#numbers.formatInteger(hintokResultForm.urikin, 1, 'COMMA')}">
 				</div>
               </div>
               <div class="frame-33">
                 <div class="frame-34"><div class="text-wrapper-24">売上数</div></div>
                 <div class="frame-35"><div class="text-wrapper-26">
-					<span th:text="${hintokResultForm.urisuu}">
+					<span th:text="${#numbers.formatInteger(hintokResultForm.urisuu, 1, 'COMMA')}">
 				</div></div>
               </div>
               <div class="frame-32">
                 <div class="text-wrapper-24">返品数</div>
                 <div class="text-wrapper-25">
-					<span th:text="${hintokResultForm.hpnsuu}">
+					<span th:text="${#numbers.formatInteger(hintokResultForm.hpnsuu, 1, 'COMMA')}">
 				</div>
               </div>
               <div class="frame-32">
                 <div class="text-wrapper-24">NET数</div>
                 <div class="text-wrapper-25">
-					<span th:text="${hintokResultForm.netsuu}">
+					<span th:text="${#numbers.formatInteger(hintokResultForm.netsuu, 1, 'COMMA')}">
 				</div>
               </div>
               <div class="frame-32">
                 <div class="text-wrapper-24">返品金額</div>
                 <div class="text-wrapper-25">
-					<span th:text="${hintokResultForm.hpnkin}">
+					<span th:text="${#numbers.formatInteger(hintokResultForm.hpnkin, 1, 'COMMA')}">
 				</div>
               </div>
               <div class="frame-32">
                 <div class="text-wrapper-24">NET金額</div>
                 <div class="text-wrapper-25">
-					<span th:text="${hintokResultForm.netkin}">
+					<span th:text="${#numbers.formatInteger(hintokResultForm.netkin, 1, 'COMMA')}">
 				</div>
               </div>
             </div>
@@ -331,7 +334,8 @@
             <div class="frame-39">
               <div class="frame-40">
                 <div class="row-header">
-                  <img class="img" th:src="@{/img/icon-2.svg}" />
+                  <!--<img class="img" th:src="@{/img/icon-2.svg}" />-->
+                  <input type="checkbox">
                   <div class="text-wrapper-28">得意先番号</div>
                   <div class="text-wrapper-29">得意先名</div>
                   <div class="text-wrapper-28">シェア</div>
@@ -345,56 +349,57 @@
                 </div>
                 <th:block th:each="detail, st : *{detailList}">
 					<div th:class="${st.odd ? 'row' : 'row-3'}">
-	                  <img class="img" th:src="@{/img/icon-2.svg}" />
+	                  <!--<img class="img" th:src="@{/img/icon-2.svg}" />-->
+	                  <input type="checkbox">
 	                  <div class="text-wrapper-34"><span th:text="${detail.tokcod}"/></div>
 	                  <div class="text-wrapper-35"><span th:text="${detail.toknm}"/></div>
 	                  <div class="text-wrapper-36"><span th:text="${detail.share}"/></div>
 	                  <div class="text-wrapper-37"><span th:text="${detail.dendte}"/></div>
-	                  <div class="text-wrapper-38"><span th:text="${detail.urisuu}"/></div>
-	                  <div class="text-wrapper-39"><span th:text="${detail.hpnsuu}"/></div>
-	                  <div class="text-wrapper-39"><span th:text="${detail.netsuu}"/></div>
-	                  <div class="text-wrapper-40"><span th:text="${detail.urikin}"/></div>
-	                  <div class="text-wrapper-40"><span th:text="${detail.hpnkin}"/></div>
-	                  <div class="text-wrapper-40"><span th:text="${detail.netkin}"/></div>
+	                  <div class="text-wrapper-38"><span th:text="${#numbers.formatInteger(detail.urisuu, 1, 'COMMA')}"/></div>
+	                  <div class="text-wrapper-39"><span th:text="${#numbers.formatInteger(detail.hpnsuu, 1, 'COMMA')}"/></div>
+	                  <div class="text-wrapper-39"><span th:text="${#numbers.formatInteger(detail.netsuu, 1, 'COMMA')}"/></div>
+	                  <div class="text-wrapper-40"><span th:text="${#numbers.formatInteger(detail.urikin, 1, 'COMMA')}"/></div>
+	                  <div class="text-wrapper-40"><span th:text="${#numbers.formatInteger(detail.hpnkin, 1, 'COMMA')}"/></div>
+	                  <div class="text-wrapper-40"><span th:text="${#numbers.formatInteger(detail.netkin, 1, 'COMMA')}"/></div>
 	                </div>
                 </th:block>
 
-　　              <div class="frame-41">
-  　　              <div class="frame-25">
-    　　              <div class="text-wrapper-27">300件中</div>
-      　　            <div class="text-wrapper-27">1 ~ 10件</div>
-        　　        </div>
-          　　      <div class="frame-42">
-            　　      <div class="frame-25">
-              　　      <img class="frame-43" th:src="@{/img/frame-2608224.svg}" />
-                　　    <div class="icon-wrapper"><img class="icon-3" th:src="@{/img/icon-1.svg}" /></div>
-                  　　</div>
-　　                  <div class="frame-4">
-  　　                  <div class="frame-44"><div class="text-wrapper-42">1</div></div>
-    　　                <div class="frame-45"><div class="element-3">2</div></div>
-      　　              <div class="frame-45"><div class="element-3">3</div></div>
-        　　            <div class="frame-45"><div class="element-3">4</div></div>
-          　　          <div class="frame-45"><div class="element-3">5</div></div>
-            　　        <img class="image" th:src="@{/img/image.svg}" />
-              　　      <div class="frame-45"><div class="text-wrapper-43">30</div></div>
-                　　  </div>
-                  　　<div class="frame-25">
-                    　　<div class="icon-wrapper"><img class="icon-3" th:src="@{/img/icon.svg}" /></div>
-　　                    <img class="frame-43" th:src="@{/img/frame-2608227.svg}" />
-  　　                </div>
-    　　            </div>
-      　　          <div class="frame-46">
-        　　          <div class="text-wrapper-27">300件中</div>
-          　　        <div class="text-wrapper-27">1 ~ 10件</div>
-            　　    </div>
-              　　</div>
-　　            </div>
-  　　        </div>
-    　　    </div>
-      　　</div>
-	</form>
-</main>
-　　    </div>
+                </div>
+                <div class="frame-41">
+                  <div class="frame-25">
+                    <div class="text-wrapper-27">300件中</div>
+                    <div class="text-wrapper-27">1 ~ 10件</div>
+                  </div>
+                  <div class="frame-42">
+                    <div class="frame-25">
+                      <img class="frame-43" th:src="@{/img/frame-2608224.svg}" />
+                      <div class="icon-wrapper"><img class="icon-3" th:src="@{/img/icon-1.svg}" /></div>
+                    </div>
+                    <div class="frame-4">
+                    <div class="frame-44"><div class="text-wrapper-42">1</div></div>
+                    <div class="frame-45"><div class="element-3">2</div></div>
+                    <div class="frame-45"><div class="element-3">3</div></div>
+                    <div class="frame-45"><div class="element-3">4</div></div>
+                    <div class="frame-45"><div class="element-3">5</div></div>
+                    <img class="image" th:src="@{/img/image.svg}" />
+                    <div class="frame-45"><div class="text-wrapper-43">30</div></div>
+                    </div>
+                    <div class="frame-25">
+                      <div class="icon-wrapper"><img class="icon-3" th:src="@{/img/icon.svg}" /></div>
+                      <img class="frame-43" th:src="@{/img/frame-2608227.svg}" />
+                    </div>
+                  </div>
+                  <div class="frame-46">
+                    <div class="text-wrapper-27">300件中</div>
+                    <div class="text-wrapper-27">1 ~ 10件</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  </main>
+</form>
+        </div>
 </div>
 </body>
 
