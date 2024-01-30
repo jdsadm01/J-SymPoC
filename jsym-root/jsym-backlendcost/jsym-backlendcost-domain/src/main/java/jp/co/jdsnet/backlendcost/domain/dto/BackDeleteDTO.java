@@ -67,6 +67,8 @@ public class BackDeleteDTO extends AbstractDTO {
 
   private Map<String, String> radioTokcod;
   private String tokkbn;
+  private boolean isInServiceTime;
+
 
 
 }
