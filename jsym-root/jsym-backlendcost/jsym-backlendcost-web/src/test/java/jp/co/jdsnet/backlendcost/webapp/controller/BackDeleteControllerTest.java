@@ -102,6 +102,12 @@ public class BackDeleteControllerTest {
 
     @Test
     void displayMode() throws Exception {
+      when(target.chkInputDeleteData(any()))
+          .thenReturn(BackDeleteDTO.builder().nextGamenMode("submit").build());
+
+      String test = backDeleteController.chkInputDeleteData(testForm(), any(), any());
+
+      assertAll("結果確認", () -> assertEquals("backdelete/submit", test, "送信前"));
 
     }
 
