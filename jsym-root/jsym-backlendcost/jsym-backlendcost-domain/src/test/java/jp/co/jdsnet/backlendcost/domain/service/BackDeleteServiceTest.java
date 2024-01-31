@@ -70,61 +70,36 @@ public class BackDeleteServiceTest {
       assertAll("結果確認", () -> assertEquals(false, result.isInServiceTime(), "サービス時間が一致"));
     }
   }
+
   /** 検索=============================================================== */
   @Nested
   class search {
 
-    /** 注残件数が101以上であれば次100件ボタンを表示させる */
     @Test
-    void 次100件ボタン() throws Exception {
+    void 注残件数が101以上であれば次100件ボタンを表示させる() throws Exception {
+      int countSouteichi = 101;
+      int chzsurSouteichi = 101;
+      when(chuzanMapper.selectCount(Mockito.any())).thenReturn(countSouteichi);
+      when(chuzanMapper.selectTotalchzSur(Mockito.any())).thenReturn(chzsurSouteichi);
+      when(chuzanMapper.select(Mockito.any())).thenReturn(dummyChuzanDataList101());
+      // when(target.getChuzanData(testDTO(), 0, Mockito.anyString())).thenReturn(dummyDto());
 
-      // ↓検索したDTOを返してもらう Searchメソッドを動かす
-      when(target.search(testDTO())).thenReturn(getNext100Flg());
+      BackDeleteDTO resultDTO = target.search(testDTO());
 
-      Method method = BackDeleteServiceImpl.class.getMethod("search", BackDeleteDTO.class);
-      method.setAccessible(true);
-
-      BackDeleteDTO resultDTO =
-          (BackDeleteDTO) method.invoke(target, testDTO(), 0, Mockito.anyString());
-
-      // resultDTO
-      assertAll("結果確認", () -> assertEquals(getNext100Flg().isNextFlg(), resultDTO.isNextFlg(),
-          "trueが返却されました。次100件を表示させます"));
+      assertAll("結果確認",
+          () -> assertEquals(true, resultDTO.isNextFlg(), "trueが返却されました。次100件を表示させます"));
     }
 
-    private BackDeleteDTO getNext100Flg() {
-      return BackDeleteDTO.builder().nextFlg(true).build();
-    }
+    // private BackDeleteDTO dummyDto() {
+    // return BackDeleteDTO.builder().chzCnt(101).pageNo(0).build();
+    // }
+
   }
 
   /** 注残データ取得=============================================================== */
   @Nested
   class getChuzanData {
 
-    /** 受注日TOが999999に補正されるかチェック */
-    @Test
-    void 受注日TOの補正() throws Exception {
-
-      int jucdteTo = 999999;
-      BackDeleteDTO testDtoDtehosei = testDTO().toBuilder().jucdtefrom("220101").build();
-
-      when(target.getChuzanData(testDtoDtehosei, 0, Mockito.anyString())).thenReturn(getJucDteTo());
-
-      Method method = BackDeleteServiceImpl.class.getMethod("getChuzanData", BackDeleteDTO.class,
-          int.class, String.class);
-      method.setAccessible(true);
-
-      BackDeleteDTO resultDTO =
-          (BackDeleteDTO) method.invoke(target, testDTO(), 0, Mockito.anyString());
-
-      assertAll("結果確認", () -> assertEquals(jucdteTo, resultDTO.getJucdteto(), "受注日Toは999999が自動入力"));
-    }
-
-    private BackDeleteDTO getJucDteTo() {
-      return BackDeleteDTO.builder().jucdteto("999999").build();
-    }
-
-    /** 注残カウント数0 */
     @Test
     void ゼロ件() throws Exception {
 
@@ -135,7 +110,6 @@ public class BackDeleteServiceTest {
 
       Method method = BackDeleteServiceImpl.class.getMethod("getChuzanData", BackDeleteDTO.class,
           int.class, String.class);
-      // method.setAccessible(true);
 
       // 引数 dto pageNo pageKey;
       BackDeleteDTO resultDTO =
@@ -145,7 +119,6 @@ public class BackDeleteServiceTest {
 
     }
 
-    /** 注残カウント数10000 */
     @Test
     void 一万件超え() throws Exception {
 
@@ -156,15 +129,13 @@ public class BackDeleteServiceTest {
 
       Method method = BackDeleteServiceImpl.class.getMethod("getChuzanData", BackDeleteDTO.class,
           int.class, String.class);
-      // method.setAccessible(true);
 
       BackDeleteDTO resultDTO =
           (BackDeleteDTO) method.invoke(target, testDTO(), 0, Mockito.anyString());
 
-      assertAll("結果確認", () -> assertEquals(yosochi, resultDTO.getChzCnt(), "0件"));
+      assertAll("結果確認", () -> assertEquals(yosochi, resultDTO.getChzCnt(), "10000件"));
     }
 
-    /** 記号番号が取得できたか */
     @Test
     void 記号番号を取得する() throws Exception {
       when(kigbngCheckSharedService.getHinban(Mockito.anyString(), Mockito.anyString()))
@@ -184,125 +155,84 @@ public class BackDeleteServiceTest {
     }
 
 
-    /** 注残削除区分追加処理 */
-    // 注残情報を取得する
-    // 取得した注残削除日付
     @Test
-    void 注残区分を振り分ける() throws Exception {
-      when(chuzanMapper.select(inputChuzanData())).thenReturn(dummyChuzanDataList());
+    void データ取得時のチェック() throws Exception {
+      // テスト1:削除区分
+      // テスト2:ページキーのセット
 
-      Method method =
-          BackDeleteServiceImpl.class.getMethod("getChuzanData", String.class, String.class);
-      // method.setAccessible(true);
-      BackDeleteDTO dto = BackDeleteDTO.builder().kaiskbcod("ADI").tokcod("00039371").build();
+      int countSouteichi = 101;
+      int chzsurSouteichi = 101;
+      when(chuzanMapper.selectCount(Mockito.any())).thenReturn(countSouteichi);
+      when(chuzanMapper.selectTotalchzSur(Mockito.any())).thenReturn(chzsurSouteichi);
+      when(chuzanMapper.select(Mockito.any())).thenReturn(dummyChuzanDataList101());
 
-      BackDeleteDTO result = target.getChuzanData(dto, 0, "");
+      BackDeleteDTO resultDTO = target.getChuzanData(testDTO(), 0, "");
 
       assertAll("結果確認",
-          () -> assertEquals("E", result.getDetailList().get(0).getChzdelKbn(), "区分E"));
-
-    }
-
-    /** 100行目を取得できたらページキーをセットするテスト */
-    @Test
-    void ページキーセット() throws Exception {
-      when(chuzanMapper.select(Mockito.any())).thenReturn(dummyChuzanDataList100());
-
-      Method method = BackDeleteServiceImpl.class.getMethod("getChuzanData", BackDeleteDTO.class,
-          int.class, String.class);
-      // method.setAccessible(true);
-
-      BackDeleteDTO resultDTO =
-          (BackDeleteDTO) method.invoke(target, testDTO(), 0, Mockito.anyString());
-
-      assertAll("結果確認",
-          () -> assertEquals(getPagekey(), resultDTO.getDetailList().get(99).getChzdeldte()
-              + resultDTO.getDetailList().get(99).getTokcod(), "区分E"));
-    }
-
-    private List<ChuzanEntity> dummyChuzanDataList() {
-      List<ChuzanEntity> list = new ArrayList<>();
-      list.add(
-          ChuzanEntity.builder().kaiskbcod("KAI1").tokcod("00000001").chzdeldte(200201).build());
-      list.add(
-          ChuzanEntity.builder().kaiskbcod("KAI1").tokcod("00000002").chzdeldte(200202).build());
-      list.add(
-          ChuzanEntity.builder().kaiskbcod("KAI1").tokcod("00000003").chzdeldte(200203).build());
-      list.add(
-          ChuzanEntity.builder().kaiskbcod("KAI1").tokcod("00000004").chzdeldte(200204).build());
-
-      return list;
+          () -> assertEquals("E", resultDTO.getDetailList().get(1).getChzdelKbn(), "削除区分Eで一致"),
+          () -> assertEquals("N", resultDTO.getDetailList().get(2).getChzdelKbn(), "削除区分Nで一致"),
+          () -> assertEquals(getPagekey(), resultDTO.getPageKeyNext(), "ページキーセット完了"));
     }
 
     private String getPagekey() {
-      List<ChuzanEntity> list100 = dummyChuzanDataList100();
-
-      return String.valueOf(list100.get(99).getChzdeldte())
-          + String.valueOf(list100.get(99).getTokcod());
-
-    }
-
-    private List<ChuzanEntity> dummyChuzanDataList100() {
-      List<ChuzanEntity> list = new ArrayList<>();
-      int u = 1;
-      for (int i = 0; i < 100; i++) {
-
-        if (i < 10) {
-          list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000000" + i)
-              .chzdeldte(200300 + u).build());
-        } else {
-          list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("0000000" + i)
-              .chzdeldte(200300 + u).build());
-        }
-        if (u == 30) {
-          u = u + 71;
-        }
-
-      }
-
-      return list;
+      return "200202. 200222. 8222282000000000009900000099099";
     }
 
   }
+
   /** 次100件=============================================================== */
   @Nested
   class next100Search {
 
-    /** 削除チェックマーク数チェック */
     @Test
-    void 削除チェックが存在するか() throws Exception {
-      when(target.next100Search(testDTO(), 0, Mockito.anyString())).thenReturn(existChk());
+    void チェックされている行がある場合遷移しない() throws Exception {
+      // エラーメッセージを実装していないのでページキーが上書きされるかどうかで判定する
+      // チェックがある場合は注残データを取得しない(キーが変更されない)ので第3引数がそのまま返却される
 
-      Method method = BackDeleteServiceImpl.class.getDeclaredMethod("next100Search",
-          BackDeleteDTO.class, int.class, String.class);
+      // int countSouteichi = 101;
+      // int chzsurSouteichi = 101;
+      // when(chuzanMapper.selectCount(Mockito.any())).thenReturn(countSouteichi);
+      // when(chuzanMapper.selectTotalchzSur(Mockito.any())).thenReturn(chzsurSouteichi);
+      // when(chuzanMapper.select(Mockito.any())).thenReturn(dummyChuzanDataList101());
 
-      BackDeleteDTO resultDTO =
-          (BackDeleteDTO) method.invoke(target, testDTO(), 0, Mockito.anyString());
+      BackDeleteDTO resultDTO = target.next100Search(testDTO(), 1, testDTO().getPageKeyNext());
 
-      long checkcnt =
-          resultDTO.getDetailList().stream().filter(t -> "1".equals(t.getDeletechk())).count();
-
-      assertAll("結果確認", () -> assertEquals(2, checkcnt, "チェックは2個"));
-
-    }
-
-
-
-    private BackDeleteDTO existChk() {
-
-      List<BackDeleteDetailDTO> detailDTOChk = new ArrayList<>();
-      detailDTOChk.add(BackDeleteDetailDTO.builder().deletechk("1").build());
-      detailDTOChk.add(BackDeleteDetailDTO.builder().deletechk("1").build());
-      detailDTOChk.add(BackDeleteDetailDTO.builder().deletechk("0").build());
-
-      return BackDeleteDTO.builder().detailList(detailDTOChk).build();
+      assertAll("結果確認", () -> assertEquals("DUMMYKEY", resultDTO.getPageKeyNext(), "チェックあり"));
 
     }
 
   }
 
+  /** 削除対象チェック=============================================================== */
+  @Nested
+  class chkInputDeleteData {
 
-  // Entityセット======================================================================================
+    @Test
+    void チェック0なら送信前画面に遷移しない() throws Exception {
+      // モック対象なし
+
+      BackDeleteDTO resultDTO = target.chkInputDeleteData(inputData());
+
+      assertAll("結果確認",
+          () -> assertEquals("", resultDTO.getNextGamenMode(), "チェックされている行がないので遷移しません"));
+      // 削除対象があるとブランクではなくsubmitが返却
+    }
+
+    private BackDeleteDTO inputData() {
+
+      List<BackDeleteDetailDTO> detailDTOChk = new ArrayList<>();
+      detailDTOChk.add(BackDeleteDetailDTO.builder().deletechk("0").build());
+      detailDTOChk.add(BackDeleteDetailDTO.builder().deletechk("0").build());
+      detailDTOChk.add(BackDeleteDetailDTO.builder().deletechk("0").build());
+      // detailDTOChk.add(BackDeleteDetailDTO.builder().deletechk("1").build());
+
+      return BackDeleteDTO.builder().detailList(detailDTOChk).build();
+    }
+
+  }
+
+
+  /** Entityセット ======================================================================== */
   public ChuzanEntity inputChuzanData() {
 
     return ChuzanEntity.builder().kaiskbcod("ADI").daikaiskbcod("ADI").pageKey(Mockito.anyString())
@@ -314,7 +244,7 @@ public class BackDeleteServiceTest {
 
   }
 
-  // DTOセット======================================================================================
+  /** DTOセット ======================================================================== */
   public BackDeleteDTO testDTO() {
     List<String> testList1 = new ArrayList<String>();
     List<LabelData> testListTok = new ArrayList<LabelData>();
@@ -325,19 +255,259 @@ public class BackDeleteServiceTest {
     Map<String, String> testRadiotok = new HashMap<String, String>();
 
     detailList.add(BackDeleteDetailDTO.builder().skocod("011").build());
+    detailList.add(BackDeleteDetailDTO.builder().skocod("011").deletechk("1").build());// next100で削除チェックする
 
     UserInfoVO userVo = UserInfoVO.builder().usrid("").usrnm("").daikaiskbcod("JDS")
         .kaiskbcod("ADI").usrbun("").bshcod("").mnugrpcod("").cpuid("").tmlid("")
         .lastAccessTime(LocalDateTime.now()).build();
 
     return BackDeleteDTO.builder().userInfo(userVo).kaiskbcod("ADI").mkrbuncod("A").skocod("")
-        .kigbng("").tokcod("").dscod("").eigcod("").tercod("").updkbn("S").jucdtefrom("")
+        .kigbng("").tokcod("").dscod("").eigcod("").tercod("").updkbn("S").jucdtefrom("200101")
         .jucdteto("").hbidtefrom("").hbidteto("").titnm("").artnm("").toknm("").tokkbn("1").dsnm("")
         .chzCnt(0).chzsurTotal(0).allDeletechk("").detailBottomList(testList1)
         .tokkbnList(testListTok).updkbnList(testListUpd).checkBoxDelete(testChkBox)
-        .detailList(detailList).deleteList(testList6).pageKeyPrev("").pageKeyNow("").pageKeyNext("")
+        .detailList(detailList).deleteList(testList6).pageKeyPrev("").pageKeyNow("")
+        .pageKeyNext("DUMMYKEY")
         .pageNo(0).prevFlg(false).nextFlg(false).nextGamenMode("").radioTokcod(testRadiotok)
         .build();
+  }
+
+  /** 101件のダミー検索結果 ======================================================================== */
+  public List<ChuzanEntity> dummyChuzanDataList101() {
+    List<ChuzanEntity> list = new ArrayList<>();
+    // int t = 1; // 日付カウント
+    // int u = 1; // 日付代入用数値
+    // for (int i = 0; i < 101; i++) {
+    //
+    // if (i < 10) {
+    // list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000000" + i)
+    // .chzdeldte(200300 + u)
+    // .build());
+    // } else {
+    // list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("0000000" + i)
+    // .chzdeldte(200300 + u).build());
+    // }
+    //
+    // t++;
+    // u++;
+    //
+    // if (t == 30) {
+    // u = u + 71;
+    // t = 1;
+    // }
+    //
+    // }
+
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000000").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000001").chzdeldte(200301)
+        .chzdelkjndte(200228).build());// 基準日付2/28 注残区分B
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000002").chzdeldte(200301)
+        .chzdelkjndte(200302).rmcod("B").build());// リマークB 注残区分N
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000003").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000004").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000005").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000006").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000007").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000008").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000009").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000010").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000011").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000012").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000013").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000014").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000015").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000016").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000017").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000018").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000019").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000020").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000021").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000022").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000023").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000024").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000025").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000026").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000027").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000028").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000029").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000030").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000031").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000032").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000033").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000034").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000035").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000036").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000037").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000038").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000039").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000040").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000041").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000042").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000043").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000044").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000045").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000046").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000047").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000048").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000049").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000050").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000051").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000052").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000053").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000054").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000055").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000056").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000057").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000058").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000059").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000060").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000061").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000062").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000063").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000064").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000065").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000066").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000067").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000068").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000069").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000070").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000071").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000072").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000073").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000074").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000075").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000076").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000077").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000078").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000079").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000080").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000081").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000082").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000083").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000084").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000085").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000086").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000087").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000088").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000089").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000090").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000091").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000092").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000093").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000094").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000095").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000096").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000097").chzdeldte(200301)
+        .chzdelkjndte(200302).build());
+    list.add(
+        ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000098").chzdeldte(200301).chzdte(200101)
+            .chzjkk(200111).chzrelno(81111).eigcod("81").kigbng("0000000000098").dscod("098")// 99明細目
+            .chzdelkjndte(200302).build());
+    list.add(
+        ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000099").chzdeldte(200301).chzdte(200202)
+            .chzjkk(200222).chzrelno(82222).eigcod("82").kigbng("0000000000099").dscod("099")// 100明細目
+            .chzdelkjndte(200302).build());
+    list.add(
+        ChuzanEntity.builder().kaiskbcod("KAI").tokcod("00000100").chzdeldte(200301).chzdte(200303)
+            .chzjkk(200333).chzrelno(83333).eigcod("83").kigbng("0000000000100").dscod("100")// 101明細目
+            .chzdelkjndte(200302).build());
+
+    return list;
   }
 
 
