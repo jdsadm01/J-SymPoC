@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpSession;
 import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
+import jp.co.jdsnet.master.webapp.controller.NohsakEntryController;
 
 @Controller
 public class RegisterController {
     @Autowired
     private HttpSession httpSession;
+    @Autowired
+    private NohsakEntryController nohsakEntryController;
     
     @Value("${property.session.userInfoKey}")
     private String userInfoKey;
@@ -38,4 +41,10 @@ public class RegisterController {
 	}
 
     // 画面ごとにコントローラの呼び出しを追加する
+
+    /** 納品先マスター登録 */
+    @RequestMapping(value = "/register/nohsakEntry")
+    public String nohsakEntry(Model model) {
+      return nohsakEntryController.init(model);
+    }
 }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="h-100"
+    th:replace="~{template :: layout(title=#{title.nohsak.entry},title_icon='pencil-square'
+    				,scripts=~{::script},links=~{::link},body=~{::body/content()})}">
+
+<!--/* 画面固有のCSS・JSがある場合はここで定義 */-->
+<head>
+	<link>
+	<script type="text/javascript" th:src="@{/js/NohsakEntry.js}"></script>
+</head>
+
+<body>
+<!--/* ページコンテンツ */-->
+<div class="d-flex flex-column h-100">
+<main class="flex-shrink-0 mt-3">
+	<form th:action="@{/nohsakEntry}" th:object="${nohsakEntryForm}" th:method="post">
+		<div class="container">
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-2">
+					<label for="yykflg" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{yykflg}"></label>
+					<select name="yykflg" th:field="*{yykflg}" class="form-select" aria-label="予約">
+						<option value="0"x>0:有</option>
+						<option value="1"x>1:無</option>
+					</select>
+				</div>
+				<div class="flex-col col-lg-3">
+					<label for="yykdte" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{yykdte}"></label>
+					<input class="form-control p-1 text-uppercase" id="yykdte" th:field="*{yykdte}" maxlength="6">
+				</div>
+			</div>
+			<div class="d-flex flex-row g-1">
+				<div class="flex-col col-lg-3">
+					<label for="bshcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tankinhjikbn}"></label>
+					<input class="form-control p-1 text-uppercase" id="bshcod" type="text" th:field="*{bshcod}" maxlength="4" aria-label="場所">
+				</div>
+				<div class="flex-col col-lg-5">
+					<label for="prckbn" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{prckbn}"></label>
+					<select name="prckbn" th:field="*{prckbn}" class="form-select" aria-label="更新区分">
+						<option value="T">T　得意先コード照会</option>
+						<option value="S">S 納品先コード照会</option>
+						<option value="U">U 納品先コード更新</option>
+						<option value="A">A 納品先コード登録</option>
+						<option value="D">D 納品先コード削除</option>
+					</select>
+				</div>
+			</div>
+			<div class="d-flex flex-row p-2">
+				<div class="col-2">
+					<th:block th:if="*{prckbn == 'T'}">
+						<button class="btn btn-outline-secondary" type="submit" name="btn_search_noh">実行</button>
+					</th:block>
+					<th:block th:unless="*{prckbn == 'T'}">
+						<button class="btn btn-outline-secondary" type="submit" name="btn_search_tok">実行</button>
+					</th:block>
+				</div>
+			</div>
+			<div>
+				<ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
+				    <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
+				</ul>
+				<th:block th:text="${errors}"></th:block>
+				<!--
+				<table>
+					<tr th:if="${validationError}" th:each="error : ${validationError}">
+			            <td style="color: red;" th:text="${error}"></td>
+			        </tr>
+				</table>
+				-->
+			</div>
+		</div>
+		
+		<th:block th:if="*{prckbn == 'T'}">
+			<div id="detail" th:replace="~{nohsakEntry/partsDetail :: typeT}"></div>
+		</th:block>
+		<th:block th:unless="*{prckbn == 'T'}">
+			<div id="detail" th:replace="~{nohsakEntry/partsDetail :: typeS}"></div>
+		</th:block>
+	</form>
+</main>
+</div>
+</body>
+
+</html>

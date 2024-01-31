@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<body>
+	<!--/* 照会区分S系の明細 */-->
+	<div th:fragment="typeS">
+		<div class="container">
+			<table id="mytable" class="table table-striped table-hover table-bordered">
+				<thead class="bg-primary text-light row-cols-auto bg-opacity-75">
+					<tr class="text-center align-middle">
+						<th class="p-1" th:text="#{no}"></th>
+						<th class="p-1" th:text="#{tokcod}"></th>
+						<th class="p-1" th:text="#{ds}"></th>
+						<th class="p-1" th:text="#{nohsak}"></th>
+						<th class="p-1" th:text="#{toknm}"></th>
+						<th class="p-1" th:text="#{nohsaknm}"></th>
+						<th class="p-1" th:text="#{kbn}"></th>
+						<th class="p-1" th:text="#{upddte}"></th>
+						<th class="p-1" th:text="#{updjkk}"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="detail, st : *{detailList}">
+						<tr>
+							<td rowspan="2">
+								<span th:text="${st.count}"/>
+							</td>
+							<td>
+								<input type="text" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].tokcod}" maxlength="13" aria-label="得意先">
+							</td>
+							<td>
+								<input type="text" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].dscod}" maxlength="5" aria-label="DS">
+							</td>
+							<td th:text="${detail.gkytokcod}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].gkytokcod}">
+							</td>
+							<td th:text="${detail.toknm}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].toknm}">
+							</td>
+							<td th:text="${detail.gkytoknm}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].gkytoknm}">
+							</td>
+							<td th:text="${detail.updkbn}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].updkbn}">
+							</td>
+							<td>
+								<th:block th:if="${detail.upddte != 0}">
+									<span th:text="${#temporals.format(detail.getDateField('upddte'), 'yy/MM/dd')}"/>
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].upddte}">
+								</th:block>
+							</td>
+							<td>
+								<th:block th:if="${detail.updjkk != 0}">
+									<span th:text="${#temporals.format(detail.getTimeField('updjkk'), 'H:mm:ss')}"/>
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].updjkk}">
+								</th:block>
+							</td>
+						<tr>
+							<td colspan="8">
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!--/* 照会区分T系の明細 */-->
+	<div th:fragment="typeT">
+		<div class="container">
+			<table id="mytable" class="table table-striped table-hover table-bordered">
+				<thead class="bg-primary text-light row-cols-auto bg-opacity-75">
+					<tr class="text-center align-middle">
+						<th class="p-1" th:text="#{no}"></th>
+						<th class="p-1" th:text="#{nohsak}"></th>
+						<th class="p-1" th:text="#{tokcod}"></th>
+						<th class="p-1" th:text="#{ds}"></th>
+						<th class="p-1" th:text="#{toknm}"></th>
+						<th class="p-1" th:text="#{nohsaknm}"></th>
+						<th class="p-1" th:text="#{kbn}"></th>
+						<th class="p-1" th:text="#{upddte}"></th>
+						<th class="p-1" th:text="#{updjkk}"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="detail, st : *{detailList}">
+						<tr>
+							<td rowspan="2">
+								<span th:text="${st.count}"/>
+							</td>
+							<td>
+								<input type="text" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].gkytokcod}" maxlength="13" aria-label="納品先">
+							</td>
+							<td th:text="${detail.tokcod}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].tokcod}">
+							</td>
+							<td th:text="${detail.dscod}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].dscod}">
+							</td>
+							<td th:text="${detail.toknm}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].toknm}">
+							</td>
+							<td th:text="${detail.gkytoknm}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].gkytoknm}">
+							</td>
+							<td th:text="${detail.updkbn}">
+								<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].updkbn}">
+							</td>
+							<td>
+								<th:block th:if="${detail.upddte != 0}">
+									<span th:text="${#temporals.format(detail.getDateField('upddte'), 'yy/MM/dd')}"/>
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].upddte}">
+								</th:block>
+							</td>
+							<td>
+								<th:block th:if="${detail.updjkk != 0}">
+									<span th:text="${#temporals.format(detail.getTimeField('updjkk'), 'H:mm:ss')}"/>
+									<input type="hidden" class="form-control p-1 text-uppercase" th:field="*{detailList[__${st.index}__].updjkk}">
+								</th:block>
+							</td>
+						<tr>
+							<td colspan="8">
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
