@@ -54,6 +54,7 @@ public class BackDeleteServiceTest {
   @Mock
   private KakushaTokuisakiEntity kakushaTokuisakiEntity;
 
+  // TODO 分岐の網羅＝条件それぞれに対してのtrueとfalseの両パターンを行う
 
   @Nested
   class init {
@@ -83,6 +84,7 @@ public class BackDeleteServiceTest {
       when(chuzanMapper.selectTotalchzSur(Mockito.any())).thenReturn(chzsurSouteichi);
       when(chuzanMapper.select(Mockito.any())).thenReturn(dummyChuzanDataList101());
       // when(target.getChuzanData(testDTO(), 0, Mockito.anyString())).thenReturn(dummyDto());
+      // TODO コメントアウトしてる方でモックするべき
 
       BackDeleteDTO resultDTO = target.search(testDTO());
 
@@ -97,6 +99,7 @@ public class BackDeleteServiceTest {
   }
 
   /** 注残データ取得=============================================================== */
+  // TODO テストが足りない。
   @Nested
   class getChuzanData {
 
@@ -136,6 +139,7 @@ public class BackDeleteServiceTest {
       assertAll("結果確認", () -> assertEquals(yosochi, resultDTO.getChzCnt(), "10000件"));
     }
 
+    // TODO 違うメソッドのテストが混ざっている
     @Test
     void 記号番号を取得する() throws Exception {
       when(kigbngCheckSharedService.getHinban(Mockito.anyString(), Mockito.anyString()))
@@ -155,6 +159,7 @@ public class BackDeleteServiceTest {
     }
 
 
+    // TODO モックが足りない 品番の取得でexceptionが発生している
     @Test
     void データ取得時のチェック() throws Exception {
       // テスト1:削除区分
@@ -181,6 +186,7 @@ public class BackDeleteServiceTest {
   }
 
   /** 次100件=============================================================== */
+  // TODO テストが足りない
   @Nested
   class next100Search {
 
@@ -204,6 +210,7 @@ public class BackDeleteServiceTest {
   }
 
   /** 削除対象チェック=============================================================== */
+  // TODO テストが足りない
   @Nested
   class chkInputDeleteData {
 
