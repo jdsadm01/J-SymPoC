@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+    group:
+      common:
+        - base
+      dev:
+        - common
+        - dev
+        - dev-backlendcost
+
+#サーバー設定
+server:
+  servlet:
+    context-path: /backlendcost
