@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.henpin.HenpinShijiMidashiMapper">
-	<select id="getNextSeq" resultType="int">
-		select ifnull(max(SEQ) + 1, 0)
-		from AERETU04
-		<where>
-			INPDTE = #{inpdte}
-			and BSHCOD = #{bshcod}
-		</where>
-		with ur
-	</select>
+  <select id="getNextSeq">
+    select max(SEQ)+1
+    from AERETU04
+    <where>
+      INPDTE = #{inpdte}
+      and BSHCOD = #{bshcod}
+    </where>
+    with ur
+  </select>
 </mapper>
+

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedJuchuMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,JUCDTE
+    ,TOKCOD
+    ,DSCOD
+    ,SEQ
+    ,JUCJKK
+    ,TRNFULCOD
+    ,THCBNG
+    ,RMCOD
+    ,SJCOD
+    ,YKNCOD
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,TANKINHJIFLG
+    ,SKRKRTSTEFLG
+    ,SKRKRT
+    ,ETCSYAKNRKBN
+    ,SMTCOD
+    ,KDAKBN
+    ,SSAYTEDTE
+    ,MKRSTESYADTE
+    ,MTDDTE
+    ,MTDBNG
+    ,CPUFULID
+    ,WSSEQ7KT
+    ,JSNDTE8KT
+    ,JSNJKK9KT
+    ,JUCKBN
+    ,JUCSTSKBN
+    ,INPCHKERRKBN
+    ,YKESYAFLG
+    ,YKESYAKJYZFLG
+    ,STASTEFLG
+    ,STAKJYZFLG
+    ,DELFLG
+    ,KEHSYOKNRNO
+    ,ZEIKBN
+    ,SMPSGN
+    ,KEHSYOFKESAKCOD
+    ,KAMCOD
+    ,KEHSYONIY
+    ,KEHSYOFKENO
+    ,KEHSYOTYO
+    ,ERRARIFLG
+    ,DENGPROSSNZFLGSKI
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,TMUSTEFLG
+    ,TMUKJYZFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="JuchuMidashiEntity">
+  insert into AERORD01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{jucdte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{seq}
+    ,#{jucjkk}
+    ,#{trnfulcod}
+    ,#{thcbng}
+    ,#{rmcod}
+    ,#{sjcod}
+    ,#{ykncod}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{tankinhjiflg}
+    ,#{skrkrtsteflg}
+    ,#{skrkrt}
+    ,#{etcsyaknrkbn}
+    ,#{smtcod}
+    ,#{kdakbn}
+    ,#{ssaytedte}
+    ,#{mkrstesyadte}
+    ,#{mtddte}
+    ,#{mtdbng}
+    ,#{cpufulid}
+    ,#{wsseq7kt}
+    ,#{jsndte8kt}
+    ,#{jsnjkk9kt}
+    ,#{juckbn}
+    ,#{jucstskbn}
+    ,#{inpchkerrkbn}
+    ,#{ykesyaflg}
+    ,#{ykesyakjyzflg}
+    ,#{stasteflg}
+    ,#{stakjyzflg}
+    ,#{delflg}
+    ,#{kehsyoknrno}
+    ,#{zeikbn}
+    ,#{smpsgn}
+    ,#{kehsyofkesakcod}
+    ,#{kamcod}
+    ,#{kehsyoniy}
+    ,#{kehsyofkeno}
+    ,#{kehsyotyo}
+    ,#{errariflg}
+    ,#{dengprossnzflgski}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{tmusteflg}
+    ,#{tmukjyzflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD01
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="JuchuMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="JuchuMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="JuchuMidashiEntity">
+  update AERORD01
+  <set>
+    ,JUCJKK = #{jucjkk}
+    ,TRNFULCOD = #{trnfulcod}
+    ,THCBNG = #{thcbng}
+    ,RMCOD = #{rmcod}
+    ,SJCOD = #{sjcod}
+    ,YKNCOD = #{ykncod}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,TANKINHJIFLG = #{tankinhjiflg}
+    ,SKRKRTSTEFLG = #{skrkrtsteflg}
+    ,SKRKRT = #{skrkrt}
+    ,ETCSYAKNRKBN = #{etcsyaknrkbn}
+    ,SMTCOD = #{smtcod}
+    ,KDAKBN = #{kdakbn}
+    ,SSAYTEDTE = #{ssaytedte}
+    ,MKRSTESYADTE = #{mkrstesyadte}
+    ,MTDDTE = #{mtddte}
+    ,MTDBNG = #{mtdbng}
+    ,CPUFULID = #{cpufulid}
+    ,WSSEQ7KT = #{wsseq7kt}
+    ,JSNDTE8KT = #{jsndte8kt}
+    ,JSNJKK9KT = #{jsnjkk9kt}
+    ,JUCKBN = #{juckbn}
+    ,JUCSTSKBN = #{jucstskbn}
+    ,INPCHKERRKBN = #{inpchkerrkbn}
+    ,YKESYAFLG = #{ykesyaflg}
+    ,YKESYAKJYZFLG = #{ykesyakjyzflg}
+    ,STASTEFLG = #{stasteflg}
+    ,STAKJYZFLG = #{stakjyzflg}
+    ,DELFLG = #{delflg}
+    ,KEHSYOKNRNO = #{kehsyoknrno}
+    ,ZEIKBN = #{zeikbn}
+    ,SMPSGN = #{smpsgn}
+    ,KEHSYOFKESAKCOD = #{kehsyofkesakcod}
+    ,KAMCOD = #{kamcod}
+    ,KEHSYONIY = #{kehsyoniy}
+    ,KEHSYOFKENO = #{kehsyofkeno}
+    ,KEHSYOTYO = #{kehsyotyo}
+    ,ERRARIFLG = #{errariflg}
+    ,DENGPROSSNZFLGSKI = #{dengprossnzflgski}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,TMUSTEFLG = #{tmusteflg}
+    ,TMUKJYZFLG = #{tmukjyzflg}
+  </set>
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="JuchuMidashiEntity">
+  delete from AERORD01
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

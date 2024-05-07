@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedHenpinGroupMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,HPNGRPCOD
+    ,HPWSYYCOD
+    ,HNSOBJFLG
+    ,HPNGRPNM
+    ,TERGRPCOD
+    ,GNHJIKBNIPN
+    ,GNHJIKBNKRE
+    ,HPNAWKCLEKJNGAK
+    ,HPWRT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HenpinGroupEntity">
+  insert into AECOMP08
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{hpngrpcod}
+    ,#{hpwsyycod}
+    ,#{hnsobjflg}
+    ,#{hpngrpnm}
+    ,#{tergrpcod}
+    ,#{gnhjikbnipn}
+    ,#{gnhjikbnkre}
+    ,#{hpnawkclekjngak}
+    ,#{hpwrt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="HenpinGroupEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HenpinGroupEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HenpinGroupEntity">
+  update AECOMP08
+  <set>
+    ,HPWSYYCOD = #{hpwsyycod}
+    ,HNSOBJFLG = #{hnsobjflg}
+    ,HPNGRPNM = #{hpngrpnm}
+    ,TERGRPCOD = #{tergrpcod}
+    ,GNHJIKBNIPN = #{gnhjikbnipn}
+    ,GNHJIKBNKRE = #{gnhjikbnkre}
+    ,HPNAWKCLEKJNGAK = #{hpnawkclekjngak}
+    ,HPWRT = #{hpwrt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HenpinGroupEntity">
+  delete from AECOMP08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</delete>
+
+</mapper>
+

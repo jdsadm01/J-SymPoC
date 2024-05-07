@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedYobiShukujitsuMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DTE8KT
+    ,YUBKBN
+    ,SHJFLG
+    ,NOTHSDFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,KUJHSOBDNFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="YobiShukujitsuEntity">
+  insert into AESYSM30
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{dte8kt}
+    ,#{yubkbn}
+    ,#{shjflg}
+    ,#{nothsdflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{kujhsobdnflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM30
+  <where>
+    and DTE8KT = #{dte8kt}
+  </where>
+</sql>
+
+<select id="select" resultType="YobiShukujitsuEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="YobiShukujitsuEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="YobiShukujitsuEntity">
+  update AESYSM30
+  <set>
+    ,YUBKBN = #{yubkbn}
+    ,SHJFLG = #{shjflg}
+    ,NOTHSDFLG = #{nothsdflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,KUJHSOBDNFLG = #{kujhsobdnflg}
+  </set>
+  <where>
+    and DTE8KT = #{dte8kt}
+  </where>
+</update>
+
+<delete id="delete" parameterType="YobiShukujitsuEntity">
+  delete from AESYSM30
+  <where>
+    and DTE8KT = #{dte8kt}
+  </where>
+</delete>
+
+</mapper>
+

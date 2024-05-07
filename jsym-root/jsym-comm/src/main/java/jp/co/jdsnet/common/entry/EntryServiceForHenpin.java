@@ -2,59 +2,72 @@ package jp.co.jdsnet.common.entry;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import jp.co.jdsnet.common.domain.entity.henpin.HenpinShijiMeisaiEntity;
+import org.springframework.stereotype.Service;
 import jp.co.jdsnet.common.domain.entity.henpin.HenpinShijiMidashiEntity;
+import jp.co.jdsnet.common.domain.entity.menu.EventEntity;
 import jp.co.jdsnet.common.domain.entity.syseve.TargetEntity;
 import jp.co.jdsnet.common.domain.mapper.henpin.HenpinShijiMeisaiMapper;
 import jp.co.jdsnet.common.domain.mapper.henpin.HenpinShijiMidashiMapper;
+import jp.co.jdsnet.common.utils.GlobalConstants.Updkbn;
+import lombok.RequiredArgsConstructor;
 
-public abstract class EntryServiceForHenpin<T> implements EntryService<T> {
+/**
+ * 返品用エントリーサービス
+ *
+ * @author r-matsumura
+ *
+ */
+@RequiredArgsConstructor
+@Service("EntryServiceForHenpin")
+public class EntryServiceForHenpin implements EntryService<HenpinShijiMidashiEntity> {
 
-  @Autowired
-  private HenpinShijiMidashiMapper henpinShijiMidashiMapper;
-  @Autowired
-  private HenpinShijiMeisaiMapper henpinShijiMeisaiMapper;
+  private final HenpinShijiMidashiMapper henpinShijiMidashiMapper;
+  private final HenpinShijiMeisaiMapper henpinShijiMeisaiMapper;
 
-  protected int sysdate = 0;
-  protected int systime = 0;
+  private int sysdate = 0;
+  private int systime = 0;
 
-  public TargetEntity entry(final String trnfulcod, final String saksvcid, T dto) throws Exception {
+  /**
+   * 返品指示見出IDとSEQを付与し、返品指示見出/明細に登録を行う。
+   */
+  @Override
+  public TargetEntity entry(final EventEntity eventEntity, HenpinShijiMidashiEntity midashiEntity)
+      throws Exception {
     LocalDateTime now = LocalDateTime.now();
     sysdate = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("yyMMdd")));
     systime = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("HHmmss")));
 
-    final HenpinShijiMidashiEntity midashiEntity = insertHenpinShiji(dto);
+    String keyString = /* insertEntity(midashiEntity) */"";
+    System.out.println("insert dummy");
 
-    return TargetEntity.builder().trnfulcod(trnfulcod).saksvcid(saksvcid)
-        .kenkey(midashiEntity.getKeyString()).build();
+    return TargetEntity.builder().trnfulcod(eventEntity.getPrctrn())
+        .motsvcid(eventEntity.getGmnid()).saksvcid(eventEntity.getSvcid()).kenkey(keyString)
+        .tgtstskbn("0").updkbn(Updkbn.INSERT.getCode()).inpdte(sysdate).inpjkk(systime)
+        .upddte(sysdate).updjkk(systime).build();
   }
 
-  private HenpinShijiMidashiEntity insertHenpinShiji(T dto) throws Exception {
-    HenpinShijiMidashiEntity midashiEntity = createHenpinShijiMidasi(dto);
+  private String insertEntity(HenpinShijiMidashiEntity midashiEntity) throws Exception {
     int nextseq =
         henpinShijiMidashiMapper.getNextSeq(midashiEntity.getInpdte(), midashiEntity.getBshcod());
     while (true) {
       midashiEntity = midashiEntity.toBuilder().seq(nextseq)
-          .hpnsjimdsid(createHnpsjimdsid(midashiEntity, nextseq)).build();
+          .hpnsjimdsid(createHnpsjimdsid(midashiEntity, nextseq)).updkbn(Updkbn.INSERT.getCode())
+          .upddte(sysdate).updjkk(systime).build();
       try {
-        System.out.println("INSERT_DUMMY DATA=" + midashiEntity.toString());
-        // henpinShijiMidashiMapper.insert(midashiEntity);
+        henpinShijiMidashiMapper.insert(midashiEntity);
         break;
       } catch (DuplicateKeyException e) {
         nextseq++;
       }
     }
     final String hpnsjimdsid = midashiEntity.getHpnsjimdsid();
-    createHenpinShijiMeisaiList(dto).stream()
-        .map(t -> t.toBuilder().hpnsjimdsid(hpnsjimdsid).build()).forEach(t -> {
-          System.out.println("INSERT_DUMMY DATA=" + t.toString());
-          // henpinShijiMeisaiMapper.insert(t);
+    midashiEntity.getMeisaiList().stream().map(t -> t.toBuilder().hpnsjimdsid(hpnsjimdsid)
+        .updkbn(Updkbn.INSERT.getCode()).upddte(sysdate).updjkk(systime).build()).forEach(t -> {
+          henpinShijiMeisaiMapper.insert(t);
         });
 
-    return midashiEntity;
+    return hpnsjimdsid;
   }
 
   private String createHnpsjimdsid(HenpinShijiMidashiEntity entity, int seq) {
@@ -62,17 +75,8 @@ public abstract class EntryServiceForHenpin<T> implements EntryService<T> {
         + String.format("%06d", seq);
   }
 
-  /**
-   * 返品指示見出を作成する. SEQと返品指示見出ID以外をセットすること.
-   * 
-   * @return
-   */
-  abstract protected HenpinShijiMidashiEntity createHenpinShijiMidasi(T dto);
-
-  /**
-   * 返品指示明細を作成する. 返品指示見出ID以外をセットすること.
-   * 
-   * @return
-   */
-  abstract protected List<HenpinShijiMeisaiEntity> createHenpinShijiMeisaiList(T dto);
+  @Override
+  public String getServiceId() {
+    return EntryServiceForHenpin.class.getSimpleName();
+  }
 }

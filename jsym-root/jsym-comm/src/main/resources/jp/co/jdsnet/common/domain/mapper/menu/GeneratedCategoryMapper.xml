@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedCategoryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,GYMID
+    ,CTGCOD
+    ,DAIKAISKBCOD
+    ,CTGNMKJ
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="CategoryEntity">
+  insert into VTBMNU03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{gymid}
+    ,#{ctgcod}
+    ,#{daikaiskbcod}
+    ,#{ctgnmkj}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMNU03
+  <where>
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="CategoryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="CategoryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="CategoryEntity">
+  update VTBMNU03
+  <set>
+    ,CTGNMKJ = #{ctgnmkj}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="CategoryEntity">
+  delete from VTBMNU03
+  <where>
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

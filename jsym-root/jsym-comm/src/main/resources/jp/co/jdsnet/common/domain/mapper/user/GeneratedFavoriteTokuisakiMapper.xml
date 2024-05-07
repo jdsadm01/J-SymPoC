@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.user.GeneratedFavoriteTokuisakiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,MDVUSRID
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,INPDTE
+    ,INPJKK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="FavoriteTokuisakiEntity">
+  insert into MTBFAV02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{mdvusrid}
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{inpdte}
+    ,#{inpjkk}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from MTBFAV02
+  <where>
+    and MDVUSRID = #{mdvusrid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</sql>
+
+<select id="select" resultType="FavoriteTokuisakiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="FavoriteTokuisakiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="FavoriteTokuisakiEntity">
+  update MTBFAV02
+  <set>
+    ,INPDTE = #{inpdte}
+    ,INPJKK = #{inpjkk}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and MDVUSRID = #{mdvusrid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="FavoriteTokuisakiEntity">
+  delete from MTBFAV02
+  <where>
+    and MDVUSRID = #{mdvusrid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</delete>
+
+</mapper>
+

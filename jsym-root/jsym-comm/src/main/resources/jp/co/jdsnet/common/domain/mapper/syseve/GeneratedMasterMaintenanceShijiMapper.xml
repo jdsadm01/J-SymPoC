@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedMasterMaintenanceShijiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TBLID
+    ,MTNKEY
+    ,FMTNO
+    ,MTNNO
+    ,KEYFLD
+    ,INPDTE
+    ,INPJKK
+    ,MTNSJIKBN
+    ,MTNDTE
+    ,MTNJKK
+    ,MTNPRCCOD
+    ,MTNUSRINF
+    ,JSYMUSRID
+    ,MTNSJIDTABDY
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="MasterMaintenanceShijiEntity">
+  insert into AESYSE05
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{tblid}
+    ,#{mtnkey}
+    ,#{fmtno}
+    ,#{mtnno}
+    ,#{keyfld}
+    ,#{inpdte}
+    ,#{inpjkk}
+    ,#{mtnsjikbn}
+    ,#{mtndte}
+    ,#{mtnjkk}
+    ,#{mtnprccod}
+    ,#{mtnusrinf}
+    ,#{jsymusrid}
+    ,#{mtnsjidtabdy}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE05
+  <where>
+    and TBLID = #{tblid}
+    and MTNKEY = #{mtnkey}
+    and FMTNO = #{fmtno}
+    and MTNNO = #{mtnno}
+    and KEYFLD = #{keyfld}
+    and INPDTE = #{inpdte}
+    and INPJKK = #{inpjkk}
+  </where>
+</sql>
+
+<select id="select" resultType="MasterMaintenanceShijiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="MasterMaintenanceShijiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="MasterMaintenanceShijiEntity">
+  update AESYSE05
+  <set>
+    ,MTNSJIKBN = #{mtnsjikbn}
+    ,MTNDTE = #{mtndte}
+    ,MTNJKK = #{mtnjkk}
+    ,MTNPRCCOD = #{mtnprccod}
+    ,MTNUSRINF = #{mtnusrinf}
+    ,JSYMUSRID = #{jsymusrid}
+    ,MTNSJIDTABDY = #{mtnsjidtabdy}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and TBLID = #{tblid}
+    and MTNKEY = #{mtnkey}
+    and FMTNO = #{fmtno}
+    and MTNNO = #{mtnno}
+    and KEYFLD = #{keyfld}
+    and INPDTE = #{inpdte}
+    and INPJKK = #{inpjkk}
+  </where>
+</update>
+
+<delete id="delete" parameterType="MasterMaintenanceShijiEntity">
+  delete from AESYSE05
+  <where>
+    and TBLID = #{tblid}
+    and MTNKEY = #{mtnkey}
+    and FMTNO = #{fmtno}
+    and MTNNO = #{mtnno}
+    and KEYFLD = #{keyfld}
+    and INPDTE = #{inpdte}
+    and INPJKK = #{inpjkk}
+  </where>
+</delete>
+
+</mapper>
+

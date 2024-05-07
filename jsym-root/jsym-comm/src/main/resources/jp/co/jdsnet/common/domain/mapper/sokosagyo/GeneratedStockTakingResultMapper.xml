@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sokosagyo.GeneratedStockTakingResultMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,SKOCOD
+    ,KIGBNG
+    ,ABZAIKBN
+    ,RYOFRY
+    ,TNODTEZKAFRM
+    ,TNODTEZKATO
+    ,TNODTEKKAFRM
+    ,TNODTEKKATO
+    ,ZKAZAISUU
+    ,KKAZAISUU
+    ,ZKATEISUUPLS
+    ,ZKATEISUUMNS
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="StockTakingResultEntity">
+  insert into VTBTRN27
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{skocod}
+    ,#{kigbng}
+    ,#{abzaikbn}
+    ,#{ryofry}
+    ,#{tnodtezkafrm}
+    ,#{tnodtezkato}
+    ,#{tnodtekkafrm}
+    ,#{tnodtekkato}
+    ,#{zkazaisuu}
+    ,#{kkazaisuu}
+    ,#{zkateisuupls}
+    ,#{zkateisuumns}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBTRN27
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RYOFRY = #{ryofry}
+  </where>
+</sql>
+
+<select id="select" resultType="StockTakingResultEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="StockTakingResultEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="StockTakingResultEntity">
+  update VTBTRN27
+  <set>
+    ,TNODTEZKAFRM = #{tnodtezkafrm}
+    ,TNODTEZKATO = #{tnodtezkato}
+    ,TNODTEKKAFRM = #{tnodtekkafrm}
+    ,TNODTEKKATO = #{tnodtekkato}
+    ,ZKAZAISUU = #{zkazaisuu}
+    ,KKAZAISUU = #{kkazaisuu}
+    ,ZKATEISUUPLS = #{zkateisuupls}
+    ,ZKATEISUUMNS = #{zkateisuumns}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RYOFRY = #{ryofry}
+  </where>
+</update>
+
+<delete id="delete" parameterType="StockTakingResultEntity">
+  delete from VTBTRN27
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RYOFRY = #{ryofry}
+  </where>
+</delete>
+
+</mapper>
+

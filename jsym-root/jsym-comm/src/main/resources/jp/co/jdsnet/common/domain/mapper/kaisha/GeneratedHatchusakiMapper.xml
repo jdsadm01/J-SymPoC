@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedHatchusakiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,HACSAKCOD
+    ,HACSAKEDTNM
+    ,HACSAKNM1
+    ,HACSAKNM2
+    ,HACSAKNMKN
+    ,HACSAKADR1
+    ,HACSAKADR2
+    ,HACSAKYBNBNG5KT
+    ,HACSAKYBNBNG7KT
+    ,HACSAKTELBNG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HatchusakiEntity">
+  insert into AECOMP05
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{hacsakcod}
+    ,#{hacsakedtnm}
+    ,#{hacsaknm1}
+    ,#{hacsaknm2}
+    ,#{hacsaknmkn}
+    ,#{hacsakadr1}
+    ,#{hacsakadr2}
+    ,#{hacsakybnbng5kt}
+    ,#{hacsakybnbng7kt}
+    ,#{hacsaktelbng}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP05
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+  </where>
+</sql>
+
+<select id="select" resultType="HatchusakiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HatchusakiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HatchusakiEntity">
+  update AECOMP05
+  <set>
+    ,HACSAKEDTNM = #{hacsakedtnm}
+    ,HACSAKNM1 = #{hacsaknm1}
+    ,HACSAKNM2 = #{hacsaknm2}
+    ,HACSAKNMKN = #{hacsaknmkn}
+    ,HACSAKADR1 = #{hacsakadr1}
+    ,HACSAKADR2 = #{hacsakadr2}
+    ,HACSAKYBNBNG5KT = #{hacsakybnbng5kt}
+    ,HACSAKYBNBNG7KT = #{hacsakybnbng7kt}
+    ,HACSAKTELBNG = #{hacsaktelbng}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HatchusakiEntity">
+  delete from AECOMP05
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+  </where>
+</delete>
+
+</mapper>
+

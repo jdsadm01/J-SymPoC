@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kashidashi.GeneratedKashidashiShukkaMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,HATBSHCOD
+    ,TRNCODMAE3KT
+    ,DAIKAISKBCOD
+    ,MKRDENBNG
+    ,DENDTE
+    ,TOKCOD
+    ,DSCOD
+    ,SEQ
+    ,MKRSTESKOCOD
+    ,HATSKOCOD
+    ,KIGBNG
+    ,RMCOD
+    ,EIGCOD
+    ,TERCOD
+    ,TANKINSTEKBN
+    ,SKRTAN
+    ,KDAKIN
+    ,KDASUR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,BBNURIMSISEQ
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KashidashiShukkaMeisaiEntity">
+  insert into AELEND02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{hatbshcod}
+    ,#{trncodmae3kt}
+    ,#{daikaiskbcod}
+    ,#{mkrdenbng}
+    ,#{dendte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{seq}
+    ,#{mkrsteskocod}
+    ,#{hatskocod}
+    ,#{kigbng}
+    ,#{rmcod}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{tankinstekbn}
+    ,#{skrtan}
+    ,#{kdakin}
+    ,#{kdasur}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{bbnurimsiseq}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AELEND02
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCODMAE3KT = #{trncodmae3kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="KashidashiShukkaMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KashidashiShukkaMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KashidashiShukkaMeisaiEntity">
+  update AELEND02
+  <set>
+    ,MKRSTESKOCOD = #{mkrsteskocod}
+    ,HATSKOCOD = #{hatskocod}
+    ,KIGBNG = #{kigbng}
+    ,RMCOD = #{rmcod}
+    ,EIGCOD = #{eigcod}
+    ,TERCOD = #{tercod}
+    ,TANKINSTEKBN = #{tankinstekbn}
+    ,SKRTAN = #{skrtan}
+    ,KDAKIN = #{kdakin}
+    ,KDASUR = #{kdasur}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,BBNURIMSISEQ = #{bbnurimsiseq}
+  </set>
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCODMAE3KT = #{trncodmae3kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KashidashiShukkaMeisaiEntity">
+  delete from AELEND02
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCODMAE3KT = #{trncodmae3kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

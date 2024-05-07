@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.control.GeneratedServiceControlMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,USRBUN
+    ,GYMID
+    ,PRCKBN
+    ,SVCFLG1
+    ,SVCSTTDTE1
+    ,SVCENDDTE1
+    ,SVCSTTJKK1
+    ,SVCENDJKK1
+    ,SVCFLG2
+    ,SVCSTTDTE2
+    ,SVCENDDTE2
+    ,SVCSTTJKK2
+    ,SVCENDJKK2
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ServiceControlEntity">
+  insert into VTBCNL01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{usrbun}
+    ,#{gymid}
+    ,#{prckbn}
+    ,#{svcflg1}
+    ,#{svcsttdte1}
+    ,#{svcenddte1}
+    ,#{svcsttjkk1}
+    ,#{svcendjkk1}
+    ,#{svcflg2}
+    ,#{svcsttdte2}
+    ,#{svcenddte2}
+    ,#{svcsttjkk2}
+    ,#{svcendjkk2}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBCNL01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and PRCKBN = #{prckbn}
+  </where>
+</sql>
+
+<select id="select" resultType="ServiceControlEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ServiceControlEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ServiceControlEntity">
+  update VTBCNL01
+  <set>
+    ,SVCFLG1 = #{svcflg1}
+    ,SVCSTTDTE1 = #{svcsttdte1}
+    ,SVCENDDTE1 = #{svcenddte1}
+    ,SVCSTTJKK1 = #{svcsttjkk1}
+    ,SVCENDJKK1 = #{svcendjkk1}
+    ,SVCFLG2 = #{svcflg2}
+    ,SVCSTTDTE2 = #{svcsttdte2}
+    ,SVCENDDTE2 = #{svcenddte2}
+    ,SVCSTTJKK2 = #{svcsttjkk2}
+    ,SVCENDJKK2 = #{svcendjkk2}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and PRCKBN = #{prckbn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ServiceControlEntity">
+  delete from VTBCNL01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and PRCKBN = #{prckbn}
+  </where>
+</delete>
+
+</mapper>
+

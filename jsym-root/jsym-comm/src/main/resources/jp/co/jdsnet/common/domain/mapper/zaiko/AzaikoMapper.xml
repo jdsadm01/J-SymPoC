@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.zaiko.AzaikoMapper">
+  <select id="selectSokoSummary" resultType="AzaikoEntity">
+    select
+        DAIKAISKBCOD, KIGBNG
+        , sum(ZAISUR) AS ZAISUR, sum(ZAIKHOKHASUR) AS ZAIKHOKHASUR, sum(SINJUCKHASUR) AS SINJUCKHASUR
+        , sum(SINSYASUR) AS SINSYASUR, sum(CHZKHASUR) AS CHZKHASUR, sum(YKESYAKHASUR) AS YKESYAKHASUR
+        , sum(SEKZANSUR) AS SEKZANSUR, sum(KDAZANSUR) AS KDAZANSUR, sum(TODJUCSUR) AS TODJUCSUR
+        , sum(TODSYASUR) AS TODSYASUR, sum(TOMJUCSUR) AS TOMJUCSUR, sum(TOMSYASUR) AS TOMSYASUR
+    from AESTOC01
+    <where>
+      DAIKAISKBCOD = #{daikaiskbcod}
+      and KIGBNG = #{kigbng}
+      and SKOCOD in
+      <foreach item="skocod" collection="skocodList" open="(" separator="," close=")">
+        #{skocod}
+      </foreach>
+    </where>
+    group by DAIKAISKBCOD, KIGBNG
+    with ur
+  </select>
+
+  <select id="selectForCalcurateKanosuu" resultType="AzaikoEntity">
+    select
+      stoc01.DAIKAISKBCOD, stoc01.KIGBNG, stoc01.SKOCOD, ware03.SYACOD,
+      stoc01.ZAISUR, stoc01.TOMZAITEISURPLS, stoc01.TOMZAITEISURMNS,
+      stoc01.ZMMZAITEISURPLS, stoc01.ZMMZAITEISURMNS, stoc01.CCHKHASUR,
+      stoc01.EXPKHO, stoc01.ZAIKHOKHASUR, stoc01.CHZKHASUR, stoc01.YKESYAKHASUR,
+      stoc01.SINJUCKHASUR
+    from AESTOC01 stoc01
+    inner join AEWARE03 ware03
+    on stoc01.DAIKAISKBCOD = ware03.DAIKAISKBCOD
+    and stoc01.KIGBNG = ware03.KIGBNG
+    and stoc01.SKOCOD = ware03.SKOCOD
+    <where>
+      stoc01.DAIKAISKBCOD = #{daikaiskbcod}
+      and stoc01.KIGBNG = #{kigbng}
+      and stoc01.SKOCOD = #{skocod}
+    </where>
+    with ur
+  </select>
+</mapper>
+

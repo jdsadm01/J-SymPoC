@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedSssListControlMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,CHYDTAFLEID
+    ,USRID
+    ,FORMBNG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SssListControlEntity">
+  insert into VTBSSS06
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{chydtafleid}
+    ,#{usrid}
+    ,#{formbng}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBSSS06
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+  </where>
+</sql>
+
+<select id="select" resultType="SssListControlEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SssListControlEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SssListControlEntity">
+  update VTBSSS06
+  <set>
+    ,USRID = #{usrid}
+    ,FORMBNG = #{formbng}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SssListControlEntity">
+  delete from VTBSSS06
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedKaishaMapper">
-    <select id="selectByPrimaryKey" resultType="KaishaEntity">
-        SELECT *
-        FROM AECOMP01
-        <where>
-			KAISKBCOD = #{kaiskbcod}
-		</where>
-        WITH UR
-    </select>
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,KAICOD
+    ,KAINMKN
+    ,KAINMKNKKC
+    ,KAINM
+    ,KAINMKKC
+    ,DAIKAISKBCOD
+    ,KAIBUNKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KaishaEntity">
+  insert into AECOMP01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{kaicod}
+    ,#{kainmkn}
+    ,#{kainmknkkc}
+    ,#{kainm}
+    ,#{kainmkkc}
+    ,#{daikaiskbcod}
+    ,#{kaibunkbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP01
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="KaishaEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KaishaEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KaishaEntity">
+  update AECOMP01
+  <set>
+    ,KAICOD = #{kaicod}
+    ,KAINMKN = #{kainmkn}
+    ,KAINMKNKKC = #{kainmknkkc}
+    ,KAINM = #{kainm}
+    ,KAINMKKC = #{kainmkkc}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,KAIBUNKBN = #{kaibunkbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KaishaEntity">
+  delete from AECOMP01
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</delete>
+
 </mapper>
+

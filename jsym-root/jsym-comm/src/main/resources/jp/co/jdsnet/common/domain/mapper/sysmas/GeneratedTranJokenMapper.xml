@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedTranJokenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TRNCOD
+    ,DENKSNKES
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TranJokenEntity">
+  insert into AESYSM34
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{trncod}
+    ,#{denksnkes}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM34
+  <where>
+    and TRNCOD = #{trncod}
+  </where>
+</sql>
+
+<select id="select" resultType="TranJokenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TranJokenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TranJokenEntity">
+  update AESYSM34
+  <set>
+    ,DENKSNKES = #{denksnkes}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and TRNCOD = #{trncod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TranJokenEntity">
+  delete from AESYSM34
+  <where>
+    and TRNCOD = #{trncod}
+  </where>
+</delete>
+
+</mapper>
+

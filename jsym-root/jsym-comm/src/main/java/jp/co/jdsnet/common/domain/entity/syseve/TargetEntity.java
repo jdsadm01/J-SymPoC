@@ -1,68 +1,28 @@
 package jp.co.jdsnet.common.domain.entity.syseve;
 
-import jp.co.jdsnet.common.domain.entity.EntityInterface;
-import jp.co.jdsnet.common.domain.entity.Keyfield;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+//import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
+/**
+ * ターゲットEntityクラス
+ *
+ * @author ソース生成ツール
+ */
 @Data
 @Setter(AccessLevel.NONE)
-@Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class TargetEntity implements EntityInterface {
-  /** ターゲットＩＤ */
-  @Keyfield(index = 0)
-  @Builder.Default
-  private int tgtid = 0;
+@SuperBuilder(toBuilder = true)
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+//@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class TargetEntity extends GeneratedTargetEntity {
 
-  /** トランフルコード */
-  @Builder.Default
-  private String trnfulcod = "";
+  // 関連属性 ↓
 
-  /** 元サービスＩＤ */
-  @Builder.Default
-  private String motsvcid = "";
-
-  /** 先サービスＩＤ */
-  @Builder.Default
-  private String saksvcid = "";
-
-  /** 検索キーフォーマットＮＯ */
-  @Builder.Default
-  private String kenkeyfmtno = "";
-
-  /** 検索キー */
-  @Builder.Default
-  private String kenkey = "";
-
-  /** 起点ターゲットＩＤ */
-  @Builder.Default
-  private int ktetgtid = 0;
-
-  /** ターゲットステータス区分 */
-  @Builder.Default
-  private String tgtstskbn = "";
-
-  /** 入力日付 */
-  @Builder.Default
-  private int inpdte = 0;
-
-  /** 入力時刻 */
-  @Builder.Default
-  private int inpjkk = 0;
-
-  /** 更新区分 */
-  @Builder.Default
-  private String updkbn = "";
-
-  /** 更新日付 */
-  @Builder.Default
-  private int upddte = 0;
-
-  /** 更新時刻 */
-  @Builder.Default
-  private int updjkk = 0;
 }

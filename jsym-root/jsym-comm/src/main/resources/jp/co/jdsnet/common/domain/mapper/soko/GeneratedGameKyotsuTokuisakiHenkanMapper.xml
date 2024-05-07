@@ -1,40 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedGameKyotsuTokuisakiHenkanMapper">
-	<select id="select" resultType="GameKyotsuTokuisakiHenkanEntity">
-		select *
-		from AEWARE06
-		<where>
-			BSHCOD = #{bshcod}
-			AND TOKCOD = #{tokcod}
-			AND DSCOD = #{dscod}
-		</where>
-		with ur
-	</select>
-	<select id="selectForUpdate" resultType="GameKyotsuTokuisakiHenkanEntity">
-		select *
-		from AEWARE06
-		<where>
-			BSHCOD = #{bshcod}
-			AND TOKCOD = #{tokcod}
-			AND DSCOD = #{dscod}
-		</where>
-		for update with rs
-	</select>
-    <update id="update" parameterType="GameKyotsuTokuisakiHenkanEntity">
-		update AEWARE06
-		<set>
-			GKYTOKCOD = #{gkytokcod},
-			UPDKBN = #{updkbn},
-			UPDDTE = #{upddte},
-			UPDJKK = #{updjkk}
-		</set>
-		<where>
-			BSHCOD = #{bshcod}
-			AND TOKCOD = #{tokcod}
-			AND DSCOD = #{dscod}
-		</where>
-	</update>
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,BSHCOD
+    ,TOKCOD
+    ,DSCOD
+    ,GKYTOKCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="GameKyotsuTokuisakiHenkanEntity">
+  insert into AEWARE06
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{bshcod}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{gkytokcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE06
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</sql>
+
+<select id="select" resultType="GameKyotsuTokuisakiHenkanEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="GameKyotsuTokuisakiHenkanEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="GameKyotsuTokuisakiHenkanEntity">
+  update AEWARE06
+  <set>
+    ,GKYTOKCOD = #{gkytokcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="GameKyotsuTokuisakiHenkanEntity">
+  delete from AEWARE06
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</delete>
+
 </mapper>
+

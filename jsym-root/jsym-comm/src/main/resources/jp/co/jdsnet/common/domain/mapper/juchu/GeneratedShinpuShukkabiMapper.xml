@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedShinpuShukkabiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,HBIDTE
+    ,SINTUIJUCFLG
+    ,SYADTECODGUN
+    ,SYADTEGUN
+    ,HSODTECODGUN
+    ,HSODTEGUN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuShukkabiEntity">
+  insert into AERORD08
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{hbidte}
+    ,#{sintuijucflg}
+    ,#{syadtecodgun}
+    ,#{syadtegun}
+    ,#{hsodtecodgun}
+    ,#{hsodtegun}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and SINTUIJUCFLG = #{sintuijucflg}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuShukkabiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuShukkabiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuShukkabiEntity">
+  update AERORD08
+  <set>
+    ,SYADTECODGUN = #{syadtecodgun}
+    ,SYADTEGUN = #{syadtegun}
+    ,HSODTECODGUN = #{hsodtecodgun}
+    ,HSODTEGUN = #{hsodtegun}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and SINTUIJUCFLG = #{sintuijucflg}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuShukkabiEntity">
+  delete from AERORD08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and SINTUIJUCFLG = #{sintuijucflg}
+  </where>
+</delete>
+
+</mapper>
+

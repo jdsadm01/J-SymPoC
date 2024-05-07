@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import jp.co.jdsnet.base.annotation.CheckString;
+import jp.co.jdsnet.base.annotation.CheckString.CheckStyle;
 import jp.co.jdsnet.base.annotation.FieldOrder;
 import jp.co.jdsnet.base.webapp.form.DBCopyForm;
 import jp.co.jdsnet.base.webapp.form.FormInterface;
@@ -21,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * 全国在庫照会Form.
  *
- * @author Ryo.Matsumura
+ * @author x.x
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -34,11 +36,13 @@ public class AllStockForm extends DBCopyForm<AllStockCBData>
 
   @NotBlank
   @Size(max = 3)
+  @CheckString(style = CheckStyle.ASCII)
   @FieldOrder(1)
   private String kaiskbcod;
 
   @NotBlank
-//  @FormatDate(format = FormatDate.FormatType.YYMMDD)
+  // @CheckDate(format = FormatType.YYMMDD, allow = AllowException.NOT_ALLOW)
+  @CheckString(style = CheckStyle.ASCII)
   @Size(max = 13)
   @FieldOrder(2)
   private String kigbng;
@@ -66,10 +70,7 @@ public class AllStockForm extends DBCopyForm<AllStockCBData>
 
   @Override
   public AllStockDTO toDTO(UserInfoVO userVo) {
-    return AllStockDTO.builder()
-        .userInfo(userVo)
-        .kaiskbcod(this.kaiskbcod)
-        .kigbng(this.kigbng)
+    return AllStockDTO.builder().userInfo(userVo).kaiskbcod(this.kaiskbcod).kigbng(this.kigbng)
         .build();
   }
 
@@ -80,23 +81,12 @@ public class AllStockForm extends DBCopyForm<AllStockCBData>
    * @return form
    */
   public static AllStockForm toForm(AllStockDTO dto) {
-    return AllStockForm.builder()
-        .kaiskbcod(dto.getKaiskbcod())
-        .kigbng(dto.getKigbng())
-        .daikaiskbcodList(dto.getDaikaiskbcodList())
-        .isInServiceTime(dto.isInServiceTime())
-        .isFavoriteAuthority(dto.isFavoriteAuthority())
-        .hjihnb(dto.getHjihnb())
-        .artnm(dto.getArtnm())
-        .titnm(dto.getTitnm())
-        .hbidte(dto.getHbidte())
-        .setsuu(dto.getSetsuu())
-        .znupri(dto.getZnupri())
-        .skrtanipn(dto.getSkrtanipn())
-        .ketcod(dto.getKetcod())
-        .mngflg(dto.getMngflg())
-        .rhbhnb(dto.getRhbhnb())
-        .tomrakcod(dto.getTomrakcod())
+    return AllStockForm.builder().kaiskbcod(dto.getKaiskbcod()).kigbng(dto.getKigbng())
+        .daikaiskbcodList(dto.getDaikaiskbcodList()).isInServiceTime(dto.isInServiceTime())
+        .isFavoriteAuthority(dto.isFavoriteAuthority()).hjihnb(dto.getHjihnb())
+        .artnm(dto.getArtnm()).titnm(dto.getTitnm()).hbidte(dto.getHbidte()).setsuu(dto.getSetsuu())
+        .znupri(dto.getZnupri()).skrtanipn(dto.getSkrtanipn()).ketcod(dto.getKetcod())
+        .mngflg(dto.getMngflg()).rhbhnb(dto.getRhbhnb()).tomrakcod(dto.getTomrakcod())
         .uriruisur(dto.getUriruisur())
         .detailList(Optional.ofNullable(dto.getDetailList()).stream().flatMap(x -> x.stream())
             .map(t -> t.transform(AllStockDetailForm::toForm)).collect(Collectors.toList()))

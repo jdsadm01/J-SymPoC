@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedMenuGroupMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,USRBUN
+    ,MNUGRPCOD
+    ,MNUGRPNMKJ
+    ,KAISKBCOD
+    ,EIGCOD
+    ,BSHCOD
+    ,AVISMNUPTNCOD
+    ,CLAIMMNUPTNCOD
+    ,TOK104MNUPTNCOD
+    ,LIGHTMNUPTNCOD
+    ,JCOBSMNUPTNCOD
+    ,DMSYSMNUPTNCOD
+    ,ZZSYSMNUPTNCOD
+    ,SSSYSMNUPTNCOD
+    ,TTSYSMNUPTNCOD
+    ,KKSYSMNUPTNCOD
+    ,COMMMNUPTNCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,MDVMNUPTNCOD
+    ,MYSYMMNUPTNCOD
+    ,TOKSITEMNUPTNCOD
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="MenuGroupEntity">
+  insert into VTBMNU07
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{usrbun}
+    ,#{mnugrpcod}
+    ,#{mnugrpnmkj}
+    ,#{kaiskbcod}
+    ,#{eigcod}
+    ,#{bshcod}
+    ,#{avismnuptncod}
+    ,#{claimmnuptncod}
+    ,#{tok104mnuptncod}
+    ,#{lightmnuptncod}
+    ,#{jcobsmnuptncod}
+    ,#{dmsysmnuptncod}
+    ,#{zzsysmnuptncod}
+    ,#{sssysmnuptncod}
+    ,#{ttsysmnuptncod}
+    ,#{kksysmnuptncod}
+    ,#{commmnuptncod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{mdvmnuptncod}
+    ,#{mysymmnuptncod}
+    ,#{toksitemnuptncod}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMNU07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and MNUGRPCOD = #{mnugrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="MenuGroupEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="MenuGroupEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="MenuGroupEntity">
+  update VTBMNU07
+  <set>
+    ,MNUGRPNMKJ = #{mnugrpnmkj}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,EIGCOD = #{eigcod}
+    ,BSHCOD = #{bshcod}
+    ,AVISMNUPTNCOD = #{avismnuptncod}
+    ,CLAIMMNUPTNCOD = #{claimmnuptncod}
+    ,TOK104MNUPTNCOD = #{tok104mnuptncod}
+    ,LIGHTMNUPTNCOD = #{lightmnuptncod}
+    ,JCOBSMNUPTNCOD = #{jcobsmnuptncod}
+    ,DMSYSMNUPTNCOD = #{dmsysmnuptncod}
+    ,ZZSYSMNUPTNCOD = #{zzsysmnuptncod}
+    ,SSSYSMNUPTNCOD = #{sssysmnuptncod}
+    ,TTSYSMNUPTNCOD = #{ttsysmnuptncod}
+    ,KKSYSMNUPTNCOD = #{kksysmnuptncod}
+    ,COMMMNUPTNCOD = #{commmnuptncod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,MDVMNUPTNCOD = #{mdvmnuptncod}
+    ,MYSYMMNUPTNCOD = #{mysymmnuptncod}
+    ,TOKSITEMNUPTNCOD = #{toksitemnuptncod}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and MNUGRPCOD = #{mnugrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="MenuGroupEntity">
+  delete from VTBMNU07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and MNUGRPCOD = #{mnugrpcod}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sokosagyo.GeneratedTanaoroshiKafusokubunJissekiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,SKOCOD
+    ,KIGBNG
+    ,ABZAIKBN
+    ,RMCOD
+    ,ZKAKHJTNODTEFRM
+    ,ZKAKHJTNODTETO
+    ,TNODTEFRM
+    ,TNODTETO
+    ,CYZSUR
+    ,JZNSUR
+    ,CYZTEISURPLS
+    ,CYZTEISURMNS
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TanaoroshiKafusokubunJissekiEntity">
+  insert into AEGENE12
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{skocod}
+    ,#{kigbng}
+    ,#{abzaikbn}
+    ,#{rmcod}
+    ,#{zkakhjtnodtefrm}
+    ,#{zkakhjtnodteto}
+    ,#{tnodtefrm}
+    ,#{tnodteto}
+    ,#{cyzsur}
+    ,#{jznsur}
+    ,#{cyzteisurpls}
+    ,#{cyzteisurmns}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEGENE12
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RMCOD = #{rmcod}
+  </where>
+</sql>
+
+<select id="select" resultType="TanaoroshiKafusokubunJissekiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TanaoroshiKafusokubunJissekiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TanaoroshiKafusokubunJissekiEntity">
+  update AEGENE12
+  <set>
+    ,ZKAKHJTNODTEFRM = #{zkakhjtnodtefrm}
+    ,ZKAKHJTNODTETO = #{zkakhjtnodteto}
+    ,TNODTEFRM = #{tnodtefrm}
+    ,TNODTETO = #{tnodteto}
+    ,CYZSUR = #{cyzsur}
+    ,JZNSUR = #{jznsur}
+    ,CYZTEISURPLS = #{cyzteisurpls}
+    ,CYZTEISURMNS = #{cyzteisurmns}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RMCOD = #{rmcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TanaoroshiKafusokubunJissekiEntity">
+  delete from AEGENE12
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RMCOD = #{rmcod}
+  </where>
+</delete>
+
+</mapper>
+

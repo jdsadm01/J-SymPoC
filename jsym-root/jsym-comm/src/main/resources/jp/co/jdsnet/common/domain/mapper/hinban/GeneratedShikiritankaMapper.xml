@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hinban.GeneratedShikiritankaMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,SKRTANGRPCOD
+    ,SKRTAN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShikiritankaEntity">
+  insert into AEPROD03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{skrtangrpcod}
+    ,#{skrtan}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEPROD03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKRTANGRPCOD = #{skrtangrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ShikiritankaEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShikiritankaEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShikiritankaEntity">
+  update AEPROD03
+  <set>
+    ,SKRTAN = #{skrtan}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKRTANGRPCOD = #{skrtangrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShikiritankaEntity">
+  delete from AEPROD03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKRTANGRPCOD = #{skrtangrpcod}
+  </where>
+</delete>
+
+</mapper>
+

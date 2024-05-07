@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedDenpyoMergeJokenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,BSHCOD
+    ,HSOHMNCOD
+    ,DENMRGKJNKBN
+    ,DENMRGKJNTSK
+    ,DENMRGKJNSUR
+    ,AUTKICKJNKBN
+    ,AUTKICKJNTSK
+    ,AUTKICKJNSUR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DenpyoMergeJokenEntity">
+  insert into AEWARE16
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{bshcod}
+    ,#{hsohmncod}
+    ,#{denmrgkjnkbn}
+    ,#{denmrgkjntsk}
+    ,#{denmrgkjnsur}
+    ,#{autkickjnkbn}
+    ,#{autkickjntsk}
+    ,#{autkickjnsur}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE16
+  <where>
+    and BSHCOD = #{bshcod}
+    and HSOHMNCOD = #{hsohmncod}
+  </where>
+</sql>
+
+<select id="select" resultType="DenpyoMergeJokenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DenpyoMergeJokenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DenpyoMergeJokenEntity">
+  update AEWARE16
+  <set>
+    ,DENMRGKJNKBN = #{denmrgkjnkbn}
+    ,DENMRGKJNTSK = #{denmrgkjntsk}
+    ,DENMRGKJNSUR = #{denmrgkjnsur}
+    ,AUTKICKJNKBN = #{autkickjnkbn}
+    ,AUTKICKJNTSK = #{autkickjntsk}
+    ,AUTKICKJNSUR = #{autkickjnsur}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and BSHCOD = #{bshcod}
+    and HSOHMNCOD = #{hsohmncod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DenpyoMergeJokenEntity">
+  delete from AEWARE16
+  <where>
+    and BSHCOD = #{bshcod}
+    and HSOHMNCOD = #{hsohmncod}
+  </where>
+</delete>
+
+</mapper>
+

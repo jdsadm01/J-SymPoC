@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedListControlMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,CHYID
+    ,HJIFLG
+    ,SEQNO
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,SJIJKNHJIFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListControlEntity">
+  insert into VTBLST10
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{chyid}
+    ,#{hjiflg}
+    ,#{seqno}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{sjijknhjiflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST10
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and CHYID = #{chyid}
+  </where>
+</sql>
+
+<select id="select" resultType="ListControlEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListControlEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListControlEntity">
+  update VTBLST10
+  <set>
+    ,HJIFLG = #{hjiflg}
+    ,SEQNO = #{seqno}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,SJIJKNHJIFLG = #{sjijknhjiflg}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and CHYID = #{chyid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListControlEntity">
+  delete from VTBLST10
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and CHYID = #{chyid}
+  </where>
+</delete>
+
+</mapper>
+

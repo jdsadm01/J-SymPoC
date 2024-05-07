@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedCenterSokoRelationMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,PNLLSTID
+    ,KAISKBCOD
+    ,TIOPTNCOD
+    ,SEQNO
+    ,SKOCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="CenterSokoRelationEntity">
+  insert into VTBDBC07
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{pnllstid}
+    ,#{kaiskbcod}
+    ,#{tioptncod}
+    ,#{seqno}
+    ,#{skocod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBDBC07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and PNLLSTID = #{pnllstid}
+    and KAISKBCOD = #{kaiskbcod}
+    and TIOPTNCOD = #{tioptncod}
+    and SEQNO = #{seqno}
+  </where>
+</sql>
+
+<select id="select" resultType="CenterSokoRelationEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="CenterSokoRelationEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="CenterSokoRelationEntity">
+  update VTBDBC07
+  <set>
+    ,SKOCOD = #{skocod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and PNLLSTID = #{pnllstid}
+    and KAISKBCOD = #{kaiskbcod}
+    and TIOPTNCOD = #{tioptncod}
+    and SEQNO = #{seqno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="CenterSokoRelationEntity">
+  delete from VTBDBC07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and PNLLSTID = #{pnllstid}
+    and KAISKBCOD = #{kaiskbcod}
+    and TIOPTNCOD = #{tioptncod}
+    and SEQNO = #{seqno}
+  </where>
+</delete>
+
+</mapper>
+

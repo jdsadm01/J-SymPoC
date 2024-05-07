@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.news.GeneratedNewsMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,NWSSEQ
+    ,NWSKBN
+    ,HJIDTEFRM
+    ,HJIDTETO
+    ,NWSTIT
+    ,NWSNYO
+    ,TNPFLENM
+    ,TNPBTRFLENM
+    ,ATSCMT
+    ,UPDUSRID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="NewsEntity">
+  insert into VTBNWS02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{nwsseq}
+    ,#{nwskbn}
+    ,#{hjidtefrm}
+    ,#{hjidteto}
+    ,#{nwstit}
+    ,#{nwsnyo}
+    ,#{tnpflenm}
+    ,#{tnpbtrflenm}
+    ,#{atscmt}
+    ,#{updusrid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBNWS02
+  <where>
+    and NWSSEQ = #{nwsseq}
+  </where>
+</sql>
+
+<select id="select" resultType="NewsEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="NewsEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="NewsEntity">
+  update VTBNWS02
+  <set>
+    ,NWSKBN = #{nwskbn}
+    ,HJIDTEFRM = #{hjidtefrm}
+    ,HJIDTETO = #{hjidteto}
+    ,NWSTIT = #{nwstit}
+    ,NWSNYO = #{nwsnyo}
+    ,TNPFLENM = #{tnpflenm}
+    ,TNPBTRFLENM = #{tnpbtrflenm}
+    ,ATSCMT = #{atscmt}
+    ,UPDUSRID = #{updusrid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and NWSSEQ = #{nwsseq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="NewsEntity">
+  delete from VTBNWS02
+  <where>
+    and NWSSEQ = #{nwsseq}
+  </where>
+</delete>
+
+</mapper>
+

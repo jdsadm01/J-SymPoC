@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedListMasterMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,CHYID
+    ,CHYKBN
+    ,CHYNM
+    ,DTAHDR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListMasterEntity">
+  insert into VTBLST03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{chyid}
+    ,#{chykbn}
+    ,#{chynm}
+    ,#{dtahdr}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST03
+  <where>
+    and CHYID = #{chyid}
+  </where>
+</sql>
+
+<select id="select" resultType="ListMasterEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListMasterEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListMasterEntity">
+  update VTBLST03
+  <set>
+    ,CHYKBN = #{chykbn}
+    ,CHYNM = #{chynm}
+    ,DTAHDR = #{dtahdr}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and CHYID = #{chyid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListMasterEntity">
+  delete from VTBLST03
+  <where>
+    and CHYID = #{chyid}
+  </where>
+</delete>
+
+</mapper>
+

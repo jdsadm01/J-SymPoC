@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedZaikoJokenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,SKOCOD
+    ,KYUSTOTNB
+    ,KYUPICTNB
+    ,TNASTHKBN
+    ,TNASJIKAGSUR
+    ,TNASJIJOGSUR
+    ,CCHHINKBN
+    ,JYBHINKBN
+    ,SYACOD
+    ,TSYRYNKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ZaikoJokenEntity">
+  insert into AEWARE03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{skocod}
+    ,#{kyustotnb}
+    ,#{kyupictnb}
+    ,#{tnasthkbn}
+    ,#{tnasjikagsur}
+    ,#{tnasjijogsur}
+    ,#{cchhinkbn}
+    ,#{jybhinkbn}
+    ,#{syacod}
+    ,#{tsyrynkbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</sql>
+
+<select id="select" resultType="ZaikoJokenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ZaikoJokenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ZaikoJokenEntity">
+  update AEWARE03
+  <set>
+    ,KYUSTOTNB = #{kyustotnb}
+    ,KYUPICTNB = #{kyupictnb}
+    ,TNASTHKBN = #{tnasthkbn}
+    ,TNASJIKAGSUR = #{tnasjikagsur}
+    ,TNASJIJOGSUR = #{tnasjijogsur}
+    ,CCHHINKBN = #{cchhinkbn}
+    ,JYBHINKBN = #{jybhinkbn}
+    ,SYACOD = #{syacod}
+    ,TSYRYNKBN = #{tsyrynkbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ZaikoJokenEntity">
+  delete from AEWARE03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</delete>
+
+</mapper>
+

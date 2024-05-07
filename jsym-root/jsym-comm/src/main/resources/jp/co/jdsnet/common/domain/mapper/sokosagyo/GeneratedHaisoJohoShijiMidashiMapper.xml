@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sokosagyo.GeneratedHaisoJohoShijiMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,UTKNO
+    ,DAIKAISKBCOD
+    ,MKRUTKNO
+    ,KENKEY
+    ,JSYMUSRDAIKAISKBCOD
+    ,JSYMUSRKAINM
+    ,JSYMUSRBMNNM
+    ,JSYMINPUSRID
+    ,JSYMUSRNM
+    ,JSYMUSRBSHCOD
+    ,TRNFULCOD
+    ,HSOSAKYBNBNG7KT
+    ,HSOSAKADR1
+    ,HSOSAKADR2
+    ,HSOSAKNM
+    ,HSOSAKTELBNG13KT
+    ,HSOSAKSYADTE
+    ,HSOSAKTNCDTE
+    ,JKTSTEKBN
+    ,OKRHJIMSG
+    ,SKODNTJKO
+    ,TANKINHJIFLG
+    ,DENSFUSAKYBNBNG7KT
+    ,DENSFUSAKADR1
+    ,DENSFUSAKADR2
+    ,DENSFUSAKNM
+    ,DENSFUSAKTELBNG13KT
+    ,JSNDTE8KT
+    ,JSNJKK9KT
+    ,ERRARIFLG
+    ,HSOSAKGPROSSNZFLG
+    ,HSOSAKGPROSSNDTE
+    ,HSOSAKGPROSSNJKK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HaisoJohoShijiMidashiEntity">
+  insert into AEGENE14
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{utkno}
+    ,#{daikaiskbcod}
+    ,#{mkrutkno}
+    ,#{kenkey}
+    ,#{jsymusrdaikaiskbcod}
+    ,#{jsymusrkainm}
+    ,#{jsymusrbmnnm}
+    ,#{jsyminpusrid}
+    ,#{jsymusrnm}
+    ,#{jsymusrbshcod}
+    ,#{trnfulcod}
+    ,#{hsosakybnbng7kt}
+    ,#{hsosakadr1}
+    ,#{hsosakadr2}
+    ,#{hsosaknm}
+    ,#{hsosaktelbng13kt}
+    ,#{hsosaksyadte}
+    ,#{hsosaktncdte}
+    ,#{jktstekbn}
+    ,#{okrhjimsg}
+    ,#{skodntjko}
+    ,#{tankinhjiflg}
+    ,#{densfusakybnbng7kt}
+    ,#{densfusakadr1}
+    ,#{densfusakadr2}
+    ,#{densfusaknm}
+    ,#{densfusaktelbng13kt}
+    ,#{jsndte8kt}
+    ,#{jsnjkk9kt}
+    ,#{errariflg}
+    ,#{hsosakgprossnzflg}
+    ,#{hsosakgprossndte}
+    ,#{hsosakgprossnjkk}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEGENE14
+  <where>
+    and UTKNO = #{utkno}
+  </where>
+</sql>
+
+<select id="select" resultType="HaisoJohoShijiMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HaisoJohoShijiMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HaisoJohoShijiMidashiEntity">
+  update AEGENE14
+  <set>
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,MKRUTKNO = #{mkrutkno}
+    ,KENKEY = #{kenkey}
+    ,JSYMUSRDAIKAISKBCOD = #{jsymusrdaikaiskbcod}
+    ,JSYMUSRKAINM = #{jsymusrkainm}
+    ,JSYMUSRBMNNM = #{jsymusrbmnnm}
+    ,JSYMINPUSRID = #{jsyminpusrid}
+    ,JSYMUSRNM = #{jsymusrnm}
+    ,JSYMUSRBSHCOD = #{jsymusrbshcod}
+    ,TRNFULCOD = #{trnfulcod}
+    ,HSOSAKYBNBNG7KT = #{hsosakybnbng7kt}
+    ,HSOSAKADR1 = #{hsosakadr1}
+    ,HSOSAKADR2 = #{hsosakadr2}
+    ,HSOSAKNM = #{hsosaknm}
+    ,HSOSAKTELBNG13KT = #{hsosaktelbng13kt}
+    ,HSOSAKSYADTE = #{hsosaksyadte}
+    ,HSOSAKTNCDTE = #{hsosaktncdte}
+    ,JKTSTEKBN = #{jktstekbn}
+    ,OKRHJIMSG = #{okrhjimsg}
+    ,SKODNTJKO = #{skodntjko}
+    ,TANKINHJIFLG = #{tankinhjiflg}
+    ,DENSFUSAKYBNBNG7KT = #{densfusakybnbng7kt}
+    ,DENSFUSAKADR1 = #{densfusakadr1}
+    ,DENSFUSAKADR2 = #{densfusakadr2}
+    ,DENSFUSAKNM = #{densfusaknm}
+    ,DENSFUSAKTELBNG13KT = #{densfusaktelbng13kt}
+    ,JSNDTE8KT = #{jsndte8kt}
+    ,JSNJKK9KT = #{jsnjkk9kt}
+    ,ERRARIFLG = #{errariflg}
+    ,HSOSAKGPROSSNZFLG = #{hsosakgprossnzflg}
+    ,HSOSAKGPROSSNDTE = #{hsosakgprossndte}
+    ,HSOSAKGPROSSNJKK = #{hsosakgprossnjkk}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and UTKNO = #{utkno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HaisoJohoShijiMidashiEntity">
+  delete from AEGENE14
+  <where>
+    and UTKNO = #{utkno}
+  </where>
+</delete>
+
+</mapper>
+

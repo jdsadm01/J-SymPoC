@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.history.GeneratedGamenUpdateHistoryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,ENYDTE
+    ,ENYJKK
+    ,ENYUSRID
+    ,ENYCPUID
+    ,ENYTMLID
+    ,DAIKAISKBCOD
+    ,BSHCOD
+    ,TBLID
+    ,TBLKEY
+    ,SEGNO
+    ,SEQNO
+    ,ENYUPDKBN
+    ,PRCSMIFLG
+    ,ERRKBN
+    ,GYMID
+    ,UPDGYMBF
+    ,UPDGYMAT
+    ,GMNID
+    ,UPDROLEIDBF
+    ,UPDROLEIDAT
+    ,UPDUSRID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="GamenUpdateHistoryEntity">
+  insert into VTBRRK02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{enydte}
+    ,#{enyjkk}
+    ,#{enyusrid}
+    ,#{enycpuid}
+    ,#{enytmlid}
+    ,#{daikaiskbcod}
+    ,#{bshcod}
+    ,#{tblid}
+    ,#{tblkey}
+    ,#{segno}
+    ,#{seqno}
+    ,#{enyupdkbn}
+    ,#{prcsmiflg}
+    ,#{errkbn}
+    ,#{gymid}
+    ,#{updgymbf}
+    ,#{updgymat}
+    ,#{gmnid}
+    ,#{updroleidbf}
+    ,#{updroleidat}
+    ,#{updusrid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBRRK02
+  <where>
+    and ENYDTE = #{enydte}
+    and ENYJKK = #{enyjkk}
+    and ENYUSRID = #{enyusrid}
+    and ENYCPUID = #{enycpuid}
+    and ENYTMLID = #{enytmlid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BSHCOD = #{bshcod}
+    and TBLID = #{tblid}
+    and TBLKEY = #{tblkey}
+    and SEGNO = #{segno}
+    and SEQNO = #{seqno}
+  </where>
+</sql>
+
+<select id="select" resultType="GamenUpdateHistoryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="GamenUpdateHistoryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="GamenUpdateHistoryEntity">
+  update VTBRRK02
+  <set>
+    ,ENYUPDKBN = #{enyupdkbn}
+    ,PRCSMIFLG = #{prcsmiflg}
+    ,ERRKBN = #{errkbn}
+    ,GYMID = #{gymid}
+    ,UPDGYMBF = #{updgymbf}
+    ,UPDGYMAT = #{updgymat}
+    ,GMNID = #{gmnid}
+    ,UPDROLEIDBF = #{updroleidbf}
+    ,UPDROLEIDAT = #{updroleidat}
+    ,UPDUSRID = #{updusrid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and ENYDTE = #{enydte}
+    and ENYJKK = #{enyjkk}
+    and ENYUSRID = #{enyusrid}
+    and ENYCPUID = #{enycpuid}
+    and ENYTMLID = #{enytmlid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BSHCOD = #{bshcod}
+    and TBLID = #{tblid}
+    and TBLKEY = #{tblkey}
+    and SEGNO = #{segno}
+    and SEQNO = #{seqno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="GamenUpdateHistoryEntity">
+  delete from VTBRRK02
+  <where>
+    and ENYDTE = #{enydte}
+    and ENYJKK = #{enyjkk}
+    and ENYUSRID = #{enyusrid}
+    and ENYCPUID = #{enycpuid}
+    and ENYTMLID = #{enytmlid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BSHCOD = #{bshcod}
+    and TBLID = #{tblid}
+    and TBLKEY = #{tblkey}
+    and SEGNO = #{segno}
+    and SEQNO = #{seqno}
+  </where>
+</delete>
+
+</mapper>
+

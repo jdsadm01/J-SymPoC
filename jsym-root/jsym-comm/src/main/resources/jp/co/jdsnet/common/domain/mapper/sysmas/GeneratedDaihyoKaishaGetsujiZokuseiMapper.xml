@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedDaihyoKaishaGetsujiZokuseiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,NENGDO
+    ,GTJPRCDTE8KT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DaihyoKaishaGetsujiZokuseiEntity">
+  insert into AESYSM10
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{nengdo}
+    ,#{gtjprcdte8kt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM10
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and NENGDO = #{nengdo}
+  </where>
+</sql>
+
+<select id="select" resultType="DaihyoKaishaGetsujiZokuseiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DaihyoKaishaGetsujiZokuseiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DaihyoKaishaGetsujiZokuseiEntity">
+  update AESYSM10
+  <set>
+    ,GTJPRCDTE8KT = #{gtjprcdte8kt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and NENGDO = #{nengdo}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DaihyoKaishaGetsujiZokuseiEntity">
+  delete from AESYSM10
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and NENGDO = #{nengdo}
+  </where>
+</delete>
+
+</mapper>
+

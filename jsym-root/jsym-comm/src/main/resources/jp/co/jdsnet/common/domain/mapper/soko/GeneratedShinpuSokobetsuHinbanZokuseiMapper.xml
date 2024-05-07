@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedShinpuSokobetsuHinbanZokuseiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,SKOCOD
+    ,HBIDTECHRKAT
+    ,KETCOD
+    ,TNBAUTSTISGN
+    ,NOHDENBDNGRPCOD
+    ,SINSTOTNB
+    ,SINPICTNB
+    ,SHABDNFLGNUMKAT
+    ,SINJUCTENSUUIPN
+    ,SINJUCSURIPN
+    ,SINJUCTENSUUKRE
+    ,SINJUCSURKRE
+    ,FKENYOSUR
+    ,FKESYOSUR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuSokobetsuHinbanZokuseiEntity">
+  insert into AEWARE18
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{skocod}
+    ,#{hbidtechrkat}
+    ,#{ketcod}
+    ,#{tnbautstisgn}
+    ,#{nohdenbdngrpcod}
+    ,#{sinstotnb}
+    ,#{sinpictnb}
+    ,#{shabdnflgnumkat}
+    ,#{sinjuctensuuipn}
+    ,#{sinjucsuripn}
+    ,#{sinjuctensuukre}
+    ,#{sinjucsurkre}
+    ,#{fkenyosur}
+    ,#{fkesyosur}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE18
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuSokobetsuHinbanZokuseiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuSokobetsuHinbanZokuseiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuSokobetsuHinbanZokuseiEntity">
+  update AEWARE18
+  <set>
+    ,HBIDTECHRKAT = #{hbidtechrkat}
+    ,KETCOD = #{ketcod}
+    ,TNBAUTSTISGN = #{tnbautstisgn}
+    ,NOHDENBDNGRPCOD = #{nohdenbdngrpcod}
+    ,SINSTOTNB = #{sinstotnb}
+    ,SINPICTNB = #{sinpictnb}
+    ,SHABDNFLGNUMKAT = #{shabdnflgnumkat}
+    ,SINJUCTENSUUIPN = #{sinjuctensuuipn}
+    ,SINJUCSURIPN = #{sinjucsuripn}
+    ,SINJUCTENSUUKRE = #{sinjuctensuukre}
+    ,SINJUCSURKRE = #{sinjucsurkre}
+    ,FKENYOSUR = #{fkenyosur}
+    ,FKESYOSUR = #{fkesyosur}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuSokobetsuHinbanZokuseiEntity">
+  delete from AEWARE18
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</delete>
+
+</mapper>
+

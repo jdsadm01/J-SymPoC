@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.history.GeneratedUpdateHistoryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,ENYDTE
+    ,ENYJKK
+    ,ENYUSRID
+    ,ENYCPUID
+    ,ENYTMLID
+    ,DAIKAISKBCOD
+    ,BSHCOD
+    ,TBLID
+    ,TBLKEY
+    ,SEGNO
+    ,SEQNO
+    ,PRCGRPCOD
+    ,ENYUPDKBN
+    ,PRCSMIFLG
+    ,ERRKBN
+    ,UPDTXTBF
+    ,UPDTXTAT
+    ,UPDCOLFLG
+    ,UPDUSRID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,MDVUPDZFLG
+    ,MACSUPDZFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="UpdateHistoryEntity">
+  insert into VTBRRK01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{enydte}
+    ,#{enyjkk}
+    ,#{enyusrid}
+    ,#{enycpuid}
+    ,#{enytmlid}
+    ,#{daikaiskbcod}
+    ,#{bshcod}
+    ,#{tblid}
+    ,#{tblkey}
+    ,#{segno}
+    ,#{seqno}
+    ,#{prcgrpcod}
+    ,#{enyupdkbn}
+    ,#{prcsmiflg}
+    ,#{errkbn}
+    ,#{updtxtbf}
+    ,#{updtxtat}
+    ,#{updcolflg}
+    ,#{updusrid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{mdvupdzflg}
+    ,#{macsupdzflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBRRK01
+  <where>
+    and ENYDTE = #{enydte}
+    and ENYJKK = #{enyjkk}
+    and ENYUSRID = #{enyusrid}
+    and ENYCPUID = #{enycpuid}
+    and ENYTMLID = #{enytmlid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BSHCOD = #{bshcod}
+    and TBLID = #{tblid}
+    and TBLKEY = #{tblkey}
+    and SEGNO = #{segno}
+    and SEQNO = #{seqno}
+  </where>
+</sql>
+
+<select id="select" resultType="UpdateHistoryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="UpdateHistoryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="UpdateHistoryEntity">
+  update VTBRRK01
+  <set>
+    ,PRCGRPCOD = #{prcgrpcod}
+    ,ENYUPDKBN = #{enyupdkbn}
+    ,PRCSMIFLG = #{prcsmiflg}
+    ,ERRKBN = #{errkbn}
+    ,UPDTXTBF = #{updtxtbf}
+    ,UPDTXTAT = #{updtxtat}
+    ,UPDCOLFLG = #{updcolflg}
+    ,UPDUSRID = #{updusrid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,MDVUPDZFLG = #{mdvupdzflg}
+    ,MACSUPDZFLG = #{macsupdzflg}
+  </set>
+  <where>
+    and ENYDTE = #{enydte}
+    and ENYJKK = #{enyjkk}
+    and ENYUSRID = #{enyusrid}
+    and ENYCPUID = #{enycpuid}
+    and ENYTMLID = #{enytmlid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BSHCOD = #{bshcod}
+    and TBLID = #{tblid}
+    and TBLKEY = #{tblkey}
+    and SEGNO = #{segno}
+    and SEQNO = #{seqno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="UpdateHistoryEntity">
+  delete from VTBRRK01
+  <where>
+    and ENYDTE = #{enydte}
+    and ENYJKK = #{enyjkk}
+    and ENYUSRID = #{enyusrid}
+    and ENYCPUID = #{enycpuid}
+    and ENYTMLID = #{enytmlid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BSHCOD = #{bshcod}
+    and TBLID = #{tblid}
+    and TBLKEY = #{tblkey}
+    and SEGNO = #{segno}
+    and SEQNO = #{seqno}
+  </where>
+</delete>
+
+</mapper>
+

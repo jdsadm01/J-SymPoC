@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedShinpuTokuisakiHatchuMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,DSCOD
+    ,KIGBNG
+    ,SEQ
+    ,JUCSUR
+    ,THCBNG
+    ,THCMEMO
+    ,HBIDTE
+    ,JUCSMB
+    ,KIGKTA3KT
+    ,JSNHNB
+    ,JSNDTE
+    ,JSNJKK
+    ,SSNDTE
+    ,SSNJKK
+    ,SINTHCUTKBNG
+    ,SINTHCERRKBN
+    ,SINTHCSTSKBN
+    ,SINTHCDTAKBN
+    ,INPJN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,AESJSNDTE
+    ,AESJSNJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuTokuisakiHatchuEntity">
+  insert into AERORD13
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{kigbng}
+    ,#{seq}
+    ,#{jucsur}
+    ,#{thcbng}
+    ,#{thcmemo}
+    ,#{hbidte}
+    ,#{jucsmb}
+    ,#{kigkta3kt}
+    ,#{jsnhnb}
+    ,#{jsndte}
+    ,#{jsnjkk}
+    ,#{ssndte}
+    ,#{ssnjkk}
+    ,#{sinthcutkbng}
+    ,#{sinthcerrkbn}
+    ,#{sinthcstskbn}
+    ,#{sinthcdtakbn}
+    ,#{inpjn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{aesjsndte}
+    ,#{aesjsnjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD13
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and KIGBNG = #{kigbng}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuTokuisakiHatchuEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuTokuisakiHatchuEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuTokuisakiHatchuEntity">
+  update AERORD13
+  <set>
+    ,JUCSUR = #{jucsur}
+    ,THCBNG = #{thcbng}
+    ,THCMEMO = #{thcmemo}
+    ,HBIDTE = #{hbidte}
+    ,JUCSMB = #{jucsmb}
+    ,KIGKTA3KT = #{kigkta3kt}
+    ,JSNHNB = #{jsnhnb}
+    ,JSNDTE = #{jsndte}
+    ,JSNJKK = #{jsnjkk}
+    ,SSNDTE = #{ssndte}
+    ,SSNJKK = #{ssnjkk}
+    ,SINTHCUTKBNG = #{sinthcutkbng}
+    ,SINTHCERRKBN = #{sinthcerrkbn}
+    ,SINTHCSTSKBN = #{sinthcstskbn}
+    ,SINTHCDTAKBN = #{sinthcdtakbn}
+    ,INPJN = #{inpjn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,AESJSNDTE = #{aesjsndte}
+    ,AESJSNJKK = #{aesjsnjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and KIGBNG = #{kigbng}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuTokuisakiHatchuEntity">
+  delete from AERORD13
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and KIGBNG = #{kigbng}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

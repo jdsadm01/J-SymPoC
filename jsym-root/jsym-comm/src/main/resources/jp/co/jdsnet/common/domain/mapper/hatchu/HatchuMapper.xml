@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.hatchu.HatchuMapper">
-    <select id="selectHatchuyoteiList" resultType="map">
-        SELECT NKI ,SUM(HACSUR - NYASUR) AS HACSURSUM
-        FROM AESORD03
-        <where>
-            DAIKAISKBCOD = #{daikaiskbcod}
-            AND KAISKBCOD IN
-             <foreach item="kaiskbcod" collection="kaiskbcodList"
-				open="(" separator="," close=")">
-				#{kaiskbcod}
-			</foreach>
-            AND KIGBNG = #{kigbng}
-            AND HACSYBKBN = '1'
-            AND KNUSGN <![CDATA[ <> ]]> '1'
-            AND (DELSGN = ' ' OR DELSGN = '0')
-            AND SMPSGN = ' '
-        </where>
-        GROUP BY NKI
-        ORDER BY NKI
-        WITH UR
-    </select>
+
 </mapper>
+

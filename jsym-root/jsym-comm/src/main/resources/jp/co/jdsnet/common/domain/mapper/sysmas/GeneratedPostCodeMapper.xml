@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedPostCodeMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,YBNBNG7KT
+    ,TKBSWKCOD7KT
+    ,MLBSWKCOD
+    ,USESTTDTE
+    ,SSEDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="PostCodeEntity">
+  insert into VTBYMT01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{ybnbng7kt}
+    ,#{tkbswkcod7kt}
+    ,#{mlbswkcod}
+    ,#{usesttdte}
+    ,#{ssedte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBYMT01
+  <where>
+    and YBNBNG7KT = #{ybnbng7kt}
+  </where>
+</sql>
+
+<select id="select" resultType="PostCodeEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="PostCodeEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="PostCodeEntity">
+  update VTBYMT01
+  <set>
+    ,TKBSWKCOD7KT = #{tkbswkcod7kt}
+    ,MLBSWKCOD = #{mlbswkcod}
+    ,USESTTDTE = #{usesttdte}
+    ,SSEDTE = #{ssedte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and YBNBNG7KT = #{ybnbng7kt}
+  </where>
+</update>
+
+<delete id="delete" parameterType="PostCodeEntity">
+  delete from VTBYMT01
+  <where>
+    and YBNBNG7KT = #{ybnbng7kt}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedShohizeiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TKYSTTDTE8KT
+    ,SHZRT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShohizeiEntity">
+  insert into AESYSM35
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{tkysttdte8kt}
+    ,#{shzrt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM35
+  <where>
+    and TKYSTTDTE8KT = #{tkysttdte8kt}
+  </where>
+</sql>
+
+<select id="select" resultType="ShohizeiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShohizeiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShohizeiEntity">
+  update AESYSM35
+  <set>
+    ,SHZRT = #{shzrt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and TKYSTTDTE8KT = #{tkysttdte8kt}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShohizeiEntity">
+  delete from AESYSM35
+  <where>
+    and TKYSTTDTE8KT = #{tkysttdte8kt}
+  </where>
+</delete>
+
+</mapper>
+

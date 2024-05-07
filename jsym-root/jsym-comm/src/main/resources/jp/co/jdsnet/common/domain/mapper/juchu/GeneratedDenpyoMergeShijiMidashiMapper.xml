@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedDenpyoMergeShijiMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,SEQ
+    ,DENMRGTRGKBN
+    ,CSHJKNSTEKBN
+    ,HATBSHCOD
+    ,HSOHMNCODFRM
+    ,HSOHMNCODTO
+    ,PRCKRUFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DenpyoMergeShijiMidashiEntity">
+  insert into AERORD15
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{seq}
+    ,#{denmrgtrgkbn}
+    ,#{cshjknstekbn}
+    ,#{hatbshcod}
+    ,#{hsohmncodfrm}
+    ,#{hsohmncodto}
+    ,#{prckruflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD15
+  <where>
+    and INPDTE = #{inpdte}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="DenpyoMergeShijiMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DenpyoMergeShijiMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DenpyoMergeShijiMidashiEntity">
+  update AERORD15
+  <set>
+    ,DENMRGTRGKBN = #{denmrgtrgkbn}
+    ,CSHJKNSTEKBN = #{cshjknstekbn}
+    ,HATBSHCOD = #{hatbshcod}
+    ,HSOHMNCODFRM = #{hsohmncodfrm}
+    ,HSOHMNCODTO = #{hsohmncodto}
+    ,PRCKRUFLG = #{prckruflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DenpyoMergeShijiMidashiEntity">
+  delete from AERORD15
+  <where>
+    and INPDTE = #{inpdte}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

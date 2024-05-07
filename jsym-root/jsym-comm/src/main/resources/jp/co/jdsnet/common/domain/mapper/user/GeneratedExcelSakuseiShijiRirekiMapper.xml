@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.user.GeneratedExcelSakuseiShijiRirekiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,CHYID
+    ,SYKSSESJIDTE
+    ,RUISJICNT
+    ,SISSSESJIDTE
+    ,SISSSESJIJKK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ExcelSakuseiShijiRirekiEntity">
+  insert into VTBLST17
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{chyid}
+    ,#{sykssesjidte}
+    ,#{ruisjicnt}
+    ,#{sisssesjidte}
+    ,#{sisssesjijkk}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST17
+  <where>
+    and USRID = #{usrid}
+    and CHYID = #{chyid}
+  </where>
+</sql>
+
+<select id="select" resultType="ExcelSakuseiShijiRirekiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ExcelSakuseiShijiRirekiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ExcelSakuseiShijiRirekiEntity">
+  update VTBLST17
+  <set>
+    ,SYKSSESJIDTE = #{sykssesjidte}
+    ,RUISJICNT = #{ruisjicnt}
+    ,SISSSESJIDTE = #{sisssesjidte}
+    ,SISSSESJIJKK = #{sisssesjijkk}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and USRID = #{usrid}
+    and CHYID = #{chyid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ExcelSakuseiShijiRirekiEntity">
+  delete from VTBLST17
+  <where>
+    and USRID = #{usrid}
+    and CHYID = #{chyid}
+  </where>
+</delete>
+
+</mapper>
+

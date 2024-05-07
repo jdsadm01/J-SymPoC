@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedListReservedConditionsMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,CHYID
+    ,INPDTE
+    ,SEQNO
+    ,SEQNOEDA
+    ,SSEJKNNM
+    ,SSEJKNNO
+    ,SSEJKN
+    ,TEKFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListReservedConditionsEntity">
+  insert into VTBLST16
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{chyid}
+    ,#{inpdte}
+    ,#{seqno}
+    ,#{seqnoeda}
+    ,#{ssejknnm}
+    ,#{ssejknno}
+    ,#{ssejkn}
+    ,#{tekflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST16
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+    and INPDTE = #{inpdte}
+    and SEQNO = #{seqno}
+    and SEQNOEDA = #{seqnoeda}
+  </where>
+</sql>
+
+<select id="select" resultType="ListReservedConditionsEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListReservedConditionsEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListReservedConditionsEntity">
+  update VTBLST16
+  <set>
+    ,SSEJKNNM = #{ssejknnm}
+    ,SSEJKNNO = #{ssejknno}
+    ,SSEJKN = #{ssejkn}
+    ,TEKFLG = #{tekflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+    and INPDTE = #{inpdte}
+    and SEQNO = #{seqno}
+    and SEQNOEDA = #{seqnoeda}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListReservedConditionsEntity">
+  delete from VTBLST16
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+    and INPDTE = #{inpdte}
+    and SEQNO = #{seqno}
+    and SEQNOEDA = #{seqnoeda}
+  </where>
+</delete>
+
+</mapper>
+

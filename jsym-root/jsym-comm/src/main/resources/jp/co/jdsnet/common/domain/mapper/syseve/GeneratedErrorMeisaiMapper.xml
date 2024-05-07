@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedErrorMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,BSHCOD
+    ,LSTID
+    ,RECSEQ
+    ,SSEDTE
+    ,SSEJKK
+    ,KAISKBCOD
+    ,DTASEQ
+    ,ERRCOD
+    ,EIGCOD
+    ,TERCOD
+    ,SKOCOD
+    ,TOKCOD
+    ,DSCOD
+    ,GYB
+    ,KIGBNG
+    ,JUCSUU
+    ,RMCOD
+    ,HACMEMO
+    ,HBIDTE
+    ,YKKCOD
+    ,SYACOD
+    ,TOMRAK
+    ,KETCOD
+    ,NKI
+    ,SYASUU
+    ,CCHMRK
+    ,CMT
+    ,KREHYOKBN
+    ,MNGSGN
+    ,SKSSUU
+    ,JUCSMEDTE
+    ,KCYDTE
+    ,KRERNTSGN
+    ,SEQNO
+    ,SINBNG
+    ,SYADTE
+    ,PRCKBN
+    ,TAN
+    ,DUBHIN
+    ,GRPNO
+    ,HBIKAICOD
+    ,HIBKKNTO
+    ,HANKAICOD
+    ,HNMBNG
+    ,SHNTHNKBN
+    ,GNRCOD
+    ,KERDTE
+    ,KERKBN
+    ,KERKBNEDA
+    ,KIGKTA
+    ,KYKADDDTE
+    ,MDAJUN
+    ,PACJUN
+    ,POS
+    ,POSH1
+    ,POSH2
+    ,SIDE
+    ,SOFDTE
+    ,SYHKSEKBN
+    ,SYOTITHJI
+    ,SZONJI
+    ,TRACK
+    ,TRACKM
+    ,ZEIKMITKA
+    ,ZEINKITKA
+    ,SETSUU
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ErrorMeisaiEntity">
+  insert into AESYSE09
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{bshcod}
+    ,#{lstid}
+    ,#{recseq}
+    ,#{ssedte}
+    ,#{ssejkk}
+    ,#{kaiskbcod}
+    ,#{dtaseq}
+    ,#{errcod}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{skocod}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{gyb}
+    ,#{kigbng}
+    ,#{jucsuu}
+    ,#{rmcod}
+    ,#{hacmemo}
+    ,#{hbidte}
+    ,#{ykkcod}
+    ,#{syacod}
+    ,#{tomrak}
+    ,#{ketcod}
+    ,#{nki}
+    ,#{syasuu}
+    ,#{cchmrk}
+    ,#{cmt}
+    ,#{krehyokbn}
+    ,#{mngsgn}
+    ,#{skssuu}
+    ,#{jucsmedte}
+    ,#{kcydte}
+    ,#{krerntsgn}
+    ,#{seqno}
+    ,#{sinbng}
+    ,#{syadte}
+    ,#{prckbn}
+    ,#{tan}
+    ,#{dubhin}
+    ,#{grpno}
+    ,#{hbikaicod}
+    ,#{hibkknto}
+    ,#{hankaicod}
+    ,#{hnmbng}
+    ,#{shnthnkbn}
+    ,#{gnrcod}
+    ,#{kerdte}
+    ,#{kerkbn}
+    ,#{kerkbneda}
+    ,#{kigkta}
+    ,#{kykadddte}
+    ,#{mdajun}
+    ,#{pacjun}
+    ,#{pos}
+    ,#{posh1}
+    ,#{posh2}
+    ,#{side}
+    ,#{sofdte}
+    ,#{syhksekbn}
+    ,#{syotithji}
+    ,#{szonji}
+    ,#{track}
+    ,#{trackm}
+    ,#{zeikmitka}
+    ,#{zeinkitka}
+    ,#{setsuu}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE09
+  <where>
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and RECSEQ = #{recseq}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and KAISKBCOD = #{kaiskbcod}
+    and DTASEQ = #{dtaseq}
+  </where>
+</sql>
+
+<select id="select" resultType="ErrorMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ErrorMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ErrorMeisaiEntity">
+  update AESYSE09
+  <set>
+    ,ERRCOD = #{errcod}
+    ,EIGCOD = #{eigcod}
+    ,TERCOD = #{tercod}
+    ,SKOCOD = #{skocod}
+    ,TOKCOD = #{tokcod}
+    ,DSCOD = #{dscod}
+    ,GYB = #{gyb}
+    ,KIGBNG = #{kigbng}
+    ,JUCSUU = #{jucsuu}
+    ,RMCOD = #{rmcod}
+    ,HACMEMO = #{hacmemo}
+    ,HBIDTE = #{hbidte}
+    ,YKKCOD = #{ykkcod}
+    ,SYACOD = #{syacod}
+    ,TOMRAK = #{tomrak}
+    ,KETCOD = #{ketcod}
+    ,NKI = #{nki}
+    ,SYASUU = #{syasuu}
+    ,CCHMRK = #{cchmrk}
+    ,CMT = #{cmt}
+    ,KREHYOKBN = #{krehyokbn}
+    ,MNGSGN = #{mngsgn}
+    ,SKSSUU = #{skssuu}
+    ,JUCSMEDTE = #{jucsmedte}
+    ,KCYDTE = #{kcydte}
+    ,KRERNTSGN = #{krerntsgn}
+    ,SEQNO = #{seqno}
+    ,SINBNG = #{sinbng}
+    ,SYADTE = #{syadte}
+    ,PRCKBN = #{prckbn}
+    ,TAN = #{tan}
+    ,DUBHIN = #{dubhin}
+    ,GRPNO = #{grpno}
+    ,HBIKAICOD = #{hbikaicod}
+    ,HIBKKNTO = #{hibkknto}
+    ,HANKAICOD = #{hankaicod}
+    ,HNMBNG = #{hnmbng}
+    ,SHNTHNKBN = #{shnthnkbn}
+    ,GNRCOD = #{gnrcod}
+    ,KERDTE = #{kerdte}
+    ,KERKBN = #{kerkbn}
+    ,KERKBNEDA = #{kerkbneda}
+    ,KIGKTA = #{kigkta}
+    ,KYKADDDTE = #{kykadddte}
+    ,MDAJUN = #{mdajun}
+    ,PACJUN = #{pacjun}
+    ,POS = #{pos}
+    ,POSH1 = #{posh1}
+    ,POSH2 = #{posh2}
+    ,SIDE = #{side}
+    ,SOFDTE = #{sofdte}
+    ,SYHKSEKBN = #{syhksekbn}
+    ,SYOTITHJI = #{syotithji}
+    ,SZONJI = #{szonji}
+    ,TRACK = #{track}
+    ,TRACKM = #{trackm}
+    ,ZEIKMITKA = #{zeikmitka}
+    ,ZEINKITKA = #{zeinkitka}
+    ,SETSUU = #{setsuu}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and RECSEQ = #{recseq}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and KAISKBCOD = #{kaiskbcod}
+    and DTASEQ = #{dtaseq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ErrorMeisaiEntity">
+  delete from AESYSE09
+  <where>
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and RECSEQ = #{recseq}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and KAISKBCOD = #{kaiskbcod}
+    and DTASEQ = #{dtaseq}
+  </where>
+</delete>
+
+</mapper>
+

@@ -97,10 +97,10 @@ public class BackDeleteControllerTest {
       BackDeleteForm detailform = testForm();
       when(targetService.search(testDto)).thenReturn(testDto);
 
-      mockmvc.perform(post("/backdelete").sessionAttr("BackDeleteForm", detailform))
-          .param("btn_search", "")
-          .andExpect(view().name("/"))
-          .andExpect(model().hasNoErrors()).andReturn();
+      mockmvc
+          .perform(
+              post("/backdelete").sessionAttr("BackDeleteForm", detailform).param("btn_search", ""))
+          .andExpect(view().name("backdelete/detail")).andExpect(model().hasNoErrors()).andReturn();
 
     }
 

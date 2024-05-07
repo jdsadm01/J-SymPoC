@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedGamenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,GMNID
+    ,GMNNMKJ
+    ,GMNURL
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="GamenEntity">
+  insert into VTBMNU05
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{gmnid}
+    ,#{gmnnmkj}
+    ,#{gmnurl}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMNU05
+  <where>
+    and GMNID = #{gmnid}
+  </where>
+</sql>
+
+<select id="select" resultType="GamenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="GamenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="GamenEntity">
+  update VTBMNU05
+  <set>
+    ,GMNNMKJ = #{gmnnmkj}
+    ,GMNURL = #{gmnurl}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and GMNID = #{gmnid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="GamenEntity">
+  delete from VTBMNU05
+  <where>
+    and GMNID = #{gmnid}
+  </where>
+</delete>
+
+</mapper>
+

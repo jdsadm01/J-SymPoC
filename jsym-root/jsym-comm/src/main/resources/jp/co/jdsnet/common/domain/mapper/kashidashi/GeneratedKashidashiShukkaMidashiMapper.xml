@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kashidashi.GeneratedKashidashiShukkaMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,HATBSHCOD
+    ,TRNCODMAE3KT
+    ,DAIKAISKBCOD
+    ,MKRDENBNG
+    ,DENDTE
+    ,TOKCOD
+    ,DSCOD
+    ,THCBNG
+    ,RMCOD
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,TANKINHJIFLG
+    ,SKRKRTSTEFLG
+    ,SKRKRT
+    ,KDAKBN
+    ,SSAYTEDTE
+    ,MKRSTESYADTE
+    ,KDAREIZFLG
+    ,KDAURIZFLG
+    ,SSAZFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,BBNURIZFLG
+    ,BBNURIKTEDENDTE
+    ,BBNURIKTEMKRDENBNG
+    ,BBNURISEQ
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KashidashiShukkaMidashiEntity">
+  insert into AELEND01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{hatbshcod}
+    ,#{trncodmae3kt}
+    ,#{daikaiskbcod}
+    ,#{mkrdenbng}
+    ,#{dendte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{thcbng}
+    ,#{rmcod}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{tankinhjiflg}
+    ,#{skrkrtsteflg}
+    ,#{skrkrt}
+    ,#{kdakbn}
+    ,#{ssaytedte}
+    ,#{mkrstesyadte}
+    ,#{kdareizflg}
+    ,#{kdaurizflg}
+    ,#{ssazflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{bbnurizflg}
+    ,#{bbnuriktedendte}
+    ,#{bbnuriktemkrdenbng}
+    ,#{bbnuriseq}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AELEND01
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCODMAE3KT = #{trncodmae3kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</sql>
+
+<select id="select" resultType="KashidashiShukkaMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KashidashiShukkaMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KashidashiShukkaMidashiEntity">
+  update AELEND01
+  <set>
+    ,THCBNG = #{thcbng}
+    ,RMCOD = #{rmcod}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,TANKINHJIFLG = #{tankinhjiflg}
+    ,SKRKRTSTEFLG = #{skrkrtsteflg}
+    ,SKRKRT = #{skrkrt}
+    ,KDAKBN = #{kdakbn}
+    ,SSAYTEDTE = #{ssaytedte}
+    ,MKRSTESYADTE = #{mkrstesyadte}
+    ,KDAREIZFLG = #{kdareizflg}
+    ,KDAURIZFLG = #{kdaurizflg}
+    ,SSAZFLG = #{ssazflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,BBNURIZFLG = #{bbnurizflg}
+    ,BBNURIKTEDENDTE = #{bbnuriktedendte}
+    ,BBNURIKTEMKRDENBNG = #{bbnuriktemkrdenbng}
+    ,BBNURISEQ = #{bbnuriseq}
+  </set>
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCODMAE3KT = #{trncodmae3kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KashidashiShukkaMidashiEntity">
+  delete from AELEND01
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCODMAE3KT = #{trncodmae3kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</delete>
+
+</mapper>
+

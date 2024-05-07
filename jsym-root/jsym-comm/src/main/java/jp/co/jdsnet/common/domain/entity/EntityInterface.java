@@ -14,7 +14,9 @@ public interface EntityInterface {
    */
   default String getKeyString() {
     Class<Keyfield> clazz = Keyfield.class;
-    List<String> keyList = Stream.of(this.getClass().getDeclaredFields())
+    List<String> keyList = Stream.concat(
+        Stream.of(this.getClass().getSuperclass().getDeclaredFields()),
+            Stream.of(this.getClass().getDeclaredFields()))
         .filter(field -> field.isAnnotationPresent(clazz))
         .sorted(Comparator.comparing((Field field) -> field.getAnnotation(clazz).index()))
         .map(field -> {

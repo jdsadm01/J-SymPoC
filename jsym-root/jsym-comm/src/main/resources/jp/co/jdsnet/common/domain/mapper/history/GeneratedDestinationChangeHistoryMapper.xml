@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.history.GeneratedDestinationChangeHistoryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,SEQNO
+    ,HSOSAKYBNBNG7KT
+    ,HSOSAKADR1
+    ,HSOSAKADR2
+    ,HSOSAKNM
+    ,HSOSAKTELBNG13KT
+    ,SISRIYDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DestinationChangeHistoryEntity">
+  insert into VTBRRK03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{seqno}
+    ,#{hsosakybnbng7kt}
+    ,#{hsosakadr1}
+    ,#{hsosakadr2}
+    ,#{hsosaknm}
+    ,#{hsosaktelbng13kt}
+    ,#{sisriydte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBRRK03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and SEQNO = #{seqno}
+  </where>
+</sql>
+
+<select id="select" resultType="DestinationChangeHistoryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DestinationChangeHistoryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DestinationChangeHistoryEntity">
+  update VTBRRK03
+  <set>
+    ,HSOSAKYBNBNG7KT = #{hsosakybnbng7kt}
+    ,HSOSAKADR1 = #{hsosakadr1}
+    ,HSOSAKADR2 = #{hsosakadr2}
+    ,HSOSAKNM = #{hsosaknm}
+    ,HSOSAKTELBNG13KT = #{hsosaktelbng13kt}
+    ,SISRIYDTE = #{sisriydte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and SEQNO = #{seqno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DestinationChangeHistoryEntity">
+  delete from VTBRRK03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and SEQNO = #{seqno}
+  </where>
+</delete>
+
+</mapper>
+

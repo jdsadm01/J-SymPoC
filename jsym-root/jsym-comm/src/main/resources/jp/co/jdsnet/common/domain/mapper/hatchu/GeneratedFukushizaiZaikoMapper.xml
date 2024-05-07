@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hatchu.GeneratedFukushizaiZaikoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,HACSYBKBN
+    ,SETKIG
+    ,BHNKBN
+    ,BHNEDA
+    ,MKRBUNCOD
+    ,HONZAISUR
+    ,HONZAITEISURPLS
+    ,HONZAITEISURMNS
+    ,HONKHASUR
+    ,SMPZAISUR
+    ,SMPZAITEISURPLS
+    ,SMPZAITEISURMNS
+    ,SMPKHASUR
+    ,HACSAKCOD
+    ,NKI1
+    ,HACZNSNKI1
+    ,NKI2
+    ,HACZNSNKI2
+    ,NKI3
+    ,HACZNSNKI3IK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="FukushizaiZaikoEntity">
+  insert into AESORD05
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{hacsybkbn}
+    ,#{setkig}
+    ,#{bhnkbn}
+    ,#{bhneda}
+    ,#{mkrbuncod}
+    ,#{honzaisur}
+    ,#{honzaiteisurpls}
+    ,#{honzaiteisurmns}
+    ,#{honkhasur}
+    ,#{smpzaisur}
+    ,#{smpzaiteisurpls}
+    ,#{smpzaiteisurmns}
+    ,#{smpkhasur}
+    ,#{hacsakcod}
+    ,#{nki1}
+    ,#{hacznsnki1}
+    ,#{nki2}
+    ,#{hacznsnki2}
+    ,#{nki3}
+    ,#{hacznsnki3ik}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESORD05
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and HACSYBKBN = #{hacsybkbn}
+  </where>
+</sql>
+
+<select id="select" resultType="FukushizaiZaikoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="FukushizaiZaikoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="FukushizaiZaikoEntity">
+  update AESORD05
+  <set>
+    ,SETKIG = #{setkig}
+    ,BHNKBN = #{bhnkbn}
+    ,BHNEDA = #{bhneda}
+    ,MKRBUNCOD = #{mkrbuncod}
+    ,HONZAISUR = #{honzaisur}
+    ,HONZAITEISURPLS = #{honzaiteisurpls}
+    ,HONZAITEISURMNS = #{honzaiteisurmns}
+    ,HONKHASUR = #{honkhasur}
+    ,SMPZAISUR = #{smpzaisur}
+    ,SMPZAITEISURPLS = #{smpzaiteisurpls}
+    ,SMPZAITEISURMNS = #{smpzaiteisurmns}
+    ,SMPKHASUR = #{smpkhasur}
+    ,HACSAKCOD = #{hacsakcod}
+    ,NKI1 = #{nki1}
+    ,HACZNSNKI1 = #{hacznsnki1}
+    ,NKI2 = #{nki2}
+    ,HACZNSNKI2 = #{hacznsnki2}
+    ,NKI3 = #{nki3}
+    ,HACZNSNKI3IK = #{hacznsnki3ik}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and HACSYBKBN = #{hacsybkbn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="FukushizaiZaikoEntity">
+  delete from AESORD05
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and HACSYBKBN = #{hacsybkbn}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.user.GeneratedUserAuthenticationMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,NETWRKSKBCOD
+    ,ENYUSRID
+    ,PWD
+    ,PWDKGNDTE
+    ,USRID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,MDVPWDGINPKSU
+    ,MDVUSRLOCKFLG
+    ,MDVUSRLOCKDTE
+    ,MDVUSRLOCKJKK
+    ,JSYMPWDGINPKSU
+    ,JSYMUSRLOCKFLG
+    ,JSYMUSRLOCKDTE
+    ,JSYMUSRLOCKJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="UserAuthenticationEntity">
+  insert into VTBUSR00
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{netwrkskbcod}
+    ,#{enyusrid}
+    ,#{pwd}
+    ,#{pwdkgndte}
+    ,#{usrid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{mdvpwdginpksu}
+    ,#{mdvusrlockflg}
+    ,#{mdvusrlockdte}
+    ,#{mdvusrlockjkk}
+    ,#{jsympwdginpksu}
+    ,#{jsymusrlockflg}
+    ,#{jsymusrlockdte}
+    ,#{jsymusrlockjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBUSR00
+  <where>
+    and NETWRKSKBCOD = #{netwrkskbcod}
+    and ENYUSRID = #{enyusrid}
+  </where>
+</sql>
+
+<select id="select" resultType="UserAuthenticationEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="UserAuthenticationEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="UserAuthenticationEntity">
+  update VTBUSR00
+  <set>
+    ,PWD = #{pwd}
+    ,PWDKGNDTE = #{pwdkgndte}
+    ,USRID = #{usrid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,MDVPWDGINPKSU = #{mdvpwdginpksu}
+    ,MDVUSRLOCKFLG = #{mdvusrlockflg}
+    ,MDVUSRLOCKDTE = #{mdvusrlockdte}
+    ,MDVUSRLOCKJKK = #{mdvusrlockjkk}
+    ,JSYMPWDGINPKSU = #{jsympwdginpksu}
+    ,JSYMUSRLOCKFLG = #{jsymusrlockflg}
+    ,JSYMUSRLOCKDTE = #{jsymusrlockdte}
+    ,JSYMUSRLOCKJKK = #{jsymusrlockjkk}
+  </set>
+  <where>
+    and NETWRKSKBCOD = #{netwrkskbcod}
+    and ENYUSRID = #{enyusrid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="UserAuthenticationEntity">
+  delete from VTBUSR00
+  <where>
+    and NETWRKSKBCOD = #{netwrkskbcod}
+    and ENYUSRID = #{enyusrid}
+  </where>
+</delete>
+
+</mapper>
+

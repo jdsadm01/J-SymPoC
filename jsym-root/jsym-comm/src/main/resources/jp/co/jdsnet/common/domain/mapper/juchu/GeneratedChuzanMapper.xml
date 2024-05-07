@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedChuzanMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,JUCDTE
+    ,TOKCOD
+    ,DSCOD
+    ,JUCMDSSEQ
+    ,JUCMSISEQ
+    ,SEQ
+    ,TRNCOD
+    ,CHZBSHCOD
+    ,CHZSKOCOD
+    ,CHZDTE
+    ,CHZJKK
+    ,THCBNG
+    ,SJCOD
+    ,YKNCOD
+    ,MSCOD
+    ,TANKINHJIFLG
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,TRJCHZSUR
+    ,CHZSUR
+    ,TANKINSTEKBN
+    ,SKRTAN
+    ,RMCOD
+    ,EIGCOD
+    ,TERCOD
+    ,SKOSTEARIFLG
+    ,CHZRELNO
+    ,CPUFULID
+    ,WSSEQ7KT
+    ,CHZKICSJIZFLG
+    ,CHZSTSKBN
+    ,DELFLG
+    ,USNJNDTE
+    ,CCHFLG
+    ,CCHTIOKTKKBN
+    ,CCHHATSKOCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,CHZDELDTE
+    ,CHZDELKJNDTE
+    ,FMG1
+    ,FMG2
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ChuzanEntity">
+  insert into AERORD12
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{jucdte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{jucmdsseq}
+    ,#{jucmsiseq}
+    ,#{seq}
+    ,#{trncod}
+    ,#{chzbshcod}
+    ,#{chzskocod}
+    ,#{chzdte}
+    ,#{chzjkk}
+    ,#{thcbng}
+    ,#{sjcod}
+    ,#{ykncod}
+    ,#{mscod}
+    ,#{tankinhjiflg}
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{trjchzsur}
+    ,#{chzsur}
+    ,#{tankinstekbn}
+    ,#{skrtan}
+    ,#{rmcod}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{skosteariflg}
+    ,#{chzrelno}
+    ,#{cpufulid}
+    ,#{wsseq7kt}
+    ,#{chzkicsjizflg}
+    ,#{chzstskbn}
+    ,#{delflg}
+    ,#{usnjndte}
+    ,#{cchflg}
+    ,#{cchtioktkkbn}
+    ,#{cchhatskocod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{chzdeldte}
+    ,#{chzdelkjndte}
+    ,#{fmg1}
+    ,#{fmg2}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD12
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCMDSSEQ = #{jucmdsseq}
+    and JUCMSISEQ = #{jucmsiseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="ChuzanEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ChuzanEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ChuzanEntity">
+  update AERORD12
+  <set>
+    ,TRNCOD = #{trncod}
+    ,CHZBSHCOD = #{chzbshcod}
+    ,CHZSKOCOD = #{chzskocod}
+    ,CHZDTE = #{chzdte}
+    ,CHZJKK = #{chzjkk}
+    ,THCBNG = #{thcbng}
+    ,SJCOD = #{sjcod}
+    ,YKNCOD = #{ykncod}
+    ,MSCOD = #{mscod}
+    ,TANKINHJIFLG = #{tankinhjiflg}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,KIGBNG = #{kigbng}
+    ,TRJCHZSUR = #{trjchzsur}
+    ,CHZSUR = #{chzsur}
+    ,TANKINSTEKBN = #{tankinstekbn}
+    ,SKRTAN = #{skrtan}
+    ,RMCOD = #{rmcod}
+    ,EIGCOD = #{eigcod}
+    ,TERCOD = #{tercod}
+    ,SKOSTEARIFLG = #{skosteariflg}
+    ,CHZRELNO = #{chzrelno}
+    ,CPUFULID = #{cpufulid}
+    ,WSSEQ7KT = #{wsseq7kt}
+    ,CHZKICSJIZFLG = #{chzkicsjizflg}
+    ,CHZSTSKBN = #{chzstskbn}
+    ,DELFLG = #{delflg}
+    ,USNJNDTE = #{usnjndte}
+    ,CCHFLG = #{cchflg}
+    ,CCHTIOKTKKBN = #{cchtioktkkbn}
+    ,CCHHATSKOCOD = #{cchhatskocod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,CHZDELDTE = #{chzdeldte}
+    ,CHZDELKJNDTE = #{chzdelkjndte}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+  </set>
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCMDSSEQ = #{jucmdsseq}
+    and JUCMSISEQ = #{jucmsiseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ChuzanEntity">
+  delete from AERORD12
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCMDSSEQ = #{jucmdsseq}
+    and JUCMSISEQ = #{jucmsiseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

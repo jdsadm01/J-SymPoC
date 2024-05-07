@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.user.GeneratedMyMenuMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,GYMID
+    ,GMNID
+    ,MNUKBN
+    ,HJIJUN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="MyMenuEntity">
+  insert into VTBUSR04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{gymid}
+    ,#{gmnid}
+    ,#{mnukbn}
+    ,#{hjijun}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBUSR04
+  <where>
+    and USRID = #{usrid}
+    and GYMID = #{gymid}
+    and GMNID = #{gmnid}
+  </where>
+</sql>
+
+<select id="select" resultType="MyMenuEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="MyMenuEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="MyMenuEntity">
+  update VTBUSR04
+  <set>
+    ,MNUKBN = #{mnukbn}
+    ,HJIJUN = #{hjijun}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and USRID = #{usrid}
+    and GYMID = #{gymid}
+    and GMNID = #{gmnid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="MyMenuEntity">
+  delete from VTBUSR04
+  <where>
+    and USRID = #{usrid}
+    and GYMID = #{gymid}
+    and GMNID = #{gmnid}
+  </where>
+</delete>
+
+</mapper>
+

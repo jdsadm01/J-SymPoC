@@ -1,0 +1,39 @@
+#spring:
+#  profiles:
+#    active: dev
+#    group:
+#      common:
+#        - base
+#      dev:
+#        - common
+#        - dev
+
+#mybatis設定 警告は問題無し
+mybatis:
+  configuration:
+    jdbcTypeForNull: 'NULL'
+    defaultStatementTimeout: 30
+    mapUnderscoreToCamelCase: true
+  type-aliases-package: jp.co.jdsnet.common.domain.entity
+
+#spring設定
+spring:
+  datasource:
+    driver-class-name: com.ibm.db2.jcc.DB2Driver
+    hikari:
+      connection-timeout: 20000
+      auto-commit: false
+      maximum-pool-size: 30
+      minimum-idle: 0
+      max-lifetime: 0
+      schema: AET
+    url: jdbc:db2://internal-JDS-dev-aes-db-clb01-967901585.ap-northeast-1.elb.amazonaws.com:50005/DBTAE1
+    username: aetapl
+    password: AETAPL
+
+logging:
+  group:
+    db: 
+      - jp.co.jdsnet.common.domain.mapper
+  level:
+    db: debug

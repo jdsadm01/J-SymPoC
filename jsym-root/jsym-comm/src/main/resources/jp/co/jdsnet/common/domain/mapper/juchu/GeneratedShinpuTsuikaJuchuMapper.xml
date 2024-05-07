@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedShinpuTsuikaJuchuMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,JUCDTE
+    ,TOKCOD
+    ,DSCOD
+    ,SINTUIJUCSEQ
+    ,SEQ
+    ,DENMSIOUTJN
+    ,TRNCOD
+    ,THCBNG
+    ,SJCOD
+    ,YKNCOD
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,MTDDTE
+    ,MTDBNG
+    ,CPUFULID
+    ,WSSEQ4KT
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,SINTUISUR
+    ,SKRTAN
+    ,RMCOD
+    ,THCMEMO
+    ,KIN
+    ,SYADTE
+    ,HATSKOCOD
+    ,HATBSHCOD
+    ,DENSSEZSGN
+    ,DELFLG
+    ,EIGCOD
+    ,TERCOD
+    ,KETCOD
+    ,KRERNTKBN
+    ,SKRKRT
+    ,STASTEFLG
+    ,STAKJYZFLG
+    ,CHZFLG
+    ,ERRARIFLGMDS
+    ,ERRARIFLGMSI
+    ,SINTUIJUCSTSKBN
+    ,SINTJGJUCSGN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,HSODTE
+    ,SKOSYADTE
+    ,SINJUCSUR
+    ,JUCJKK
+    ,ERRCOD
+    ,JUCKBN
+    ,TANKINHJIFLG
+    ,SYADENBNG
+    ,TMUSTEFLG
+    ,TMUKJYZFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuTsuikaJuchuEntity">
+  insert into AERORD10
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{jucdte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{sintuijucseq}
+    ,#{seq}
+    ,#{denmsioutjn}
+    ,#{trncod}
+    ,#{thcbng}
+    ,#{sjcod}
+    ,#{ykncod}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{mtddte}
+    ,#{mtdbng}
+    ,#{cpufulid}
+    ,#{wsseq4kt}
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{sintuisur}
+    ,#{skrtan}
+    ,#{rmcod}
+    ,#{thcmemo}
+    ,#{kin}
+    ,#{syadte}
+    ,#{hatskocod}
+    ,#{hatbshcod}
+    ,#{denssezsgn}
+    ,#{delflg}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{ketcod}
+    ,#{krerntkbn}
+    ,#{skrkrt}
+    ,#{stasteflg}
+    ,#{stakjyzflg}
+    ,#{chzflg}
+    ,#{errariflgmds}
+    ,#{errariflgmsi}
+    ,#{sintuijucstskbn}
+    ,#{sintjgjucsgn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{hsodte}
+    ,#{skosyadte}
+    ,#{sinjucsur}
+    ,#{jucjkk}
+    ,#{errcod}
+    ,#{juckbn}
+    ,#{tankinhjiflg}
+    ,#{syadenbng}
+    ,#{tmusteflg}
+    ,#{tmukjyzflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD10
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SINTUIJUCSEQ = #{sintuijucseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuTsuikaJuchuEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuTsuikaJuchuEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuTsuikaJuchuEntity">
+  update AERORD10
+  <set>
+    ,DENMSIOUTJN = #{denmsioutjn}
+    ,TRNCOD = #{trncod}
+    ,THCBNG = #{thcbng}
+    ,SJCOD = #{sjcod}
+    ,YKNCOD = #{ykncod}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,MTDDTE = #{mtddte}
+    ,MTDBNG = #{mtdbng}
+    ,CPUFULID = #{cpufulid}
+    ,WSSEQ4KT = #{wsseq4kt}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,KIGBNG = #{kigbng}
+    ,SINTUISUR = #{sintuisur}
+    ,SKRTAN = #{skrtan}
+    ,RMCOD = #{rmcod}
+    ,THCMEMO = #{thcmemo}
+    ,KIN = #{kin}
+    ,SYADTE = #{syadte}
+    ,HATSKOCOD = #{hatskocod}
+    ,HATBSHCOD = #{hatbshcod}
+    ,DENSSEZSGN = #{denssezsgn}
+    ,DELFLG = #{delflg}
+    ,EIGCOD = #{eigcod}
+    ,TERCOD = #{tercod}
+    ,KETCOD = #{ketcod}
+    ,KRERNTKBN = #{krerntkbn}
+    ,SKRKRT = #{skrkrt}
+    ,STASTEFLG = #{stasteflg}
+    ,STAKJYZFLG = #{stakjyzflg}
+    ,CHZFLG = #{chzflg}
+    ,ERRARIFLGMDS = #{errariflgmds}
+    ,ERRARIFLGMSI = #{errariflgmsi}
+    ,SINTUIJUCSTSKBN = #{sintuijucstskbn}
+    ,SINTJGJUCSGN = #{sintjgjucsgn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,HSODTE = #{hsodte}
+    ,SKOSYADTE = #{skosyadte}
+    ,SINJUCSUR = #{sinjucsur}
+    ,JUCJKK = #{jucjkk}
+    ,ERRCOD = #{errcod}
+    ,JUCKBN = #{juckbn}
+    ,TANKINHJIFLG = #{tankinhjiflg}
+    ,SYADENBNG = #{syadenbng}
+    ,TMUSTEFLG = #{tmusteflg}
+    ,TMUKJYZFLG = #{tmukjyzflg}
+  </set>
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SINTUIJUCSEQ = #{sintuijucseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuTsuikaJuchuEntity">
+  delete from AERORD10
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SINTUIJUCSEQ = #{sintuijucseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

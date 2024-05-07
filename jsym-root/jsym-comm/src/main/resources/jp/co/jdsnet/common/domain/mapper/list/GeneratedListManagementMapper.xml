@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedListManagementMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,CHYID
+    ,CHYKNRNO
+    ,BKTNO
+    ,SSEJYOFLG
+    ,DTAHJIFLG
+    ,PRCKBN
+    ,SSESJIDTE
+    ,SSEKRYDTE
+    ,CHYDTAFLEID
+    ,SSEPAG
+    ,USRID
+    ,BSHCOD
+    ,EIGCOD
+    ,TERCOD
+    ,URIBUNSYYPTNCOD
+    ,TRKNM
+    ,SSETNT
+    ,SSECMT
+    ,CHYSIZE
+    ,CHKFLG
+    ,CHYSSEUKEDTE
+    ,CHYSSEUKEJKK
+    ,CHYSSESTTDTE
+    ,CHYSSESTTJKK
+    ,CHYSSEENDDTE
+    ,CHYSSEENDJKK
+    ,CHYSSESTS
+    ,CHYSSEPID
+    ,CHYSSEERR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListManagementEntity">
+  insert into VTBLST01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{chyid}
+    ,#{chyknrno}
+    ,#{bktno}
+    ,#{ssejyoflg}
+    ,#{dtahjiflg}
+    ,#{prckbn}
+    ,#{ssesjidte}
+    ,#{ssekrydte}
+    ,#{chydtafleid}
+    ,#{ssepag}
+    ,#{usrid}
+    ,#{bshcod}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{uribunsyyptncod}
+    ,#{trknm}
+    ,#{ssetnt}
+    ,#{ssecmt}
+    ,#{chysize}
+    ,#{chkflg}
+    ,#{chysseukedte}
+    ,#{chysseukejkk}
+    ,#{chyssesttdte}
+    ,#{chyssesttjkk}
+    ,#{chysseenddte}
+    ,#{chysseendjkk}
+    ,#{chyssests}
+    ,#{chyssepid}
+    ,#{chysseerr}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and CHYID = #{chyid}
+    and CHYKNRNO = #{chyknrno}
+    and BKTNO = #{bktno}
+  </where>
+</sql>
+
+<select id="select" resultType="ListManagementEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListManagementEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListManagementEntity">
+  update VTBLST01
+  <set>
+    ,SSEJYOFLG = #{ssejyoflg}
+    ,DTAHJIFLG = #{dtahjiflg}
+    ,PRCKBN = #{prckbn}
+    ,SSESJIDTE = #{ssesjidte}
+    ,SSEKRYDTE = #{ssekrydte}
+    ,CHYDTAFLEID = #{chydtafleid}
+    ,SSEPAG = #{ssepag}
+    ,USRID = #{usrid}
+    ,BSHCOD = #{bshcod}
+    ,EIGCOD = #{eigcod}
+    ,TERCOD = #{tercod}
+    ,URIBUNSYYPTNCOD = #{uribunsyyptncod}
+    ,TRKNM = #{trknm}
+    ,SSETNT = #{ssetnt}
+    ,SSECMT = #{ssecmt}
+    ,CHYSIZE = #{chysize}
+    ,CHKFLG = #{chkflg}
+    ,CHYSSEUKEDTE = #{chysseukedte}
+    ,CHYSSEUKEJKK = #{chysseukejkk}
+    ,CHYSSESTTDTE = #{chyssesttdte}
+    ,CHYSSESTTJKK = #{chyssesttjkk}
+    ,CHYSSEENDDTE = #{chysseenddte}
+    ,CHYSSEENDJKK = #{chysseendjkk}
+    ,CHYSSESTS = #{chyssests}
+    ,CHYSSEPID = #{chyssepid}
+    ,CHYSSEERR = #{chysseerr}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and CHYID = #{chyid}
+    and CHYKNRNO = #{chyknrno}
+    and BKTNO = #{bktno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListManagementEntity">
+  delete from VTBLST01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and CHYID = #{chyid}
+    and CHYKNRNO = #{chyknrno}
+    and BKTNO = #{bktno}
+  </where>
+</delete>
+
+</mapper>
+

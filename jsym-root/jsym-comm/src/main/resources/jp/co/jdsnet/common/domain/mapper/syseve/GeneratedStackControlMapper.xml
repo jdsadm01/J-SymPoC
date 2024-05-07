@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedStackControlMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,CPUID
+    ,TMLID
+    ,STANO
+    ,BSHCOD
+    ,SEQ
+    ,TRNFULCOD
+    ,STAKJYDTE
+    ,STAKJYZFLG
+    ,STABUNKBN
+    ,STASRTCOD
+    ,SAKSVCID
+    ,KENKEY
+    ,DELFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="StackControlEntity">
+  insert into AESYSE13
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{cpuid}
+    ,#{tmlid}
+    ,#{stano}
+    ,#{bshcod}
+    ,#{seq}
+    ,#{trnfulcod}
+    ,#{stakjydte}
+    ,#{stakjyzflg}
+    ,#{stabunkbn}
+    ,#{stasrtcod}
+    ,#{saksvcid}
+    ,#{kenkey}
+    ,#{delflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE13
+  <where>
+    and INPDTE = #{inpdte}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and STANO = #{stano}
+    and BSHCOD = #{bshcod}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="StackControlEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="StackControlEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="StackControlEntity">
+  update AESYSE13
+  <set>
+    ,TRNFULCOD = #{trnfulcod}
+    ,STAKJYDTE = #{stakjydte}
+    ,STAKJYZFLG = #{stakjyzflg}
+    ,STABUNKBN = #{stabunkbn}
+    ,STASRTCOD = #{stasrtcod}
+    ,SAKSVCID = #{saksvcid}
+    ,KENKEY = #{kenkey}
+    ,DELFLG = #{delflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and STANO = #{stano}
+    and BSHCOD = #{bshcod}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="StackControlEntity">
+  delete from AESYSE13
+  <where>
+    and INPDTE = #{inpdte}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and STANO = #{stano}
+    and BSHCOD = #{bshcod}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

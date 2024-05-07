@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.history.GeneratedHistoryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,JSNDTE
+    ,JSNJKK
+    ,USRSEQNO
+    ,SEQNO
+    ,GMNID
+    ,GMNSEQNO
+    ,GMNKBN
+    ,TXT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HistoryEntity">
+  insert into VTBCNL06
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{jsndte}
+    ,#{jsnjkk}
+    ,#{usrseqno}
+    ,#{seqno}
+    ,#{gmnid}
+    ,#{gmnseqno}
+    ,#{gmnkbn}
+    ,#{txt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBCNL06
+  <where>
+    and USRID = #{usrid}
+    and JSNDTE = #{jsndte}
+    and JSNJKK = #{jsnjkk}
+    and USRSEQNO = #{usrseqno}
+    and SEQNO = #{seqno}
+  </where>
+</sql>
+
+<select id="select" resultType="HistoryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HistoryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HistoryEntity">
+  update VTBCNL06
+  <set>
+    ,GMNID = #{gmnid}
+    ,GMNSEQNO = #{gmnseqno}
+    ,GMNKBN = #{gmnkbn}
+    ,TXT = #{txt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and USRID = #{usrid}
+    and JSNDTE = #{jsndte}
+    and JSNJKK = #{jsnjkk}
+    and USRSEQNO = #{usrseqno}
+    and SEQNO = #{seqno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HistoryEntity">
+  delete from VTBCNL06
+  <where>
+    and USRID = #{usrid}
+    and JSNDTE = #{jsndte}
+    and JSNJKK = #{jsnjkk}
+    and USRSEQNO = #{usrseqno}
+    and SEQNO = #{seqno}
+  </where>
+</delete>
+
+</mapper>
+

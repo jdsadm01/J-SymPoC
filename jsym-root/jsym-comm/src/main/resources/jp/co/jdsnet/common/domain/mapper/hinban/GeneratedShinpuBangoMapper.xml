@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hinban.GeneratedShinpuBangoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,SINBNG
+    ,SINGYB
+    ,KIGBNG
+    ,JUCSMB
+    ,BDNFLG
+    ,KAISKBCOD
+    ,HBIDTE
+    ,RELNO
+    ,WHYPGE
+    ,YKNCOD
+    ,SHTKBN
+    ,ARTNMKN
+    ,ARTNM
+    ,TITNMKN
+    ,TITNM
+    ,MKRBUNCOD
+    ,KETCOD
+    ,ZAIUPDSGN
+    ,URIUPDSGN
+    ,ZNUPRI
+    ,TTNSHOSUU
+    ,TTBSUU
+    ,TTBHNB
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuBangoEntity">
+  insert into AEPROD02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{sinbng}
+    ,#{singyb}
+    ,#{kigbng}
+    ,#{jucsmb}
+    ,#{bdnflg}
+    ,#{kaiskbcod}
+    ,#{hbidte}
+    ,#{relno}
+    ,#{whypge}
+    ,#{ykncod}
+    ,#{shtkbn}
+    ,#{artnmkn}
+    ,#{artnm}
+    ,#{titnmkn}
+    ,#{titnm}
+    ,#{mkrbuncod}
+    ,#{ketcod}
+    ,#{zaiupdsgn}
+    ,#{uriupdsgn}
+    ,#{znupri}
+    ,#{ttnshosuu}
+    ,#{ttbsuu}
+    ,#{ttbhnb}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEPROD02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuBangoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuBangoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuBangoEntity">
+  update AEPROD02
+  <set>
+    ,KIGBNG = #{kigbng}
+    ,JUCSMB = #{jucsmb}
+    ,BDNFLG = #{bdnflg}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,HBIDTE = #{hbidte}
+    ,RELNO = #{relno}
+    ,WHYPGE = #{whypge}
+    ,YKNCOD = #{ykncod}
+    ,SHTKBN = #{shtkbn}
+    ,ARTNMKN = #{artnmkn}
+    ,ARTNM = #{artnm}
+    ,TITNMKN = #{titnmkn}
+    ,TITNM = #{titnm}
+    ,MKRBUNCOD = #{mkrbuncod}
+    ,KETCOD = #{ketcod}
+    ,ZAIUPDSGN = #{zaiupdsgn}
+    ,URIUPDSGN = #{uriupdsgn}
+    ,ZNUPRI = #{znupri}
+    ,TTNSHOSUU = #{ttnshosuu}
+    ,TTBSUU = #{ttbsuu}
+    ,TTBHNB = #{ttbhnb}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuBangoEntity">
+  delete from AEPROD02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+  </where>
+</delete>
+
+</mapper>
+

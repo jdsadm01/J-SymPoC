@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedUseGamenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,USRBUN
+    ,GYMID
+    ,CTGCOD
+    ,GMNID
+    ,HJIGYMID
+    ,HJICTGCOD
+    ,GMNHJIJUN
+    ,KYKKBN
+    ,USESTTDTE
+    ,USEENDDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="UseGamenEntity">
+  insert into VTBMNU10
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{usrbun}
+    ,#{gymid}
+    ,#{ctgcod}
+    ,#{gmnid}
+    ,#{hjigymid}
+    ,#{hjictgcod}
+    ,#{gmnhjijun}
+    ,#{kykkbn}
+    ,#{usesttdte}
+    ,#{useenddte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMNU10
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+    and GMNID = #{gmnid}
+  </where>
+</sql>
+
+<select id="select" resultType="UseGamenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="UseGamenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="UseGamenEntity">
+  update VTBMNU10
+  <set>
+    ,HJIGYMID = #{hjigymid}
+    ,HJICTGCOD = #{hjictgcod}
+    ,GMNHJIJUN = #{gmnhjijun}
+    ,KYKKBN = #{kykkbn}
+    ,USESTTDTE = #{usesttdte}
+    ,USEENDDTE = #{useenddte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+    and GMNID = #{gmnid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="UseGamenEntity">
+  delete from VTBMNU10
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+    and GMNID = #{gmnid}
+  </where>
+</delete>
+
+</mapper>
+

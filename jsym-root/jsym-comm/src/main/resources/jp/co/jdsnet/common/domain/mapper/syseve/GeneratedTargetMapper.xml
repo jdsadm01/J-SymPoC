@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedTargetMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TGTID
+    ,TRNFULCOD
+    ,MOTSVCID
+    ,SAKSVCID
+    ,KENKEYFMTNO
+    ,KENKEY
+    ,KTETGTID
+    ,TGTSTSKBN
+    ,INPDTE
+    ,INPJKK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TargetEntity">
+  insert into AESYSE02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{tgtid}
+    ,#{trnfulcod}
+    ,#{motsvcid}
+    ,#{saksvcid}
+    ,#{kenkeyfmtno}
+    ,#{kenkey}
+    ,#{ktetgtid}
+    ,#{tgtstskbn}
+    ,#{inpdte}
+    ,#{inpjkk}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE02
+  <where>
+    and TGTID = #{tgtid}
+  </where>
+</sql>
+
+<select id="select" resultType="TargetEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TargetEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TargetEntity">
+  update AESYSE02
+  <set>
+    ,TRNFULCOD = #{trnfulcod}
+    ,MOTSVCID = #{motsvcid}
+    ,SAKSVCID = #{saksvcid}
+    ,KENKEYFMTNO = #{kenkeyfmtno}
+    ,KENKEY = #{kenkey}
+    ,KTETGTID = #{ktetgtid}
+    ,TGTSTSKBN = #{tgtstskbn}
+    ,INPDTE = #{inpdte}
+    ,INPJKK = #{inpjkk}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and TGTID = #{tgtid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TargetEntity">
+  delete from AESYSE02
+  <where>
+    and TGTID = #{tgtid}
+  </where>
+</delete>
+
+</mapper>
+

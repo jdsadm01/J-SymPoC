@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedShimebibetsuHenpinwakuKeisanKijunzukiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,HPWKSNKJNMMKBN5JT
+    ,HPWKSNKJNMMKBN10JT
+    ,HPWKSNKJNMMKBN14JT
+    ,HPWKSNKJNMMKBN15JT
+    ,HPWKSNKJNMMKBN20JT
+    ,HPWKSNKJNMMKBN25JT
+    ,HPWKSNKJNMMKBN31JT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShimebibetsuHenpinwakuKeisanKijunzukiEntity">
+  insert into AECOMP31
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{hpwksnkjnmmkbn5jt}
+    ,#{hpwksnkjnmmkbn10jt}
+    ,#{hpwksnkjnmmkbn14jt}
+    ,#{hpwksnkjnmmkbn15jt}
+    ,#{hpwksnkjnmmkbn20jt}
+    ,#{hpwksnkjnmmkbn25jt}
+    ,#{hpwksnkjnmmkbn31jt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP31
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ShimebibetsuHenpinwakuKeisanKijunzukiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShimebibetsuHenpinwakuKeisanKijunzukiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShimebibetsuHenpinwakuKeisanKijunzukiEntity">
+  update AECOMP31
+  <set>
+    ,HPWKSNKJNMMKBN5JT = #{hpwksnkjnmmkbn5jt}
+    ,HPWKSNKJNMMKBN10JT = #{hpwksnkjnmmkbn10jt}
+    ,HPWKSNKJNMMKBN14JT = #{hpwksnkjnmmkbn14jt}
+    ,HPWKSNKJNMMKBN15JT = #{hpwksnkjnmmkbn15jt}
+    ,HPWKSNKJNMMKBN20JT = #{hpwksnkjnmmkbn20jt}
+    ,HPWKSNKJNMMKBN25JT = #{hpwksnkjnmmkbn25jt}
+    ,HPWKSNKJNMMKBN31JT = #{hpwksnkjnmmkbn31jt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShimebibetsuHenpinwakuKeisanKijunzukiEntity">
+  delete from AECOMP31
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

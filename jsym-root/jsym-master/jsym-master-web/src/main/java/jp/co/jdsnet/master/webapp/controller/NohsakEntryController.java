@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/nohsakEntry")
 public class NohsakEntryController extends CommonOperationController {
 
-  private static final String TEMPLATE_DIR = "nohsakEntry/";
+  private static final String TEMPLATE_DIR = "nohsakentry/";
   private static final String TEMPLATE_SEARCH = TEMPLATE_DIR + "search";
   private static final String TEMPLATE_INPUT = TEMPLATE_DIR + "input";
   private static final String TEMPLATE_SEND = TEMPLATE_DIR + "send";
@@ -59,6 +59,8 @@ public class NohsakEntryController extends CommonOperationController {
 
     if ("A".equals(requestForm.getPrckbn()) || "U".equals(requestForm.getPrckbn())) {
       return TEMPLATE_INPUT;
+    } else if ("D".equals(requestForm.getPrckbn())) {
+      return TEMPLATE_SEND;
     } else {
       return TEMPLATE_SEARCH;
     }

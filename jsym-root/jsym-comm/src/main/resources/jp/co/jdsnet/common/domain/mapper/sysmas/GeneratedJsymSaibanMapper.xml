@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedJsymSaibanMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,DAIKAISKBCOD
+    ,BUN
+    ,KEYFLD
+    ,CURNO
+    ,CLEMTH
+    ,JGNNO
+    ,KGNNO
+    ,ZKAPRCDTE
+    ,TODSTTNO
+    ,TOMSTTNO
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="JsymSaibanEntity">
+  insert into VTBCNL08
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{daikaiskbcod}
+    ,#{bun}
+    ,#{keyfld}
+    ,#{curno}
+    ,#{clemth}
+    ,#{jgnno}
+    ,#{kgnno}
+    ,#{zkaprcdte}
+    ,#{todsttno}
+    ,#{tomsttno}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBCNL08
+  <where>
+    and USRID = #{usrid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BUN = #{bun}
+    and KEYFLD = #{keyfld}
+  </where>
+</sql>
+
+<select id="select" resultType="JsymSaibanEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="JsymSaibanEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="JsymSaibanEntity">
+  update VTBCNL08
+  <set>
+    ,CURNO = #{curno}
+    ,CLEMTH = #{clemth}
+    ,JGNNO = #{jgnno}
+    ,KGNNO = #{kgnno}
+    ,ZKAPRCDTE = #{zkaprcdte}
+    ,TODSTTNO = #{todsttno}
+    ,TOMSTTNO = #{tomsttno}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and USRID = #{usrid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BUN = #{bun}
+    and KEYFLD = #{keyfld}
+  </where>
+</update>
+
+<delete id="delete" parameterType="JsymSaibanEntity">
+  delete from VTBCNL08
+  <where>
+    and USRID = #{usrid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and BUN = #{bun}
+    and KEYFLD = #{keyfld}
+  </where>
+</delete>
+
+</mapper>
+

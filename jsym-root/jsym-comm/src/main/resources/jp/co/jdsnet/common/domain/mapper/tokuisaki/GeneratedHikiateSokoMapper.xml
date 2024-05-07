@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedHikiateSokoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,HATSKOTIKCOD
+    ,HATSKOSINKYUKBN
+    ,RDOHATFLG
+    ,CCHHATSGN
+    ,HATSKOSUU
+    ,HATSKOCOD1
+    ,HATSKOCOD2
+    ,HATSKOCOD3
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HikiateSokoEntity">
+  insert into AECUST11
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{hatskotikcod}
+    ,#{hatskosinkyukbn}
+    ,#{rdohatflg}
+    ,#{cchhatsgn}
+    ,#{hatskosuu}
+    ,#{hatskocod1}
+    ,#{hatskocod2}
+    ,#{hatskocod3}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST11
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HATSKOTIKCOD = #{hatskotikcod}
+    and HATSKOSINKYUKBN = #{hatskosinkyukbn}
+  </where>
+</sql>
+
+<select id="select" resultType="HikiateSokoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HikiateSokoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HikiateSokoEntity">
+  update AECUST11
+  <set>
+    ,RDOHATFLG = #{rdohatflg}
+    ,CCHHATSGN = #{cchhatsgn}
+    ,HATSKOSUU = #{hatskosuu}
+    ,HATSKOCOD1 = #{hatskocod1}
+    ,HATSKOCOD2 = #{hatskocod2}
+    ,HATSKOCOD3 = #{hatskocod3}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HATSKOTIKCOD = #{hatskotikcod}
+    and HATSKOSINKYUKBN = #{hatskosinkyukbn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HikiateSokoEntity">
+  delete from AECUST11
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HATSKOTIKCOD = #{hatskotikcod}
+    and HATSKOSINKYUKBN = #{hatskosinkyukbn}
+  </where>
+</delete>
+
+</mapper>
+

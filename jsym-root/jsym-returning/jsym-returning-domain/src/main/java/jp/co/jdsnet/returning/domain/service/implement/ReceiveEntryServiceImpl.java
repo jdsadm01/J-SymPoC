@@ -1,5 +1,7 @@
 package jp.co.jdsnet.returning.domain.service.implement;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,14 +13,15 @@ import jp.co.jdsnet.base.webapp.parts.LabelData;
 import jp.co.jdsnet.common.domain.entity.henpin.HenpinShijiMeisaiEntity;
 import jp.co.jdsnet.common.domain.entity.henpin.HenpinShijiMidashiEntity;
 import jp.co.jdsnet.common.domain.entity.hinban.HinbanEntity;
-import jp.co.jdsnet.common.domain.entity.soko.ZaikoJokenEntity;
+import jp.co.jdsnet.common.domain.entity.menu.EventEntity;
 import jp.co.jdsnet.common.domain.entity.syseve.TargetEntity;
 import jp.co.jdsnet.common.domain.mapper.kaisha.KaishaMapper;
+import jp.co.jdsnet.common.domain.mapper.menu.EventMapper;
 import jp.co.jdsnet.common.domain.mapper.soko.ZaikoJokenMapper;
 import jp.co.jdsnet.common.domain.vo.TokuisakiAndDsVO;
-import jp.co.jdsnet.common.entry.EntryServiceForHenpin;
-import jp.co.jdsnet.common.logic.DataGetSharedService;
-import jp.co.jdsnet.common.logic.KigbngCheckSharedService;
+import jp.co.jdsnet.common.entry.EntryServiceFactory;
+import jp.co.jdsnet.common.logic.KigbngRelatedSharedService;
+import jp.co.jdsnet.common.logic.TokuisakiRelatedSharedService;
 import jp.co.jdsnet.returning.domain.dto.ReceiveEntryDTO;
 import jp.co.jdsnet.returning.domain.dto.ReceiveEntryDetailDTO;
 import jp.co.jdsnet.returning.domain.service.ReceiveEntryService;
@@ -32,20 +35,21 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Service
-public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryDTO>
-    implements ReceiveEntryService {
+public class ReceiveEntryServiceImpl implements ReceiveEntryService {
 
   private final KaishaMapper kaishaMapper;
   private final ZaikoJokenMapper zaikoJokenMapper;
-  private final DataGetSharedService dataGetSharedService;
-  private final KigbngCheckSharedService kigbngCheckSharedService;
+  private final EventMapper eventMapper;
+  private final KigbngRelatedSharedService kigbngSharedService;
+  private final TokuisakiRelatedSharedService tokuisakiSharedService;
+  private final EntryServiceFactory entryServiceFactory;
 
   /**
    * {@inheritDoc}
    */
   @Override
   public ReceiveEntryDTO init(String daikaiskbcod, String usrbun) {
-    List<String> daikaiskbcodList = kaishaMapper.selectDaikaiskbcodList(usrbun);
+    List<String> daikaiskbcodList = kaishaMapper.getDaikaiskbcodList(usrbun);
     // TODO 自動生成されたメソッド・スタブ
     return ReceiveEntryDTO.builder().daikaiskbcod(daikaiskbcod).daikaiskbcodList(daikaiskbcodList)
         .trncod("260B").trncodList(createTrncodList()).kinhjikbn("1")
@@ -90,8 +94,8 @@ public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryD
     // トランコードチェック
 
     // 得意先チェック
-    TokuisakiAndDsVO tokuisakiVo = dataGetSharedService
-        .getKyotsuAndKakushaTokuisakiData(dto.getDaikaiskbcod(), dto.getTokcod());
+    TokuisakiAndDsVO tokuisakiVo = tokuisakiSharedService
+        .getTokuisakiAndDsFullData(dto.getDaikaiskbcod(), dto.getTokcod(), dto.getDscod());
 
     // リマークチェック
 
@@ -100,7 +104,7 @@ public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryD
     // 仕向地チェック
 
     // MSチェック
-    
+
     return dto.toBuilder().tokcod(tokuisakiVo.getKyotsuTokuisaki().getTokcod())
         .toknm(tokuisakiVo.getKyotsuTokuisaki().getToknm1()
             + tokuisakiVo.getKyotsuTokuisaki().getToknm2())
@@ -126,14 +130,15 @@ public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryD
         dto.getDetailList().stream().filter(t -> !StringUtils.isBlank(t.getKigbng())).map(t -> {
           try {
             HinbanEntity hinbanEntity =
-                kigbngCheckSharedService.getHinban(dto.getDaikaiskbcod(), t.getKigbng());
+                kigbngSharedService.getHinban(dto.getDaikaiskbcod(), t.getKigbng());
 
             String tna = checkTanaageshiteihin(dto.getDaikaiskbcod(), hinbanEntity.getKigbng());
 
-            return t.toBuilder().kigbng(hinbanEntity.getKigbng()).hjihnb(hinbanEntity.getHjihnb()).artnm(hinbanEntity.getArtnm())
-                .titnm(hinbanEntity.getTitnm()).setcod(hinbanEntity.getSetcod())
-                .tomrakcod(hinbanEntity.getTomrakcod()).tnpkbn(hinbanEntity.getTnpkbn())
-                .hbidte(hinbanEntity.getHbidte()).tnaste(tna).build();
+            return t.toBuilder().kigbng(hinbanEntity.getKigbng()).hjihnb(hinbanEntity.getHjihnb())
+                .artnm(hinbanEntity.getArtnm()).titnm(hinbanEntity.getTitnm())
+                .setcod(hinbanEntity.getSetcod()).tomrakcod(hinbanEntity.getTomrakcod())
+                .tnpkbn(hinbanEntity.getTnpkbn()).hbidte(hinbanEntity.getHbidte()).tnaste(tna)
+                .build();
 
           } catch (Exception e) {
             // TODO 自動生成された catch ブロック
@@ -146,12 +151,12 @@ public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryD
 
   private String checkTanaageshiteihin(String daikaiskbcod, String kigbng) {
     String result = "";
-    ZaikoJokenEntity zaikoJokenEntity = zaikoJokenMapper.selectForTnasth(daikaiskbcod, kigbng)
-        .stream().findFirst().orElse(ZaikoJokenEntity.builder().build());
-
-    if (!"3".equals(zaikoJokenEntity.getTnasthkbn()) && zaikoJokenEntity.getTnasjijogsur() > 0) {
-      result = "○";
-    }
+    // ZaikoJokenEntity zaikoJokenEntity = zaikoJokenMapper.selectForTnasth(daikaiskbcod, kigbng)
+    // .stream().findFirst().orElse(ZaikoJokenEntity.builder().build());
+    //
+    // if (!"3".equals(zaikoJokenEntity.getTnasthkbn()) && zaikoJokenEntity.getTnasjijogsur() > 0) {
+    // result = "○";
+    // }
     return result;
   }
 
@@ -161,7 +166,7 @@ public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryD
   public ReceiveEntryDetailDTO checkHinban(ReceiveEntryDetailDTO dto) throws Exception {
     try {
       HinbanEntity hinbanEntity =
-          kigbngCheckSharedService.getHinban(dto.getDaikaiskbcod(), dto.getKigbng());
+          kigbngSharedService.getHinban(dto.getDaikaiskbcod(), dto.getKigbng());
 
       String tna = checkTanaageshiteihin(dto.getDaikaiskbcod(), hinbanEntity.getKigbng());
 
@@ -184,39 +189,39 @@ public class ReceiveEntryServiceImpl extends EntryServiceForHenpin<ReceiveEntryD
   public void submit(ReceiveEntryDTO dto) throws Exception {
     // スタックチェック
     // トランフルコード取得
+    EventEntity eventEntity =
+        /* eventMapper.select(EventEntity.builder().build()) */EventEntity.builder().build();
     // バーコードなら明細のサマリーと分割
-    TargetEntity target = entry("260  000", "SVCID_D020_00", dto);
+    @SuppressWarnings("unchecked")
+    TargetEntity target = entryServiceFactory.findEntryService(EntryServiceFactory.ServiceId.Henpin)
+        .entry(eventEntity, createHenpinShijiMidasi(dto));
     System.out.println("INSERT_DUMMY DATA=" + target.toString());
     // targetMapper.insert(target);
     // throw new RuntimeException("ロールバックテスト");
   }
 
-  @Override
-  protected HenpinShijiMidashiEntity createHenpinShijiMidasi(ReceiveEntryDTO dto) {
+  private HenpinShijiMidashiEntity createHenpinShijiMidasi(ReceiveEntryDTO dto) {
+    int sysdate =
+        Integer.parseInt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd")));
     return HenpinShijiMidashiEntity.builder().inpdte(sysdate).bshcod(dto.getUserInfo().getBshcod())
         .daikaiskbcod(dto.getDaikaiskbcod()).tokcod(dto.getTokcod()).trncod(dto.getTrncod())
         .hpnjurdte(Integer.parseInt(dto.getHpnjurdte())).hpnutkbng(dto.getHpnutkbng())
         .knrkbn(dto.getKnrkbn()).kinhjikbn(dto.getKinhjikbn()).smtcod(dto.getSmtcod())
-        /*
-         * .skrkrt(Double.parseDouble(dto.getSkrkrt())).tokdenbng1(dto.getTokdenbng1()).tokdenbng2(
-         * dto.getTokdenbng2()) .locbng(dto.getLocbng()).odrno(dto.getOdrno()).hpnsur(0).hpnkin(0)
-         */.mscod(dto.getMscod())
-        .fmg1(dto.getFmg1()).fmg2(dto.getFmg2()).msisuu(dto.getDetailList().size())
-        .hpntsyukeflg(dto.getHpntsyukeflg())/*.suksgn("")*/.cpufulid(dto.getUserInfo().getCpufulid())
-        .wsseq4kt(0).prckruflg("0").delflg("0").errariflg("0").stakjyzflg("0").tmukjyzflg("0")
-        .updkbn("A").upddte(sysdate).updjkk(systime).inpjkk(systime).stasteflg("0").tmusteflg("0")
-        .build();
+        .skrkrt(StringUtils.isBlank(dto.getSkrkrt()) ? 0d : Double.parseDouble(dto.getSkrkrt()))
+        .tokdenbng1(dto.getTokdenbng1()).tokdenbng2(dto.getTokdenbng2()).locbng(dto.getLocbng())
+        .odrno(dto.getOdrno()).hpnsur(0).hpnkin(0).mscod(dto.getMscod()).fmg1(dto.getFmg1())
+        .fmg2(dto.getFmg2()).msisuu(dto.getDetailList().size()).hpntsyukeflg(dto.getHpntsyukeflg())
+        .suksgn("").cpufulid(dto.getUserInfo().getCpufulid()).wsseq4kt(0).prckruflg("0").delflg("0")
+        .errariflg("0").stakjyzflg("0").tmukjyzflg("0").stasteflg("0").tmusteflg("0")
+        .meisaiList(createHenpinShijiMeisaiList(dto)).build();
   }
 
-  @Override
-  protected List<HenpinShijiMeisaiEntity> createHenpinShijiMeisaiList(ReceiveEntryDTO dto) {
+  private List<HenpinShijiMeisaiEntity> createHenpinShijiMeisaiList(ReceiveEntryDTO dto) {
     return dto.getDetailList().stream()
         .map(t -> HenpinShijiMeisaiEntity.builder().kigbng(t.getKigbng())
-            .seq(dto.getDetailList().indexOf(t))
-            .hpnsur(Integer.parseInt(t.getHpnsur()))
-            .skrtan(/* Double.parseDouble(t.getSkrtan()) */0)
-            .hpnkin(0).rmcod(t.getRmcod()).errariflg("0")
-            .updkbn("A").upddte(sysdate).updjkk(systime).tankinstekbn("0").build())
+            .seq(dto.getDetailList().indexOf(t)).hpnsur(Integer.parseInt(t.getHpnsur()))
+            .skrtan(StringUtils.isBlank(t.getSkrtan()) ? 0d : Double.parseDouble(t.getSkrtan()))
+            .hpnkin(0).rmcod(t.getRmcod()).errariflg("0").tankinstekbn("0").build())
         .collect(Collectors.toList());
   }
 }

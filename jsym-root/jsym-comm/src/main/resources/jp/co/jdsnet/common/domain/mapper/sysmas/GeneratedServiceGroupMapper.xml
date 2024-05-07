@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedServiceGroupMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SVCGRPID
+    ,SVCGRPNM
+    ,SUBSYSID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ServiceGroupEntity">
+  insert into AESYSM20
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{svcgrpid}
+    ,#{svcgrpnm}
+    ,#{subsysid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM20
+  <where>
+    and SVCGRPID = #{svcgrpid}
+  </where>
+</sql>
+
+<select id="select" resultType="ServiceGroupEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ServiceGroupEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ServiceGroupEntity">
+  update AESYSM20
+  <set>
+    ,SVCGRPNM = #{svcgrpnm}
+    ,SUBSYSID = #{subsysid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SVCGRPID = #{svcgrpid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ServiceGroupEntity">
+  delete from AESYSM20
+  <where>
+    and SVCGRPID = #{svcgrpid}
+  </where>
+</delete>
+
+</mapper>
+

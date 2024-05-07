@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedDaihyoKaishaCalendarMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,DTE8KT
+    ,NOTEGYDTEFLG
+    ,SYJPRCARIFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DaihyoKaishaCalendarEntity">
+  insert into AESYSM09
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{dte8kt}
+    ,#{notegydteflg}
+    ,#{syjprcariflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM09
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and DTE8KT = #{dte8kt}
+  </where>
+</sql>
+
+<select id="select" resultType="DaihyoKaishaCalendarEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DaihyoKaishaCalendarEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DaihyoKaishaCalendarEntity">
+  update AESYSM09
+  <set>
+    ,NOTEGYDTEFLG = #{notegydteflg}
+    ,SYJPRCARIFLG = #{syjprcariflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and DTE8KT = #{dte8kt}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DaihyoKaishaCalendarEntity">
+  delete from AESYSM09
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and DTE8KT = #{dte8kt}
+  </where>
+</delete>
+
+</mapper>
+

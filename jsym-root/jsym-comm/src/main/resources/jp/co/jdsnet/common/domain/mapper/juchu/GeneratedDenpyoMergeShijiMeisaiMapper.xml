@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedDenpyoMergeShijiMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,DENMRGSJIMDSSEQ
+    ,SEQ
+    ,HSOHMNCOD
+    ,TOKCOD
+    ,DSCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DenpyoMergeShijiMeisaiEntity">
+  insert into AERORD16
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{denmrgsjimdsseq}
+    ,#{seq}
+    ,#{hsohmncod}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD16
+  <where>
+    and INPDTE = #{inpdte}
+    and DENMRGSJIMDSSEQ = #{denmrgsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="DenpyoMergeShijiMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DenpyoMergeShijiMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DenpyoMergeShijiMeisaiEntity">
+  update AERORD16
+  <set>
+    ,HSOHMNCOD = #{hsohmncod}
+    ,TOKCOD = #{tokcod}
+    ,DSCOD = #{dscod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and DENMRGSJIMDSSEQ = #{denmrgsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DenpyoMergeShijiMeisaiEntity">
+  delete from AERORD16
+  <where>
+    and INPDTE = #{inpdte}
+    and DENMRGSJIMDSSEQ = #{denmrgsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

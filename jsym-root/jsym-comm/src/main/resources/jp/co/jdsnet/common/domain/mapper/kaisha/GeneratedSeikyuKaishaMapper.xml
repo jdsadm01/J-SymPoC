@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedSeikyuKaishaMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,HKNDAIKAISKBCOD
+    ,VDCKETSTKJKNKBN
+    ,DFTVDCKBN
+    ,VDCKSNKBN
+    ,EDIPRCJSKKSNKBNAMZ
+    ,EDIPRCJSKKSNKBNYDB
+    ,USRMEMO
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,EDIPRCJSKKSNKBNBIC
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SeikyuKaishaEntity">
+  insert into UTBKAI01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{hkndaikaiskbcod}
+    ,#{vdcketstkjknkbn}
+    ,#{dftvdckbn}
+    ,#{vdcksnkbn}
+    ,#{ediprcjskksnkbnamz}
+    ,#{ediprcjskksnkbnydb}
+    ,#{usrmemo}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{ediprcjskksnkbnbic}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from UTBKAI01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HKNDAIKAISKBCOD = #{hkndaikaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="SeikyuKaishaEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SeikyuKaishaEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SeikyuKaishaEntity">
+  update UTBKAI01
+  <set>
+    ,VDCKETSTKJKNKBN = #{vdcketstkjknkbn}
+    ,DFTVDCKBN = #{dftvdckbn}
+    ,VDCKSNKBN = #{vdcksnkbn}
+    ,EDIPRCJSKKSNKBNAMZ = #{ediprcjskksnkbnamz}
+    ,EDIPRCJSKKSNKBNYDB = #{ediprcjskksnkbnydb}
+    ,USRMEMO = #{usrmemo}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,EDIPRCJSKKSNKBNBIC = #{ediprcjskksnkbnbic}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HKNDAIKAISKBCOD = #{hkndaikaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SeikyuKaishaEntity">
+  delete from UTBKAI01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HKNDAIKAISKBCOD = #{hkndaikaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

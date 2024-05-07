@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedYoshingendoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,TKNSINURIKIN
+    ,YKNSINURIKIN
+    ,Y2KNSINURIKIN
+    ,Y3KNSINURIKIN
+    ,TKNKYUURIKIN
+    ,YKNKYUURIKIN
+    ,Y2KNKYUURIKIN
+    ,Y3KNKYUURIKIN
+    ,TOMHPNKIN
+    ,TOMNKNKIN
+    ,TOMHNKKIN
+    ,TOMNBIKIN
+    ,KDAZANKIN
+    ,USYTKNSINURIKIN
+    ,USYYKNSINURIKIN
+    ,USYY2KNSINURIKIN
+    ,USYY3KNSINURIKIN
+    ,USYTKNKYUURIKIN
+    ,USYYKNKYUURIKIN
+    ,USYY2KNKYUURIKIN
+    ,USYY3KNKYUURIKIN
+    ,USYTOMHPNKIN
+    ,USYTOMNKNKIN
+    ,USYTOMHNKKIN
+    ,USYTOMNBIKIN
+    ,USYKDAZANKIN
+    ,ZKASEIKIN
+    ,ZKASMKKIN
+    ,YGDGAK
+    ,YGDOVRFLG
+    ,ETCSAIKIN
+    ,ETCSAMKIN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="YoshingendoEntity">
+  insert into AECUST08
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{tknsinurikin}
+    ,#{yknsinurikin}
+    ,#{y2knsinurikin}
+    ,#{y3knsinurikin}
+    ,#{tknkyuurikin}
+    ,#{yknkyuurikin}
+    ,#{y2knkyuurikin}
+    ,#{y3knkyuurikin}
+    ,#{tomhpnkin}
+    ,#{tomnknkin}
+    ,#{tomhnkkin}
+    ,#{tomnbikin}
+    ,#{kdazankin}
+    ,#{usytknsinurikin}
+    ,#{usyyknsinurikin}
+    ,#{usyy2knsinurikin}
+    ,#{usyy3knsinurikin}
+    ,#{usytknkyuurikin}
+    ,#{usyyknkyuurikin}
+    ,#{usyy2knkyuurikin}
+    ,#{usyy3knkyuurikin}
+    ,#{usytomhpnkin}
+    ,#{usytomnknkin}
+    ,#{usytomhnkkin}
+    ,#{usytomnbikin}
+    ,#{usykdazankin}
+    ,#{zkaseikin}
+    ,#{zkasmkkin}
+    ,#{ygdgak}
+    ,#{ygdovrflg}
+    ,#{etcsaikin}
+    ,#{etcsamkin}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</sql>
+
+<select id="select" resultType="YoshingendoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="YoshingendoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="YoshingendoEntity">
+  update AECUST08
+  <set>
+    ,TKNSINURIKIN = #{tknsinurikin}
+    ,YKNSINURIKIN = #{yknsinurikin}
+    ,Y2KNSINURIKIN = #{y2knsinurikin}
+    ,Y3KNSINURIKIN = #{y3knsinurikin}
+    ,TKNKYUURIKIN = #{tknkyuurikin}
+    ,YKNKYUURIKIN = #{yknkyuurikin}
+    ,Y2KNKYUURIKIN = #{y2knkyuurikin}
+    ,Y3KNKYUURIKIN = #{y3knkyuurikin}
+    ,TOMHPNKIN = #{tomhpnkin}
+    ,TOMNKNKIN = #{tomnknkin}
+    ,TOMHNKKIN = #{tomhnkkin}
+    ,TOMNBIKIN = #{tomnbikin}
+    ,KDAZANKIN = #{kdazankin}
+    ,USYTKNSINURIKIN = #{usytknsinurikin}
+    ,USYYKNSINURIKIN = #{usyyknsinurikin}
+    ,USYY2KNSINURIKIN = #{usyy2knsinurikin}
+    ,USYY3KNSINURIKIN = #{usyy3knsinurikin}
+    ,USYTKNKYUURIKIN = #{usytknkyuurikin}
+    ,USYYKNKYUURIKIN = #{usyyknkyuurikin}
+    ,USYY2KNKYUURIKIN = #{usyy2knkyuurikin}
+    ,USYY3KNKYUURIKIN = #{usyy3knkyuurikin}
+    ,USYTOMHPNKIN = #{usytomhpnkin}
+    ,USYTOMNKNKIN = #{usytomnknkin}
+    ,USYTOMHNKKIN = #{usytomhnkkin}
+    ,USYTOMNBIKIN = #{usytomnbikin}
+    ,USYKDAZANKIN = #{usykdazankin}
+    ,ZKASEIKIN = #{zkaseikin}
+    ,ZKASMKKIN = #{zkasmkkin}
+    ,YGDGAK = #{ygdgak}
+    ,YGDOVRFLG = #{ygdovrflg}
+    ,ETCSAIKIN = #{etcsaikin}
+    ,ETCSAMKIN = #{etcsamkin}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="YoshingendoEntity">
+  delete from AECUST08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</delete>
+
+</mapper>
+

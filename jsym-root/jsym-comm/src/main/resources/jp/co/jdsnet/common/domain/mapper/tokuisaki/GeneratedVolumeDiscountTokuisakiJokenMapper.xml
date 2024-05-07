@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedVolumeDiscountTokuisakiJokenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,HKNDAIKAISKBCOD
+    ,URISYYTENCOD
+    ,TOKCOD
+    ,VDCTOKSYBKBN
+    ,YKOKKNFRM
+    ,YKOKKNTO
+    ,USRMEMO
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="VolumeDiscountTokuisakiJokenEntity">
+  insert into UTBVDC04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{hkndaikaiskbcod}
+    ,#{urisyytencod}
+    ,#{tokcod}
+    ,#{vdctoksybkbn}
+    ,#{ykokknfrm}
+    ,#{ykokknto}
+    ,#{usrmemo}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from UTBVDC04
+  <where>
+    and HKNDAIKAISKBCOD = #{hkndaikaiskbcod}
+    and URISYYTENCOD = #{urisyytencod}
+    and TOKCOD = #{tokcod}
+  </where>
+</sql>
+
+<select id="select" resultType="VolumeDiscountTokuisakiJokenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="VolumeDiscountTokuisakiJokenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="VolumeDiscountTokuisakiJokenEntity">
+  update UTBVDC04
+  <set>
+    ,VDCTOKSYBKBN = #{vdctoksybkbn}
+    ,YKOKKNFRM = #{ykokknfrm}
+    ,YKOKKNTO = #{ykokknto}
+    ,USRMEMO = #{usrmemo}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and HKNDAIKAISKBCOD = #{hkndaikaiskbcod}
+    and URISYYTENCOD = #{urisyytencod}
+    and TOKCOD = #{tokcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="VolumeDiscountTokuisakiJokenEntity">
+  delete from UTBVDC04
+  <where>
+    and HKNDAIKAISKBCOD = #{hkndaikaiskbcod}
+    and URISYYTENCOD = #{urisyytencod}
+    and TOKCOD = #{tokcod}
+  </where>
+</delete>
+
+</mapper>
+

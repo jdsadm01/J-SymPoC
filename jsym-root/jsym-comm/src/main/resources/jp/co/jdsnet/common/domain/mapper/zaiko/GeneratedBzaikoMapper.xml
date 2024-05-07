@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.zaiko.GeneratedBzaikoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,SKOCOD
+    ,TOMZAISURRYO
+    ,TOMZAISURFRY
+    ,ZMMZAISURRYO
+    ,ZMMZAISURFRY
+    ,TOMZAITEISURRYOPLS
+    ,TOMZAITEISURRYOMNS
+    ,TOMZAITEISURFRYPLS
+    ,TOMZAITEISURFRYMNS
+    ,ZMMZAITEISURRYOPLS
+    ,ZMMZAITEISURRYOMNS
+    ,ZMMZAITEISURFRYPLS
+    ,ZMMZAITEISURFRYMNS
+    ,SEKZANSUR
+    ,TOMTNASURSJG
+    ,TODPRDHPNSURRYO
+    ,TODPRDHPNSURFRY
+    ,TODSIRHPNSURRYO
+    ,TODSIRHPNSURFRY
+    ,TODASRHPNSURRYO
+    ,TODASRHPNSURFRY
+    ,TODTSONYOSURRYO
+    ,TODTSONYOSURFRY
+    ,TODTSOSYOSURRYO
+    ,TODTSOSYOSURFRY
+    ,TODFKENYOSURRYO
+    ,TODFKENYOSURFRY
+    ,TODFKESYOSURRYO
+    ,TODFKESYOSURFRY
+    ,TODBMNFKENYOSURRYO
+    ,TODBMNFKENYOSURFRY
+    ,TODBMNFKESYOSURRYO
+    ,TODBMNFKESYOSURFRY
+    ,TODSKYFKENYOSURRYO
+    ,TODSKYFKENYOSURFRY
+    ,TODSKYFKESYOSURRYO
+    ,TODSKYFKESYOSURFRY
+    ,TODSKYSURRYO
+    ,TODSKYSURFRY
+    ,TODHIKSURRYO
+    ,TODHIKSURFRY
+    ,TODTNASUR
+    ,TODTNSSURRYO
+    ,TODTNSSURFRY
+    ,TODKIKHPNSURRYO
+    ,TODKIKHPNSURFRY
+    ,TODSHOHPNSURRYO
+    ,TODSHOHPNSURFRY
+    ,TODTJYHPNSURRYO
+    ,TODTJYHPNSURFRY
+    ,TODTJGHPNSURRYO
+    ,TODTJGHPNSURFRY
+    ,TODTCTHPNSURRYO
+    ,TODTCTHPNSURFRY
+    ,TODEXPHPNSURRYO
+    ,TODEXPHPNSURFRY
+    ,YDHTODFKESYOSURRYO
+    ,YDHTODFKESYOSURFRY
+    ,YDHTODKIKHPNSURRYO
+    ,YDHTODKIKHPNSURFRY
+    ,TOMPRDHPNSURRYO
+    ,TOMPRDHPNSURFRY
+    ,TOMSIRHPNSURRYO
+    ,TOMSIRHPNSURFRY
+    ,TOMASRHPNSURRYO
+    ,TOMASRHPNSURFRY
+    ,TOMTSONYOSURRYO
+    ,TOMTSONYOSURFRY
+    ,TOMTSOSYOSURRYO
+    ,TOMTSOSYOSURFRY
+    ,TOMFKENYOSURRYO
+    ,TOMFKENYOSURFRY
+    ,TOMFKESYOSURRYO
+    ,TOMFKESYOSURFRY
+    ,TOMBMNFKENYOSURRYO
+    ,TOMBMNFKENYOSURFRY
+    ,TOMBMNFKESYOSURRYO
+    ,TOMBMNFKESYOSURFRY
+    ,TOMSKYFKENYOSURRYO
+    ,TOMSKYFKENYOSURFRY
+    ,TOMSKYFKESYOSURRYO
+    ,TOMSKYFKESYOSURFRY
+    ,TOMSKYSURRYO
+    ,TOMSKYSURFRY
+    ,TOMHIKSURRYO
+    ,TOMHIKSURFRY
+    ,TOMTNASUR
+    ,TOMTNSSURRYO
+    ,TOMTNSSURFRY
+    ,TOMKIKHPNSURRYO
+    ,TOMKIKHPNSURFRY
+    ,TOMSHOHPNSURRYO
+    ,TOMSHOHPNSURFRY
+    ,TOMTJYHPNSURRYO
+    ,TOMTJYHPNSURFRY
+    ,TOMTJGHPNSURRYO
+    ,TOMTJGHPNSURFRY
+    ,TOMTCTHPNSURRYO
+    ,TOMTCTHPNSURFRY
+    ,TOMEXPHPNSURRYO
+    ,TOMEXPHPNSURFRY
+    ,ZNMSHOHPNSURRYO
+    ,ZNMSHOHPNSURFRY
+    ,ZNMTJYHPNSURRYO
+    ,ZNMTJYHPNSURFRY
+    ,ZNMTJGHPNSURRYO
+    ,ZNMTJGHPNSURFRY
+    ,ZNMTCTHPNSURRYO
+    ,ZNMTCTHPNSURFRY
+    ,ZNMEXPHPNSURRYO
+    ,ZNMEXPHPNSURFRY
+    ,SKYSURRUIRYO
+    ,SKYSURRUIFRY
+    ,HIKSURRUIRYO
+    ,HIKSURRUIFRY
+    ,OLDAVISFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="BzaikoEntity">
+  insert into AESTOC02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{skocod}
+    ,#{tomzaisurryo}
+    ,#{tomzaisurfry}
+    ,#{zmmzaisurryo}
+    ,#{zmmzaisurfry}
+    ,#{tomzaiteisurryopls}
+    ,#{tomzaiteisurryomns}
+    ,#{tomzaiteisurfrypls}
+    ,#{tomzaiteisurfrymns}
+    ,#{zmmzaiteisurryopls}
+    ,#{zmmzaiteisurryomns}
+    ,#{zmmzaiteisurfrypls}
+    ,#{zmmzaiteisurfrymns}
+    ,#{sekzansur}
+    ,#{tomtnasursjg}
+    ,#{todprdhpnsurryo}
+    ,#{todprdhpnsurfry}
+    ,#{todsirhpnsurryo}
+    ,#{todsirhpnsurfry}
+    ,#{todasrhpnsurryo}
+    ,#{todasrhpnsurfry}
+    ,#{todtsonyosurryo}
+    ,#{todtsonyosurfry}
+    ,#{todtsosyosurryo}
+    ,#{todtsosyosurfry}
+    ,#{todfkenyosurryo}
+    ,#{todfkenyosurfry}
+    ,#{todfkesyosurryo}
+    ,#{todfkesyosurfry}
+    ,#{todbmnfkenyosurryo}
+    ,#{todbmnfkenyosurfry}
+    ,#{todbmnfkesyosurryo}
+    ,#{todbmnfkesyosurfry}
+    ,#{todskyfkenyosurryo}
+    ,#{todskyfkenyosurfry}
+    ,#{todskyfkesyosurryo}
+    ,#{todskyfkesyosurfry}
+    ,#{todskysurryo}
+    ,#{todskysurfry}
+    ,#{todhiksurryo}
+    ,#{todhiksurfry}
+    ,#{todtnasur}
+    ,#{todtnssurryo}
+    ,#{todtnssurfry}
+    ,#{todkikhpnsurryo}
+    ,#{todkikhpnsurfry}
+    ,#{todshohpnsurryo}
+    ,#{todshohpnsurfry}
+    ,#{todtjyhpnsurryo}
+    ,#{todtjyhpnsurfry}
+    ,#{todtjghpnsurryo}
+    ,#{todtjghpnsurfry}
+    ,#{todtcthpnsurryo}
+    ,#{todtcthpnsurfry}
+    ,#{todexphpnsurryo}
+    ,#{todexphpnsurfry}
+    ,#{ydhtodfkesyosurryo}
+    ,#{ydhtodfkesyosurfry}
+    ,#{ydhtodkikhpnsurryo}
+    ,#{ydhtodkikhpnsurfry}
+    ,#{tomprdhpnsurryo}
+    ,#{tomprdhpnsurfry}
+    ,#{tomsirhpnsurryo}
+    ,#{tomsirhpnsurfry}
+    ,#{tomasrhpnsurryo}
+    ,#{tomasrhpnsurfry}
+    ,#{tomtsonyosurryo}
+    ,#{tomtsonyosurfry}
+    ,#{tomtsosyosurryo}
+    ,#{tomtsosyosurfry}
+    ,#{tomfkenyosurryo}
+    ,#{tomfkenyosurfry}
+    ,#{tomfkesyosurryo}
+    ,#{tomfkesyosurfry}
+    ,#{tombmnfkenyosurryo}
+    ,#{tombmnfkenyosurfry}
+    ,#{tombmnfkesyosurryo}
+    ,#{tombmnfkesyosurfry}
+    ,#{tomskyfkenyosurryo}
+    ,#{tomskyfkenyosurfry}
+    ,#{tomskyfkesyosurryo}
+    ,#{tomskyfkesyosurfry}
+    ,#{tomskysurryo}
+    ,#{tomskysurfry}
+    ,#{tomhiksurryo}
+    ,#{tomhiksurfry}
+    ,#{tomtnasur}
+    ,#{tomtnssurryo}
+    ,#{tomtnssurfry}
+    ,#{tomkikhpnsurryo}
+    ,#{tomkikhpnsurfry}
+    ,#{tomshohpnsurryo}
+    ,#{tomshohpnsurfry}
+    ,#{tomtjyhpnsurryo}
+    ,#{tomtjyhpnsurfry}
+    ,#{tomtjghpnsurryo}
+    ,#{tomtjghpnsurfry}
+    ,#{tomtcthpnsurryo}
+    ,#{tomtcthpnsurfry}
+    ,#{tomexphpnsurryo}
+    ,#{tomexphpnsurfry}
+    ,#{znmshohpnsurryo}
+    ,#{znmshohpnsurfry}
+    ,#{znmtjyhpnsurryo}
+    ,#{znmtjyhpnsurfry}
+    ,#{znmtjghpnsurryo}
+    ,#{znmtjghpnsurfry}
+    ,#{znmtcthpnsurryo}
+    ,#{znmtcthpnsurfry}
+    ,#{znmexphpnsurryo}
+    ,#{znmexphpnsurfry}
+    ,#{skysurruiryo}
+    ,#{skysurruifry}
+    ,#{hiksurruiryo}
+    ,#{hiksurruifry}
+    ,#{oldavisflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESTOC02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</sql>
+
+<select id="select" resultType="BzaikoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="BzaikoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="BzaikoEntity">
+  update AESTOC02
+  <set>
+    ,TOMZAISURRYO = #{tomzaisurryo}
+    ,TOMZAISURFRY = #{tomzaisurfry}
+    ,ZMMZAISURRYO = #{zmmzaisurryo}
+    ,ZMMZAISURFRY = #{zmmzaisurfry}
+    ,TOMZAITEISURRYOPLS = #{tomzaiteisurryopls}
+    ,TOMZAITEISURRYOMNS = #{tomzaiteisurryomns}
+    ,TOMZAITEISURFRYPLS = #{tomzaiteisurfrypls}
+    ,TOMZAITEISURFRYMNS = #{tomzaiteisurfrymns}
+    ,ZMMZAITEISURRYOPLS = #{zmmzaiteisurryopls}
+    ,ZMMZAITEISURRYOMNS = #{zmmzaiteisurryomns}
+    ,ZMMZAITEISURFRYPLS = #{zmmzaiteisurfrypls}
+    ,ZMMZAITEISURFRYMNS = #{zmmzaiteisurfrymns}
+    ,SEKZANSUR = #{sekzansur}
+    ,TOMTNASURSJG = #{tomtnasursjg}
+    ,TODPRDHPNSURRYO = #{todprdhpnsurryo}
+    ,TODPRDHPNSURFRY = #{todprdhpnsurfry}
+    ,TODSIRHPNSURRYO = #{todsirhpnsurryo}
+    ,TODSIRHPNSURFRY = #{todsirhpnsurfry}
+    ,TODASRHPNSURRYO = #{todasrhpnsurryo}
+    ,TODASRHPNSURFRY = #{todasrhpnsurfry}
+    ,TODTSONYOSURRYO = #{todtsonyosurryo}
+    ,TODTSONYOSURFRY = #{todtsonyosurfry}
+    ,TODTSOSYOSURRYO = #{todtsosyosurryo}
+    ,TODTSOSYOSURFRY = #{todtsosyosurfry}
+    ,TODFKENYOSURRYO = #{todfkenyosurryo}
+    ,TODFKENYOSURFRY = #{todfkenyosurfry}
+    ,TODFKESYOSURRYO = #{todfkesyosurryo}
+    ,TODFKESYOSURFRY = #{todfkesyosurfry}
+    ,TODBMNFKENYOSURRYO = #{todbmnfkenyosurryo}
+    ,TODBMNFKENYOSURFRY = #{todbmnfkenyosurfry}
+    ,TODBMNFKESYOSURRYO = #{todbmnfkesyosurryo}
+    ,TODBMNFKESYOSURFRY = #{todbmnfkesyosurfry}
+    ,TODSKYFKENYOSURRYO = #{todskyfkenyosurryo}
+    ,TODSKYFKENYOSURFRY = #{todskyfkenyosurfry}
+    ,TODSKYFKESYOSURRYO = #{todskyfkesyosurryo}
+    ,TODSKYFKESYOSURFRY = #{todskyfkesyosurfry}
+    ,TODSKYSURRYO = #{todskysurryo}
+    ,TODSKYSURFRY = #{todskysurfry}
+    ,TODHIKSURRYO = #{todhiksurryo}
+    ,TODHIKSURFRY = #{todhiksurfry}
+    ,TODTNASUR = #{todtnasur}
+    ,TODTNSSURRYO = #{todtnssurryo}
+    ,TODTNSSURFRY = #{todtnssurfry}
+    ,TODKIKHPNSURRYO = #{todkikhpnsurryo}
+    ,TODKIKHPNSURFRY = #{todkikhpnsurfry}
+    ,TODSHOHPNSURRYO = #{todshohpnsurryo}
+    ,TODSHOHPNSURFRY = #{todshohpnsurfry}
+    ,TODTJYHPNSURRYO = #{todtjyhpnsurryo}
+    ,TODTJYHPNSURFRY = #{todtjyhpnsurfry}
+    ,TODTJGHPNSURRYO = #{todtjghpnsurryo}
+    ,TODTJGHPNSURFRY = #{todtjghpnsurfry}
+    ,TODTCTHPNSURRYO = #{todtcthpnsurryo}
+    ,TODTCTHPNSURFRY = #{todtcthpnsurfry}
+    ,TODEXPHPNSURRYO = #{todexphpnsurryo}
+    ,TODEXPHPNSURFRY = #{todexphpnsurfry}
+    ,YDHTODFKESYOSURRYO = #{ydhtodfkesyosurryo}
+    ,YDHTODFKESYOSURFRY = #{ydhtodfkesyosurfry}
+    ,YDHTODKIKHPNSURRYO = #{ydhtodkikhpnsurryo}
+    ,YDHTODKIKHPNSURFRY = #{ydhtodkikhpnsurfry}
+    ,TOMPRDHPNSURRYO = #{tomprdhpnsurryo}
+    ,TOMPRDHPNSURFRY = #{tomprdhpnsurfry}
+    ,TOMSIRHPNSURRYO = #{tomsirhpnsurryo}
+    ,TOMSIRHPNSURFRY = #{tomsirhpnsurfry}
+    ,TOMASRHPNSURRYO = #{tomasrhpnsurryo}
+    ,TOMASRHPNSURFRY = #{tomasrhpnsurfry}
+    ,TOMTSONYOSURRYO = #{tomtsonyosurryo}
+    ,TOMTSONYOSURFRY = #{tomtsonyosurfry}
+    ,TOMTSOSYOSURRYO = #{tomtsosyosurryo}
+    ,TOMTSOSYOSURFRY = #{tomtsosyosurfry}
+    ,TOMFKENYOSURRYO = #{tomfkenyosurryo}
+    ,TOMFKENYOSURFRY = #{tomfkenyosurfry}
+    ,TOMFKESYOSURRYO = #{tomfkesyosurryo}
+    ,TOMFKESYOSURFRY = #{tomfkesyosurfry}
+    ,TOMBMNFKENYOSURRYO = #{tombmnfkenyosurryo}
+    ,TOMBMNFKENYOSURFRY = #{tombmnfkenyosurfry}
+    ,TOMBMNFKESYOSURRYO = #{tombmnfkesyosurryo}
+    ,TOMBMNFKESYOSURFRY = #{tombmnfkesyosurfry}
+    ,TOMSKYFKENYOSURRYO = #{tomskyfkenyosurryo}
+    ,TOMSKYFKENYOSURFRY = #{tomskyfkenyosurfry}
+    ,TOMSKYFKESYOSURRYO = #{tomskyfkesyosurryo}
+    ,TOMSKYFKESYOSURFRY = #{tomskyfkesyosurfry}
+    ,TOMSKYSURRYO = #{tomskysurryo}
+    ,TOMSKYSURFRY = #{tomskysurfry}
+    ,TOMHIKSURRYO = #{tomhiksurryo}
+    ,TOMHIKSURFRY = #{tomhiksurfry}
+    ,TOMTNASUR = #{tomtnasur}
+    ,TOMTNSSURRYO = #{tomtnssurryo}
+    ,TOMTNSSURFRY = #{tomtnssurfry}
+    ,TOMKIKHPNSURRYO = #{tomkikhpnsurryo}
+    ,TOMKIKHPNSURFRY = #{tomkikhpnsurfry}
+    ,TOMSHOHPNSURRYO = #{tomshohpnsurryo}
+    ,TOMSHOHPNSURFRY = #{tomshohpnsurfry}
+    ,TOMTJYHPNSURRYO = #{tomtjyhpnsurryo}
+    ,TOMTJYHPNSURFRY = #{tomtjyhpnsurfry}
+    ,TOMTJGHPNSURRYO = #{tomtjghpnsurryo}
+    ,TOMTJGHPNSURFRY = #{tomtjghpnsurfry}
+    ,TOMTCTHPNSURRYO = #{tomtcthpnsurryo}
+    ,TOMTCTHPNSURFRY = #{tomtcthpnsurfry}
+    ,TOMEXPHPNSURRYO = #{tomexphpnsurryo}
+    ,TOMEXPHPNSURFRY = #{tomexphpnsurfry}
+    ,ZNMSHOHPNSURRYO = #{znmshohpnsurryo}
+    ,ZNMSHOHPNSURFRY = #{znmshohpnsurfry}
+    ,ZNMTJYHPNSURRYO = #{znmtjyhpnsurryo}
+    ,ZNMTJYHPNSURFRY = #{znmtjyhpnsurfry}
+    ,ZNMTJGHPNSURRYO = #{znmtjghpnsurryo}
+    ,ZNMTJGHPNSURFRY = #{znmtjghpnsurfry}
+    ,ZNMTCTHPNSURRYO = #{znmtcthpnsurryo}
+    ,ZNMTCTHPNSURFRY = #{znmtcthpnsurfry}
+    ,ZNMEXPHPNSURRYO = #{znmexphpnsurryo}
+    ,ZNMEXPHPNSURFRY = #{znmexphpnsurfry}
+    ,SKYSURRUIRYO = #{skysurruiryo}
+    ,SKYSURRUIFRY = #{skysurruifry}
+    ,HIKSURRUIRYO = #{hiksurruiryo}
+    ,HIKSURRUIFRY = #{hiksurruifry}
+    ,OLDAVISFLG = #{oldavisflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="BzaikoEntity">
+  delete from AESTOC02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</delete>
+
+</mapper>
+

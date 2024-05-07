@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hatchu.GeneratedHatchuMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,HACSAKCOD
+    ,HACDENBNG
+    ,GYB
+    ,HACSYBKBN
+    ,KIGBNG
+    ,SETKIG
+    ,BHNKBN
+    ,BHNEDA
+    ,HACDTE
+    ,AUTMNLKBN
+    ,PRDSIRKBN
+    ,SMPSGN
+    ,HACSINKYUKBN
+    ,SHNTHNHINKBN
+    ,KETCOD
+    ,CMSNO
+    ,SIYPTN
+    ,RYUCOD
+    ,HACTNTCOD
+    ,TYNSUU
+    ,RMCOD
+    ,MKRBUNCOD
+    ,SETSUU
+    ,HACSUR
+    ,NYASUR
+    ,HATSUU
+    ,NKI
+    ,NKITEIFLG
+    ,NYASAKCOD
+    ,NYASAKTEIFLG
+    ,NYADTE
+    ,KNUSGN
+    ,KNRBNG
+    ,DELSGN
+    ,DENDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HatchuEntity">
+  insert into AESORD03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{hacsakcod}
+    ,#{hacdenbng}
+    ,#{gyb}
+    ,#{hacsybkbn}
+    ,#{kigbng}
+    ,#{setkig}
+    ,#{bhnkbn}
+    ,#{bhneda}
+    ,#{hacdte}
+    ,#{autmnlkbn}
+    ,#{prdsirkbn}
+    ,#{smpsgn}
+    ,#{hacsinkyukbn}
+    ,#{shnthnhinkbn}
+    ,#{ketcod}
+    ,#{cmsno}
+    ,#{siyptn}
+    ,#{ryucod}
+    ,#{hactntcod}
+    ,#{tynsuu}
+    ,#{rmcod}
+    ,#{mkrbuncod}
+    ,#{setsuu}
+    ,#{hacsur}
+    ,#{nyasur}
+    ,#{hatsuu}
+    ,#{nki}
+    ,#{nkiteiflg}
+    ,#{nyasakcod}
+    ,#{nyasakteiflg}
+    ,#{nyadte}
+    ,#{knusgn}
+    ,#{knrbng}
+    ,#{delsgn}
+    ,#{dendte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESORD03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+    and HACDENBNG = #{hacdenbng}
+    and GYB = #{gyb}
+    and HACSYBKBN = #{hacsybkbn}
+    and KIGBNG = #{kigbng}
+  </where>
+</sql>
+
+<select id="select" resultType="HatchuEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HatchuEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HatchuEntity">
+  update AESORD03
+  <set>
+    ,SETKIG = #{setkig}
+    ,BHNKBN = #{bhnkbn}
+    ,BHNEDA = #{bhneda}
+    ,HACDTE = #{hacdte}
+    ,AUTMNLKBN = #{autmnlkbn}
+    ,PRDSIRKBN = #{prdsirkbn}
+    ,SMPSGN = #{smpsgn}
+    ,HACSINKYUKBN = #{hacsinkyukbn}
+    ,SHNTHNHINKBN = #{shnthnhinkbn}
+    ,KETCOD = #{ketcod}
+    ,CMSNO = #{cmsno}
+    ,SIYPTN = #{siyptn}
+    ,RYUCOD = #{ryucod}
+    ,HACTNTCOD = #{hactntcod}
+    ,TYNSUU = #{tynsuu}
+    ,RMCOD = #{rmcod}
+    ,MKRBUNCOD = #{mkrbuncod}
+    ,SETSUU = #{setsuu}
+    ,HACSUR = #{hacsur}
+    ,NYASUR = #{nyasur}
+    ,HATSUU = #{hatsuu}
+    ,NKI = #{nki}
+    ,NKITEIFLG = #{nkiteiflg}
+    ,NYASAKCOD = #{nyasakcod}
+    ,NYASAKTEIFLG = #{nyasakteiflg}
+    ,NYADTE = #{nyadte}
+    ,KNUSGN = #{knusgn}
+    ,KNRBNG = #{knrbng}
+    ,DELSGN = #{delsgn}
+    ,DENDTE = #{dendte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+    and HACDENBNG = #{hacdenbng}
+    and GYB = #{gyb}
+    and HACSYBKBN = #{hacsybkbn}
+    and KIGBNG = #{kigbng}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HatchuEntity">
+  delete from AESORD03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+    and HACDENBNG = #{hacdenbng}
+    and GYB = #{gyb}
+    and HACSYBKBN = #{hacsybkbn}
+    and KIGBNG = #{kigbng}
+  </where>
+</delete>
+
+</mapper>
+

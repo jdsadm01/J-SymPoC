@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedTableKoshinRirekiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TBLID
+    ,PRYKEY
+    ,TBLUPDKBN
+    ,CPUID
+    ,TMLID
+    ,WSSEQ7KT
+    ,DAIKAISKBCOD
+    ,BSHCOD
+    ,JSYMUSRID
+    ,SVCID
+    ,INPDTE
+    ,INPJKK
+    ,TBLUPDDTE8KT
+    ,TBLUPDJKK9KT
+    ,UPDMAEDTABDY
+    ,UPDGODTABDY
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TableKoshinRirekiEntity">
+  insert into AESYSE12
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{tblid}
+    ,#{prykey}
+    ,#{tblupdkbn}
+    ,#{cpuid}
+    ,#{tmlid}
+    ,#{wsseq7kt}
+    ,#{daikaiskbcod}
+    ,#{bshcod}
+    ,#{jsymusrid}
+    ,#{svcid}
+    ,#{inpdte}
+    ,#{inpjkk}
+    ,#{tblupddte8kt}
+    ,#{tblupdjkk9kt}
+    ,#{updmaedtabdy}
+    ,#{updgodtabdy}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE12
+  <where>
+  </where>
+</sql>
+
+<select id="select" resultType="TableKoshinRirekiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TableKoshinRirekiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TableKoshinRirekiEntity">
+  update AESYSE12
+  <set>
+    ,TBLID = #{tblid}
+    ,PRYKEY = #{prykey}
+    ,TBLUPDKBN = #{tblupdkbn}
+    ,CPUID = #{cpuid}
+    ,TMLID = #{tmlid}
+    ,WSSEQ7KT = #{wsseq7kt}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,BSHCOD = #{bshcod}
+    ,JSYMUSRID = #{jsymusrid}
+    ,SVCID = #{svcid}
+    ,INPDTE = #{inpdte}
+    ,INPJKK = #{inpjkk}
+    ,TBLUPDDTE8KT = #{tblupddte8kt}
+    ,TBLUPDJKK9KT = #{tblupdjkk9kt}
+    ,UPDMAEDTABDY = #{updmaedtabdy}
+    ,UPDGODTABDY = #{updgodtabdy}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+  </where>
+</update>
+
+<delete id="delete" parameterType="TableKoshinRirekiEntity">
+  delete from AESYSE12
+  <where>
+  </where>
+</delete>
+
+</mapper>
+

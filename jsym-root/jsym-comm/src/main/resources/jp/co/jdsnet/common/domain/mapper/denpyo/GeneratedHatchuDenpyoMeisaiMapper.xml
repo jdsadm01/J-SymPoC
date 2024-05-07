@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.denpyo.GeneratedHatchuDenpyoMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,HACSAKCOD
+    ,TRNCOD
+    ,HACDENBNG
+    ,DENDTE
+    ,GYB
+    ,KIGBNG
+    ,EIGCOD
+    ,HBIDTE
+    ,KETCOD
+    ,HACSYBKBN
+    ,HACSUR
+    ,NKI
+    ,MSCOD
+    ,NYASAKCOD
+    ,SETSUU
+    ,JAKNKI
+    ,LBLHATKANSUR
+    ,SEASURKKONKIUSEKBN
+    ,SEAHATKANSUR
+    ,KKONKI
+    ,MSEHATKANSUR
+    ,HACMTDBNG
+    ,HACMTDGYB
+    ,HACMTDDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,SSBCOD
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HatchuDenpyoMeisaiEntity">
+  insert into AESLIP06
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{hacsakcod}
+    ,#{trncod}
+    ,#{hacdenbng}
+    ,#{dendte}
+    ,#{gyb}
+    ,#{kigbng}
+    ,#{eigcod}
+    ,#{hbidte}
+    ,#{ketcod}
+    ,#{hacsybkbn}
+    ,#{hacsur}
+    ,#{nki}
+    ,#{mscod}
+    ,#{nyasakcod}
+    ,#{setsuu}
+    ,#{jaknki}
+    ,#{lblhatkansur}
+    ,#{seasurkkonkiusekbn}
+    ,#{seahatkansur}
+    ,#{kkonki}
+    ,#{msehatkansur}
+    ,#{hacmtdbng}
+    ,#{hacmtdgyb}
+    ,#{hacmtddte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{ssbcod}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESLIP06
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+    and TRNCOD = #{trncod}
+    and HACDENBNG = #{hacdenbng}
+    and DENDTE = #{dendte}
+    and GYB = #{gyb}
+  </where>
+</sql>
+
+<select id="select" resultType="HatchuDenpyoMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HatchuDenpyoMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HatchuDenpyoMeisaiEntity">
+  update AESLIP06
+  <set>
+    ,KIGBNG = #{kigbng}
+    ,EIGCOD = #{eigcod}
+    ,HBIDTE = #{hbidte}
+    ,KETCOD = #{ketcod}
+    ,HACSYBKBN = #{hacsybkbn}
+    ,HACSUR = #{hacsur}
+    ,NKI = #{nki}
+    ,MSCOD = #{mscod}
+    ,NYASAKCOD = #{nyasakcod}
+    ,SETSUU = #{setsuu}
+    ,JAKNKI = #{jaknki}
+    ,LBLHATKANSUR = #{lblhatkansur}
+    ,SEASURKKONKIUSEKBN = #{seasurkkonkiusekbn}
+    ,SEAHATKANSUR = #{seahatkansur}
+    ,KKONKI = #{kkonki}
+    ,MSEHATKANSUR = #{msehatkansur}
+    ,HACMTDBNG = #{hacmtdbng}
+    ,HACMTDGYB = #{hacmtdgyb}
+    ,HACMTDDTE = #{hacmtddte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,SSBCOD = #{ssbcod}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+    and TRNCOD = #{trncod}
+    and HACDENBNG = #{hacdenbng}
+    and DENDTE = #{dendte}
+    and GYB = #{gyb}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HatchuDenpyoMeisaiEntity">
+  delete from AESLIP06
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and HACSAKCOD = #{hacsakcod}
+    and TRNCOD = #{trncod}
+    and HACDENBNG = #{hacdenbng}
+    and DENDTE = #{dendte}
+    and GYB = #{gyb}
+  </where>
+</delete>
+
+</mapper>
+

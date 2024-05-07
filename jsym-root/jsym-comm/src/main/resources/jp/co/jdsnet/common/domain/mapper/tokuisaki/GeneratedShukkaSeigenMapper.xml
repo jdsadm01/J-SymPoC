@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedShukkaSeigenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,SYASGEGRPCOD
+    ,SYASGESUR
+    ,SYASGEKKNJUCSUR
+    ,SYASGEKKNSYASUR
+    ,SYASGEKKNFRM
+    ,SYASGEKKNTO
+    ,TODJUCSUR
+    ,TODSYASUR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShukkaSeigenEntity">
+  insert into AECUST09
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{syasgegrpcod}
+    ,#{syasgesur}
+    ,#{syasgekknjucsur}
+    ,#{syasgekknsyasur}
+    ,#{syasgekknfrm}
+    ,#{syasgekknto}
+    ,#{todjucsur}
+    ,#{todsyasur}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST09
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SYASGEGRPCOD = #{syasgegrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ShukkaSeigenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShukkaSeigenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShukkaSeigenEntity">
+  update AECUST09
+  <set>
+    ,SYASGESUR = #{syasgesur}
+    ,SYASGEKKNJUCSUR = #{syasgekknjucsur}
+    ,SYASGEKKNSYASUR = #{syasgekknsyasur}
+    ,SYASGEKKNFRM = #{syasgekknfrm}
+    ,SYASGEKKNTO = #{syasgekknto}
+    ,TODJUCSUR = #{todjucsur}
+    ,TODSYASUR = #{todsyasur}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SYASGEGRPCOD = #{syasgegrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShukkaSeigenEntity">
+  delete from AECUST09
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SYASGEGRPCOD = #{syasgegrpcod}
+  </where>
+</delete>
+
+</mapper>
+

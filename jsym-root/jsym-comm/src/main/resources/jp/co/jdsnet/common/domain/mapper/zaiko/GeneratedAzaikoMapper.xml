@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.zaiko.GeneratedAzaikoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,SKOCOD
+    ,ZAISUR
+    ,ZNDZAISUR
+    ,ZNMZAISUR
+    ,TOMZAITEISURPLS
+    ,TOMZAITEISURMNS
+    ,ZMMZAITEISURPLS
+    ,ZMMZAITEISURMNS
+    ,SSKZAI
+    ,EXPKHO
+    ,ZAIKHOKHASUR
+    ,YKESYAKHASUR
+    ,CHZKHASUR
+    ,CCHKHASUR
+    ,SINJUCKHASUR
+    ,SINSYASUR
+    ,NYOYTESUR
+    ,KDAZANSUR
+    ,KZOZANSUR
+    ,RPRZANSUR
+    ,SEKZANSUR
+    ,TNASEKZANSUR
+    ,AFKKHASUU
+    ,ZKAAFKFKTZAISUR
+    ,TODPRDHACSUR
+    ,TODSIRHACSUR
+    ,TODPRDNYOSUR
+    ,TODPRDHPNSUR
+    ,TODSIRNYOSUR
+    ,TODASRFKESUR
+    ,TODSIRHPNSUR
+    ,TODSMPNYOSUR
+    ,TODSMPSYOSUR
+    ,TODRTSNYOSUR
+    ,TODRTSSYOSUR
+    ,TODRPRNYOSUR
+    ,TODRPRSYOSUR
+    ,TODKZONYOSUR
+    ,TODKZOSYOSUR
+    ,TODKEHSYOSUR
+    ,TODEXPSYOSUR
+    ,TODEXPSYOHPN
+    ,TODTSONYOSUR
+    ,TODTSOSYOSUR
+    ,TODFKENYOSUR
+    ,TODFKESYOSUR
+    ,TODBMNFKENYOSUR
+    ,TODBMNFKESYOSUR
+    ,TODSKYFKENYOSUR
+    ,TODSKYFKESYOSUR
+    ,TODSKYSUR
+    ,TODHIKSUR
+    ,TODTNASUR
+    ,TODTNSSUR
+    ,TODKIKURISUR
+    ,TODKIKHPNSUR
+    ,TODKDASYASUR
+    ,TODKDAREISUR
+    ,TODKDAURISUR
+    ,TODTCYURISUR
+    ,TODEXPURISUR
+    ,TODKNNSHOURISUR
+    ,TODKNGSHOURISUR
+    ,TODKNNTJYURISUR
+    ,TODKNGTJYURISUR
+    ,TODKNNTJGURISUR
+    ,TODKNGTJGURISUR
+    ,TODKNNTHNURISUR
+    ,TODKNGTHNURISUR
+    ,YDHTODFKESYOSUR
+    ,YDHTODKIKURISUR
+    ,YDHTODKIKHPNSUR
+    ,TODJUCSUR
+    ,TODSYASUR
+    ,TODALLJUCSUR
+    ,TODALLSYASUR
+    ,TOMPRDHACSUR
+    ,TOMSIRHACSUR
+    ,TOMPRDNYOSUR
+    ,TOMPRDHPNSUR
+    ,TOMSIRNYOSUR
+    ,TOMASRFKESUR
+    ,TOMSIRHPNSUR
+    ,TOMSMPNYOSUR
+    ,TOMSMPSYOSUR
+    ,TOMRTSNYOSUR
+    ,TOMRTSSYOSUR
+    ,TOMRPRNYOSUR
+    ,TOMRPRSYOSUR
+    ,TOMKZONYOSUR
+    ,TOMKZOSYOSUR
+    ,TOMKEHSYOSUR
+    ,TOMEXPSYOSUR
+    ,TOMEXPSYOHPN
+    ,TOMTSONYOSUR
+    ,TOMTSOSYOSUR
+    ,TOMFKENYOSUR
+    ,TOMFKESYOSUR
+    ,TOMBMNFKENYOSUR
+    ,TOMBMNFKESYOSUR
+    ,TOMSKYFKENYOSUR
+    ,TOMSKYFKESYOSUR
+    ,TOMSKYSUR
+    ,TOMHIKSUR
+    ,TOMTNASUR
+    ,TOMTNSSUR
+    ,TOMKIKURISUR
+    ,TOMKIKHPNSUR
+    ,TOMKDASYASUR
+    ,TOMKDAREISUR
+    ,TOMKDAURISUR
+    ,TOMTCYURISUR
+    ,TOMEXPURISUR
+    ,TOMKNNSHOURISUR
+    ,TOMKNGSHOURISUR
+    ,TOMKNNTJYURISUR
+    ,TOMKNGTJYURISUR
+    ,TOMKNNTJGURISUR
+    ,TOMKNGTJGURISUR
+    ,TOMKNNTHNURISUR
+    ,TOMKNGTHNURISUR
+    ,TOMJUCSUR
+    ,TOMSYASUR
+    ,TOMALLJUCSUR
+    ,TOMALLSYASUR
+    ,PRDNYOSURRUI
+    ,SIRNYOSURRUI
+    ,SKYSURRUI
+    ,HIKSURRUI
+    ,OLDAVISFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="AzaikoEntity">
+  insert into AESTOC01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{skocod}
+    ,#{zaisur}
+    ,#{zndzaisur}
+    ,#{znmzaisur}
+    ,#{tomzaiteisurpls}
+    ,#{tomzaiteisurmns}
+    ,#{zmmzaiteisurpls}
+    ,#{zmmzaiteisurmns}
+    ,#{sskzai}
+    ,#{expkho}
+    ,#{zaikhokhasur}
+    ,#{ykesyakhasur}
+    ,#{chzkhasur}
+    ,#{cchkhasur}
+    ,#{sinjuckhasur}
+    ,#{sinsyasur}
+    ,#{nyoytesur}
+    ,#{kdazansur}
+    ,#{kzozansur}
+    ,#{rprzansur}
+    ,#{sekzansur}
+    ,#{tnasekzansur}
+    ,#{afkkhasuu}
+    ,#{zkaafkfktzaisur}
+    ,#{todprdhacsur}
+    ,#{todsirhacsur}
+    ,#{todprdnyosur}
+    ,#{todprdhpnsur}
+    ,#{todsirnyosur}
+    ,#{todasrfkesur}
+    ,#{todsirhpnsur}
+    ,#{todsmpnyosur}
+    ,#{todsmpsyosur}
+    ,#{todrtsnyosur}
+    ,#{todrtssyosur}
+    ,#{todrprnyosur}
+    ,#{todrprsyosur}
+    ,#{todkzonyosur}
+    ,#{todkzosyosur}
+    ,#{todkehsyosur}
+    ,#{todexpsyosur}
+    ,#{todexpsyohpn}
+    ,#{todtsonyosur}
+    ,#{todtsosyosur}
+    ,#{todfkenyosur}
+    ,#{todfkesyosur}
+    ,#{todbmnfkenyosur}
+    ,#{todbmnfkesyosur}
+    ,#{todskyfkenyosur}
+    ,#{todskyfkesyosur}
+    ,#{todskysur}
+    ,#{todhiksur}
+    ,#{todtnasur}
+    ,#{todtnssur}
+    ,#{todkikurisur}
+    ,#{todkikhpnsur}
+    ,#{todkdasyasur}
+    ,#{todkdareisur}
+    ,#{todkdaurisur}
+    ,#{todtcyurisur}
+    ,#{todexpurisur}
+    ,#{todknnshourisur}
+    ,#{todkngshourisur}
+    ,#{todknntjyurisur}
+    ,#{todkngtjyurisur}
+    ,#{todknntjgurisur}
+    ,#{todkngtjgurisur}
+    ,#{todknnthnurisur}
+    ,#{todkngthnurisur}
+    ,#{ydhtodfkesyosur}
+    ,#{ydhtodkikurisur}
+    ,#{ydhtodkikhpnsur}
+    ,#{todjucsur}
+    ,#{todsyasur}
+    ,#{todalljucsur}
+    ,#{todallsyasur}
+    ,#{tomprdhacsur}
+    ,#{tomsirhacsur}
+    ,#{tomprdnyosur}
+    ,#{tomprdhpnsur}
+    ,#{tomsirnyosur}
+    ,#{tomasrfkesur}
+    ,#{tomsirhpnsur}
+    ,#{tomsmpnyosur}
+    ,#{tomsmpsyosur}
+    ,#{tomrtsnyosur}
+    ,#{tomrtssyosur}
+    ,#{tomrprnyosur}
+    ,#{tomrprsyosur}
+    ,#{tomkzonyosur}
+    ,#{tomkzosyosur}
+    ,#{tomkehsyosur}
+    ,#{tomexpsyosur}
+    ,#{tomexpsyohpn}
+    ,#{tomtsonyosur}
+    ,#{tomtsosyosur}
+    ,#{tomfkenyosur}
+    ,#{tomfkesyosur}
+    ,#{tombmnfkenyosur}
+    ,#{tombmnfkesyosur}
+    ,#{tomskyfkenyosur}
+    ,#{tomskyfkesyosur}
+    ,#{tomskysur}
+    ,#{tomhiksur}
+    ,#{tomtnasur}
+    ,#{tomtnssur}
+    ,#{tomkikurisur}
+    ,#{tomkikhpnsur}
+    ,#{tomkdasyasur}
+    ,#{tomkdareisur}
+    ,#{tomkdaurisur}
+    ,#{tomtcyurisur}
+    ,#{tomexpurisur}
+    ,#{tomknnshourisur}
+    ,#{tomkngshourisur}
+    ,#{tomknntjyurisur}
+    ,#{tomkngtjyurisur}
+    ,#{tomknntjgurisur}
+    ,#{tomkngtjgurisur}
+    ,#{tomknnthnurisur}
+    ,#{tomkngthnurisur}
+    ,#{tomjucsur}
+    ,#{tomsyasur}
+    ,#{tomalljucsur}
+    ,#{tomallsyasur}
+    ,#{prdnyosurrui}
+    ,#{sirnyosurrui}
+    ,#{skysurrui}
+    ,#{hiksurrui}
+    ,#{oldavisflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESTOC01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</sql>
+
+<select id="select" resultType="AzaikoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="AzaikoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="AzaikoEntity">
+  update AESTOC01
+  <set>
+    ,ZAISUR = #{zaisur}
+    ,ZNDZAISUR = #{zndzaisur}
+    ,ZNMZAISUR = #{znmzaisur}
+    ,TOMZAITEISURPLS = #{tomzaiteisurpls}
+    ,TOMZAITEISURMNS = #{tomzaiteisurmns}
+    ,ZMMZAITEISURPLS = #{zmmzaiteisurpls}
+    ,ZMMZAITEISURMNS = #{zmmzaiteisurmns}
+    ,SSKZAI = #{sskzai}
+    ,EXPKHO = #{expkho}
+    ,ZAIKHOKHASUR = #{zaikhokhasur}
+    ,YKESYAKHASUR = #{ykesyakhasur}
+    ,CHZKHASUR = #{chzkhasur}
+    ,CCHKHASUR = #{cchkhasur}
+    ,SINJUCKHASUR = #{sinjuckhasur}
+    ,SINSYASUR = #{sinsyasur}
+    ,NYOYTESUR = #{nyoytesur}
+    ,KDAZANSUR = #{kdazansur}
+    ,KZOZANSUR = #{kzozansur}
+    ,RPRZANSUR = #{rprzansur}
+    ,SEKZANSUR = #{sekzansur}
+    ,TNASEKZANSUR = #{tnasekzansur}
+    ,AFKKHASUU = #{afkkhasuu}
+    ,ZKAAFKFKTZAISUR = #{zkaafkfktzaisur}
+    ,TODPRDHACSUR = #{todprdhacsur}
+    ,TODSIRHACSUR = #{todsirhacsur}
+    ,TODPRDNYOSUR = #{todprdnyosur}
+    ,TODPRDHPNSUR = #{todprdhpnsur}
+    ,TODSIRNYOSUR = #{todsirnyosur}
+    ,TODASRFKESUR = #{todasrfkesur}
+    ,TODSIRHPNSUR = #{todsirhpnsur}
+    ,TODSMPNYOSUR = #{todsmpnyosur}
+    ,TODSMPSYOSUR = #{todsmpsyosur}
+    ,TODRTSNYOSUR = #{todrtsnyosur}
+    ,TODRTSSYOSUR = #{todrtssyosur}
+    ,TODRPRNYOSUR = #{todrprnyosur}
+    ,TODRPRSYOSUR = #{todrprsyosur}
+    ,TODKZONYOSUR = #{todkzonyosur}
+    ,TODKZOSYOSUR = #{todkzosyosur}
+    ,TODKEHSYOSUR = #{todkehsyosur}
+    ,TODEXPSYOSUR = #{todexpsyosur}
+    ,TODEXPSYOHPN = #{todexpsyohpn}
+    ,TODTSONYOSUR = #{todtsonyosur}
+    ,TODTSOSYOSUR = #{todtsosyosur}
+    ,TODFKENYOSUR = #{todfkenyosur}
+    ,TODFKESYOSUR = #{todfkesyosur}
+    ,TODBMNFKENYOSUR = #{todbmnfkenyosur}
+    ,TODBMNFKESYOSUR = #{todbmnfkesyosur}
+    ,TODSKYFKENYOSUR = #{todskyfkenyosur}
+    ,TODSKYFKESYOSUR = #{todskyfkesyosur}
+    ,TODSKYSUR = #{todskysur}
+    ,TODHIKSUR = #{todhiksur}
+    ,TODTNASUR = #{todtnasur}
+    ,TODTNSSUR = #{todtnssur}
+    ,TODKIKURISUR = #{todkikurisur}
+    ,TODKIKHPNSUR = #{todkikhpnsur}
+    ,TODKDASYASUR = #{todkdasyasur}
+    ,TODKDAREISUR = #{todkdareisur}
+    ,TODKDAURISUR = #{todkdaurisur}
+    ,TODTCYURISUR = #{todtcyurisur}
+    ,TODEXPURISUR = #{todexpurisur}
+    ,TODKNNSHOURISUR = #{todknnshourisur}
+    ,TODKNGSHOURISUR = #{todkngshourisur}
+    ,TODKNNTJYURISUR = #{todknntjyurisur}
+    ,TODKNGTJYURISUR = #{todkngtjyurisur}
+    ,TODKNNTJGURISUR = #{todknntjgurisur}
+    ,TODKNGTJGURISUR = #{todkngtjgurisur}
+    ,TODKNNTHNURISUR = #{todknnthnurisur}
+    ,TODKNGTHNURISUR = #{todkngthnurisur}
+    ,YDHTODFKESYOSUR = #{ydhtodfkesyosur}
+    ,YDHTODKIKURISUR = #{ydhtodkikurisur}
+    ,YDHTODKIKHPNSUR = #{ydhtodkikhpnsur}
+    ,TODJUCSUR = #{todjucsur}
+    ,TODSYASUR = #{todsyasur}
+    ,TODALLJUCSUR = #{todalljucsur}
+    ,TODALLSYASUR = #{todallsyasur}
+    ,TOMPRDHACSUR = #{tomprdhacsur}
+    ,TOMSIRHACSUR = #{tomsirhacsur}
+    ,TOMPRDNYOSUR = #{tomprdnyosur}
+    ,TOMPRDHPNSUR = #{tomprdhpnsur}
+    ,TOMSIRNYOSUR = #{tomsirnyosur}
+    ,TOMASRFKESUR = #{tomasrfkesur}
+    ,TOMSIRHPNSUR = #{tomsirhpnsur}
+    ,TOMSMPNYOSUR = #{tomsmpnyosur}
+    ,TOMSMPSYOSUR = #{tomsmpsyosur}
+    ,TOMRTSNYOSUR = #{tomrtsnyosur}
+    ,TOMRTSSYOSUR = #{tomrtssyosur}
+    ,TOMRPRNYOSUR = #{tomrprnyosur}
+    ,TOMRPRSYOSUR = #{tomrprsyosur}
+    ,TOMKZONYOSUR = #{tomkzonyosur}
+    ,TOMKZOSYOSUR = #{tomkzosyosur}
+    ,TOMKEHSYOSUR = #{tomkehsyosur}
+    ,TOMEXPSYOSUR = #{tomexpsyosur}
+    ,TOMEXPSYOHPN = #{tomexpsyohpn}
+    ,TOMTSONYOSUR = #{tomtsonyosur}
+    ,TOMTSOSYOSUR = #{tomtsosyosur}
+    ,TOMFKENYOSUR = #{tomfkenyosur}
+    ,TOMFKESYOSUR = #{tomfkesyosur}
+    ,TOMBMNFKENYOSUR = #{tombmnfkenyosur}
+    ,TOMBMNFKESYOSUR = #{tombmnfkesyosur}
+    ,TOMSKYFKENYOSUR = #{tomskyfkenyosur}
+    ,TOMSKYFKESYOSUR = #{tomskyfkesyosur}
+    ,TOMSKYSUR = #{tomskysur}
+    ,TOMHIKSUR = #{tomhiksur}
+    ,TOMTNASUR = #{tomtnasur}
+    ,TOMTNSSUR = #{tomtnssur}
+    ,TOMKIKURISUR = #{tomkikurisur}
+    ,TOMKIKHPNSUR = #{tomkikhpnsur}
+    ,TOMKDASYASUR = #{tomkdasyasur}
+    ,TOMKDAREISUR = #{tomkdareisur}
+    ,TOMKDAURISUR = #{tomkdaurisur}
+    ,TOMTCYURISUR = #{tomtcyurisur}
+    ,TOMEXPURISUR = #{tomexpurisur}
+    ,TOMKNNSHOURISUR = #{tomknnshourisur}
+    ,TOMKNGSHOURISUR = #{tomkngshourisur}
+    ,TOMKNNTJYURISUR = #{tomknntjyurisur}
+    ,TOMKNGTJYURISUR = #{tomkngtjyurisur}
+    ,TOMKNNTJGURISUR = #{tomknntjgurisur}
+    ,TOMKNGTJGURISUR = #{tomkngtjgurisur}
+    ,TOMKNNTHNURISUR = #{tomknnthnurisur}
+    ,TOMKNGTHNURISUR = #{tomkngthnurisur}
+    ,TOMJUCSUR = #{tomjucsur}
+    ,TOMSYASUR = #{tomsyasur}
+    ,TOMALLJUCSUR = #{tomalljucsur}
+    ,TOMALLSYASUR = #{tomallsyasur}
+    ,PRDNYOSURRUI = #{prdnyosurrui}
+    ,SIRNYOSURRUI = #{sirnyosurrui}
+    ,SKYSURRUI = #{skysurrui}
+    ,HIKSURRUI = #{hiksurrui}
+    ,OLDAVISFLG = #{oldavisflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="AzaikoEntity">
+  delete from AESTOC01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+  </where>
+</delete>
+
+</mapper>
+

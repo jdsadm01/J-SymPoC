@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedShinpuTsuikaJuchuTankaBetsuSummaryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TOKCOD
+    ,DSCOD
+    ,DAIKAISKBCOD
+    ,SINBNG
+    ,SINGYB
+    ,SKRTAN
+    ,KAISKBCOD
+    ,EIGCOD
+    ,TERCOD
+    ,HATBSHCOD
+    ,KIGBNG
+    ,HBIDTE
+    ,HATSKOCOD
+    ,SINRELNO
+    ,KRERNTKBN
+    ,KETCOD
+    ,NOHDENSSEKBN
+    ,ZAIUPDKBN
+    ,URIUPDKBN
+    ,YKNCOD
+    ,KIN
+    ,THCBNG
+    ,YSKSUU
+    ,SINKCYSUR
+    ,SINTUISUR
+    ,WHYPGE
+    ,WHYZKAOUTSUU
+    ,KCYSMESGN
+    ,DELFLG
+    ,JUCERRSGN
+    ,ERRCODTJGURISGN
+    ,SINTJGJUCSGN
+    ,THCMEMO
+    ,DENDTE
+    ,SYADTE
+    ,JUCKBN2KT
+    ,BETFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuTsuikaJuchuTankaBetsuSummaryEntity">
+  insert into AERORD11
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{daikaiskbcod}
+    ,#{sinbng}
+    ,#{singyb}
+    ,#{skrtan}
+    ,#{kaiskbcod}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{hatbshcod}
+    ,#{kigbng}
+    ,#{hbidte}
+    ,#{hatskocod}
+    ,#{sinrelno}
+    ,#{krerntkbn}
+    ,#{ketcod}
+    ,#{nohdenssekbn}
+    ,#{zaiupdkbn}
+    ,#{uriupdkbn}
+    ,#{ykncod}
+    ,#{kin}
+    ,#{thcbng}
+    ,#{ysksuu}
+    ,#{sinkcysur}
+    ,#{sintuisur}
+    ,#{whypge}
+    ,#{whyzkaoutsuu}
+    ,#{kcysmesgn}
+    ,#{delflg}
+    ,#{jucerrsgn}
+    ,#{errcodtjgurisgn}
+    ,#{sintjgjucsgn}
+    ,#{thcmemo}
+    ,#{dendte}
+    ,#{syadte}
+    ,#{juckbn2kt}
+    ,#{betflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD11
+  <where>
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+    and SKRTAN = #{skrtan}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuTsuikaJuchuTankaBetsuSummaryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuTsuikaJuchuTankaBetsuSummaryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuTsuikaJuchuTankaBetsuSummaryEntity">
+  update AERORD11
+  <set>
+    ,KAISKBCOD = #{kaiskbcod}
+    ,EIGCOD = #{eigcod}
+    ,TERCOD = #{tercod}
+    ,HATBSHCOD = #{hatbshcod}
+    ,KIGBNG = #{kigbng}
+    ,HBIDTE = #{hbidte}
+    ,HATSKOCOD = #{hatskocod}
+    ,SINRELNO = #{sinrelno}
+    ,KRERNTKBN = #{krerntkbn}
+    ,KETCOD = #{ketcod}
+    ,NOHDENSSEKBN = #{nohdenssekbn}
+    ,ZAIUPDKBN = #{zaiupdkbn}
+    ,URIUPDKBN = #{uriupdkbn}
+    ,YKNCOD = #{ykncod}
+    ,KIN = #{kin}
+    ,THCBNG = #{thcbng}
+    ,YSKSUU = #{ysksuu}
+    ,SINKCYSUR = #{sinkcysur}
+    ,SINTUISUR = #{sintuisur}
+    ,WHYPGE = #{whypge}
+    ,WHYZKAOUTSUU = #{whyzkaoutsuu}
+    ,KCYSMESGN = #{kcysmesgn}
+    ,DELFLG = #{delflg}
+    ,JUCERRSGN = #{jucerrsgn}
+    ,ERRCODTJGURISGN = #{errcodtjgurisgn}
+    ,SINTJGJUCSGN = #{sintjgjucsgn}
+    ,THCMEMO = #{thcmemo}
+    ,DENDTE = #{dendte}
+    ,SYADTE = #{syadte}
+    ,JUCKBN2KT = #{juckbn2kt}
+    ,BETFLG = #{betflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+    and SKRTAN = #{skrtan}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuTsuikaJuchuTankaBetsuSummaryEntity">
+  delete from AERORD11
+  <where>
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+    and SKRTAN = #{skrtan}
+  </where>
+</delete>
+
+</mapper>
+

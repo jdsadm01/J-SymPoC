@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-
 @SpringBootApplication(scanBasePackages = "jp.co.jdsnet")
 @MapperScan("jp.co.jdsnet.common.domain.mapper")
 public class ReturningApplication extends SpringBootServletInitializer {
@@ -20,7 +19,6 @@ public class ReturningApplication extends SpringBootServletInitializer {
 
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-    setRegisterErrorPageFilter(false);
     return application.sources(ReturningApplication.class);
   }
 

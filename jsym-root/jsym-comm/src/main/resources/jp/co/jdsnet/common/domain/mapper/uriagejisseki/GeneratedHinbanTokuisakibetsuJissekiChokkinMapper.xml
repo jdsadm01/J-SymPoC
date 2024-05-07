@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.uriagejisseki.GeneratedHinbanTokuisakibetsuJissekiChokkinMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,TOKCOD
+    ,DENDTE
+    ,TODSINURISUR
+    ,TODTJYURISUR
+    ,TODETCURISUR
+    ,TODKDAURISUR
+    ,TODHPNSUR
+    ,TODJUCSUR
+    ,TODSINURIKIN
+    ,TODTJYURIKIN
+    ,TODETCURIKIN
+    ,TODKDAURIKIN
+    ,TODHPNKIN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,TODDENMSIJUCSUR
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HinbanTokuisakibetsuJissekiChokkinEntity">
+  insert into AESALE14
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{tokcod}
+    ,#{dendte}
+    ,#{todsinurisur}
+    ,#{todtjyurisur}
+    ,#{todetcurisur}
+    ,#{todkdaurisur}
+    ,#{todhpnsur}
+    ,#{todjucsur}
+    ,#{todsinurikin}
+    ,#{todtjyurikin}
+    ,#{todetcurikin}
+    ,#{todkdaurikin}
+    ,#{todhpnkin}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{toddenmsijucsur}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESALE14
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and DENDTE = #{dendte}
+  </where>
+</sql>
+
+<select id="select" resultType="HinbanTokuisakibetsuJissekiChokkinEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HinbanTokuisakibetsuJissekiChokkinEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HinbanTokuisakibetsuJissekiChokkinEntity">
+  update AESALE14
+  <set>
+    ,TODSINURISUR = #{todsinurisur}
+    ,TODTJYURISUR = #{todtjyurisur}
+    ,TODETCURISUR = #{todetcurisur}
+    ,TODKDAURISUR = #{todkdaurisur}
+    ,TODHPNSUR = #{todhpnsur}
+    ,TODJUCSUR = #{todjucsur}
+    ,TODSINURIKIN = #{todsinurikin}
+    ,TODTJYURIKIN = #{todtjyurikin}
+    ,TODETCURIKIN = #{todetcurikin}
+    ,TODKDAURIKIN = #{todkdaurikin}
+    ,TODHPNKIN = #{todhpnkin}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,TODDENMSIJUCSUR = #{toddenmsijucsur}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and DENDTE = #{dendte}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HinbanTokuisakibetsuJissekiChokkinEntity">
+  delete from AESALE14
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and DENDTE = #{dendte}
+  </where>
+</delete>
+
+</mapper>
+

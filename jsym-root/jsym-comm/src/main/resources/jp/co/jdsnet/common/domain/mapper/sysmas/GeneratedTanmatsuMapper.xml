@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedTanmatsuMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,CPUID
+    ,TMLID
+    ,TMLNM
+    ,DAIKAISKBCOD
+    ,BSHCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TanmatsuEntity">
+  insert into AESYSM13
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{cpuid}
+    ,#{tmlid}
+    ,#{tmlnm}
+    ,#{daikaiskbcod}
+    ,#{bshcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM13
+  <where>
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+  </where>
+</sql>
+
+<select id="select" resultType="TanmatsuEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TanmatsuEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TanmatsuEntity">
+  update AESYSM13
+  <set>
+    ,TMLNM = #{tmlnm}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,BSHCOD = #{bshcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TanmatsuEntity">
+  delete from AESYSM13
+  <where>
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+  </where>
+</delete>
+
+</mapper>
+

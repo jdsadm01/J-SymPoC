@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sokosagyo.GeneratedHaisoJohoShijiMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,UTKNO
+    ,JUCHATMDSBNG
+    ,SEQ
+    ,HATBSHCOD
+    ,TRNCOD
+    ,DAIKAISKBCOD
+    ,MKRDENBNG
+    ,DENDTE
+    ,TOKHACSAKCOD
+    ,DSCOD
+    ,KYODENBNG
+    ,JUCMSISUU
+    ,SYAMSISUU
+    ,JUCSUR9KT
+    ,SYASUR9KT
+    ,DENGPROSSNZFLG
+    ,DENGPROSSNDTE
+    ,DENGPROSSNJKK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HaisoJohoShijiMeisaiEntity">
+  insert into AEGENE15
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{utkno}
+    ,#{juchatmdsbng}
+    ,#{seq}
+    ,#{hatbshcod}
+    ,#{trncod}
+    ,#{daikaiskbcod}
+    ,#{mkrdenbng}
+    ,#{dendte}
+    ,#{tokhacsakcod}
+    ,#{dscod}
+    ,#{kyodenbng}
+    ,#{jucmsisuu}
+    ,#{syamsisuu}
+    ,#{jucsur9kt}
+    ,#{syasur9kt}
+    ,#{dengprossnzflg}
+    ,#{dengprossndte}
+    ,#{dengprossnjkk}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEGENE15
+  <where>
+    and UTKNO = #{utkno}
+    and JUCHATMDSBNG = #{juchatmdsbng}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="HaisoJohoShijiMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HaisoJohoShijiMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HaisoJohoShijiMeisaiEntity">
+  update AEGENE15
+  <set>
+    ,HATBSHCOD = #{hatbshcod}
+    ,TRNCOD = #{trncod}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,MKRDENBNG = #{mkrdenbng}
+    ,DENDTE = #{dendte}
+    ,TOKHACSAKCOD = #{tokhacsakcod}
+    ,DSCOD = #{dscod}
+    ,KYODENBNG = #{kyodenbng}
+    ,JUCMSISUU = #{jucmsisuu}
+    ,SYAMSISUU = #{syamsisuu}
+    ,JUCSUR9KT = #{jucsur9kt}
+    ,SYASUR9KT = #{syasur9kt}
+    ,DENGPROSSNZFLG = #{dengprossnzflg}
+    ,DENGPROSSNDTE = #{dengprossndte}
+    ,DENGPROSSNJKK = #{dengprossnjkk}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and UTKNO = #{utkno}
+    and JUCHATMDSBNG = #{juchatmdsbng}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HaisoJohoShijiMeisaiEntity">
+  delete from AEGENE15
+  <where>
+    and UTKNO = #{utkno}
+    and JUCHATMDSBNG = #{juchatmdsbng}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

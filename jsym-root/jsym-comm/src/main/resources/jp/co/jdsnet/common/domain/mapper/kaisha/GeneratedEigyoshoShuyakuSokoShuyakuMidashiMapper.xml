@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedEigyoshoShuyakuSokoShuyakuMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,GMNLSTID
+    ,FNCNO
+    ,KAISKBCOD
+    ,EIGSYYCOD
+    ,SKOSYYCOD
+    ,EIGSYYNM
+    ,SKOSYYNM
+    ,SRTSEQ
+    ,GMNLSTKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="EigyoshoShuyakuSokoShuyakuMidashiEntity">
+  insert into AECOMP21
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{gmnlstid}
+    ,#{fncno}
+    ,#{kaiskbcod}
+    ,#{eigsyycod}
+    ,#{skosyycod}
+    ,#{eigsyynm}
+    ,#{skosyynm}
+    ,#{srtseq}
+    ,#{gmnlstkbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP21
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GMNLSTID = #{gmnlstid}
+    and FNCNO = #{fncno}
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGSYYCOD = #{eigsyycod}
+    and SKOSYYCOD = #{skosyycod}
+  </where>
+</sql>
+
+<select id="select" resultType="EigyoshoShuyakuSokoShuyakuMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="EigyoshoShuyakuSokoShuyakuMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="EigyoshoShuyakuSokoShuyakuMidashiEntity">
+  update AECOMP21
+  <set>
+    ,EIGSYYNM = #{eigsyynm}
+    ,SKOSYYNM = #{skosyynm}
+    ,SRTSEQ = #{srtseq}
+    ,GMNLSTKBN = #{gmnlstkbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GMNLSTID = #{gmnlstid}
+    and FNCNO = #{fncno}
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGSYYCOD = #{eigsyycod}
+    and SKOSYYCOD = #{skosyycod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="EigyoshoShuyakuSokoShuyakuMidashiEntity">
+  delete from AECOMP21
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GMNLSTID = #{gmnlstid}
+    and FNCNO = #{fncno}
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGSYYCOD = #{eigsyycod}
+    and SKOSYYCOD = #{skosyycod}
+  </where>
+</delete>
+
+</mapper>
+

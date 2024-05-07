@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedShiteidenJokenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,STDHJNCOD
+    ,STDTORSAKCOD
+    ,STDSEISMB
+    ,STDBUNCODSJIKBN
+    ,DAISTDBUNCOD
+    ,STDBDNCODGUN
+    ,STDMSISHKKBN
+    ,STDDENKBNCOD
+    ,WRKSRKKBN
+    ,HNMSJIKBN
+    ,HBEBNGSJIKBN
+    ,STDKETCODGUN
+    ,STDTYOHJIFLGGUN
+    ,STDBUNCODGUN
+    ,ARNSJIKBN
+    ,FRNSJIKBN
+    ,BKAHJIKBN
+    ,SHOCODSJIKBN
+    ,KATBNGSJIKBN
+    ,STDOUTSTTDTE
+    ,STDNOHBSHCOD
+    ,STDNOHBSHNM
+    ,STDGSU
+    ,STDHJNDELFLG
+    ,GPROSSNKBN
+    ,GPROSTDID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,STDBNGSYYKBN
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShiteidenJokenEntity">
+  insert into AECUST04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{stdhjncod}
+    ,#{stdtorsakcod}
+    ,#{stdseismb}
+    ,#{stdbuncodsjikbn}
+    ,#{daistdbuncod}
+    ,#{stdbdncodgun}
+    ,#{stdmsishkkbn}
+    ,#{stddenkbncod}
+    ,#{wrksrkkbn}
+    ,#{hnmsjikbn}
+    ,#{hbebngsjikbn}
+    ,#{stdketcodgun}
+    ,#{stdtyohjiflggun}
+    ,#{stdbuncodgun}
+    ,#{arnsjikbn}
+    ,#{frnsjikbn}
+    ,#{bkahjikbn}
+    ,#{shocodsjikbn}
+    ,#{katbngsjikbn}
+    ,#{stdoutsttdte}
+    ,#{stdnohbshcod}
+    ,#{stdnohbshnm}
+    ,#{stdgsu}
+    ,#{stdhjndelflg}
+    ,#{gprossnkbn}
+    ,#{gprostdid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{stdbngsyykbn}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ShiteidenJokenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShiteidenJokenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShiteidenJokenEntity">
+  update AECUST04
+  <set>
+    ,STDHJNCOD = #{stdhjncod}
+    ,STDTORSAKCOD = #{stdtorsakcod}
+    ,STDSEISMB = #{stdseismb}
+    ,STDBUNCODSJIKBN = #{stdbuncodsjikbn}
+    ,DAISTDBUNCOD = #{daistdbuncod}
+    ,STDBDNCODGUN = #{stdbdncodgun}
+    ,STDMSISHKKBN = #{stdmsishkkbn}
+    ,STDDENKBNCOD = #{stddenkbncod}
+    ,WRKSRKKBN = #{wrksrkkbn}
+    ,HNMSJIKBN = #{hnmsjikbn}
+    ,HBEBNGSJIKBN = #{hbebngsjikbn}
+    ,STDKETCODGUN = #{stdketcodgun}
+    ,STDTYOHJIFLGGUN = #{stdtyohjiflggun}
+    ,STDBUNCODGUN = #{stdbuncodgun}
+    ,ARNSJIKBN = #{arnsjikbn}
+    ,FRNSJIKBN = #{frnsjikbn}
+    ,BKAHJIKBN = #{bkahjikbn}
+    ,SHOCODSJIKBN = #{shocodsjikbn}
+    ,KATBNGSJIKBN = #{katbngsjikbn}
+    ,STDOUTSTTDTE = #{stdoutsttdte}
+    ,STDNOHBSHCOD = #{stdnohbshcod}
+    ,STDNOHBSHNM = #{stdnohbshnm}
+    ,STDGSU = #{stdgsu}
+    ,STDHJNDELFLG = #{stdhjndelflg}
+    ,GPROSSNKBN = #{gprossnkbn}
+    ,GPROSTDID = #{gprostdid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,STDBNGSYYKBN = #{stdbngsyykbn}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShiteidenJokenEntity">
+  delete from AECUST04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</delete>
+
+</mapper>
+

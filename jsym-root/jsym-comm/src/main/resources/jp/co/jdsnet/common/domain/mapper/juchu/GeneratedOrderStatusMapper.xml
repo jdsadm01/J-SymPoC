@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedOrderStatusMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,CPUID
+    ,TMLID
+    ,JUCDTE
+    ,JUCJKK
+    ,USRSEQNO
+    ,KAISKBCOD
+    ,TOKCOD
+    ,DSCOD
+    ,TRNCOD
+    ,TIKCOD
+    ,BSHCOD
+    ,SINKYUKBN
+    ,JUCKBN
+    ,JUCGYSUU
+    ,JUCSUU
+    ,ORDSUU
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="OrderStatusEntity">
+  insert into VTBENY01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{cpuid}
+    ,#{tmlid}
+    ,#{jucdte}
+    ,#{jucjkk}
+    ,#{usrseqno}
+    ,#{kaiskbcod}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{trncod}
+    ,#{tikcod}
+    ,#{bshcod}
+    ,#{sinkyukbn}
+    ,#{juckbn}
+    ,#{jucgysuu}
+    ,#{jucsuu}
+    ,#{ordsuu}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBENY01
+  <where>
+    and USRID = #{usrid}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and JUCDTE = #{jucdte}
+    and JUCJKK = #{jucjkk}
+    and USRSEQNO = #{usrseqno}
+    and KAISKBCOD = #{kaiskbcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and TRNCOD = #{trncod}
+    and TIKCOD = #{tikcod}
+    and BSHCOD = #{bshcod}
+  </where>
+</sql>
+
+<select id="select" resultType="OrderStatusEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="OrderStatusEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="OrderStatusEntity">
+  update VTBENY01
+  <set>
+    ,SINKYUKBN = #{sinkyukbn}
+    ,JUCKBN = #{juckbn}
+    ,JUCGYSUU = #{jucgysuu}
+    ,JUCSUU = #{jucsuu}
+    ,ORDSUU = #{ordsuu}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and USRID = #{usrid}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and JUCDTE = #{jucdte}
+    and JUCJKK = #{jucjkk}
+    and USRSEQNO = #{usrseqno}
+    and KAISKBCOD = #{kaiskbcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and TRNCOD = #{trncod}
+    and TIKCOD = #{tikcod}
+    and BSHCOD = #{bshcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="OrderStatusEntity">
+  delete from VTBENY01
+  <where>
+    and USRID = #{usrid}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and JUCDTE = #{jucdte}
+    and JUCJKK = #{jucjkk}
+    and USRSEQNO = #{usrseqno}
+    and KAISKBCOD = #{kaiskbcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and TRNCOD = #{trncod}
+    and TIKCOD = #{tikcod}
+    and BSHCOD = #{bshcod}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.zaiko.ZaikoKakuhoMapper">
+  <select id="selectZaikoKakuhoList" resultType="ZaikoKakuhoEntity">
+    select
+    <include refid="jp.co.jdsnet.common.domain.mapper.zaiko.GeneratedZaikoKakuhoMapper.fields" />
+    from (
+      select
+      <include refid="jp.co.jdsnet.common.domain.mapper.zaiko.GeneratedZaikoKakuhoMapper.fields" />
+      from AESTOC05
+      <where>
+        DAIKAISKBCOD = #{tok.daikaiskbcod}
+        and KIGBNG = #{tok.kigbng}
+        and SKOCOD = #{tok.skocod}
+        <choose>
+          <when test='tok.eigcod == "00" or tok.eigcod == ""'>
+            and EIGCOD = #{tok.eigcod}
+          </when>
+          <otherwise>
+            and EIGCOD in (#{tok.eigcod}, '**')
+          </otherwise>
+        </choose>
+        and ZKHTOKSYYKBN = #{tok.zkhtoksyykbn}
+        and TOKCOD = #{tok.tokcod}
+        and DSCOD = #{tok.dscod}
+        <if test='tok.zaikhokbn != ""'>
+          and ZAIKHOKBN = #{tok.zaikhokbn}
+        </if>
+        and UPDKBN <![CDATA[<>]]> 'D'
+      </where>
+    ) union all (
+      select
+      <include refid="jp.co.jdsnet.common.domain.mapper.zaiko.GeneratedZaikoKakuhoMapper.fields" />
+      from AESTOC05
+      <where>
+        DAIKAISKBCOD = #{syy.daikaiskbcod}
+        and KIGBNG = #{syy.kigbng}
+        and SKOCOD = #{syy.skocod}
+        <choose>
+          <when test='syy.eigcod == "00" or syy.eigcod == ""'>
+            and EIGCOD = #{syy.eigcod}
+          </when>
+          <otherwise>
+            and EIGCOD in (#{syy.eigcod}, '**')
+          </otherwise>
+        </choose>
+        and ZKHTOKSYYKBN = #{syy.zkhtoksyykbn}
+        and TOKCOD = #{syy.tokcod}
+        and DSCOD = #{syy.dscod}
+        <if test='syy.zaikhokbn != ""'>
+          and ZAIKHOKBN = #{syy.zaikhokbn}
+        </if>
+        and UPDKBN <![CDATA[<>]]> 'D'
+      </where>
+    ) union all (
+      select
+      <include refid="jp.co.jdsnet.common.domain.mapper.zaiko.GeneratedZaikoKakuhoMapper.fields" />
+      from AESTOC05
+      <where>
+        DAIKAISKBCOD = #{eig.daikaiskbcod}
+        and KIGBNG = #{eig.kigbng}
+        and SKOCOD = #{eig.skocod}
+        <choose>
+          <when test='eig.eigcod == "00" or eig.eigcod == ""'>
+            and EIGCOD = #{eig.eigcod}
+          </when>
+          <otherwise>
+            and EIGCOD in (#{eig.eigcod}, '**')
+          </otherwise>
+        </choose>
+        and ZKHTOKSYYKBN = #{eig.zkhtoksyykbn}
+        and TOKCOD = #{eig.tokcod}
+        and DSCOD = #{eig.dscod}
+        <if test='eig.zaikhokbn != ""'>
+          and ZAIKHOKBN = #{eig.zaikhokbn}
+        </if>
+        and UPDKBN <![CDATA[<>]]> 'D'
+      </where>
+    )
+    with ur
+  </select>
+</mapper>
+

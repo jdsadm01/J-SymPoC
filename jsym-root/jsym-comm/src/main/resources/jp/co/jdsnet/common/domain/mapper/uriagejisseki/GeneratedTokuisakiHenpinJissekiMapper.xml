@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.uriagejisseki.GeneratedTokuisakiHenpinJissekiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,HPNGRPCOD
+    ,TOMHWNUKEKIN
+    ,TOMHWGFRYUKEKIN
+    ,TOMHWGHIBUKEKIN
+    ,TOMHWGETCUKEKIN
+    ,TOMMJNHNSKIN
+    ,TOMWKUOVRHNSKIN
+    ,TOMURIKIN
+    ,TOMHPNKIN
+    ,TOMYKNURIKIN
+    ,ZNMURIKIN
+    ,ZNMHPNKIN
+    ,ZNMYKNURIKIN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TokuisakiHenpinJissekiEntity">
+  insert into AESALE02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{hpngrpcod}
+    ,#{tomhwnukekin}
+    ,#{tomhwgfryukekin}
+    ,#{tomhwghibukekin}
+    ,#{tomhwgetcukekin}
+    ,#{tommjnhnskin}
+    ,#{tomwkuovrhnskin}
+    ,#{tomurikin}
+    ,#{tomhpnkin}
+    ,#{tomyknurikin}
+    ,#{znmurikin}
+    ,#{znmhpnkin}
+    ,#{znmyknurikin}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESALE02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="TokuisakiHenpinJissekiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TokuisakiHenpinJissekiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TokuisakiHenpinJissekiEntity">
+  update AESALE02
+  <set>
+    ,TOMHWNUKEKIN = #{tomhwnukekin}
+    ,TOMHWGFRYUKEKIN = #{tomhwgfryukekin}
+    ,TOMHWGHIBUKEKIN = #{tomhwghibukekin}
+    ,TOMHWGETCUKEKIN = #{tomhwgetcukekin}
+    ,TOMMJNHNSKIN = #{tommjnhnskin}
+    ,TOMWKUOVRHNSKIN = #{tomwkuovrhnskin}
+    ,TOMURIKIN = #{tomurikin}
+    ,TOMHPNKIN = #{tomhpnkin}
+    ,TOMYKNURIKIN = #{tomyknurikin}
+    ,ZNMURIKIN = #{znmurikin}
+    ,ZNMHPNKIN = #{znmhpnkin}
+    ,ZNMYKNURIKIN = #{znmyknurikin}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TokuisakiHenpinJissekiEntity">
+  delete from AESALE02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</delete>
+
+</mapper>
+

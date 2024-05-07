@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedEventMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,GMNID
+    ,GMNSEQNO
+    ,GMNKBN
+    ,PRCTRN
+    ,SVCID
+    ,GYMID
+    ,PRCKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,TAMEUCHIFLG
+    ,SENDCLSNM
+    ,PRCNM
+    ,ENTCHKARIFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="EventEntity">
+  insert into VTBCNL10
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{gmnid}
+    ,#{gmnseqno}
+    ,#{gmnkbn}
+    ,#{prctrn}
+    ,#{svcid}
+    ,#{gymid}
+    ,#{prckbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{tameuchiflg}
+    ,#{sendclsnm}
+    ,#{prcnm}
+    ,#{entchkariflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBCNL10
+  <where>
+    and GMNID = #{gmnid}
+    and GMNSEQNO = #{gmnseqno}
+    and GMNKBN = #{gmnkbn}
+  </where>
+</sql>
+
+<select id="select" resultType="EventEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="EventEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="EventEntity">
+  update VTBCNL10
+  <set>
+    ,PRCTRN = #{prctrn}
+    ,SVCID = #{svcid}
+    ,GYMID = #{gymid}
+    ,PRCKBN = #{prckbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,TAMEUCHIFLG = #{tameuchiflg}
+    ,SENDCLSNM = #{sendclsnm}
+    ,PRCNM = #{prcnm}
+    ,ENTCHKARIFLG = #{entchkariflg}
+  </set>
+  <where>
+    and GMNID = #{gmnid}
+    and GMNSEQNO = #{gmnseqno}
+    and GMNKBN = #{gmnkbn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="EventEntity">
+  delete from VTBCNL10
+  <where>
+    and GMNID = #{gmnid}
+    and GMNSEQNO = #{gmnseqno}
+    and GMNKBN = #{gmnkbn}
+  </where>
+</delete>
+
+</mapper>
+

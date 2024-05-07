@@ -1,9 +1,13 @@
 package jp.co.jdsnet.common.domain.mapper.tokuisaki;
 
 import org.apache.ibatis.annotations.Mapper;
-import jp.co.jdsnet.common.domain.entity.tokuisaki.KyotsuTokuisakiEntity;
 
+/**
+ * 共通得意先Mapperインターフェース
+ *
+ * @author ソース生成ツール
+ */
 @Mapper
-public interface KyotsuTokuisakiMapper {
-	KyotsuTokuisakiEntity selectWithoutLogicalDelete(KyotsuTokuisakiEntity entity);
+public interface KyotsuTokuisakiMapper extends GeneratedKyotsuTokuisakiMapper {
+
 }

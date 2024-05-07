@@ -20,7 +20,6 @@ public class InfoServiceApplication extends SpringBootServletInitializer {
 
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-    setRegisterErrorPageFilter(false);
     return application.sources(InfoServiceApplication.class);
   }
 

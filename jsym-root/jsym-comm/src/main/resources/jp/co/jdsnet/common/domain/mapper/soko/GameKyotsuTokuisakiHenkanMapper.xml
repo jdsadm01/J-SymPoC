@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GameKyotsuTokuisakiHenkanMapper">
-	<sql id="commonSelectWithName">
-		select ware06.*
-			,(cust01_tok.TOKNM1 || cust01_tok.TOKNM2) as toknm
-			,(cust01_gkytok.TOKNM1 || cust01_gkytok.TOKNM2) as gkytoknm
-		from AEWARE06 ware06
-		left join AECUST01 cust01_tok
-		on ware06.TOKCOD = cust01_tok.TOKCOD
-		left join AECUST01 cust01_gkytok
-		on ware06.GKYTOKCOD = cust01_gkytok.TOKCOD
-	</sql>
-	<select id="selectWithName" resultType="GameKyotsuTokuisakiHenkanEntity">
-		<include refid="commonSelectWithName" /> 
-		<where>
-			ware06.BSHCOD = #{bshcod}
-			AND ware06.TOKCOD = #{tokcod}
-			AND ware06.DSCOD = #{dscod}
-		</where>
-		with ur
-	</select>
-	<select id="selectWithNameByGyktokcod" resultType="GameKyotsuTokuisakiHenkanEntity">
-		<include refid="commonSelectWithName" /> 
-		<where>
-			ware06.BSHCOD = #{bshcod}
-			AND ware06.GKYTOKCOD = #{gkytokcod}
-		</where>
-		with ur
-	</select>
+  <sql id="commonSelectWithName">
+    select
+      <include refid="jp.co.jdsnet.common.domain.mapper.soko.GeneratedGameKyotsuTokuisakiHenkanMapper.fields" />
+      ,(cust01_tok.TOKNM1 || cust01_tok.TOKNM2) as toknm
+      ,(cust01_gkytok.TOKNM1 || cust01_gkytok.TOKNM2) as gkytoknm
+    from AEWARE06 ware06
+    left join AECUST01 cust01_tok on ware06.TOKCOD = cust01_tok.TOKCOD
+    left join AECUST01 cust01_gkytok on ware06.GKYTOKCOD = cust01_tok.TOKCOD
+  </sql>
+  <select id="selectWithName" resultType="GameKyotsuTokuisakiHenkanEntity">
+    <include refid="commonSelectWithName" />
+    <where>
+      and ware06.BSHCOD = ${bshcod}
+      and ware06.TOKCOD = ${tokcod}
+      and ware06.DSCOD = ${dscod}
+    </where>
+    with ur
+  </select>
+  <select id="selectWithNameByGkytokcod" resultType="GameKyotsuTokuisakiHenkanEntity">
+    <include refid="commonSelectWithName" />
+    <where>
+      and ware06.BSHCOD = ${bshcod}
+      and ware06.GKYTOKCOD = ${gkytokcod}
+    </where>
+    with ur
+  </select>
 </mapper>
+

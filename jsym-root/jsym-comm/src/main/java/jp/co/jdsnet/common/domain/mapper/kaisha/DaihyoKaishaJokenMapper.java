@@ -2,9 +2,12 @@ package jp.co.jdsnet.common.domain.mapper.kaisha;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import jp.co.jdsnet.common.domain.entity.kaisha.DaihyoKaishaJokenEntity;
-
+/**
+ * 代表会社条件Mapperインターフェース
+ *
+ * @author ソース生成ツール
+ */
 @Mapper
-public interface DaihyoKaishaJokenMapper {
-    DaihyoKaishaJokenEntity select(DaihyoKaishaJokenEntity entity);
+public interface DaihyoKaishaJokenMapper extends GeneratedDaihyoKaishaJokenMapper {
+
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedListTokuisakiConditionsMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,CHYDTAFLEID
+    ,TOKCOD
+    ,OUTPUTODR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListTokuisakiConditionsEntity">
+  insert into VTBLST08
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{chydtafleid}
+    ,#{tokcod}
+    ,#{outputodr}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST08
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+    and TOKCOD = #{tokcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ListTokuisakiConditionsEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListTokuisakiConditionsEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListTokuisakiConditionsEntity">
+  update VTBLST08
+  <set>
+    ,OUTPUTODR = #{outputodr}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+    and TOKCOD = #{tokcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListTokuisakiConditionsEntity">
+  delete from VTBLST08
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+    and TOKCOD = #{tokcod}
+  </where>
+</delete>
+
+</mapper>
+

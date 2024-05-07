@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedSssOrderMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,TOKCOD
+    ,DSCOD
+    ,JUCKBN
+    ,SKRTAN
+    ,RELNO
+    ,HATSKOCOD
+    ,YKKCOD
+    ,HACBNG
+    ,ENTBNG
+    ,JUCSUU
+    ,ZENKIGBNG
+    ,ZENTANSUU
+    ,ZENJCYSUU
+    ,JUCDTE
+    ,JUCERRCOD
+    ,JUCSMISGN
+    ,TJGJUCSGN
+    ,RMCOD
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,DENDTE
+    ,SYADTE
+    ,NHNDTE
+    ,BETFLG
+    ,KCYSMESGN
+    ,DELSGN
+    ,KCYDTE
+    ,USRID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SssOrderEntity">
+  insert into VTBSSS01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{juckbn}
+    ,#{skrtan}
+    ,#{relno}
+    ,#{hatskocod}
+    ,#{ykkcod}
+    ,#{hacbng}
+    ,#{entbng}
+    ,#{jucsuu}
+    ,#{zenkigbng}
+    ,#{zentansuu}
+    ,#{zenjcysuu}
+    ,#{jucdte}
+    ,#{jucerrcod}
+    ,#{jucsmisgn}
+    ,#{tjgjucsgn}
+    ,#{rmcod}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{dendte}
+    ,#{syadte}
+    ,#{nhndte}
+    ,#{betflg}
+    ,#{kcysmesgn}
+    ,#{delsgn}
+    ,#{kcydte}
+    ,#{usrid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBSSS01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCKBN = #{juckbn}
+    and HACBNG = #{hacbng}
+    and TJGJUCSGN = #{tjgjucsgn}
+    and BETFLG = #{betflg}
+  </where>
+</sql>
+
+<select id="select" resultType="SssOrderEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SssOrderEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SssOrderEntity">
+  update VTBSSS01
+  <set>
+    ,SKRTAN = #{skrtan}
+    ,RELNO = #{relno}
+    ,HATSKOCOD = #{hatskocod}
+    ,YKKCOD = #{ykkcod}
+    ,ENTBNG = #{entbng}
+    ,JUCSUU = #{jucsuu}
+    ,ZENKIGBNG = #{zenkigbng}
+    ,ZENTANSUU = #{zentansuu}
+    ,ZENJCYSUU = #{zenjcysuu}
+    ,JUCDTE = #{jucdte}
+    ,JUCERRCOD = #{jucerrcod}
+    ,JUCSMISGN = #{jucsmisgn}
+    ,RMCOD = #{rmcod}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,DENDTE = #{dendte}
+    ,SYADTE = #{syadte}
+    ,NHNDTE = #{nhndte}
+    ,KCYSMESGN = #{kcysmesgn}
+    ,DELSGN = #{delsgn}
+    ,KCYDTE = #{kcydte}
+    ,USRID = #{usrid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCKBN = #{juckbn}
+    and HACBNG = #{hacbng}
+    and TJGJUCSGN = #{tjgjucsgn}
+    and BETFLG = #{betflg}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SssOrderEntity">
+  delete from VTBSSS01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCKBN = #{juckbn}
+    and HACBNG = #{hacbng}
+    and TJGJUCSGN = #{tjgjucsgn}
+    and BETFLG = #{betflg}
+  </where>
+</delete>
+
+</mapper>
+

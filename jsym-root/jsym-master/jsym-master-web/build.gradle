@@ -4,7 +4,7 @@ plugins {
 
 version = '0.0.1-SNAPSHOT'
 bootWar {
-	archiveFileName = 'jsym-backlendcost.war'
+	archiveFileName = 'master.war'
 }
 dependencies {
 	implementation project(':jsym-base')

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.user.GeneratedUserMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,KAINMKJ
+    ,BMNNMKJ
+    ,USRNMKJ
+    ,USESTTDTE
+    ,USEENDDTE
+    ,USRKBN
+    ,USRBUN
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,EIGCOD
+    ,SKOCODFROM
+    ,SKOCODTO
+    ,BSHCOD
+    ,MKRBUN
+    ,TERCOD
+    ,CPUID
+    ,TMLID
+    ,ROLEID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,MALADS
+    ,EIGCOD110
+    ,TOK104YAKID
+    ,BIKOU
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="UserEntity">
+  insert into VTBUSR01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{kainmkj}
+    ,#{bmnnmkj}
+    ,#{usrnmkj}
+    ,#{usesttdte}
+    ,#{useenddte}
+    ,#{usrkbn}
+    ,#{usrbun}
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{eigcod}
+    ,#{skocodfrom}
+    ,#{skocodto}
+    ,#{bshcod}
+    ,#{mkrbun}
+    ,#{tercod}
+    ,#{cpuid}
+    ,#{tmlid}
+    ,#{roleid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{malads}
+    ,#{eigcod110}
+    ,#{tok104yakid}
+    ,#{bikou}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBUSR01
+  <where>
+    and USRID = #{usrid}
+  </where>
+</sql>
+
+<select id="select" resultType="UserEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="UserEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="UserEntity">
+  update VTBUSR01
+  <set>
+    ,KAINMKJ = #{kainmkj}
+    ,BMNNMKJ = #{bmnnmkj}
+    ,USRNMKJ = #{usrnmkj}
+    ,USESTTDTE = #{usesttdte}
+    ,USEENDDTE = #{useenddte}
+    ,USRKBN = #{usrkbn}
+    ,USRBUN = #{usrbun}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,EIGCOD = #{eigcod}
+    ,SKOCODFROM = #{skocodfrom}
+    ,SKOCODTO = #{skocodto}
+    ,BSHCOD = #{bshcod}
+    ,MKRBUN = #{mkrbun}
+    ,TERCOD = #{tercod}
+    ,CPUID = #{cpuid}
+    ,TMLID = #{tmlid}
+    ,ROLEID = #{roleid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,MALADS = #{malads}
+    ,EIGCOD110 = #{eigcod110}
+    ,TOK104YAKID = #{tok104yakid}
+    ,BIKOU = #{bikou}
+  </set>
+  <where>
+    and USRID = #{usrid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="UserEntity">
+  delete from VTBUSR01
+  <where>
+    and USRID = #{usrid}
+  </where>
+</delete>
+
+</mapper>
+

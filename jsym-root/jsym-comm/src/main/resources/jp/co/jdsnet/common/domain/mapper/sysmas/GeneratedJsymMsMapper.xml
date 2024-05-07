@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedJsymMsMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,MSCOD
+    ,MSMSG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="JsymMsEntity">
+  insert into VTBMSG01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{mscod}
+    ,#{msmsg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMSG01
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and MSCOD = #{mscod}
+  </where>
+</sql>
+
+<select id="select" resultType="JsymMsEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="JsymMsEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="JsymMsEntity">
+  update VTBMSG01
+  <set>
+    ,MSMSG = #{msmsg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and MSCOD = #{mscod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="JsymMsEntity">
+  delete from VTBMSG01
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and MSCOD = #{mscod}
+  </where>
+</delete>
+
+</mapper>
+

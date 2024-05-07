@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hatchu.GeneratedHatchuruikeiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,HACSYBKBN
+    ,SETKIG
+    ,BHNKBN
+    ,BHNEDA
+    ,HONHACSURRUI
+    ,HONNYASURRUI
+    ,TOMHONHACSUR
+    ,TOMHONNYASUR
+    ,SKYKEHTOMSUU
+    ,SKYKEHRUISUU
+    ,SMPHACSURRUI
+    ,SMPNYASURRUI
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HatchuruikeiEntity">
+  insert into AESORD04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{hacsybkbn}
+    ,#{setkig}
+    ,#{bhnkbn}
+    ,#{bhneda}
+    ,#{honhacsurrui}
+    ,#{honnyasurrui}
+    ,#{tomhonhacsur}
+    ,#{tomhonnyasur}
+    ,#{skykehtomsuu}
+    ,#{skykehruisuu}
+    ,#{smphacsurrui}
+    ,#{smpnyasurrui}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESORD04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and HACSYBKBN = #{hacsybkbn}
+  </where>
+</sql>
+
+<select id="select" resultType="HatchuruikeiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HatchuruikeiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HatchuruikeiEntity">
+  update AESORD04
+  <set>
+    ,SETKIG = #{setkig}
+    ,BHNKBN = #{bhnkbn}
+    ,BHNEDA = #{bhneda}
+    ,HONHACSURRUI = #{honhacsurrui}
+    ,HONNYASURRUI = #{honnyasurrui}
+    ,TOMHONHACSUR = #{tomhonhacsur}
+    ,TOMHONNYASUR = #{tomhonnyasur}
+    ,SKYKEHTOMSUU = #{skykehtomsuu}
+    ,SKYKEHRUISUU = #{skykehruisuu}
+    ,SMPHACSURRUI = #{smphacsurrui}
+    ,SMPNYASURRUI = #{smpnyasurrui}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and HACSYBKBN = #{hacsybkbn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HatchuruikeiEntity">
+  delete from AESORD04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and HACSYBKBN = #{hacsybkbn}
+  </where>
+</delete>
+
+</mapper>
+

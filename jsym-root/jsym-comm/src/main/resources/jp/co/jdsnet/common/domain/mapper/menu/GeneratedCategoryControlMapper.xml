@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedCategoryControlMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,GYMID
+    ,MNUPTNCOD
+    ,CTGCOD
+    ,CTGHJIJUN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="CategoryControlEntity">
+  insert into VTBMNU02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{gymid}
+    ,#{mnuptncod}
+    ,#{ctgcod}
+    ,#{ctghjijun}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMNU02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GYMID = #{gymid}
+    and MNUPTNCOD = #{mnuptncod}
+    and CTGCOD = #{ctgcod}
+  </where>
+</sql>
+
+<select id="select" resultType="CategoryControlEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="CategoryControlEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="CategoryControlEntity">
+  update VTBMNU02
+  <set>
+    ,CTGHJIJUN = #{ctghjijun}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GYMID = #{gymid}
+    and MNUPTNCOD = #{mnuptncod}
+    and CTGCOD = #{ctgcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="CategoryControlEntity">
+  delete from VTBMNU02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GYMID = #{gymid}
+    and MNUPTNCOD = #{mnuptncod}
+    and CTGCOD = #{ctgcod}
+  </where>
+</delete>
+
+</mapper>
+

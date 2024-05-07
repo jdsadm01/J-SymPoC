@@ -23,6 +23,8 @@ import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
 import jp.co.jdsnet.returning.domain.service.ReceiveEntryService;
 import jp.co.jdsnet.returning.webapp.form.ReceiveEntryDetailForm;
 import jp.co.jdsnet.returning.webapp.form.ReceiveEntryForm;
+import jp.fintan.keel.spring.web.token.transaction.TransactionTokenCheck;
+import jp.fintan.keel.spring.web.token.transaction.TransactionTokenType;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -33,9 +35,11 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Controller
+@TransactionTokenCheck("ReceiveEntry")
 @RequestMapping(value = "/receiveEntry")
 public class ReceiveEntryController extends CommonOperationController {
 
+  private static final String REDIRECT_INIT = "redirect:/receiveEntry";
   private static final String TEMPLATE_DIR = "receiveentry/";
   private static final String TEMPLATE_HEADER = TEMPLATE_DIR + "header";
   private static final String TEMPLATE_DETAIL = TEMPLATE_DIR + "detail";
@@ -58,6 +62,7 @@ public class ReceiveEntryController extends CommonOperationController {
    * @param model
    * @return
    */
+  // @TransactionTokenCheck(type = TransactionTokenType.BEGIN)
   @GetMapping()
   public String init(Model model) {
     UserInfoVO usrInfo = getUserInfo();
@@ -67,6 +72,7 @@ public class ReceiveEntryController extends CommonOperationController {
     return TEMPLATE_HEADER;
   }
 
+  // @TransactionTokenCheck
   @RequestMapping(params = "btn_changeTrncod", method = POST)
   public String changeTrncod(@ModelAttribute ReceiveEntryForm requestForm, Model model)
       throws Exception {
@@ -82,12 +88,15 @@ public class ReceiveEntryController extends CommonOperationController {
    * @return
    * @throws Exception
    */
+  // @TransactionTokenCheck
+  @TransactionTokenCheck(type = TransactionTokenType.BEGIN)
   @RequestMapping(params = "btn_checkHeader", method = POST)
 //  public String checkHeader(@Validated @ModelAttribute ReceiveEntryForm requestForm,
 //      BindingResult result, Model model) throws Exception {
   public String checkHeader(@ModelAttribute ReceiveEntryForm requestForm,
       Errors errors, Model model) throws Exception {
 
+    System.out.println("!!!checkHeader!!!");
     Object[] groups = createValidationGroups(requestForm.getTrncod());
     ValidationUtils.invokeValidator(validator, requestForm, errors, groups);
     if (errors.hasErrors()) {
@@ -148,6 +157,7 @@ public class ReceiveEntryController extends CommonOperationController {
    * @return
    * @throws Exception
    */
+  @TransactionTokenCheck
   @RequestMapping(params = "btn_checkDetail", method = POST)
   public String checkDetail(@Validated @ModelAttribute ReceiveEntryForm requestForm,
       BindingResult result, Model model) throws Exception {
@@ -190,6 +200,7 @@ public class ReceiveEntryController extends CommonOperationController {
    * @return
    * @throws Exception
    */
+  @TransactionTokenCheck
   @RequestMapping(params = "btn_submit", method = POST)
   public String submit(@ModelAttribute ReceiveEntryForm requestForm,
       Model model) throws Exception {
@@ -200,6 +211,6 @@ public class ReceiveEntryController extends CommonOperationController {
       model.addAttribute("errors", e.getMessage());
       return TEMPLATE_SUBMIT;
     }
-    return init(model);
+    return REDIRECT_INIT;
   }
 }

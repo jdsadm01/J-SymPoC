@@ -20,7 +20,6 @@ public class JsymTranstnaApplication extends SpringBootServletInitializer {
 
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-    setRegisterErrorPageFilter(false);
     return application.sources(JsymTranstnaApplication.class);
   }
 

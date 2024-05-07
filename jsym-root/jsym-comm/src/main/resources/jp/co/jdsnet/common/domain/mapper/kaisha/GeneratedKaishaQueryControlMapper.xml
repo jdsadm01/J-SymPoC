@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedKaishaQueryControlMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TBLNM
+    ,KAIGETKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KaishaQueryControlEntity">
+  insert into VTBDBC12
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tblnm}
+    ,#{kaigetkbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBDBC12
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TBLNM = #{tblnm}
+  </where>
+</sql>
+
+<select id="select" resultType="KaishaQueryControlEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KaishaQueryControlEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KaishaQueryControlEntity">
+  update VTBDBC12
+  <set>
+    ,KAIGETKBN = #{kaigetkbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TBLNM = #{tblnm}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KaishaQueryControlEntity">
+  delete from VTBDBC12
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TBLNM = #{tblnm}
+  </where>
+</delete>
+
+</mapper>
+

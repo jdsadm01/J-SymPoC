@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedRoleMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,GYMID
+    ,MNUPTNCOD
+    ,GMNID
+    ,ROLEK
+    ,ROLES
+    ,ROLEA
+    ,ROLEU
+    ,ROLED
+    ,ROLEE
+    ,ROLETS
+    ,ROLETR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="RoleEntity">
+  insert into VTBROL03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{gymid}
+    ,#{mnuptncod}
+    ,#{gmnid}
+    ,#{rolek}
+    ,#{roles}
+    ,#{rolea}
+    ,#{roleu}
+    ,#{roled}
+    ,#{rolee}
+    ,#{rolets}
+    ,#{roletr}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBROL03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GYMID = #{gymid}
+    and MNUPTNCOD = #{mnuptncod}
+    and GMNID = #{gmnid}
+  </where>
+</sql>
+
+<select id="select" resultType="RoleEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="RoleEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="RoleEntity">
+  update VTBROL03
+  <set>
+    ,ROLEK = #{rolek}
+    ,ROLES = #{roles}
+    ,ROLEA = #{rolea}
+    ,ROLEU = #{roleu}
+    ,ROLED = #{roled}
+    ,ROLEE = #{rolee}
+    ,ROLETS = #{rolets}
+    ,ROLETR = #{roletr}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GYMID = #{gymid}
+    and MNUPTNCOD = #{mnuptncod}
+    and GMNID = #{gmnid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="RoleEntity">
+  delete from VTBROL03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and GYMID = #{gymid}
+    and MNUPTNCOD = #{mnuptncod}
+    and GMNID = #{gmnid}
+  </where>
+</delete>
+
+</mapper>
+

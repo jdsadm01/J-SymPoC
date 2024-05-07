@@ -2,10 +2,10 @@ package jp.co.jdsnet.base.webapp.parts;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
-
 import io.micrometer.common.util.StringUtils;
 import jp.co.jdsnet.base.webapp.form.DBCopyForm;
 import jp.co.jdsnet.common.utils.FormatUtility;
+import jp.co.jdsnet.common.utils.GlobalConstants.Separator;
 import jp.co.jdsnet.common.utils.StringUtility;
 
 @SuppressWarnings("rawtypes")
@@ -14,10 +14,10 @@ public abstract class CommonClipboardData <T extends DBCopyForm> {
 	/** クリップボードデータをrequestにセットするキー */
 	public static final String CLIPBOARD_DATA_KEY = "CLIPBOARD_DATA_KEY";
 
-	/** 改行：\n */
-	protected static final String ENTER = "\n";
-	/** タブ：\t */
-	protected static final String TAB = "\t";
+    /** 改行 */
+    protected static final String ENTER = Separator.ENTER.getValue();
+    /** タブ */
+    protected static final String TAB = Separator.TAB.getValue();
 	/** 波線：～ */
 	protected static final String WAVEDASH = "～";
 	/** パーセント：% */
@@ -67,7 +67,7 @@ public abstract class CommonClipboardData <T extends DBCopyForm> {
 	 * クリップボードデータの行を終了します。
 	 */
 	protected void enter(){
-		cbData.append(ENTER);
+      cbData.append(Separator.ENTER);
 	}
 	
 	/**

@@ -19,15 +19,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import jp.co.jdsnet.common.domain.entity.hinban.HinbanEntity;
-import jp.co.jdsnet.common.domain.entity.kaisha.KaishaEntity;
 import jp.co.jdsnet.common.domain.mapper.hatchu.HatchuMapper;
 import jp.co.jdsnet.common.domain.mapper.kaisha.KaishaMapper;
 import jp.co.jdsnet.common.domain.mapper.soko.ZaikoJokenMapper;
 import jp.co.jdsnet.common.domain.mapper.uriagejisseki.EigyoshobetsuHinbanUriageMapper;
-import jp.co.jdsnet.common.domain.mapper.zaiko.AZaikoMapper;
-import jp.co.jdsnet.common.logic.CheckSharedService;
-import jp.co.jdsnet.common.logic.DataGetSharedService;
-import jp.co.jdsnet.common.logic.KigbngCheckSharedService;
+import jp.co.jdsnet.common.domain.mapper.zaiko.AzaikoMapper;
+import jp.co.jdsnet.common.logic.CommonCheckSharedService;
+import jp.co.jdsnet.common.logic.KaishaRelatedSharedService;
+import jp.co.jdsnet.common.logic.KigbngRelatedSharedService;
 import jp.co.jdsnet.infoservice.domain.dto.AllStockDTO;
 import jp.co.jdsnet.infoservice.domain.service.implement.AllStockServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -45,23 +44,23 @@ public class AllStockServiceTest {
   @Mock
   private HatchuMapper hatchuMapper;
   @Mock
-  private AZaikoMapper aZaikoMapper;
+  private AzaikoMapper aZaikoMapper;
   @Mock
   private ZaikoJokenMapper zaikoJokenMapper;
 
   @Mock
-  private CheckSharedService checkSharedService;
+  private CommonCheckSharedService checkSharedService;
   @Mock
-  private KigbngCheckSharedService kigbngCheckSharedService;
+  private KigbngRelatedSharedService kigbngCheckSharedService;
   @Mock
-  private DataGetSharedService dataGetSharedService;
+  private KaishaRelatedSharedService dataGetSharedService;
 
   @Nested
   class init {
     @Test
-    void 正常() {
-      when(checkSharedService.checkServiceTime(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(CheckSharedService.SERVICETIME_ONLINE);
-      when(kaishaMapper.selectAll()).thenReturn(createTestDaikaiList());
+    void 正常() throws Exception {
+      when(checkSharedService.checkServiceTime(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.any())).thenReturn(CommonCheckSharedService.ServiceTime.ONLINE);
+      when(kaishaMapper.getDaikaiskbcodList(Mockito.anyString())).thenReturn(createTestDaikaiList());
 
       AllStockDTO result = target.init("", "");
       assertAll("結果確認"
@@ -72,21 +71,20 @@ public class AllStockServiceTest {
     }
 
     @Test
-    void サービス時間外() {
-      when(checkSharedService.checkServiceTime(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(CheckSharedService.SERVICETIME_TIMEOUT);
-      when(kaishaMapper.selectAll()).thenReturn(createTestDaikaiList());
+    void サービス時間外() throws Exception {
+      when(checkSharedService.checkServiceTime(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.any())).thenReturn(CommonCheckSharedService.ServiceTime.TIMEOUT);
+      when(kaishaMapper.getDaikaiskbcodList(Mockito.anyString())).thenReturn(createTestDaikaiList());
 
       AllStockDTO result = target.init("", "");
       assertAll("結果確認"
           ,() -> assertEquals(false, result.isInServiceTime(), "サービス時間が一致"));
     }
 
-    private List<KaishaEntity> createTestDaikaiList() {
-      List<KaishaEntity> list = new ArrayList<>();
-      list.add(KaishaEntity.builder().kaiskbcod("KAI1").daikaiskbcod("DAI1").build());
-      list.add(KaishaEntity.builder().kaiskbcod("KAI2").daikaiskbcod("DAI3").build());
-      list.add(KaishaEntity.builder().kaiskbcod("KAI3").daikaiskbcod("DAI2").build());
-      list.add(KaishaEntity.builder().kaiskbcod("KAI4").daikaiskbcod("DAI2").build());
+    private List<String> createTestDaikaiList() {
+      List<String> list = new ArrayList<>();
+      list.add("DAI1");
+      list.add("DAI3");
+      list.add("DAI2");
       return list;
     }
   }

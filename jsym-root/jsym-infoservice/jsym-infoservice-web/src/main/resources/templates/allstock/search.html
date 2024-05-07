@@ -29,6 +29,7 @@
 					<input class="form-control p-1 text-uppercase" id="kigbng" type="text" th:field="*{kigbng}" placeholder="記号番号" maxlength="13" aria-label="記号番号">
 				</div>
 			</div>
+<!--
 			<div>
 				<span>サービス時間：</span>
 				<span th:text="${allStockForm.isInServiceTime}">
@@ -37,23 +38,19 @@
 				<span>権限：</span>
 				<span th:text="${allStockForm.isFavoriteAuthority}">
 			</div>
+-->
 			<div class="d-flex flex-row p-2">
 				<div class="col-2">
 					<button class="btn btn-outline-secondary" type="submit" name="btn_search">実行</button>
 				</div>
 			</div>
 			<div>
+        <ul th:if="${errors != null}"> <!--/* (1) */-->
+            <li th:each="err : ${errors}" th:text="${err}"></li> <!--/* (2) */-->
+        </ul>
 				<ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
 				    <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
 				</ul>
-				<th:block th:text="${errors}"></th:block>
-				<!--
-				<table>
-					<tr th:if="${validationError}" th:each="error : ${validationError}">
-			            <td style="color: red;" th:text="${error}"></td>
-			        </tr>
-				</table>
-				-->
 			</div>
 	<th:block th:if="${(allStockForm.detailList != null) && !(#lists.isEmpty(allStockForm.detailList))}" class="container pt-1">
 		<div class="d-flex flex-row">
@@ -203,7 +200,7 @@
 			</table>
 		</div>
 		<!-- DBCOPY -->
-		<div th:replace="copydata :: copy(${allStockForm})"></div>
+		<div th:replace="~{copydata :: copy(${allStockForm})}"></div>
 	</th:block>
 		</div>
 

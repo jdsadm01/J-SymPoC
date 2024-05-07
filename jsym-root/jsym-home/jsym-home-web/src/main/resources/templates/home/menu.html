@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>MENU</title>
+</head>
+<body>
+    <div class="container">
+        <span>ユーザー：</span><span th:text="${session.get('usrnm')}"/>
+        <h1>J-Symphony</h1>
+        <nav>
+            <ul class="mcd-menu">
+                <li><span>共同物流</span>
+                    <ul>
+                        <li>
+                            情報サービス
+                            <ul>
+                                <li><a th:href="@{http://172.20.30.81:8080/infoservice/init(name=${session.get('usrid')},gmn=allstock)}" target="allstock"><i class="fa fa-globe"></i>全国在庫照会</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            マスターメンテナンス
+                            <ul>
+                                <li><a th:href="@{http://172.20.30.81:8080/master/init(name=${session.get('usrid')},gmn=nohsakEntry)}" target="nohsakEntry"><i class="fa fa-globe"></i>納品先マスター登録</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            返品
+                            <ul>
+                                <li><a th:href="@{http://172.20.30.81:8080/returning/init(name=${session.get('usrid')},gmn=receiveEntry)}" target="receiveEntry"><i class="fa fa-globe"></i>返品入力</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

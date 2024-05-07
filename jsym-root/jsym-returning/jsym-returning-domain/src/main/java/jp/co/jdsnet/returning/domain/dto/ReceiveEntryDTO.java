@@ -19,6 +19,7 @@ public class ReceiveEntryDTO extends AbstractDTO {
   private String daikaiskbcod;
   private String trncod;
   private String tokcod;
+  private String dscod;
   private String rmcod;
   private String hpnjurdte;
   private String hpnutkbng;

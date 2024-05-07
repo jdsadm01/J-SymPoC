@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedChuzanShukkaShijiMeisaiHinbanMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,CHZSYASJIMDSSEQ
+    ,SEQ
+    ,KIGBNG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ChuzanShukkaShijiMeisaiHinbanEntity">
+  insert into AERORD25
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{chzsyasjimdsseq}
+    ,#{seq}
+    ,#{kigbng}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD25
+  <where>
+    and INPDTE = #{inpdte}
+    and CHZSYASJIMDSSEQ = #{chzsyasjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="ChuzanShukkaShijiMeisaiHinbanEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ChuzanShukkaShijiMeisaiHinbanEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ChuzanShukkaShijiMeisaiHinbanEntity">
+  update AERORD25
+  <set>
+    ,KIGBNG = #{kigbng}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and CHZSYASJIMDSSEQ = #{chzsyasjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ChuzanShukkaShijiMeisaiHinbanEntity">
+  delete from AERORD25
+  <where>
+    and INPDTE = #{inpdte}
+    and CHZSYASJIMDSSEQ = #{chzsyasjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

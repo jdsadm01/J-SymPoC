@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sokosagyo.GeneratedTanaoroshiShijiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,SKOCOD
+    ,TNODTEFRM
+    ,TNODTETO
+    ,TNOKETGRPCODGUN
+    ,TNOZAIKBN
+    ,CYZUPDKBN
+    ,PRCTYP
+    ,TNOSINKYUKBNGUN
+    ,MKRBUNCODGUN
+    ,TNO250STP
+    ,TNOEXC250STP
+    ,HTNKTNKBN
+    ,CYZUPDSCHZFLG
+    ,CYZUPDZFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,KAISKBCODGUN
+    ,TSHPRCKBN
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TanaoroshiShijiEntity">
+  insert into AEGENE10
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{skocod}
+    ,#{tnodtefrm}
+    ,#{tnodteto}
+    ,#{tnoketgrpcodgun}
+    ,#{tnozaikbn}
+    ,#{cyzupdkbn}
+    ,#{prctyp}
+    ,#{tnosinkyukbngun}
+    ,#{mkrbuncodgun}
+    ,#{tno250stp}
+    ,#{tnoexc250stp}
+    ,#{htnktnkbn}
+    ,#{cyzupdschzflg}
+    ,#{cyzupdzflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{kaiskbcodgun}
+    ,#{tshprckbn}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEGENE10
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SKOCOD = #{skocod}
+    and TNODTEFRM = #{tnodtefrm}
+  </where>
+</sql>
+
+<select id="select" resultType="TanaoroshiShijiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TanaoroshiShijiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TanaoroshiShijiEntity">
+  update AEGENE10
+  <set>
+    ,TNODTETO = #{tnodteto}
+    ,TNOKETGRPCODGUN = #{tnoketgrpcodgun}
+    ,TNOZAIKBN = #{tnozaikbn}
+    ,CYZUPDKBN = #{cyzupdkbn}
+    ,PRCTYP = #{prctyp}
+    ,TNOSINKYUKBNGUN = #{tnosinkyukbngun}
+    ,MKRBUNCODGUN = #{mkrbuncodgun}
+    ,TNO250STP = #{tno250stp}
+    ,TNOEXC250STP = #{tnoexc250stp}
+    ,HTNKTNKBN = #{htnktnkbn}
+    ,CYZUPDSCHZFLG = #{cyzupdschzflg}
+    ,CYZUPDZFLG = #{cyzupdzflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,KAISKBCODGUN = #{kaiskbcodgun}
+    ,TSHPRCKBN = #{tshprckbn}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SKOCOD = #{skocod}
+    and TNODTEFRM = #{tnodtefrm}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TanaoroshiShijiEntity">
+  delete from AEGENE10
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and SKOCOD = #{skocod}
+    and TNODTEFRM = #{tnodtefrm}
+  </where>
+</delete>
+
+</mapper>
+

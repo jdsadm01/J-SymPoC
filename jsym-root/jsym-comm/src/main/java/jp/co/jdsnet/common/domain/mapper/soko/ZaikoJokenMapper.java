@@ -1,12 +1,13 @@
 package jp.co.jdsnet.common.domain.mapper.soko;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import jp.co.jdsnet.common.domain.entity.soko.ZaikoJokenEntity;
 
+/**
+ * 在庫条件Mapperインターフェース
+ *
+ * @author ソース生成ツール
+ */
 @Mapper
-public interface ZaikoJokenMapper {
-	ZaikoJokenEntity select(ZaikoJokenEntity entity);
-	List<ZaikoJokenEntity> selectForTnasth(@Param("daikaiskbcod") String daikaiskbcod, @Param("kigbng") String kigbng);
+public interface ZaikoJokenMapper extends GeneratedZaikoJokenMapper {
+
 }

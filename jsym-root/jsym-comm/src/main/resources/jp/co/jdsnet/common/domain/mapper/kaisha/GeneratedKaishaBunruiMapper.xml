@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedKaishaBunruiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRBUN
+    ,KAIBUN
+    ,KAISKBCOD
+    ,HJIJUN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,GRE
+    ,SRT
+    ,ITMTRM
+    ,DTAEXCFLG
+    ,SHNTHNKBN
+    ,KSNMNT
+    ,TEIGNYFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KaishaBunruiEntity">
+  insert into FTBKAI11
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrbun}
+    ,#{kaibun}
+    ,#{kaiskbcod}
+    ,#{hjijun}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{gre}
+    ,#{srt}
+    ,#{itmtrm}
+    ,#{dtaexcflg}
+    ,#{shnthnkbn}
+    ,#{ksnmnt}
+    ,#{teignyflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from FTBKAI11
+  <where>
+    and USRBUN = #{usrbun}
+    and KAIBUN = #{kaibun}
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="KaishaBunruiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KaishaBunruiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KaishaBunruiEntity">
+  update FTBKAI11
+  <set>
+    ,HJIJUN = #{hjijun}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,GRE = #{gre}
+    ,SRT = #{srt}
+    ,ITMTRM = #{itmtrm}
+    ,DTAEXCFLG = #{dtaexcflg}
+    ,SHNTHNKBN = #{shnthnkbn}
+    ,KSNMNT = #{ksnmnt}
+    ,TEIGNYFLG = #{teignyflg}
+  </set>
+  <where>
+    and USRBUN = #{usrbun}
+    and KAIBUN = #{kaibun}
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KaishaBunruiEntity">
+  delete from FTBKAI11
+  <where>
+    and USRBUN = #{usrbun}
+    and KAIBUN = #{kaibun}
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,8 +1,8 @@
 package jp.co.jdsnet.base.annotation;
 
-import java.lang.annotation.ElementType;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
  * <p>
  * Javaの仕様としてFieldの順序は保証されないため、ClassのFiled順序を指定するためのAnnotationです.
  */
-@Target({ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
+@Target({FIELD})
+@Retention(RUNTIME)
 public @interface FieldOrder {
 
     short value() default Short.MAX_VALUE;

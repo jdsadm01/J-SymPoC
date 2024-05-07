@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.jokensettei.GeneratedSokoKeitaiGroupMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SKOKETGRPCOD
+    ,SKOKETGRPNMKN
+    ,SKOKETGRPNM
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SokoKeitaiGroupMidashiEntity">
+  insert into AECOND06
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{skoketgrpcod}
+    ,#{skoketgrpnmkn}
+    ,#{skoketgrpnm}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOND06
+  <where>
+    and SKOKETGRPCOD = #{skoketgrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="SokoKeitaiGroupMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SokoKeitaiGroupMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SokoKeitaiGroupMidashiEntity">
+  update AECOND06
+  <set>
+    ,SKOKETGRPNMKN = #{skoketgrpnmkn}
+    ,SKOKETGRPNM = #{skoketgrpnm}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SKOKETGRPCOD = #{skoketgrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SokoKeitaiGroupMidashiEntity">
+  delete from AECOND06
+  <where>
+    and SKOKETGRPCOD = #{skoketgrpcod}
+  </where>
+</delete>
+
+</mapper>
+

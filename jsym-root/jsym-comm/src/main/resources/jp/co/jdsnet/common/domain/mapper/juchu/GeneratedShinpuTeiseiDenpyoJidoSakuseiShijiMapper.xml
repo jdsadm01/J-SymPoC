@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedShinpuTeiseiDenpyoJidoSakuseiShijiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SINTEIOBJKBN
+    ,DAIKAISKBCOD
+    ,HBIDTE
+    ,KIGBNG
+    ,TEISJIARIFLGPLS
+    ,TEISJIARIFLGMNS
+    ,SSNDTE
+    ,KCYPRCDTE
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,ENTDTE
+    ,ENTJKK
+    ,PRCYTEDTE
+    ,PRCKRUFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,MTDFMGUSEFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuTeiseiDenpyoJidoSakuseiShijiEntity">
+  insert into AERORD29
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{sinteiobjkbn}
+    ,#{daikaiskbcod}
+    ,#{hbidte}
+    ,#{kigbng}
+    ,#{teisjiariflgpls}
+    ,#{teisjiariflgmns}
+    ,#{ssndte}
+    ,#{kcyprcdte}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{entdte}
+    ,#{entjkk}
+    ,#{prcytedte}
+    ,#{prckruflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{mtdfmguseflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD29
+  <where>
+    and SINTEIOBJKBN = #{sinteiobjkbn}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and KIGBNG = #{kigbng}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuTeiseiDenpyoJidoSakuseiShijiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuTeiseiDenpyoJidoSakuseiShijiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuTeiseiDenpyoJidoSakuseiShijiEntity">
+  update AERORD29
+  <set>
+    ,TEISJIARIFLGPLS = #{teisjiariflgpls}
+    ,TEISJIARIFLGMNS = #{teisjiariflgmns}
+    ,SSNDTE = #{ssndte}
+    ,KCYPRCDTE = #{kcyprcdte}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,ENTDTE = #{entdte}
+    ,ENTJKK = #{entjkk}
+    ,PRCYTEDTE = #{prcytedte}
+    ,PRCKRUFLG = #{prckruflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,MTDFMGUSEFLG = #{mtdfmguseflg}
+  </set>
+  <where>
+    and SINTEIOBJKBN = #{sinteiobjkbn}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and KIGBNG = #{kigbng}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuTeiseiDenpyoJidoSakuseiShijiEntity">
+  delete from AERORD29
+  <where>
+    and SINTEIOBJKBN = #{sinteiobjkbn}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and KIGBNG = #{kigbng}
+  </where>
+</delete>
+
+</mapper>
+

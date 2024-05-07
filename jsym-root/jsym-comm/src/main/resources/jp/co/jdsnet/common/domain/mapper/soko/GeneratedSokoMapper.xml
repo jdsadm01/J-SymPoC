@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedSokoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SKOCOD
+    ,BSHCOD
+    ,SIYBLKCOD
+    ,SKONMKN
+    ,SKONM
+    ,TIKCOD
+    ,NOHDENMRGMSISUU
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SokoEntity">
+  insert into AEWARE01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{skocod}
+    ,#{bshcod}
+    ,#{siyblkcod}
+    ,#{skonmkn}
+    ,#{skonm}
+    ,#{tikcod}
+    ,#{nohdenmrgmsisuu}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE01
+  <where>
+    and SKOCOD = #{skocod}
+  </where>
+</sql>
+
+<select id="select" resultType="SokoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SokoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SokoEntity">
+  update AEWARE01
+  <set>
+    ,BSHCOD = #{bshcod}
+    ,SIYBLKCOD = #{siyblkcod}
+    ,SKONMKN = #{skonmkn}
+    ,SKONM = #{skonm}
+    ,TIKCOD = #{tikcod}
+    ,NOHDENMRGMSISUU = #{nohdenmrgmsisuu}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SKOCOD = #{skocod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SokoEntity">
+  delete from AEWARE01
+  <where>
+    and SKOCOD = #{skocod}
+  </where>
+</delete>
+
+</mapper>
+

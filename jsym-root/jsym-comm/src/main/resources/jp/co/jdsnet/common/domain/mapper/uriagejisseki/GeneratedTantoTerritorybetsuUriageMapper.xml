@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.uriagejisseki.GeneratedTantoTerritorybetsuUriageMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,TERGRPCOD
+    ,URIGRPCOD
+    ,URIMOK
+    ,TODSINSGTURIKIN
+    ,TODKYUURIKIN
+    ,TODHPNKIN
+    ,TOMURIKIN
+    ,TOMSINKCYURIKIN
+    ,TOMURISINBAK
+    ,TOMSINSGTURIKIN
+    ,TOMKNISINURIKIN
+    ,TOMKYUURIKIN
+    ,TOMHPNKIN
+    ,TOMSINKCYHPNKIN
+    ,TOMSINSGTHPNKIN
+    ,TOMSINKYUHPNKIN
+    ,KKNURIKIN
+    ,KKNSINKCYURIKIN
+    ,KKNSINSGTURIKIN
+    ,KKNKNISINURIKIN
+    ,KKNHPNKIN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TantoTerritorybetsuUriageEntity">
+  insert into AESALE07
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{tergrpcod}
+    ,#{urigrpcod}
+    ,#{urimok}
+    ,#{todsinsgturikin}
+    ,#{todkyuurikin}
+    ,#{todhpnkin}
+    ,#{tomurikin}
+    ,#{tomsinkcyurikin}
+    ,#{tomurisinbak}
+    ,#{tomsinsgturikin}
+    ,#{tomknisinurikin}
+    ,#{tomkyuurikin}
+    ,#{tomhpnkin}
+    ,#{tomsinkcyhpnkin}
+    ,#{tomsinsgthpnkin}
+    ,#{tomsinkyuhpnkin}
+    ,#{kknurikin}
+    ,#{kknsinkcyurikin}
+    ,#{kknsinsgturikin}
+    ,#{kknknisinurikin}
+    ,#{kknhpnkin}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESALE07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and TERGRPCOD = #{tergrpcod}
+    and URIGRPCOD = #{urigrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="TantoTerritorybetsuUriageEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TantoTerritorybetsuUriageEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TantoTerritorybetsuUriageEntity">
+  update AESALE07
+  <set>
+    ,URIMOK = #{urimok}
+    ,TODSINSGTURIKIN = #{todsinsgturikin}
+    ,TODKYUURIKIN = #{todkyuurikin}
+    ,TODHPNKIN = #{todhpnkin}
+    ,TOMURIKIN = #{tomurikin}
+    ,TOMSINKCYURIKIN = #{tomsinkcyurikin}
+    ,TOMURISINBAK = #{tomurisinbak}
+    ,TOMSINSGTURIKIN = #{tomsinsgturikin}
+    ,TOMKNISINURIKIN = #{tomknisinurikin}
+    ,TOMKYUURIKIN = #{tomkyuurikin}
+    ,TOMHPNKIN = #{tomhpnkin}
+    ,TOMSINKCYHPNKIN = #{tomsinkcyhpnkin}
+    ,TOMSINSGTHPNKIN = #{tomsinsgthpnkin}
+    ,TOMSINKYUHPNKIN = #{tomsinkyuhpnkin}
+    ,KKNURIKIN = #{kknurikin}
+    ,KKNSINKCYURIKIN = #{kknsinkcyurikin}
+    ,KKNSINSGTURIKIN = #{kknsinsgturikin}
+    ,KKNKNISINURIKIN = #{kknknisinurikin}
+    ,KKNHPNKIN = #{kknhpnkin}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and TERGRPCOD = #{tergrpcod}
+    and URIGRPCOD = #{urigrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TantoTerritorybetsuUriageEntity">
+  delete from AESALE07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and TERGRPCOD = #{tergrpcod}
+    and URIGRPCOD = #{urigrpcod}
+  </where>
+</delete>
+
+</mapper>
+

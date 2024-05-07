@@ -14,42 +14,42 @@ import jp.co.jdsnet.infoservice.webapp.controller.HintokResultController;
 
 @Controller
 public class RegisterController {
-    @Autowired
-    private HttpSession httpSession;
-	@Autowired
-    private AllStockController allStockController;
-    @Autowired
-    private HintokResultController hintokResultController;
+  @Autowired
+  private HttpSession httpSession;
+  @Autowired
+  private AllStockController allStockController;
+  @Autowired
+  private HintokResultController hintokResultController;
 
-    @Value("${property.session.userInfoKey}")
-    private String userInfoKey;
-    @Value("${property.session.idKey}")
-    private String idKey;
+  @Value("${property.session.userInfoKey}")
+  private String userInfoKey;
+  @Value("${property.session.idKey}")
+  private String idKey;
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register(Model model) {
-    	httpSession.setAttribute(idKey, httpSession.getId());
-		httpSession.setAttribute(userInfoKey, 
-				UserInfoVO.builder()
-	    		.usrid("test.userid")
-	    		.usrnm("レジスタユーザー")
-	    		.daikaiskbcod("JDS")
-	    		.kaiskbcod("JDS")
-	    		.usrbun("JDS")
-	    		.mnugrpcod("100")
-	    		.lastAccessTime(LocalDateTime.now())
-	    		.build());
-        return "register/menu";
-	}
+  @RequestMapping(value = "/register", method = RequestMethod.GET)
+  public String register(Model model) {
+    httpSession.setAttribute(idKey, httpSession.getId());
+    httpSession.setAttribute(userInfoKey,
+        UserInfoVO.builder()
+            .usrid("JDSr-matsumura")
+            .usrnm("レジスタユーザー")
+            .daikaiskbcod("JDS")
+            .kaiskbcod("JDS")
+            .usrbun("JDS")
+            .mnugrpcod("100")
+            .lastAccessTime(LocalDateTime.now())
+            .build());
+    return "register/menu";
+  }
 
-	@RequestMapping(value = "/register/allstock")
-	public String allstock(Model model) {
-      return allStockController.init(model);
-    }
+  @RequestMapping(value = "/register/allstock")
+  public String allstock(Model model) throws Exception {
+    return allStockController.init(model);
+  }
 
-    @RequestMapping(value = "/register/hintokResult")
-    public String hintokResult(Model model) {
-      return hintokResultController.init(model);
-    }
-	
+  @RequestMapping(value = "/register/hintokResult")
+  public String hintokResult(Model model) throws Exception {
+    return hintokResultController.init(model);
+  }
+
 }

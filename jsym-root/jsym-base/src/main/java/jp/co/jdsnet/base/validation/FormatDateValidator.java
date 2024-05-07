@@ -7,14 +7,16 @@ import java.time.format.ResolverStyle;
 import io.micrometer.common.util.StringUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import jp.co.jdsnet.base.annotation.FormatDate;
+import jp.co.jdsnet.base.annotation.CheckDate;
 
-public class FormatDateValidator implements ConstraintValidator<FormatDate, String> {
-  private FormatDate.FormatType format;
+public class FormatDateValidator implements ConstraintValidator<CheckDate, String> {
+  private CheckDate.FormatType format;
+  private CheckDate.AllowException allow;
   
   @Override
-  public void initialize(FormatDate formatDate) {
-    format = formatDate.format();
+  public void initialize(CheckDate annotation) {
+    format = annotation.format();
+    allow = annotation.allow();
   }
   
   @Override
@@ -24,7 +26,7 @@ public class FormatDateValidator implements ConstraintValidator<FormatDate, Stri
     }
     
     if (!format.isCorrectFormat(value)) {
-      return false;
+      return allow.isAllowFormat(value, format.name().length());
     }
 
     try {

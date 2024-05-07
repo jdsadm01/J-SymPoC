@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedSokoShuyakuMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,GMNLSTKBN
+    ,SKOSYYCOD
+    ,SKOCOD
+    ,SRTSEQ
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SokoShuyakuMeisaiEntity">
+  insert into AECOMP23
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{gmnlstkbn}
+    ,#{skosyycod}
+    ,#{skocod}
+    ,#{srtseq}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP23
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and GMNLSTKBN = #{gmnlstkbn}
+    and SKOSYYCOD = #{skosyycod}
+    and SKOCOD = #{skocod}
+  </where>
+</sql>
+
+<select id="select" resultType="SokoShuyakuMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SokoShuyakuMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SokoShuyakuMeisaiEntity">
+  update AECOMP23
+  <set>
+    ,SRTSEQ = #{srtseq}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and GMNLSTKBN = #{gmnlstkbn}
+    and SKOSYYCOD = #{skosyycod}
+    and SKOCOD = #{skocod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SokoShuyakuMeisaiEntity">
+  delete from AECOMP23
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and GMNLSTKBN = #{gmnlstkbn}
+    and SKOSYYCOD = #{skosyycod}
+    and SKOCOD = #{skocod}
+  </where>
+</delete>
+
+</mapper>
+

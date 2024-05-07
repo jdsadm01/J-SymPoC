@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedEmShijiMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,EMSJIMDSSEQ
+    ,SEQ
+    ,DENMSIOUTJN
+    ,DAIKAISKBCOD
+    ,MKRDENBNG
+    ,KIGBNG
+    ,DENMSIJUCSUR
+    ,DENMSISYASUR
+    ,EMSJIJUCSUR
+    ,EMSJISYASUR
+    ,ERRARIFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="EmShijiMeisaiEntity">
+  insert into AERORD19
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{emsjimdsseq}
+    ,#{seq}
+    ,#{denmsioutjn}
+    ,#{daikaiskbcod}
+    ,#{mkrdenbng}
+    ,#{kigbng}
+    ,#{denmsijucsur}
+    ,#{denmsisyasur}
+    ,#{emsjijucsur}
+    ,#{emsjisyasur}
+    ,#{errariflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD19
+  <where>
+    and INPDTE = #{inpdte}
+    and EMSJIMDSSEQ = #{emsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="EmShijiMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="EmShijiMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="EmShijiMeisaiEntity">
+  update AERORD19
+  <set>
+    ,DENMSIOUTJN = #{denmsioutjn}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,MKRDENBNG = #{mkrdenbng}
+    ,KIGBNG = #{kigbng}
+    ,DENMSIJUCSUR = #{denmsijucsur}
+    ,DENMSISYASUR = #{denmsisyasur}
+    ,EMSJIJUCSUR = #{emsjijucsur}
+    ,EMSJISYASUR = #{emsjisyasur}
+    ,ERRARIFLG = #{errariflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and EMSJIMDSSEQ = #{emsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="EmShijiMeisaiEntity">
+  delete from AERORD19
+  <where>
+    and INPDTE = #{inpdte}
+    and EMSJIMDSSEQ = #{emsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

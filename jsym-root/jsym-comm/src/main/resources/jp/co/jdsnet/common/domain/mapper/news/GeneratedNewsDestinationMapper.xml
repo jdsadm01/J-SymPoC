@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.news.GeneratedNewsDestinationMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,NWSSEQ
+    ,NWSATSSEQ
+    ,ATSKBN
+    ,ATSINF
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="NewsDestinationEntity">
+  insert into VTBNWS03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{nwsseq}
+    ,#{nwsatsseq}
+    ,#{atskbn}
+    ,#{atsinf}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBNWS03
+  <where>
+    and NWSSEQ = #{nwsseq}
+    and NWSATSSEQ = #{nwsatsseq}
+  </where>
+</sql>
+
+<select id="select" resultType="NewsDestinationEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="NewsDestinationEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="NewsDestinationEntity">
+  update VTBNWS03
+  <set>
+    ,ATSKBN = #{atskbn}
+    ,ATSINF = #{atsinf}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and NWSSEQ = #{nwsseq}
+    and NWSATSSEQ = #{nwsatsseq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="NewsDestinationEntity">
+  delete from VTBNWS03
+  <where>
+    and NWSSEQ = #{nwsseq}
+    and NWSATSSEQ = #{nwsatsseq}
+  </where>
+</delete>
+
+</mapper>
+

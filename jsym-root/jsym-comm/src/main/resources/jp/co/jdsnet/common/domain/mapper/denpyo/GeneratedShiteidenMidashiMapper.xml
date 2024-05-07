@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.denpyo.GeneratedShiteidenMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,STDSSEDTE
+    ,BSHCOD
+    ,STDRELNO
+    ,TRNCOD
+    ,DAIKAISKBCOD
+    ,MKRDENBNG
+    ,KYODENBNG
+    ,NOHDENDTE
+    ,TOKCOD
+    ,DSCOD
+    ,STDBNG
+    ,CHD
+    ,STDDTE
+    ,STDKBN
+    ,STDHJNCOD
+    ,STDNOHBSHCOD
+    ,STDTORSAKCOD
+    ,EIGCOD
+    ,STDBUNCOD
+    ,STDDENKBNCOD
+    ,HBEBNGCOD
+    ,HSOHMNBLKCOD
+    ,SHOTITHJIKBN
+    ,THCBNG
+    ,YKNCOD
+    ,SEIMM
+    ,STDTYO1
+    ,STDTYO2
+    ,STDTYO3
+    ,STDTYO4
+    ,FRN
+    ,PAGBNG
+    ,PAGBNGENDSGN
+    ,EMSGN
+    ,MSISUU
+    ,GPROSSNZFLG
+    ,GPROSSNDTE
+    ,GPROSSNJKK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShiteidenMidashiEntity">
+  insert into AESLIP03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{stdssedte}
+    ,#{bshcod}
+    ,#{stdrelno}
+    ,#{trncod}
+    ,#{daikaiskbcod}
+    ,#{mkrdenbng}
+    ,#{kyodenbng}
+    ,#{nohdendte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{stdbng}
+    ,#{chd}
+    ,#{stddte}
+    ,#{stdkbn}
+    ,#{stdhjncod}
+    ,#{stdnohbshcod}
+    ,#{stdtorsakcod}
+    ,#{eigcod}
+    ,#{stdbuncod}
+    ,#{stddenkbncod}
+    ,#{hbebngcod}
+    ,#{hsohmnblkcod}
+    ,#{shotithjikbn}
+    ,#{thcbng}
+    ,#{ykncod}
+    ,#{seimm}
+    ,#{stdtyo1}
+    ,#{stdtyo2}
+    ,#{stdtyo3}
+    ,#{stdtyo4}
+    ,#{frn}
+    ,#{pagbng}
+    ,#{pagbngendsgn}
+    ,#{emsgn}
+    ,#{msisuu}
+    ,#{gprossnzflg}
+    ,#{gprossndte}
+    ,#{gprossnjkk}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESLIP03
+  <where>
+    and STDSSEDTE = #{stdssedte}
+    and BSHCOD = #{bshcod}
+    and STDRELNO = #{stdrelno}
+  </where>
+</sql>
+
+<select id="select" resultType="ShiteidenMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShiteidenMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShiteidenMidashiEntity">
+  update AESLIP03
+  <set>
+    ,TRNCOD = #{trncod}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,MKRDENBNG = #{mkrdenbng}
+    ,KYODENBNG = #{kyodenbng}
+    ,NOHDENDTE = #{nohdendte}
+    ,TOKCOD = #{tokcod}
+    ,DSCOD = #{dscod}
+    ,STDBNG = #{stdbng}
+    ,CHD = #{chd}
+    ,STDDTE = #{stddte}
+    ,STDKBN = #{stdkbn}
+    ,STDHJNCOD = #{stdhjncod}
+    ,STDNOHBSHCOD = #{stdnohbshcod}
+    ,STDTORSAKCOD = #{stdtorsakcod}
+    ,EIGCOD = #{eigcod}
+    ,STDBUNCOD = #{stdbuncod}
+    ,STDDENKBNCOD = #{stddenkbncod}
+    ,HBEBNGCOD = #{hbebngcod}
+    ,HSOHMNBLKCOD = #{hsohmnblkcod}
+    ,SHOTITHJIKBN = #{shotithjikbn}
+    ,THCBNG = #{thcbng}
+    ,YKNCOD = #{ykncod}
+    ,SEIMM = #{seimm}
+    ,STDTYO1 = #{stdtyo1}
+    ,STDTYO2 = #{stdtyo2}
+    ,STDTYO3 = #{stdtyo3}
+    ,STDTYO4 = #{stdtyo4}
+    ,FRN = #{frn}
+    ,PAGBNG = #{pagbng}
+    ,PAGBNGENDSGN = #{pagbngendsgn}
+    ,EMSGN = #{emsgn}
+    ,MSISUU = #{msisuu}
+    ,GPROSSNZFLG = #{gprossnzflg}
+    ,GPROSSNDTE = #{gprossndte}
+    ,GPROSSNJKK = #{gprossnjkk}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and STDSSEDTE = #{stdssedte}
+    and BSHCOD = #{bshcod}
+    and STDRELNO = #{stdrelno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShiteidenMidashiEntity">
+  delete from AESLIP03
+  <where>
+    and STDSSEDTE = #{stdssedte}
+    and BSHCOD = #{bshcod}
+    and STDRELNO = #{stdrelno}
+  </where>
+</delete>
+
+</mapper>
+

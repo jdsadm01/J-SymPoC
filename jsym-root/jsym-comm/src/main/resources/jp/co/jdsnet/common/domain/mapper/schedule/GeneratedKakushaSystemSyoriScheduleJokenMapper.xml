@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.schedule.GeneratedKakushaSystemSyoriScheduleJokenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,USRBUN
+    ,SYSPRCID
+    ,TRKKANFLG
+    ,HJIJN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KakushaSystemSyoriScheduleJokenEntity">
+  insert into VTBSCH04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{usrbun}
+    ,#{sysprcid}
+    ,#{trkkanflg}
+    ,#{hjijn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBSCH04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and SYSPRCID = #{sysprcid}
+  </where>
+</sql>
+
+<select id="select" resultType="KakushaSystemSyoriScheduleJokenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KakushaSystemSyoriScheduleJokenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KakushaSystemSyoriScheduleJokenEntity">
+  update VTBSCH04
+  <set>
+    ,TRKKANFLG = #{trkkanflg}
+    ,HJIJN = #{hjijn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and SYSPRCID = #{sysprcid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KakushaSystemSyoriScheduleJokenEntity">
+  delete from VTBSCH04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and SYSPRCID = #{sysprcid}
+  </where>
+</delete>
+
+</mapper>
+

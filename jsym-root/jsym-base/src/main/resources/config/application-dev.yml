@@ -10,6 +10,12 @@ spring:
   main:
     banner-mode: console
     log-startup-info: true
+  messages:
+    cache-duration: -1
+  web:
+    resources:
+      chain:
+        enabled: false
 
 logging:
   level:

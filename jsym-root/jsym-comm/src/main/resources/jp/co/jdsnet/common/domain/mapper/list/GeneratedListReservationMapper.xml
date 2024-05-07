@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedListReservationMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,CHYID
+    ,INPDTE
+    ,SEQNO
+    ,CHYKBN
+    ,CPUFULID
+    ,ENYUSRID
+    ,USRBUN
+    ,YYKPRCKBN
+    ,SSESTEDTE8KT
+    ,BATKIDKBN
+    ,SSESTEJKK
+    ,BSHCOD
+    ,KAISKBCOD
+    ,USRINF
+    ,CMT
+    ,BATWKDTAUSEKBN
+    ,YYKJKN
+    ,JOBID
+    ,PRCKRUFLG
+    ,UPDUSRID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListReservationEntity">
+  insert into VTBLST15
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{chyid}
+    ,#{inpdte}
+    ,#{seqno}
+    ,#{chykbn}
+    ,#{cpufulid}
+    ,#{enyusrid}
+    ,#{usrbun}
+    ,#{yykprckbn}
+    ,#{ssestedte8kt}
+    ,#{batkidkbn}
+    ,#{ssestejkk}
+    ,#{bshcod}
+    ,#{kaiskbcod}
+    ,#{usrinf}
+    ,#{cmt}
+    ,#{batwkdtausekbn}
+    ,#{yykjkn}
+    ,#{jobid}
+    ,#{prckruflg}
+    ,#{updusrid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST15
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+    and INPDTE = #{inpdte}
+    and SEQNO = #{seqno}
+  </where>
+</sql>
+
+<select id="select" resultType="ListReservationEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListReservationEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListReservationEntity">
+  update VTBLST15
+  <set>
+    ,CHYKBN = #{chykbn}
+    ,CPUFULID = #{cpufulid}
+    ,ENYUSRID = #{enyusrid}
+    ,USRBUN = #{usrbun}
+    ,YYKPRCKBN = #{yykprckbn}
+    ,SSESTEDTE8KT = #{ssestedte8kt}
+    ,BATKIDKBN = #{batkidkbn}
+    ,SSESTEJKK = #{ssestejkk}
+    ,BSHCOD = #{bshcod}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,USRINF = #{usrinf}
+    ,CMT = #{cmt}
+    ,BATWKDTAUSEKBN = #{batwkdtausekbn}
+    ,YYKJKN = #{yykjkn}
+    ,JOBID = #{jobid}
+    ,PRCKRUFLG = #{prckruflg}
+    ,UPDUSRID = #{updusrid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+    and INPDTE = #{inpdte}
+    and SEQNO = #{seqno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListReservationEntity">
+  delete from VTBLST15
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+    and INPDTE = #{inpdte}
+    and SEQNO = #{seqno}
+  </where>
+</delete>
+
+</mapper>
+

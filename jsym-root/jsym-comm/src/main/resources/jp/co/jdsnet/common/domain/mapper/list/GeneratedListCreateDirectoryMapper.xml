@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedListCreateDirectoryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,CHYID
+    ,CHYSYB
+    ,SSEDIR
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListCreateDirectoryEntity">
+  insert into VTBLST04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{chyid}
+    ,#{chysyb}
+    ,#{ssedir}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+  </where>
+</sql>
+
+<select id="select" resultType="ListCreateDirectoryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListCreateDirectoryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListCreateDirectoryEntity">
+  update VTBLST04
+  <set>
+    ,CHYSYB = #{chysyb}
+    ,SSEDIR = #{ssedir}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListCreateDirectoryEntity">
+  delete from VTBLST04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and CHYID = #{chyid}
+  </where>
+</delete>
+
+</mapper>
+

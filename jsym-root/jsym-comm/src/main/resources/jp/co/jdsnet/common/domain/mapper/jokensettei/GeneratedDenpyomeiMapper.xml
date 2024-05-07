@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.jokensettei.GeneratedDenpyomeiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TRNCOD
+    ,KDADENNMKBN
+    ,DENNM1
+    ,DENNM2
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DenpyomeiEntity">
+  insert into AECOND13
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{trncod}
+    ,#{kdadennmkbn}
+    ,#{dennm1}
+    ,#{dennm2}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOND13
+  <where>
+    and TRNCOD = #{trncod}
+    and KDADENNMKBN = #{kdadennmkbn}
+  </where>
+</sql>
+
+<select id="select" resultType="DenpyomeiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DenpyomeiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DenpyomeiEntity">
+  update AECOND13
+  <set>
+    ,DENNM1 = #{dennm1}
+    ,DENNM2 = #{dennm2}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and TRNCOD = #{trncod}
+    and KDADENNMKBN = #{kdadennmkbn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DenpyomeiEntity">
+  delete from AECOND13
+  <where>
+    and TRNCOD = #{trncod}
+    and KDADENNMKBN = #{kdadennmkbn}
+  </where>
+</delete>
+
+</mapper>
+

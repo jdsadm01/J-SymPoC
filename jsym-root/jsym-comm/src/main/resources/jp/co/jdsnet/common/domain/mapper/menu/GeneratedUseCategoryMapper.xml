@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedUseCategoryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,USRBUN
+    ,GYMID
+    ,CTGCOD
+    ,HJIGYMID
+    ,HJICTGCOD
+    ,CTGHJIJUN
+    ,USESTTDTE
+    ,USEENDDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="UseCategoryEntity">
+  insert into VTBMNU09
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{usrbun}
+    ,#{gymid}
+    ,#{ctgcod}
+    ,#{hjigymid}
+    ,#{hjictgcod}
+    ,#{ctghjijun}
+    ,#{usesttdte}
+    ,#{useenddte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMNU09
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+  </where>
+</sql>
+
+<select id="select" resultType="UseCategoryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="UseCategoryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="UseCategoryEntity">
+  update VTBMNU09
+  <set>
+    ,HJIGYMID = #{hjigymid}
+    ,HJICTGCOD = #{hjictgcod}
+    ,CTGHJIJUN = #{ctghjijun}
+    ,USESTTDTE = #{usesttdte}
+    ,USEENDDTE = #{useenddte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="UseCategoryEntity">
+  delete from VTBMNU09
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+    and CTGCOD = #{ctgcod}
+  </where>
+</delete>
+
+</mapper>
+

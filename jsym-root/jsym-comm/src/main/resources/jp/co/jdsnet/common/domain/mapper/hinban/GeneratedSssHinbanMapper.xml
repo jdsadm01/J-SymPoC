@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hinban.GeneratedSssHinbanMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,KAISKBCOD
+    ,MKRBUN
+    ,KIGKTA
+    ,KIGHKNUMU
+    ,SRYKIG
+    ,HJIHNB
+    ,ARTCOD
+    ,ARTKN
+    ,ARTKJ
+    ,TITKN
+    ,TITKJ
+    ,CTGCOD
+    ,KETCOD
+    ,HBIDTE
+    ,SINBNG
+    ,GYB
+    ,JUCSMEDTE
+    ,JUCSMEDTE2
+    ,TOKJUCSMEDTE
+    ,KCYDTE
+    ,JANCOD
+    ,KRESYAKHI
+    ,RNTSYAKHIKBN
+    ,KREHYOKBN
+    ,SSBCOD
+    ,KITKBN
+    ,SSSKITKBN
+    ,SHBKBN
+    ,TRKKBN
+    ,LBLCOD
+    ,LBLMKRCOD
+    ,TOMRAK
+    ,SHNTHNKBN
+    ,SRTKEY
+    ,SIRKRTIPN
+    ,SIRTANIPN
+    ,SKRTANPTN
+    ,KRTTANICHCOD
+    ,SKRKRTIPN
+    ,SKRKRTKRE
+    ,SKRTANIPN
+    ,SKRTANKRE
+    ,TKA
+    ,ZEIKMITKA
+    ,PRSMKRCOD
+    ,TAKSHOICH
+    ,TERICH
+    ,JGNSGN
+    ,HACLOT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SssHinbanEntity">
+  insert into VTBSSS00
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{kaiskbcod}
+    ,#{mkrbun}
+    ,#{kigkta}
+    ,#{kighknumu}
+    ,#{srykig}
+    ,#{hjihnb}
+    ,#{artcod}
+    ,#{artkn}
+    ,#{artkj}
+    ,#{titkn}
+    ,#{titkj}
+    ,#{ctgcod}
+    ,#{ketcod}
+    ,#{hbidte}
+    ,#{sinbng}
+    ,#{gyb}
+    ,#{jucsmedte}
+    ,#{jucsmedte2}
+    ,#{tokjucsmedte}
+    ,#{kcydte}
+    ,#{jancod}
+    ,#{kresyakhi}
+    ,#{rntsyakhikbn}
+    ,#{krehyokbn}
+    ,#{ssbcod}
+    ,#{kitkbn}
+    ,#{ssskitkbn}
+    ,#{shbkbn}
+    ,#{trkkbn}
+    ,#{lblcod}
+    ,#{lblmkrcod}
+    ,#{tomrak}
+    ,#{shnthnkbn}
+    ,#{srtkey}
+    ,#{sirkrtipn}
+    ,#{sirtanipn}
+    ,#{skrtanptn}
+    ,#{krttanichcod}
+    ,#{skrkrtipn}
+    ,#{skrkrtkre}
+    ,#{skrtanipn}
+    ,#{skrtankre}
+    ,#{tka}
+    ,#{zeikmitka}
+    ,#{prsmkrcod}
+    ,#{takshoich}
+    ,#{terich}
+    ,#{jgnsgn}
+    ,#{haclot}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBSSS00
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</sql>
+
+<select id="select" resultType="SssHinbanEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SssHinbanEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SssHinbanEntity">
+  update VTBSSS00
+  <set>
+    ,KAISKBCOD = #{kaiskbcod}
+    ,MKRBUN = #{mkrbun}
+    ,KIGKTA = #{kigkta}
+    ,KIGHKNUMU = #{kighknumu}
+    ,SRYKIG = #{srykig}
+    ,HJIHNB = #{hjihnb}
+    ,ARTCOD = #{artcod}
+    ,ARTKN = #{artkn}
+    ,ARTKJ = #{artkj}
+    ,TITKN = #{titkn}
+    ,TITKJ = #{titkj}
+    ,CTGCOD = #{ctgcod}
+    ,KETCOD = #{ketcod}
+    ,HBIDTE = #{hbidte}
+    ,SINBNG = #{sinbng}
+    ,GYB = #{gyb}
+    ,JUCSMEDTE = #{jucsmedte}
+    ,JUCSMEDTE2 = #{jucsmedte2}
+    ,TOKJUCSMEDTE = #{tokjucsmedte}
+    ,KCYDTE = #{kcydte}
+    ,JANCOD = #{jancod}
+    ,KRESYAKHI = #{kresyakhi}
+    ,RNTSYAKHIKBN = #{rntsyakhikbn}
+    ,KREHYOKBN = #{krehyokbn}
+    ,SSBCOD = #{ssbcod}
+    ,KITKBN = #{kitkbn}
+    ,SSSKITKBN = #{ssskitkbn}
+    ,SHBKBN = #{shbkbn}
+    ,TRKKBN = #{trkkbn}
+    ,LBLCOD = #{lblcod}
+    ,LBLMKRCOD = #{lblmkrcod}
+    ,TOMRAK = #{tomrak}
+    ,SHNTHNKBN = #{shnthnkbn}
+    ,SRTKEY = #{srtkey}
+    ,SIRKRTIPN = #{sirkrtipn}
+    ,SIRTANIPN = #{sirtanipn}
+    ,SKRTANPTN = #{skrtanptn}
+    ,KRTTANICHCOD = #{krttanichcod}
+    ,SKRKRTIPN = #{skrkrtipn}
+    ,SKRKRTKRE = #{skrkrtkre}
+    ,SKRTANIPN = #{skrtanipn}
+    ,SKRTANKRE = #{skrtankre}
+    ,TKA = #{tka}
+    ,ZEIKMITKA = #{zeikmitka}
+    ,PRSMKRCOD = #{prsmkrcod}
+    ,TAKSHOICH = #{takshoich}
+    ,TERICH = #{terich}
+    ,JGNSGN = #{jgnsgn}
+    ,HACLOT = #{haclot}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SssHinbanEntity">
+  delete from VTBSSS00
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</delete>
+
+</mapper>
+

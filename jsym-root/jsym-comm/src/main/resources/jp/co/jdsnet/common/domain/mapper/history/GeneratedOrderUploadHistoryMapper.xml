@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.history.GeneratedOrderUploadHistoryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,ENYDTE
+    ,DAIKAISKBCOD
+    ,TRNCOD
+    ,SEQNO
+    ,ENYJKK
+    ,UPLFLENM
+    ,HKNFLENM
+    ,MSISUU
+    ,HBIDTE
+    ,KCYDTE
+    ,HINSUU
+    ,JUCSUR
+    ,TOKSUU
+    ,PRCKBN
+    ,USRID
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="OrderUploadHistoryEntity">
+  insert into VTBRRK04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{enydte}
+    ,#{daikaiskbcod}
+    ,#{trncod}
+    ,#{seqno}
+    ,#{enyjkk}
+    ,#{uplflenm}
+    ,#{hknflenm}
+    ,#{msisuu}
+    ,#{hbidte}
+    ,#{kcydte}
+    ,#{hinsuu}
+    ,#{jucsur}
+    ,#{toksuu}
+    ,#{prckbn}
+    ,#{usrid}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBRRK04
+  <where>
+    and ENYDTE = #{enydte}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TRNCOD = #{trncod}
+    and SEQNO = #{seqno}
+  </where>
+</sql>
+
+<select id="select" resultType="OrderUploadHistoryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="OrderUploadHistoryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="OrderUploadHistoryEntity">
+  update VTBRRK04
+  <set>
+    ,ENYJKK = #{enyjkk}
+    ,UPLFLENM = #{uplflenm}
+    ,HKNFLENM = #{hknflenm}
+    ,MSISUU = #{msisuu}
+    ,HBIDTE = #{hbidte}
+    ,KCYDTE = #{kcydte}
+    ,HINSUU = #{hinsuu}
+    ,JUCSUR = #{jucsur}
+    ,TOKSUU = #{toksuu}
+    ,PRCKBN = #{prckbn}
+    ,USRID = #{usrid}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and ENYDTE = #{enydte}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TRNCOD = #{trncod}
+    and SEQNO = #{seqno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="OrderUploadHistoryEntity">
+  delete from VTBRRK04
+  <where>
+    and ENYDTE = #{enydte}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TRNCOD = #{trncod}
+    and SEQNO = #{seqno}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.jokensettei.GeneratedListEigyoshoJuzokuBashoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,EIGCOD
+    ,BSHCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListEigyoshoJuzokuBashoEntity">
+  insert into AECOND11
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{eigcod}
+    ,#{bshcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOND11
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGCOD = #{eigcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ListEigyoshoJuzokuBashoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListEigyoshoJuzokuBashoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListEigyoshoJuzokuBashoEntity">
+  update AECOND11
+  <set>
+    ,BSHCOD = #{bshcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGCOD = #{eigcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListEigyoshoJuzokuBashoEntity">
+  delete from AECOND11
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGCOD = #{eigcod}
+  </where>
+</delete>
+
+</mapper>
+

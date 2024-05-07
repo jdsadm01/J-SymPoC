@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedHaisoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,BSHCOD
+    ,TOKCOD
+    ,DSCOD
+    ,HSOROTCOD
+    ,HSOROTEDA
+    ,HSOSRTCOD
+    ,HSOHMNCOD
+    ,HSOBLKCOD
+    ,HSONPOSSECOD
+    ,SHOOKRSSECOD
+    ,OUTSAKCOD
+    ,SHOSWKCOD
+    ,HSOKWK
+    ,KTNJKK
+    ,STDKSY
+    ,MISKET
+    ,NOHBSH
+    ,KPNKET
+    ,MKY
+    ,DENMRGFKASGN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,SINHSONSU
+    ,SINKCYSYANSU
+    ,SINTUISYANSU
+    ,KYUHSONSU
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HaisoEntity">
+  insert into AEWARE04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{bshcod}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{hsorotcod}
+    ,#{hsoroteda}
+    ,#{hsosrtcod}
+    ,#{hsohmncod}
+    ,#{hsoblkcod}
+    ,#{hsonpossecod}
+    ,#{shookrssecod}
+    ,#{outsakcod}
+    ,#{shoswkcod}
+    ,#{hsokwk}
+    ,#{ktnjkk}
+    ,#{stdksy}
+    ,#{misket}
+    ,#{nohbsh}
+    ,#{kpnket}
+    ,#{mky}
+    ,#{denmrgfkasgn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{sinhsonsu}
+    ,#{sinkcysyansu}
+    ,#{sintuisyansu}
+    ,#{kyuhsonsu}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE04
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</sql>
+
+<select id="select" resultType="HaisoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HaisoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HaisoEntity">
+  update AEWARE04
+  <set>
+    ,HSOROTCOD = #{hsorotcod}
+    ,HSOROTEDA = #{hsoroteda}
+    ,HSOSRTCOD = #{hsosrtcod}
+    ,HSOHMNCOD = #{hsohmncod}
+    ,HSOBLKCOD = #{hsoblkcod}
+    ,HSONPOSSECOD = #{hsonpossecod}
+    ,SHOOKRSSECOD = #{shookrssecod}
+    ,OUTSAKCOD = #{outsakcod}
+    ,SHOSWKCOD = #{shoswkcod}
+    ,HSOKWK = #{hsokwk}
+    ,KTNJKK = #{ktnjkk}
+    ,STDKSY = #{stdksy}
+    ,MISKET = #{misket}
+    ,NOHBSH = #{nohbsh}
+    ,KPNKET = #{kpnket}
+    ,MKY = #{mky}
+    ,DENMRGFKASGN = #{denmrgfkasgn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,SINHSONSU = #{sinhsonsu}
+    ,SINKCYSYANSU = #{sinkcysyansu}
+    ,SINTUISYANSU = #{sintuisyansu}
+    ,KYUHSONSU = #{kyuhsonsu}
+  </set>
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HaisoEntity">
+  delete from AEWARE04
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedMdvKaishaMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,USRBUN
+    ,DAIKAISKBCOD
+    ,PWDYKOTSU
+    ,PWDYKONSU
+    ,PWDMINKTA
+    ,PWDKOSKBNEJI
+    ,PWDKOSKBNNUM
+    ,PWDKOSKBNKIG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,JSYMLOCKUSEFLG
+    ,JSYMPWDGINPJOGKSU
+    ,JSYMLOCKAUTKJYFLG
+    ,MDVLOCKUSEFLG
+    ,MDVPWDGINPJOGKSU
+    ,MDVLOCKAUTKJYFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="MdvKaishaEntity">
+  insert into MTBKAI01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{usrbun}
+    ,#{daikaiskbcod}
+    ,#{pwdykotsu}
+    ,#{pwdykonsu}
+    ,#{pwdminkta}
+    ,#{pwdkoskbneji}
+    ,#{pwdkoskbnnum}
+    ,#{pwdkoskbnkig}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{jsymlockuseflg}
+    ,#{jsympwdginpjogksu}
+    ,#{jsymlockautkjyflg}
+    ,#{mdvlockuseflg}
+    ,#{mdvpwdginpjogksu}
+    ,#{mdvlockautkjyflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from MTBKAI01
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and USRBUN = #{usrbun}
+  </where>
+</sql>
+
+<select id="select" resultType="MdvKaishaEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="MdvKaishaEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="MdvKaishaEntity">
+  update MTBKAI01
+  <set>
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,PWDYKOTSU = #{pwdykotsu}
+    ,PWDYKONSU = #{pwdykonsu}
+    ,PWDMINKTA = #{pwdminkta}
+    ,PWDKOSKBNEJI = #{pwdkoskbneji}
+    ,PWDKOSKBNNUM = #{pwdkoskbnnum}
+    ,PWDKOSKBNKIG = #{pwdkoskbnkig}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,JSYMLOCKUSEFLG = #{jsymlockuseflg}
+    ,JSYMPWDGINPJOGKSU = #{jsympwdginpjogksu}
+    ,JSYMLOCKAUTKJYFLG = #{jsymlockautkjyflg}
+    ,MDVLOCKUSEFLG = #{mdvlockuseflg}
+    ,MDVPWDGINPJOGKSU = #{mdvpwdginpjogksu}
+    ,MDVLOCKAUTKJYFLG = #{mdvlockautkjyflg}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and USRBUN = #{usrbun}
+  </where>
+</update>
+
+<delete id="delete" parameterType="MdvKaishaEntity">
+  delete from MTBKAI01
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and USRBUN = #{usrbun}
+  </where>
+</delete>
+
+</mapper>
+

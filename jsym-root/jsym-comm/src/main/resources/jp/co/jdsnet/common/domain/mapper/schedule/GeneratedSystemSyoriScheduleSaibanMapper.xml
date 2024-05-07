@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.schedule.GeneratedSystemSyoriScheduleSaibanMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SIBID
+    ,DAIKAISKBCOD
+    ,USRBUN
+    ,CURNO
+    ,JOGNO
+    ,KAGNO
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SystemSyoriScheduleSaibanEntity">
+  insert into VTBSCH06
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{sibid}
+    ,#{daikaiskbcod}
+    ,#{usrbun}
+    ,#{curno}
+    ,#{jogno}
+    ,#{kagno}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBSCH06
+  <where>
+    and SIBID = #{sibid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+  </where>
+</sql>
+
+<select id="select" resultType="SystemSyoriScheduleSaibanEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SystemSyoriScheduleSaibanEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SystemSyoriScheduleSaibanEntity">
+  update VTBSCH06
+  <set>
+    ,CURNO = #{curno}
+    ,JOGNO = #{jogno}
+    ,KAGNO = #{kagno}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SIBID = #{sibid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SystemSyoriScheduleSaibanEntity">
+  delete from VTBSCH06
+  <where>
+    and SIBID = #{sibid}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+  </where>
+</delete>
+
+</mapper>
+

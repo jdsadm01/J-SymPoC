@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sokosagyo.GeneratedTanaoroshiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,SKOCOD
+    ,KIGBNG
+    ,ABZAIKBN
+    ,RMCOD
+    ,TNHNO
+    ,GYB
+    ,TNOTEIFLG
+    ,TNOSINKYUKBN
+    ,TNKBN
+    ,TNOKETGRPCOD
+    ,TNB
+    ,CYZSUR
+    ,JZNSUR
+    ,TNODTEFRM
+    ,TNODTETO
+    ,ZTETOMPLS
+    ,ZTETOMMNS
+    ,ZTEZMMPLS
+    ,ZTEZMMMNS
+    ,SEKZAN
+    ,EDIINPSGN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TanaoroshiEntity">
+  insert into AEGENE11
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{skocod}
+    ,#{kigbng}
+    ,#{abzaikbn}
+    ,#{rmcod}
+    ,#{tnhno}
+    ,#{gyb}
+    ,#{tnoteiflg}
+    ,#{tnosinkyukbn}
+    ,#{tnkbn}
+    ,#{tnoketgrpcod}
+    ,#{tnb}
+    ,#{cyzsur}
+    ,#{jznsur}
+    ,#{tnodtefrm}
+    ,#{tnodteto}
+    ,#{ztetompls}
+    ,#{ztetommns}
+    ,#{ztezmmpls}
+    ,#{ztezmmmns}
+    ,#{sekzan}
+    ,#{ediinpsgn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEGENE11
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RMCOD = #{rmcod}
+    and TNHNO = #{tnhno}
+    and GYB = #{gyb}
+    and TNOTEIFLG = #{tnoteiflg}
+  </where>
+</sql>
+
+<select id="select" resultType="TanaoroshiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TanaoroshiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TanaoroshiEntity">
+  update AEGENE11
+  <set>
+    ,TNOSINKYUKBN = #{tnosinkyukbn}
+    ,TNKBN = #{tnkbn}
+    ,TNOKETGRPCOD = #{tnoketgrpcod}
+    ,TNB = #{tnb}
+    ,CYZSUR = #{cyzsur}
+    ,JZNSUR = #{jznsur}
+    ,TNODTEFRM = #{tnodtefrm}
+    ,TNODTETO = #{tnodteto}
+    ,ZTETOMPLS = #{ztetompls}
+    ,ZTETOMMNS = #{ztetommns}
+    ,ZTEZMMPLS = #{ztezmmpls}
+    ,ZTEZMMMNS = #{ztezmmmns}
+    ,SEKZAN = #{sekzan}
+    ,EDIINPSGN = #{ediinpsgn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RMCOD = #{rmcod}
+    and TNHNO = #{tnhno}
+    and GYB = #{gyb}
+    and TNOTEIFLG = #{tnoteiflg}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TanaoroshiEntity">
+  delete from AEGENE11
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and SKOCOD = #{skocod}
+    and KIGBNG = #{kigbng}
+    and ABZAIKBN = #{abzaikbn}
+    and RMCOD = #{rmcod}
+    and TNHNO = #{tnhno}
+    and GYB = #{gyb}
+    and TNOTEIFLG = #{tnoteiflg}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedTerritoryGroupMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TERGRPCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TerritoryGroupEntity">
+  insert into AECOMP30
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tergrpcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP30
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TERGRPCOD = #{tergrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="TerritoryGroupEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TerritoryGroupEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TerritoryGroupEntity">
+  update AECOMP30
+  <set>
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TERGRPCOD = #{tergrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TerritoryGroupEntity">
+  delete from AECOMP30
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TERGRPCOD = #{tergrpcod}
+  </where>
+</delete>
+
+</mapper>
+

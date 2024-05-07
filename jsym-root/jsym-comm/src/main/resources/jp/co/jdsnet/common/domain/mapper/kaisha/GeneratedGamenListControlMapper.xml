@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedGamenListControlMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,PNLLSTID
+    ,TSERTUKSNJKN
+    ,URIBUNKMKOUTJKN
+    ,EIGKPGJKN
+    ,EIBTTLOUTJKN
+    ,YSNOUTJKN
+    ,EIGTTLOUTJKN
+    ,TERCHYKPGJKN
+    ,TERK2KTTLOUTJKN
+    ,EIKTTLOUTJKN
+    ,TERKPGJKN
+    ,TODURIKJNDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="GamenListControlEntity">
+  insert into VTBDBC11
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{pnllstid}
+    ,#{tsertuksnjkn}
+    ,#{uribunkmkoutjkn}
+    ,#{eigkpgjkn}
+    ,#{eibttloutjkn}
+    ,#{ysnoutjkn}
+    ,#{eigttloutjkn}
+    ,#{terchykpgjkn}
+    ,#{terk2kttloutjkn}
+    ,#{eikttloutjkn}
+    ,#{terkpgjkn}
+    ,#{todurikjndte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBDBC11
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and PNLLSTID = #{pnllstid}
+  </where>
+</sql>
+
+<select id="select" resultType="GamenListControlEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="GamenListControlEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="GamenListControlEntity">
+  update VTBDBC11
+  <set>
+    ,TSERTUKSNJKN = #{tsertuksnjkn}
+    ,URIBUNKMKOUTJKN = #{uribunkmkoutjkn}
+    ,EIGKPGJKN = #{eigkpgjkn}
+    ,EIBTTLOUTJKN = #{eibttloutjkn}
+    ,YSNOUTJKN = #{ysnoutjkn}
+    ,EIGTTLOUTJKN = #{eigttloutjkn}
+    ,TERCHYKPGJKN = #{terchykpgjkn}
+    ,TERK2KTTLOUTJKN = #{terk2kttloutjkn}
+    ,EIKTTLOUTJKN = #{eikttloutjkn}
+    ,TERKPGJKN = #{terkpgjkn}
+    ,TODURIKJNDTE = #{todurikjndte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and PNLLSTID = #{pnllstid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="GamenListControlEntity">
+  delete from VTBDBC11
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and PNLLSTID = #{pnllstid}
+  </where>
+</delete>
+
+</mapper>
+

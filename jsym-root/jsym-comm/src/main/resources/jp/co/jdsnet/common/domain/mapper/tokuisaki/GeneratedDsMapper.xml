@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedDsMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TOKCOD
+    ,DSCOD
+    ,DSNMKN1
+    ,DSNMKN2
+    ,DSNMKNKKC
+    ,DSNM1
+    ,DSNM2
+    ,DSNMKKC
+    ,DSADRKN1
+    ,DSADRKN2
+    ,DSADRKNKKC
+    ,DSADR1
+    ,DSADR2
+    ,DSADRKKC
+    ,DSTELBNG
+    ,DSYBNBNG
+    ,SINKYUUSEKBN
+    ,DSYBNBNG7KT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DsEntity">
+  insert into AECUST02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{dsnmkn1}
+    ,#{dsnmkn2}
+    ,#{dsnmknkkc}
+    ,#{dsnm1}
+    ,#{dsnm2}
+    ,#{dsnmkkc}
+    ,#{dsadrkn1}
+    ,#{dsadrkn2}
+    ,#{dsadrknkkc}
+    ,#{dsadr1}
+    ,#{dsadr2}
+    ,#{dsadrkkc}
+    ,#{dstelbng}
+    ,#{dsybnbng}
+    ,#{sinkyuusekbn}
+    ,#{dsybnbng7kt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST02
+  <where>
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</sql>
+
+<select id="select" resultType="DsEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DsEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DsEntity">
+  update AECUST02
+  <set>
+    ,DSNMKN1 = #{dsnmkn1}
+    ,DSNMKN2 = #{dsnmkn2}
+    ,DSNMKNKKC = #{dsnmknkkc}
+    ,DSNM1 = #{dsnm1}
+    ,DSNM2 = #{dsnm2}
+    ,DSNMKKC = #{dsnmkkc}
+    ,DSADRKN1 = #{dsadrkn1}
+    ,DSADRKN2 = #{dsadrkn2}
+    ,DSADRKNKKC = #{dsadrknkkc}
+    ,DSADR1 = #{dsadr1}
+    ,DSADR2 = #{dsadr2}
+    ,DSADRKKC = #{dsadrkkc}
+    ,DSTELBNG = #{dstelbng}
+    ,DSYBNBNG = #{dsybnbng}
+    ,SINKYUUSEKBN = #{sinkyuusekbn}
+    ,DSYBNBNG7KT = #{dsybnbng7kt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DsEntity">
+  delete from AECUST02
+  <where>
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+  </where>
+</delete>
+
+</mapper>
+

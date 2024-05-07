@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.HasPropertyWithValue.*;
 
-import jp.co.jdsnet.base.interceptor.AccessLogInterceptor;
+import jp.co.jdsnet.base.interceptor.OperationLogInterceptor;
 import jp.co.jdsnet.base.interceptor.SessionCheckInterceptor;
 import jp.co.jdsnet.infoservice.InfoServiceApplication;
 import jp.co.jdsnet.infoservice.domain.dto.AllStockDTO;
@@ -31,7 +31,7 @@ public class AllStockControllerTest {
 	@MockBean
 	SessionCheckInterceptor interceptorS;
 	@MockBean
-	AccessLogInterceptor interceptorA;
+	OperationLogInterceptor interceptorA;
 	@BeforeEach
 	void initTest() throws Exception {
 		when(interceptorS.preHandle(any(), any(), any())).thenReturn(true);

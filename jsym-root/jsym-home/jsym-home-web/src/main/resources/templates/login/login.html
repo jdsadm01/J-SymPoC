@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ログイン</title>
+    <link rel="icon" th:href="@{/favicon.ico}">
+    <link th:href="@{/css/login.css}" rel="stylesheet"></link>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<p class="war">※デザインはサンプルです</p>
+    <form th:action="@{/login}" th:object="${loginForm}" method="post">
+        <h1><span>J-Symphony</span></h1>
+        <p>ログイン情報</p>
+        <div>・IPｱﾄﾞﾚｽ：<input type="text" th:field="*{ipaddr}" readonly class="info"/></div>
+        <div>・ﾈｯﾄﾜｰｸ識別：<input type="text" th:field="*{netwrkskbcod}" readonly class="info"/></div>
+        <br>
+        <input type="text" th:field="*{enyusrid}" placeholder="UserID"/>
+        <input type="password" th:field="*{pwd}" placeholder="Password"/>
+        <input type="submit" name="search" value="ログイン" class="btn"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hatchu.GeneratedHatchuYoteiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,HACYTERELNO
+    ,HACYTEINPDTE
+    ,KAISKBCOD
+    ,KIGBNG
+    ,HACSYBKBN
+    ,PRDSIRKBN
+    ,SHNTHNHINKBN
+    ,KETCOD
+    ,SETSUU
+    ,SMPSGN
+    ,HACSINKYUKBN
+    ,JAKNKI
+    ,JAKHACSAKCOD
+    ,JUCHACHIN
+    ,MKRBUNCOD
+    ,CTGCOD
+    ,HBIDTE
+    ,FUKSZIKNRCOD
+    ,HACSUR
+    ,NKI
+    ,HACSAKCOD
+    ,NYASAKCOD
+    ,MSCOD
+    ,DELFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HatchuYoteiEntity">
+  insert into AESORD01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{hacyterelno}
+    ,#{hacyteinpdte}
+    ,#{kaiskbcod}
+    ,#{kigbng}
+    ,#{hacsybkbn}
+    ,#{prdsirkbn}
+    ,#{shnthnhinkbn}
+    ,#{ketcod}
+    ,#{setsuu}
+    ,#{smpsgn}
+    ,#{hacsinkyukbn}
+    ,#{jaknki}
+    ,#{jakhacsakcod}
+    ,#{juchachin}
+    ,#{mkrbuncod}
+    ,#{ctgcod}
+    ,#{hbidte}
+    ,#{fuksziknrcod}
+    ,#{hacsur}
+    ,#{nki}
+    ,#{hacsakcod}
+    ,#{nyasakcod}
+    ,#{mscod}
+    ,#{delflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESORD01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACYTERELNO = #{hacyterelno}
+    and HACYTEINPDTE = #{hacyteinpdte}
+  </where>
+</sql>
+
+<select id="select" resultType="HatchuYoteiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HatchuYoteiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HatchuYoteiEntity">
+  update AESORD01
+  <set>
+    ,KAISKBCOD = #{kaiskbcod}
+    ,KIGBNG = #{kigbng}
+    ,HACSYBKBN = #{hacsybkbn}
+    ,PRDSIRKBN = #{prdsirkbn}
+    ,SHNTHNHINKBN = #{shnthnhinkbn}
+    ,KETCOD = #{ketcod}
+    ,SETSUU = #{setsuu}
+    ,SMPSGN = #{smpsgn}
+    ,HACSINKYUKBN = #{hacsinkyukbn}
+    ,JAKNKI = #{jaknki}
+    ,JAKHACSAKCOD = #{jakhacsakcod}
+    ,JUCHACHIN = #{juchachin}
+    ,MKRBUNCOD = #{mkrbuncod}
+    ,CTGCOD = #{ctgcod}
+    ,HBIDTE = #{hbidte}
+    ,FUKSZIKNRCOD = #{fuksziknrcod}
+    ,HACSUR = #{hacsur}
+    ,NKI = #{nki}
+    ,HACSAKCOD = #{hacsakcod}
+    ,NYASAKCOD = #{nyasakcod}
+    ,MSCOD = #{mscod}
+    ,DELFLG = #{delflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACYTERELNO = #{hacyterelno}
+    and HACYTEINPDTE = #{hacyteinpdte}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HatchuYoteiEntity">
+  delete from AESORD01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACYTERELNO = #{hacyterelno}
+    and HACYTEINPDTE = #{hacyteinpdte}
+  </where>
+</delete>
+
+</mapper>
+

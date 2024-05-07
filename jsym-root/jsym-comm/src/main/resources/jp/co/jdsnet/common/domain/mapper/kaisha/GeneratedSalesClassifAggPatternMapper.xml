@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedSalesClassifAggPatternMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,URIBUNSYYPTNCOD
+    ,URIBUNSYYCOD
+    ,URIBUNCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SalesClassifAggPatternEntity">
+  insert into VTBUBN02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{uribunsyyptncod}
+    ,#{uribunsyycod}
+    ,#{uribuncod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBUBN02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and URIBUNSYYPTNCOD = #{uribunsyyptncod}
+    and URIBUNSYYCOD = #{uribunsyycod}
+    and URIBUNCOD = #{uribuncod}
+  </where>
+</sql>
+
+<select id="select" resultType="SalesClassifAggPatternEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SalesClassifAggPatternEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SalesClassifAggPatternEntity">
+  update VTBUBN02
+  <set>
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and URIBUNSYYPTNCOD = #{uribunsyyptncod}
+    and URIBUNSYYCOD = #{uribunsyycod}
+    and URIBUNCOD = #{uribuncod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SalesClassifAggPatternEntity">
+  delete from VTBUBN02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and URIBUNSYYPTNCOD = #{uribunsyyptncod}
+    and URIBUNSYYCOD = #{uribunsyycod}
+    and URIBUNCOD = #{uribuncod}
+  </where>
+</delete>
+
+</mapper>
+

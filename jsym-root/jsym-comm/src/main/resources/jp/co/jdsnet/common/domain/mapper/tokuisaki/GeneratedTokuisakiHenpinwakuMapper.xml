@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedTokuisakiHenpinwakuMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,HPNGRPCOD
+    ,HPWSYYCOD
+    ,HNSOBJFLG
+    ,HPWRT
+    ,HPNAWKGAK
+    ,HPNMWKGAK
+    ,HPWKSNKKN
+    ,YKMHPNAWKGAK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TokuisakiHenpinwakuEntity">
+  insert into AECUST05
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{hpngrpcod}
+    ,#{hpwsyycod}
+    ,#{hnsobjflg}
+    ,#{hpwrt}
+    ,#{hpnawkgak}
+    ,#{hpnmwkgak}
+    ,#{hpwksnkkn}
+    ,#{ykmhpnawkgak}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST05
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="TokuisakiHenpinwakuEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TokuisakiHenpinwakuEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TokuisakiHenpinwakuEntity">
+  update AECUST05
+  <set>
+    ,HPWSYYCOD = #{hpwsyycod}
+    ,HNSOBJFLG = #{hnsobjflg}
+    ,HPWRT = #{hpwrt}
+    ,HPNAWKGAK = #{hpnawkgak}
+    ,HPNMWKGAK = #{hpnmwkgak}
+    ,HPWKSNKKN = #{hpwksnkkn}
+    ,YKMHPNAWKGAK = #{ykmhpnawkgak}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TokuisakiHenpinwakuEntity">
+  delete from AECUST05
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and HPNGRPCOD = #{hpngrpcod}
+  </where>
+</delete>
+
+</mapper>
+

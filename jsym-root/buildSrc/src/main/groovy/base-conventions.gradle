@@ -15,9 +15,12 @@ repositories {
 }
 
 configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+  configureEach {
+    exclude group: 'commons-logging', module: 'commons-logging'
+  }
 }
 
 dependencies {
@@ -29,4 +32,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'commons-beanutils:commons-beanutils:1.9.4'
+	implementation 'jp.fintan.keel:keel-spring-boot-starter-web:2.0.0'
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.jokensettei.GeneratedNohinDenpyoBetsudenGroupMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KETCODFRM
+    ,KETCODTO
+    ,NOHDENBDNGRPCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="NohinDenpyoBetsudenGroupMeisaiEntity">
+  insert into AECOND09
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{ketcodfrm}
+    ,#{ketcodto}
+    ,#{nohdenbdngrpcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOND09
+  <where>
+    and KETCODFRM = #{ketcodfrm}
+  </where>
+</sql>
+
+<select id="select" resultType="NohinDenpyoBetsudenGroupMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="NohinDenpyoBetsudenGroupMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="NohinDenpyoBetsudenGroupMeisaiEntity">
+  update AECOND09
+  <set>
+    ,KETCODTO = #{ketcodto}
+    ,NOHDENBDNGRPCOD = #{nohdenbdngrpcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KETCODFRM = #{ketcodfrm}
+  </where>
+</update>
+
+<delete id="delete" parameterType="NohinDenpyoBetsudenGroupMeisaiEntity">
+  delete from AECOND09
+  <where>
+    and KETCODFRM = #{ketcodfrm}
+  </where>
+</delete>
+
+</mapper>
+

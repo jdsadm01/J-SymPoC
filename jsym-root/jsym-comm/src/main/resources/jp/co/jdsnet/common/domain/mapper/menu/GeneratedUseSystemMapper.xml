@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GeneratedUseSystemMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,USRBUN
+    ,GYMID
+    ,KYKFLG
+    ,SSOKBN
+    ,USESTTDTE
+    ,USEENDDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="UseSystemEntity">
+  insert into VTBMNU08
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{usrbun}
+    ,#{gymid}
+    ,#{kykflg}
+    ,#{ssokbn}
+    ,#{usesttdte}
+    ,#{useenddte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMNU08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+  </where>
+</sql>
+
+<select id="select" resultType="UseSystemEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="UseSystemEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="UseSystemEntity">
+  update VTBMNU08
+  <set>
+    ,KYKFLG = #{kykflg}
+    ,SSOKBN = #{ssokbn}
+    ,USESTTDTE = #{usesttdte}
+    ,USEENDDTE = #{useenddte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="UseSystemEntity">
+  delete from VTBMNU08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and USRBUN = #{usrbun}
+    and GYMID = #{gymid}
+  </where>
+</delete>
+
+</mapper>
+

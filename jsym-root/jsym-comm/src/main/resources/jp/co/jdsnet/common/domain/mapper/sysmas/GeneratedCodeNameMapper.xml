@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedCodeNameMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,KEYFLD
+    ,KEYCOD
+    ,CODNMKN
+    ,CODNMKJ
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="CodeNameEntity">
+  insert into VTBMSG02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{keyfld}
+    ,#{keycod}
+    ,#{codnmkn}
+    ,#{codnmkj}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBMSG02
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and KEYFLD = #{keyfld}
+    and KEYCOD = #{keycod}
+  </where>
+</sql>
+
+<select id="select" resultType="CodeNameEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="CodeNameEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="CodeNameEntity">
+  update VTBMSG02
+  <set>
+    ,CODNMKN = #{codnmkn}
+    ,CODNMKJ = #{codnmkj}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and KEYFLD = #{keyfld}
+    and KEYCOD = #{keycod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="CodeNameEntity">
+  delete from VTBMSG02
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and KEYFLD = #{keyfld}
+    and KEYCOD = #{keycod}
+  </where>
+</delete>
+
+</mapper>
+

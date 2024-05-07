@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedErrordataManagementMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,BSHCOD
+    ,CPUIDGRP
+    ,LSTID
+    ,KAISKBCOD
+    ,SSEDTE
+    ,SSEJKK
+    ,RECSEQ
+    ,USRID
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ErrordataManagementEntity">
+  insert into VTBERR03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{bshcod}
+    ,#{cpuidgrp}
+    ,#{lstid}
+    ,#{kaiskbcod}
+    ,#{ssedte}
+    ,#{ssejkk}
+    ,#{recseq}
+    ,#{usrid}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBERR03
+  <where>
+    and BSHCOD = #{bshcod}
+    and CPUIDGRP = #{cpuidgrp}
+    and LSTID = #{lstid}
+    and KAISKBCOD = #{kaiskbcod}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and RECSEQ = #{recseq}
+  </where>
+</sql>
+
+<select id="select" resultType="ErrordataManagementEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ErrordataManagementEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ErrordataManagementEntity">
+  update VTBERR03
+  <set>
+    ,USRID = #{usrid}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and BSHCOD = #{bshcod}
+    and CPUIDGRP = #{cpuidgrp}
+    and LSTID = #{lstid}
+    and KAISKBCOD = #{kaiskbcod}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and RECSEQ = #{recseq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ErrordataManagementEntity">
+  delete from VTBERR03
+  <where>
+    and BSHCOD = #{bshcod}
+    and CPUIDGRP = #{cpuidgrp}
+    and LSTID = #{lstid}
+    and KAISKBCOD = #{kaiskbcod}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and RECSEQ = #{recseq}
+  </where>
+</delete>
+
+</mapper>
+

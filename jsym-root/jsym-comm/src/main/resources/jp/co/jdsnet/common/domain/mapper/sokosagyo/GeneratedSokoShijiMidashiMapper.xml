@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sokosagyo.GeneratedSokoShijiMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SKOSJIMDSID
+    ,INPBSHCOD
+    ,INPDTE
+    ,INPJKK
+    ,KAISKBCOD
+    ,TRNCOD
+    ,MSOCOD
+    ,SSOCOD
+    ,CPUFULID
+    ,WSSEQ5KT
+    ,JSNDTE8KT
+    ,JSNJKK9KT
+    ,TRNFULCOD
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,MTDDTE
+    ,MTDBNG
+    ,ABZAIKBN
+    ,MOTTOMZMMZAIKBN
+    ,SAKTOMZMMZAIKBN
+    ,MOTRMCOD
+    ,SAKRMCOD
+    ,SNKTRNCOD
+    ,SNKTRNDENDTE
+    ,SNKTRNMKRDENBNG
+    ,HACSAKCOD
+    ,HACSAKNOHBNG
+    ,NYADTE
+    ,SMPSGN
+    ,ZEIKBN
+    ,SKYTMEKBN
+    ,TOMRAKCOD
+    ,WSSEQ4KT
+    ,SKOSJISTSKBN
+    ,INPCHKERRKBN
+    ,STASTEFLG
+    ,STAKJYZFLG
+    ,DELFLG
+    ,ERRARIFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,TMUSTEFLG
+    ,TMUKJYZFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SokoShijiMidashiEntity">
+  insert into AEGENE01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{skosjimdsid}
+    ,#{inpbshcod}
+    ,#{inpdte}
+    ,#{inpjkk}
+    ,#{kaiskbcod}
+    ,#{trncod}
+    ,#{msocod}
+    ,#{ssocod}
+    ,#{cpufulid}
+    ,#{wsseq5kt}
+    ,#{jsndte8kt}
+    ,#{jsnjkk9kt}
+    ,#{trnfulcod}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{mtddte}
+    ,#{mtdbng}
+    ,#{abzaikbn}
+    ,#{mottomzmmzaikbn}
+    ,#{saktomzmmzaikbn}
+    ,#{motrmcod}
+    ,#{sakrmcod}
+    ,#{snktrncod}
+    ,#{snktrndendte}
+    ,#{snktrnmkrdenbng}
+    ,#{hacsakcod}
+    ,#{hacsaknohbng}
+    ,#{nyadte}
+    ,#{smpsgn}
+    ,#{zeikbn}
+    ,#{skytmekbn}
+    ,#{tomrakcod}
+    ,#{wsseq4kt}
+    ,#{skosjistskbn}
+    ,#{inpchkerrkbn}
+    ,#{stasteflg}
+    ,#{stakjyzflg}
+    ,#{delflg}
+    ,#{errariflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{tmusteflg}
+    ,#{tmukjyzflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEGENE01
+  <where>
+    and SKOSJIMDSID = #{skosjimdsid}
+  </where>
+</sql>
+
+<select id="select" resultType="SokoShijiMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SokoShijiMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SokoShijiMidashiEntity">
+  update AEGENE01
+  <set>
+    ,INPBSHCOD = #{inpbshcod}
+    ,INPDTE = #{inpdte}
+    ,INPJKK = #{inpjkk}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,TRNCOD = #{trncod}
+    ,MSOCOD = #{msocod}
+    ,SSOCOD = #{ssocod}
+    ,CPUFULID = #{cpufulid}
+    ,WSSEQ5KT = #{wsseq5kt}
+    ,JSNDTE8KT = #{jsndte8kt}
+    ,JSNJKK9KT = #{jsnjkk9kt}
+    ,TRNFULCOD = #{trnfulcod}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,MTDDTE = #{mtddte}
+    ,MTDBNG = #{mtdbng}
+    ,ABZAIKBN = #{abzaikbn}
+    ,MOTTOMZMMZAIKBN = #{mottomzmmzaikbn}
+    ,SAKTOMZMMZAIKBN = #{saktomzmmzaikbn}
+    ,MOTRMCOD = #{motrmcod}
+    ,SAKRMCOD = #{sakrmcod}
+    ,SNKTRNCOD = #{snktrncod}
+    ,SNKTRNDENDTE = #{snktrndendte}
+    ,SNKTRNMKRDENBNG = #{snktrnmkrdenbng}
+    ,HACSAKCOD = #{hacsakcod}
+    ,HACSAKNOHBNG = #{hacsaknohbng}
+    ,NYADTE = #{nyadte}
+    ,SMPSGN = #{smpsgn}
+    ,ZEIKBN = #{zeikbn}
+    ,SKYTMEKBN = #{skytmekbn}
+    ,TOMRAKCOD = #{tomrakcod}
+    ,WSSEQ4KT = #{wsseq4kt}
+    ,SKOSJISTSKBN = #{skosjistskbn}
+    ,INPCHKERRKBN = #{inpchkerrkbn}
+    ,STASTEFLG = #{stasteflg}
+    ,STAKJYZFLG = #{stakjyzflg}
+    ,DELFLG = #{delflg}
+    ,ERRARIFLG = #{errariflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,TMUSTEFLG = #{tmusteflg}
+    ,TMUKJYZFLG = #{tmukjyzflg}
+  </set>
+  <where>
+    and SKOSJIMDSID = #{skosjimdsid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SokoShijiMidashiEntity">
+  delete from AEGENE01
+  <where>
+    and SKOSJIMDSID = #{skosjimdsid}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kashidashi.GeneratedKashidashiReinyuMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KDAREIDTE
+    ,TOKCOD
+    ,DSCOD
+    ,KDAREIMDSSEQ
+    ,SEQ
+    ,KIGBNG
+    ,REISUR
+    ,RMCOD
+    ,INPCHKERRKBN
+    ,ERRARIFLG
+    ,SKRTAN
+    ,TANKINSTEKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,BBNURISUR
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KashidashiReinyuMeisaiEntity">
+  insert into AELEND04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kdareidte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{kdareimdsseq}
+    ,#{seq}
+    ,#{kigbng}
+    ,#{reisur}
+    ,#{rmcod}
+    ,#{inpchkerrkbn}
+    ,#{errariflg}
+    ,#{skrtan}
+    ,#{tankinstekbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{bbnurisur}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AELEND04
+  <where>
+    and KDAREIDTE = #{kdareidte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and KDAREIMDSSEQ = #{kdareimdsseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="KashidashiReinyuMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KashidashiReinyuMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KashidashiReinyuMeisaiEntity">
+  update AELEND04
+  <set>
+    ,KIGBNG = #{kigbng}
+    ,REISUR = #{reisur}
+    ,RMCOD = #{rmcod}
+    ,INPCHKERRKBN = #{inpchkerrkbn}
+    ,ERRARIFLG = #{errariflg}
+    ,SKRTAN = #{skrtan}
+    ,TANKINSTEKBN = #{tankinstekbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,BBNURISUR = #{bbnurisur}
+  </set>
+  <where>
+    and KDAREIDTE = #{kdareidte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and KDAREIMDSSEQ = #{kdareimdsseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KashidashiReinyuMeisaiEntity">
+  delete from AELEND04
+  <where>
+    and KDAREIDTE = #{kdareidte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and KDAREIMDSSEQ = #{kdareimdsseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

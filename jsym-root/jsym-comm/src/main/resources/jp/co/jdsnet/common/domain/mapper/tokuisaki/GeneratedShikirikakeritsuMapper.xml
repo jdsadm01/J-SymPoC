@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedShikirikakeritsuMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,SKRKRTGRPCOD
+    ,SKRKRT
+    ,SKRTANGRPCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShikirikakeritsuEntity">
+  insert into AECUST06
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{skrkrtgrpcod}
+    ,#{skrkrt}
+    ,#{skrtangrpcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST06
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and SKRKRTGRPCOD = #{skrkrtgrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ShikirikakeritsuEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShikirikakeritsuEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShikirikakeritsuEntity">
+  update AECUST06
+  <set>
+    ,SKRKRT = #{skrkrt}
+    ,SKRTANGRPCOD = #{skrtangrpcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and SKRKRTGRPCOD = #{skrkrtgrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShikirikakeritsuEntity">
+  delete from AECUST06
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+    and SKRKRTGRPCOD = #{skrkrtgrpcod}
+  </where>
+</delete>
+
+</mapper>
+

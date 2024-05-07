@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedChuzanShukkaShijiMeisaiHaisoHomenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,CHZSYASJIMDSSEQ
+    ,SEQ
+    ,HSOHMNCODFRM
+    ,HSOHMNCODTO
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ChuzanShukkaShijiMeisaiHaisoHomenEntity">
+  insert into AERORD24
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{chzsyasjimdsseq}
+    ,#{seq}
+    ,#{hsohmncodfrm}
+    ,#{hsohmncodto}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD24
+  <where>
+    and INPDTE = #{inpdte}
+    and CHZSYASJIMDSSEQ = #{chzsyasjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="ChuzanShukkaShijiMeisaiHaisoHomenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ChuzanShukkaShijiMeisaiHaisoHomenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ChuzanShukkaShijiMeisaiHaisoHomenEntity">
+  update AERORD24
+  <set>
+    ,HSOHMNCODFRM = #{hsohmncodfrm}
+    ,HSOHMNCODTO = #{hsohmncodto}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and CHZSYASJIMDSSEQ = #{chzsyasjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ChuzanShukkaShijiMeisaiHaisoHomenEntity">
+  delete from AERORD24
+  <where>
+    and INPDTE = #{inpdte}
+    and CHZSYASJIMDSSEQ = #{chzsyasjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

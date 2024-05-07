@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedJsymKaishaMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,KAICOD
+    ,KAINMKN
+    ,KAINMKJ
+    ,DAIKAISKBCOD
+    ,KAIRLTFLG
+    ,KYKSGNICH
+    ,CYZUPDUMU
+    ,CYZSTSGNAKJYKBN
+    ,JARDOUTKBN
+    ,GAMFLG
+    ,EIGJUCZKKFAXSSNFLG
+    ,JUCZKKFAXSSNFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="JsymKaishaEntity">
+  insert into VTBKAI01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{kaicod}
+    ,#{kainmkn}
+    ,#{kainmkj}
+    ,#{daikaiskbcod}
+    ,#{kairltflg}
+    ,#{kyksgnich}
+    ,#{cyzupdumu}
+    ,#{cyzstsgnakjykbn}
+    ,#{jardoutkbn}
+    ,#{gamflg}
+    ,#{eigjuczkkfaxssnflg}
+    ,#{juczkkfaxssnflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBKAI01
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="JsymKaishaEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="JsymKaishaEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="JsymKaishaEntity">
+  update VTBKAI01
+  <set>
+    ,KAICOD = #{kaicod}
+    ,KAINMKN = #{kainmkn}
+    ,KAINMKJ = #{kainmkj}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,KAIRLTFLG = #{kairltflg}
+    ,KYKSGNICH = #{kyksgnich}
+    ,CYZUPDUMU = #{cyzupdumu}
+    ,CYZSTSGNAKJYKBN = #{cyzstsgnakjykbn}
+    ,JARDOUTKBN = #{jardoutkbn}
+    ,GAMFLG = #{gamflg}
+    ,EIGJUCZKKFAXSSNFLG = #{eigjuczkkfaxssnflg}
+    ,JUCZKKFAXSSNFLG = #{juczkkfaxssnflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="JsymKaishaEntity">
+  delete from VTBKAI01
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

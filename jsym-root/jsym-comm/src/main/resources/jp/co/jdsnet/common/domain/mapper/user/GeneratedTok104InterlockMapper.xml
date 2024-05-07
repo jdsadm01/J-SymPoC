@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.user.GeneratedTok104InterlockMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,IKOKBN
+    ,PRCSMIFLG
+    ,ERRKBN
+    ,PRCSJIDTE
+    ,PRCSJIJKK
+    ,PRCKRYDTE
+    ,PRCKRYJKK
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="Tok104InterlockEntity">
+  insert into VTBCNL12
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{ikokbn}
+    ,#{prcsmiflg}
+    ,#{errkbn}
+    ,#{prcsjidte}
+    ,#{prcsjijkk}
+    ,#{prckrydte}
+    ,#{prckryjkk}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBCNL12
+  <where>
+    and USRID = #{usrid}
+  </where>
+</sql>
+
+<select id="select" resultType="Tok104InterlockEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="Tok104InterlockEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="Tok104InterlockEntity">
+  update VTBCNL12
+  <set>
+    ,IKOKBN = #{ikokbn}
+    ,PRCSMIFLG = #{prcsmiflg}
+    ,ERRKBN = #{errkbn}
+    ,PRCSJIDTE = #{prcsjidte}
+    ,PRCSJIJKK = #{prcsjijkk}
+    ,PRCKRYDTE = #{prckrydte}
+    ,PRCKRYJKK = #{prckryjkk}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and USRID = #{usrid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="Tok104InterlockEntity">
+  delete from VTBCNL12
+  <where>
+    and USRID = #{usrid}
+  </where>
+</delete>
+
+</mapper>
+

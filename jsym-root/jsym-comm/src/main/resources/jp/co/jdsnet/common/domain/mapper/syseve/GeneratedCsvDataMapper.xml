@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedCsvDataMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SSEDTE8KT
+    ,SSEJKK8KT
+    ,BSHCOD
+    ,LSTID
+    ,OUTSEQ
+    ,SEQ
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,EIGCOD
+    ,PRCKRUFLG
+    ,CSVDTABDY
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="CsvDataEntity">
+  insert into AESYSE03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{ssedte8kt}
+    ,#{ssejkk8kt}
+    ,#{bshcod}
+    ,#{lstid}
+    ,#{outseq}
+    ,#{seq}
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{eigcod}
+    ,#{prckruflg}
+    ,#{csvdtabdy}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE03
+  <where>
+    and SSEDTE8KT = #{ssedte8kt}
+    and SSEJKK8KT = #{ssejkk8kt}
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and OUTSEQ = #{outseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="CsvDataEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="CsvDataEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="CsvDataEntity">
+  update AESYSE03
+  <set>
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,EIGCOD = #{eigcod}
+    ,PRCKRUFLG = #{prckruflg}
+    ,CSVDTABDY = #{csvdtabdy}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SSEDTE8KT = #{ssedte8kt}
+    and SSEJKK8KT = #{ssejkk8kt}
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and OUTSEQ = #{outseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="CsvDataEntity">
+  delete from AESYSE03
+  <where>
+    and SSEDTE8KT = #{ssedte8kt}
+    and SSEJKK8KT = #{ssejkk8kt}
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and OUTSEQ = #{outseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedEigyoshoSokoRelationMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,PNLLSTID
+    ,SYKKBN
+    ,KAISKBCOD
+    ,EIGGRPCOD
+    ,SKOGRPCOD
+    ,HJINM1
+    ,HJINM2
+    ,HJIJUN
+    ,PNLLSTKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="EigyoshoSokoRelationEntity">
+  insert into VTBDBC08
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{pnllstid}
+    ,#{sykkbn}
+    ,#{kaiskbcod}
+    ,#{eiggrpcod}
+    ,#{skogrpcod}
+    ,#{hjinm1}
+    ,#{hjinm2}
+    ,#{hjijun}
+    ,#{pnllstkbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBDBC08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and PNLLSTID = #{pnllstid}
+    and SYKKBN = #{sykkbn}
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGGRPCOD = #{eiggrpcod}
+    and SKOGRPCOD = #{skogrpcod}
+  </where>
+</sql>
+
+<select id="select" resultType="EigyoshoSokoRelationEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="EigyoshoSokoRelationEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="EigyoshoSokoRelationEntity">
+  update VTBDBC08
+  <set>
+    ,HJINM1 = #{hjinm1}
+    ,HJINM2 = #{hjinm2}
+    ,HJIJUN = #{hjijun}
+    ,PNLLSTKBN = #{pnllstkbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and PNLLSTID = #{pnllstid}
+    and SYKKBN = #{sykkbn}
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGGRPCOD = #{eiggrpcod}
+    and SKOGRPCOD = #{skogrpcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="EigyoshoSokoRelationEntity">
+  delete from VTBDBC08
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and PNLLSTID = #{pnllstid}
+    and SYKKBN = #{sykkbn}
+    and KAISKBCOD = #{kaiskbcod}
+    and EIGGRPCOD = #{eiggrpcod}
+    and SKOGRPCOD = #{skogrpcod}
+  </where>
+</delete>
+
+</mapper>
+

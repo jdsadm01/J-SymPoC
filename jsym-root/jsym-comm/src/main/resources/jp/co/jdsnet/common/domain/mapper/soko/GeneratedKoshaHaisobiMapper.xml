@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedKoshaHaisobiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,BSHCOD
+    ,TOKCOD
+    ,DSCOD
+    ,DAIKAISKBCOD
+    ,SINHSONSU
+    ,SINKCYSYANSU
+    ,SINTUISYANSU
+    ,KYUHSONSU
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KoshaHaisobiEntity">
+  insert into AEWARE20
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{bshcod}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{daikaiskbcod}
+    ,#{sinhsonsu}
+    ,#{sinkcysyansu}
+    ,#{sintuisyansu}
+    ,#{kyuhsonsu}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE20
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="KoshaHaisobiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KoshaHaisobiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KoshaHaisobiEntity">
+  update AEWARE20
+  <set>
+    ,SINHSONSU = #{sinhsonsu}
+    ,SINKCYSYANSU = #{sinkcysyansu}
+    ,SINTUISYANSU = #{sintuisyansu}
+    ,KYUHSONSU = #{kyuhsonsu}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KoshaHaisobiEntity">
+  delete from AEWARE20
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

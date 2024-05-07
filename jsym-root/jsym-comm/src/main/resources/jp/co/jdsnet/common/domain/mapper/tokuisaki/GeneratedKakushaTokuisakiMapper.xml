@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedKakushaTokuisakiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,TOKCOD
+    ,SEISMB
+    ,NKNTENSGN
+    ,TAKSHOFLGGUN
+    ,TOKRAKCOD
+    ,HNRCOD
+    ,YGDOBJKBN
+    ,KTSCOD
+    ,SHNTHNTENKBN
+    ,THCBNGHISKBN
+    ,TANKINHJIFLG
+    ,HSUCHSKBN
+    ,TORSTTDTE
+    ,SYATESDTE
+    ,SYATESKBN
+    ,YKNFKATENKBN
+    ,DENMRGSGEFLG
+    ,URISYYTENFLG
+    ,URISYYTENCOD
+    ,URIMNTKBN
+    ,CCHSKPTENKBN
+    ,CHZSTETENKBN
+    ,CHZMNTKBN
+    ,CHZNSU
+    ,HATSKOTIKCOD
+    ,HPNSYYTENFLG
+    ,HPNSYYTENCOD
+    ,HPNFKATENKBN
+    ,HPNUKESKOCOD
+    ,HPNTAITENKBN
+    ,HPNAWKHSUPRCSNTKBN
+    ,HPWANSWGKHJIKBN
+    ,HPWANSSFUKBN
+    ,HPNTCHMTNKBN
+    ,STDRTNHUTNASFLG
+    ,HPNTCHTOKNM1
+    ,HPNTCHTOKNM2
+    ,HPNTCHTOKBKNM
+    ,HPNTCHTOKADR1
+    ,HPNTCHTOKADR2
+    ,HPNTCHTELBNG
+    ,HPNTCHYBNBNG7KT
+    ,SYADTECOD
+    ,HSODTECOD
+    ,SINYKNKBN
+    ,SYASGEGRPCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KakushaTokuisakiEntity">
+  insert into AECUST03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{tokcod}
+    ,#{seismb}
+    ,#{nkntensgn}
+    ,#{takshoflggun}
+    ,#{tokrakcod}
+    ,#{hnrcod}
+    ,#{ygdobjkbn}
+    ,#{ktscod}
+    ,#{shnthntenkbn}
+    ,#{thcbnghiskbn}
+    ,#{tankinhjiflg}
+    ,#{hsuchskbn}
+    ,#{torsttdte}
+    ,#{syatesdte}
+    ,#{syateskbn}
+    ,#{yknfkatenkbn}
+    ,#{denmrgsgeflg}
+    ,#{urisyytenflg}
+    ,#{urisyytencod}
+    ,#{urimntkbn}
+    ,#{cchskptenkbn}
+    ,#{chzstetenkbn}
+    ,#{chzmntkbn}
+    ,#{chznsu}
+    ,#{hatskotikcod}
+    ,#{hpnsyytenflg}
+    ,#{hpnsyytencod}
+    ,#{hpnfkatenkbn}
+    ,#{hpnukeskocod}
+    ,#{hpntaitenkbn}
+    ,#{hpnawkhsuprcsntkbn}
+    ,#{hpwanswgkhjikbn}
+    ,#{hpwanssfukbn}
+    ,#{hpntchmtnkbn}
+    ,#{stdrtnhutnasflg}
+    ,#{hpntchtoknm1}
+    ,#{hpntchtoknm2}
+    ,#{hpntchtokbknm}
+    ,#{hpntchtokadr1}
+    ,#{hpntchtokadr2}
+    ,#{hpntchtelbng}
+    ,#{hpntchybnbng7kt}
+    ,#{syadtecod}
+    ,#{hsodtecod}
+    ,#{sinyknkbn}
+    ,#{syasgegrpcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</sql>
+
+<select id="select" resultType="KakushaTokuisakiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KakushaTokuisakiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KakushaTokuisakiEntity">
+  update AECUST03
+  <set>
+    ,SEISMB = #{seismb}
+    ,NKNTENSGN = #{nkntensgn}
+    ,TAKSHOFLGGUN = #{takshoflggun}
+    ,TOKRAKCOD = #{tokrakcod}
+    ,HNRCOD = #{hnrcod}
+    ,YGDOBJKBN = #{ygdobjkbn}
+    ,KTSCOD = #{ktscod}
+    ,SHNTHNTENKBN = #{shnthntenkbn}
+    ,THCBNGHISKBN = #{thcbnghiskbn}
+    ,TANKINHJIFLG = #{tankinhjiflg}
+    ,HSUCHSKBN = #{hsuchskbn}
+    ,TORSTTDTE = #{torsttdte}
+    ,SYATESDTE = #{syatesdte}
+    ,SYATESKBN = #{syateskbn}
+    ,YKNFKATENKBN = #{yknfkatenkbn}
+    ,DENMRGSGEFLG = #{denmrgsgeflg}
+    ,URISYYTENFLG = #{urisyytenflg}
+    ,URISYYTENCOD = #{urisyytencod}
+    ,URIMNTKBN = #{urimntkbn}
+    ,CCHSKPTENKBN = #{cchskptenkbn}
+    ,CHZSTETENKBN = #{chzstetenkbn}
+    ,CHZMNTKBN = #{chzmntkbn}
+    ,CHZNSU = #{chznsu}
+    ,HATSKOTIKCOD = #{hatskotikcod}
+    ,HPNSYYTENFLG = #{hpnsyytenflg}
+    ,HPNSYYTENCOD = #{hpnsyytencod}
+    ,HPNFKATENKBN = #{hpnfkatenkbn}
+    ,HPNUKESKOCOD = #{hpnukeskocod}
+    ,HPNTAITENKBN = #{hpntaitenkbn}
+    ,HPNAWKHSUPRCSNTKBN = #{hpnawkhsuprcsntkbn}
+    ,HPWANSWGKHJIKBN = #{hpwanswgkhjikbn}
+    ,HPWANSSFUKBN = #{hpwanssfukbn}
+    ,HPNTCHMTNKBN = #{hpntchmtnkbn}
+    ,STDRTNHUTNASFLG = #{stdrtnhutnasflg}
+    ,HPNTCHTOKNM1 = #{hpntchtoknm1}
+    ,HPNTCHTOKNM2 = #{hpntchtoknm2}
+    ,HPNTCHTOKBKNM = #{hpntchtokbknm}
+    ,HPNTCHTOKADR1 = #{hpntchtokadr1}
+    ,HPNTCHTOKADR2 = #{hpntchtokadr2}
+    ,HPNTCHTELBNG = #{hpntchtelbng}
+    ,HPNTCHYBNBNG7KT = #{hpntchybnbng7kt}
+    ,SYADTECOD = #{syadtecod}
+    ,HSODTECOD = #{hsodtecod}
+    ,SINYKNKBN = #{sinyknkbn}
+    ,SYASGEGRPCOD = #{syasgegrpcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KakushaTokuisakiEntity">
+  delete from AECUST03
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and TOKCOD = #{tokcod}
+  </where>
+</delete>
+
+</mapper>
+

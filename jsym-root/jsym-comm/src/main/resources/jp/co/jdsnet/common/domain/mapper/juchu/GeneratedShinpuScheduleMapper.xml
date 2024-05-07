@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedShinpuScheduleMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,HBIDTE
+    ,SINJUCSGN
+    ,KCYPRCDTE
+    ,ZKAKCYPRCDTE
+    ,KCYPRCKRUFLG
+    ,DTASSNORS
+    ,SYADTE
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,SINSYAKANDTE
+    ,YKKSMEDTEFRM
+    ,YKKSMEDTETO
+    ,KCYPRCHUYFLG
+    ,STDSSEDTE
+    ,STDSSESTSKBN
+    ,KHADTE
+    ,KHAPRCKJYZFLG
+    ,SINSYAPRFSSEDTE
+    ,SINSYAPRFSSESTSKBN
+    ,HSONPOSSEDTE
+    ,HSONPOSSESTSKBN
+    ,URIZAIUPDDTE
+    ,URIZAIUPDKRUFLG
+    ,COMSSEDTE
+    ,COMSSESTSKBN
+    ,TOKEDIDTE1
+    ,TOKEDIDTE2
+    ,SINTOKEDISTSKBN
+    ,KCYTRKDTE
+    ,KCYTRKSTSKBN
+    ,RECSUU5KT
+    ,MSISUU7KT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuScheduleEntity">
+  insert into AERORD07
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{hbidte}
+    ,#{sinjucsgn}
+    ,#{kcyprcdte}
+    ,#{zkakcyprcdte}
+    ,#{kcyprckruflg}
+    ,#{dtassnors}
+    ,#{syadte}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{sinsyakandte}
+    ,#{ykksmedtefrm}
+    ,#{ykksmedteto}
+    ,#{kcyprchuyflg}
+    ,#{stdssedte}
+    ,#{stdssestskbn}
+    ,#{khadte}
+    ,#{khaprckjyzflg}
+    ,#{sinsyaprfssedte}
+    ,#{sinsyaprfssestskbn}
+    ,#{hsonpossedte}
+    ,#{hsonpossestskbn}
+    ,#{urizaiupddte}
+    ,#{urizaiupdkruflg}
+    ,#{comssedte}
+    ,#{comssestskbn}
+    ,#{tokedidte1}
+    ,#{tokedidte2}
+    ,#{sintokedistskbn}
+    ,#{kcytrkdte}
+    ,#{kcytrkstskbn}
+    ,#{recsuu5kt}
+    ,#{msisuu7kt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and SINJUCSGN = #{sinjucsgn}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuScheduleEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuScheduleEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuScheduleEntity">
+  update AERORD07
+  <set>
+    ,KCYPRCDTE = #{kcyprcdte}
+    ,ZKAKCYPRCDTE = #{zkakcyprcdte}
+    ,KCYPRCKRUFLG = #{kcyprckruflg}
+    ,DTASSNORS = #{dtassnors}
+    ,SYADTE = #{syadte}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,SINSYAKANDTE = #{sinsyakandte}
+    ,YKKSMEDTEFRM = #{ykksmedtefrm}
+    ,YKKSMEDTETO = #{ykksmedteto}
+    ,KCYPRCHUYFLG = #{kcyprchuyflg}
+    ,STDSSEDTE = #{stdssedte}
+    ,STDSSESTSKBN = #{stdssestskbn}
+    ,KHADTE = #{khadte}
+    ,KHAPRCKJYZFLG = #{khaprckjyzflg}
+    ,SINSYAPRFSSEDTE = #{sinsyaprfssedte}
+    ,SINSYAPRFSSESTSKBN = #{sinsyaprfssestskbn}
+    ,HSONPOSSEDTE = #{hsonpossedte}
+    ,HSONPOSSESTSKBN = #{hsonpossestskbn}
+    ,URIZAIUPDDTE = #{urizaiupddte}
+    ,URIZAIUPDKRUFLG = #{urizaiupdkruflg}
+    ,COMSSEDTE = #{comssedte}
+    ,COMSSESTSKBN = #{comssestskbn}
+    ,TOKEDIDTE1 = #{tokedidte1}
+    ,TOKEDIDTE2 = #{tokedidte2}
+    ,SINTOKEDISTSKBN = #{sintokedistskbn}
+    ,KCYTRKDTE = #{kcytrkdte}
+    ,KCYTRKSTSKBN = #{kcytrkstskbn}
+    ,RECSUU5KT = #{recsuu5kt}
+    ,MSISUU7KT = #{msisuu7kt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and SINJUCSGN = #{sinjucsgn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuScheduleEntity">
+  delete from AERORD07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HBIDTE = #{hbidte}
+    and SINJUCSGN = #{sinjucsgn}
+  </where>
+</delete>
+
+</mapper>
+

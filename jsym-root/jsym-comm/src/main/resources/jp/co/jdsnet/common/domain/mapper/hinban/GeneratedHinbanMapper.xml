@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hinban.GeneratedHinbanMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,KAISKBCOD
+    ,MKRBUNCOD
+    ,KIGKTA
+    ,PRICODKTA
+    ,KIGHKNUMU
+    ,RHBHNB
+    ,RHBHNBKIGKTA
+    ,MNGFLG
+    ,SRYHNB
+    ,KNISINFLG
+    ,HJIHNB
+    ,ARTCOD
+    ,ARTNMKN
+    ,ARTNMKNKKC
+    ,ARTNM
+    ,ARTNMKKC
+    ,TITNMKN
+    ,TITNMKNKKC
+    ,TITNM
+    ,TITNMKKC
+    ,CTGCOD
+    ,KETCOD
+    ,STDKETGRPCOD
+    ,STDBDNGRPCOD
+    ,HBIDTE
+    ,RHBDTE
+    ,JANCOD
+    ,KRESYAKHIKBN
+    ,RNTSYAKHIKBN
+    ,KREHYOKBN
+    ,GBNSGN
+    ,SSBCOD
+    ,SETSUU
+    ,SETCOD
+    ,TNPKBN
+    ,TNPHNB
+    ,KITHINDAIHNBFLG
+    ,LBLCOD
+    ,LBLMKRCOD
+    ,TBIFKAFLG
+    ,SKNSUU
+    ,TSKKES
+    ,YRY
+    ,JRY
+    ,JRYTANIKBN
+    ,ZNKHITSTEFLG
+    ,ZNMRAKCOD
+    ,TOMRAKCOD
+    ,YKMRAKCOD
+    ,SOFFLG
+    ,SOFDTE
+    ,CTMHKNHNB
+    ,ZAIKNRHUYFLG
+    ,SHNTHNHINKBN
+    ,HPNTAIHINKBN
+    ,SRTCOD
+    ,BZISGN
+    ,SIRKRTIPN
+    ,SIRTANIPN
+    ,SKRTANKTIKBN
+    ,SKRKRTGRPCOD
+    ,SKRKRTIPN
+    ,SKRKRTKRE
+    ,SKRTANIPN
+    ,SKRTANKRE
+    ,HSHSKRTANIPN
+    ,HSHSKRKRTIPN
+    ,ZNUPRI
+    ,JASRACUSR
+    ,JASRACHOK
+    ,ILKBN
+    ,EXPFKAFLG
+    ,SKHSYYHNB
+    ,HIBKKNFRM
+    ,HIBKKNTO
+    ,AFKOBJKBN
+    ,SZOKGN
+    ,JHTOBJSGN
+    ,JUCHACHIN
+    ,FUKSZIKNRCOD
+    ,FUKSZISIY
+    ,PRSMKRCOD
+    ,JYTPRSMKR
+    ,FUKSZIMKRCOD
+    ,ETCMKRCOD
+    ,PRDSIRKBN
+    ,TAKSHOGRPCOD
+    ,TERGRPCOD
+    ,NOHDENBDNGRPCOD
+    ,MKRDENKETGRPCOD
+    ,URIGRPCOD
+    ,HPNGRPCOD
+    ,GNRCOD
+    ,HNBINFKOKKBN
+    ,ZKMPRI
+    ,TKAKSNKBN
+    ,KKIDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HinbanEntity">
+  insert into AEPROD01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{kaiskbcod}
+    ,#{mkrbuncod}
+    ,#{kigkta}
+    ,#{pricodkta}
+    ,#{kighknumu}
+    ,#{rhbhnb}
+    ,#{rhbhnbkigkta}
+    ,#{mngflg}
+    ,#{sryhnb}
+    ,#{knisinflg}
+    ,#{hjihnb}
+    ,#{artcod}
+    ,#{artnmkn}
+    ,#{artnmknkkc}
+    ,#{artnm}
+    ,#{artnmkkc}
+    ,#{titnmkn}
+    ,#{titnmknkkc}
+    ,#{titnm}
+    ,#{titnmkkc}
+    ,#{ctgcod}
+    ,#{ketcod}
+    ,#{stdketgrpcod}
+    ,#{stdbdngrpcod}
+    ,#{hbidte}
+    ,#{rhbdte}
+    ,#{jancod}
+    ,#{kresyakhikbn}
+    ,#{rntsyakhikbn}
+    ,#{krehyokbn}
+    ,#{gbnsgn}
+    ,#{ssbcod}
+    ,#{setsuu}
+    ,#{setcod}
+    ,#{tnpkbn}
+    ,#{tnphnb}
+    ,#{kithindaihnbflg}
+    ,#{lblcod}
+    ,#{lblmkrcod}
+    ,#{tbifkaflg}
+    ,#{sknsuu}
+    ,#{tskkes}
+    ,#{yry}
+    ,#{jry}
+    ,#{jrytanikbn}
+    ,#{znkhitsteflg}
+    ,#{znmrakcod}
+    ,#{tomrakcod}
+    ,#{ykmrakcod}
+    ,#{sofflg}
+    ,#{sofdte}
+    ,#{ctmhknhnb}
+    ,#{zaiknrhuyflg}
+    ,#{shnthnhinkbn}
+    ,#{hpntaihinkbn}
+    ,#{srtcod}
+    ,#{bzisgn}
+    ,#{sirkrtipn}
+    ,#{sirtanipn}
+    ,#{skrtanktikbn}
+    ,#{skrkrtgrpcod}
+    ,#{skrkrtipn}
+    ,#{skrkrtkre}
+    ,#{skrtanipn}
+    ,#{skrtankre}
+    ,#{hshskrtanipn}
+    ,#{hshskrkrtipn}
+    ,#{znupri}
+    ,#{jasracusr}
+    ,#{jasrachok}
+    ,#{ilkbn}
+    ,#{expfkaflg}
+    ,#{skhsyyhnb}
+    ,#{hibkknfrm}
+    ,#{hibkknto}
+    ,#{afkobjkbn}
+    ,#{szokgn}
+    ,#{jhtobjsgn}
+    ,#{juchachin}
+    ,#{fuksziknrcod}
+    ,#{fukszisiy}
+    ,#{prsmkrcod}
+    ,#{jytprsmkr}
+    ,#{fukszimkrcod}
+    ,#{etcmkrcod}
+    ,#{prdsirkbn}
+    ,#{takshogrpcod}
+    ,#{tergrpcod}
+    ,#{nohdenbdngrpcod}
+    ,#{mkrdenketgrpcod}
+    ,#{urigrpcod}
+    ,#{hpngrpcod}
+    ,#{gnrcod}
+    ,#{hnbinfkokkbn}
+    ,#{zkmpri}
+    ,#{tkaksnkbn}
+    ,#{kkidte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEPROD01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</sql>
+
+<select id="select" resultType="HinbanEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HinbanEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HinbanEntity">
+  update AEPROD01
+  <set>
+    ,KAISKBCOD = #{kaiskbcod}
+    ,MKRBUNCOD = #{mkrbuncod}
+    ,KIGKTA = #{kigkta}
+    ,PRICODKTA = #{pricodkta}
+    ,KIGHKNUMU = #{kighknumu}
+    ,RHBHNB = #{rhbhnb}
+    ,RHBHNBKIGKTA = #{rhbhnbkigkta}
+    ,MNGFLG = #{mngflg}
+    ,SRYHNB = #{sryhnb}
+    ,KNISINFLG = #{knisinflg}
+    ,HJIHNB = #{hjihnb}
+    ,ARTCOD = #{artcod}
+    ,ARTNMKN = #{artnmkn}
+    ,ARTNMKNKKC = #{artnmknkkc}
+    ,ARTNM = #{artnm}
+    ,ARTNMKKC = #{artnmkkc}
+    ,TITNMKN = #{titnmkn}
+    ,TITNMKNKKC = #{titnmknkkc}
+    ,TITNM = #{titnm}
+    ,TITNMKKC = #{titnmkkc}
+    ,CTGCOD = #{ctgcod}
+    ,KETCOD = #{ketcod}
+    ,STDKETGRPCOD = #{stdketgrpcod}
+    ,STDBDNGRPCOD = #{stdbdngrpcod}
+    ,HBIDTE = #{hbidte}
+    ,RHBDTE = #{rhbdte}
+    ,JANCOD = #{jancod}
+    ,KRESYAKHIKBN = #{kresyakhikbn}
+    ,RNTSYAKHIKBN = #{rntsyakhikbn}
+    ,KREHYOKBN = #{krehyokbn}
+    ,GBNSGN = #{gbnsgn}
+    ,SSBCOD = #{ssbcod}
+    ,SETSUU = #{setsuu}
+    ,SETCOD = #{setcod}
+    ,TNPKBN = #{tnpkbn}
+    ,TNPHNB = #{tnphnb}
+    ,KITHINDAIHNBFLG = #{kithindaihnbflg}
+    ,LBLCOD = #{lblcod}
+    ,LBLMKRCOD = #{lblmkrcod}
+    ,TBIFKAFLG = #{tbifkaflg}
+    ,SKNSUU = #{sknsuu}
+    ,TSKKES = #{tskkes}
+    ,YRY = #{yry}
+    ,JRY = #{jry}
+    ,JRYTANIKBN = #{jrytanikbn}
+    ,ZNKHITSTEFLG = #{znkhitsteflg}
+    ,ZNMRAKCOD = #{znmrakcod}
+    ,TOMRAKCOD = #{tomrakcod}
+    ,YKMRAKCOD = #{ykmrakcod}
+    ,SOFFLG = #{sofflg}
+    ,SOFDTE = #{sofdte}
+    ,CTMHKNHNB = #{ctmhknhnb}
+    ,ZAIKNRHUYFLG = #{zaiknrhuyflg}
+    ,SHNTHNHINKBN = #{shnthnhinkbn}
+    ,HPNTAIHINKBN = #{hpntaihinkbn}
+    ,SRTCOD = #{srtcod}
+    ,BZISGN = #{bzisgn}
+    ,SIRKRTIPN = #{sirkrtipn}
+    ,SIRTANIPN = #{sirtanipn}
+    ,SKRTANKTIKBN = #{skrtanktikbn}
+    ,SKRKRTGRPCOD = #{skrkrtgrpcod}
+    ,SKRKRTIPN = #{skrkrtipn}
+    ,SKRKRTKRE = #{skrkrtkre}
+    ,SKRTANIPN = #{skrtanipn}
+    ,SKRTANKRE = #{skrtankre}
+    ,HSHSKRTANIPN = #{hshskrtanipn}
+    ,HSHSKRKRTIPN = #{hshskrkrtipn}
+    ,ZNUPRI = #{znupri}
+    ,JASRACUSR = #{jasracusr}
+    ,JASRACHOK = #{jasrachok}
+    ,ILKBN = #{ilkbn}
+    ,EXPFKAFLG = #{expfkaflg}
+    ,SKHSYYHNB = #{skhsyyhnb}
+    ,HIBKKNFRM = #{hibkknfrm}
+    ,HIBKKNTO = #{hibkknto}
+    ,AFKOBJKBN = #{afkobjkbn}
+    ,SZOKGN = #{szokgn}
+    ,JHTOBJSGN = #{jhtobjsgn}
+    ,JUCHACHIN = #{juchachin}
+    ,FUKSZIKNRCOD = #{fuksziknrcod}
+    ,FUKSZISIY = #{fukszisiy}
+    ,PRSMKRCOD = #{prsmkrcod}
+    ,JYTPRSMKR = #{jytprsmkr}
+    ,FUKSZIMKRCOD = #{fukszimkrcod}
+    ,ETCMKRCOD = #{etcmkrcod}
+    ,PRDSIRKBN = #{prdsirkbn}
+    ,TAKSHOGRPCOD = #{takshogrpcod}
+    ,TERGRPCOD = #{tergrpcod}
+    ,NOHDENBDNGRPCOD = #{nohdenbdngrpcod}
+    ,MKRDENKETGRPCOD = #{mkrdenketgrpcod}
+    ,URIGRPCOD = #{urigrpcod}
+    ,HPNGRPCOD = #{hpngrpcod}
+    ,GNRCOD = #{gnrcod}
+    ,HNBINFKOKKBN = #{hnbinfkokkbn}
+    ,ZKMPRI = #{zkmpri}
+    ,TKAKSNKBN = #{tkaksnkbn}
+    ,KKIDTE = #{kkidte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HinbanEntity">
+  delete from AEPROD01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</delete>
+
+</mapper>
+

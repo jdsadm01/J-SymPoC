@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.uriagejisseki.GeneratedEigyoshobetsuHinbanUriageMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,EIGCOD
+    ,KIGBNG
+    ,SINJUCSUR
+    ,SINSYASUR
+    ,SINSYATENSUU
+    ,CHZSURRUI
+    ,CHZTENSUURUI
+    ,TODJUCSUR
+    ,TODJUCTENSUU
+    ,TODSYASUR
+    ,TODSYATENSUU
+    ,TODMSYSUR
+    ,TODMSYTENSUU
+    ,TODCHZSYASUR
+    ,TODCHZMSYSUR
+    ,TODCHZSYATENSUU
+    ,TODCHZMSYTENSUU
+    ,TODHPNTENSUU
+    ,TODTJYURISUR
+    ,TODSHOURISUR
+    ,TODTJGURISUR
+    ,TODKDASYASUR
+    ,TODKDAURISUR
+    ,TODTCYURISUR
+    ,TODEXPURISUR
+    ,TODTHNURISUR
+    ,TODKEHSYOSUR
+    ,TODTJYURISURKRE
+    ,TODSHOURISURKRE
+    ,TODTJGURISURKRE
+    ,TODKAIURI
+    ,TODTJYHPNSUR
+    ,TODSHOHPNSUR
+    ,TODTJGHPNSUR
+    ,TODTCYHPNSUR
+    ,TODEXPHPNSUR
+    ,TODTHNHPNSUR
+    ,TODTJYHPNSURKRE
+    ,TODSHOHPNSURKRE
+    ,TODTJGHPNSURKRE
+    ,TODKAIHPN
+    ,TOMTJYURISUR
+    ,TOMSHOURISUR
+    ,TOMTJGURISUR
+    ,TOMKDASYASUR
+    ,TOMKDAURISUR
+    ,TOMTCYURISUR
+    ,TOMEXPURISUR
+    ,TOMTHNURISUR
+    ,TOMKEHSYOSUR
+    ,TOMTJYURISURKRE
+    ,TOMSHOURISURKRE
+    ,TOMTJGURISURKRE
+    ,TOMKAIURI
+    ,TOMTJYHPNSUR
+    ,TOMSHOHPNSUR
+    ,TOMTJGHPNSUR
+    ,TOMTCYHPNSUR
+    ,TOMEXPHPNSUR
+    ,TOMTHNHPNSUR
+    ,TOMTJYHPNSURKRE
+    ,TOMSHOHPNSURKRE
+    ,TOMTJGHPNSURKRE
+    ,TOMKAIHPN
+    ,URISURRUI
+    ,URISURRUIKRE
+    ,HPNSURRUI
+    ,HPNSURRUIKRE
+    ,OLDAVISFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="EigyoshobetsuHinbanUriageEntity">
+  insert into AESALE01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{eigcod}
+    ,#{kigbng}
+    ,#{sinjucsur}
+    ,#{sinsyasur}
+    ,#{sinsyatensuu}
+    ,#{chzsurrui}
+    ,#{chztensuurui}
+    ,#{todjucsur}
+    ,#{todjuctensuu}
+    ,#{todsyasur}
+    ,#{todsyatensuu}
+    ,#{todmsysur}
+    ,#{todmsytensuu}
+    ,#{todchzsyasur}
+    ,#{todchzmsysur}
+    ,#{todchzsyatensuu}
+    ,#{todchzmsytensuu}
+    ,#{todhpntensuu}
+    ,#{todtjyurisur}
+    ,#{todshourisur}
+    ,#{todtjgurisur}
+    ,#{todkdasyasur}
+    ,#{todkdaurisur}
+    ,#{todtcyurisur}
+    ,#{todexpurisur}
+    ,#{todthnurisur}
+    ,#{todkehsyosur}
+    ,#{todtjyurisurkre}
+    ,#{todshourisurkre}
+    ,#{todtjgurisurkre}
+    ,#{todkaiuri}
+    ,#{todtjyhpnsur}
+    ,#{todshohpnsur}
+    ,#{todtjghpnsur}
+    ,#{todtcyhpnsur}
+    ,#{todexphpnsur}
+    ,#{todthnhpnsur}
+    ,#{todtjyhpnsurkre}
+    ,#{todshohpnsurkre}
+    ,#{todtjghpnsurkre}
+    ,#{todkaihpn}
+    ,#{tomtjyurisur}
+    ,#{tomshourisur}
+    ,#{tomtjgurisur}
+    ,#{tomkdasyasur}
+    ,#{tomkdaurisur}
+    ,#{tomtcyurisur}
+    ,#{tomexpurisur}
+    ,#{tomthnurisur}
+    ,#{tomkehsyosur}
+    ,#{tomtjyurisurkre}
+    ,#{tomshourisurkre}
+    ,#{tomtjgurisurkre}
+    ,#{tomkaiuri}
+    ,#{tomtjyhpnsur}
+    ,#{tomshohpnsur}
+    ,#{tomtjghpnsur}
+    ,#{tomtcyhpnsur}
+    ,#{tomexphpnsur}
+    ,#{tomthnhpnsur}
+    ,#{tomtjyhpnsurkre}
+    ,#{tomshohpnsurkre}
+    ,#{tomtjghpnsurkre}
+    ,#{tomkaihpn}
+    ,#{urisurrui}
+    ,#{urisurruikre}
+    ,#{hpnsurrui}
+    ,#{hpnsurruikre}
+    ,#{oldavisflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESALE01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</sql>
+
+<select id="select" resultType="EigyoshobetsuHinbanUriageEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="EigyoshobetsuHinbanUriageEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="EigyoshobetsuHinbanUriageEntity">
+  update AESALE01
+  <set>
+    ,SINJUCSUR = #{sinjucsur}
+    ,SINSYASUR = #{sinsyasur}
+    ,SINSYATENSUU = #{sinsyatensuu}
+    ,CHZSURRUI = #{chzsurrui}
+    ,CHZTENSUURUI = #{chztensuurui}
+    ,TODJUCSUR = #{todjucsur}
+    ,TODJUCTENSUU = #{todjuctensuu}
+    ,TODSYASUR = #{todsyasur}
+    ,TODSYATENSUU = #{todsyatensuu}
+    ,TODMSYSUR = #{todmsysur}
+    ,TODMSYTENSUU = #{todmsytensuu}
+    ,TODCHZSYASUR = #{todchzsyasur}
+    ,TODCHZMSYSUR = #{todchzmsysur}
+    ,TODCHZSYATENSUU = #{todchzsyatensuu}
+    ,TODCHZMSYTENSUU = #{todchzmsytensuu}
+    ,TODHPNTENSUU = #{todhpntensuu}
+    ,TODTJYURISUR = #{todtjyurisur}
+    ,TODSHOURISUR = #{todshourisur}
+    ,TODTJGURISUR = #{todtjgurisur}
+    ,TODKDASYASUR = #{todkdasyasur}
+    ,TODKDAURISUR = #{todkdaurisur}
+    ,TODTCYURISUR = #{todtcyurisur}
+    ,TODEXPURISUR = #{todexpurisur}
+    ,TODTHNURISUR = #{todthnurisur}
+    ,TODKEHSYOSUR = #{todkehsyosur}
+    ,TODTJYURISURKRE = #{todtjyurisurkre}
+    ,TODSHOURISURKRE = #{todshourisurkre}
+    ,TODTJGURISURKRE = #{todtjgurisurkre}
+    ,TODKAIURI = #{todkaiuri}
+    ,TODTJYHPNSUR = #{todtjyhpnsur}
+    ,TODSHOHPNSUR = #{todshohpnsur}
+    ,TODTJGHPNSUR = #{todtjghpnsur}
+    ,TODTCYHPNSUR = #{todtcyhpnsur}
+    ,TODEXPHPNSUR = #{todexphpnsur}
+    ,TODTHNHPNSUR = #{todthnhpnsur}
+    ,TODTJYHPNSURKRE = #{todtjyhpnsurkre}
+    ,TODSHOHPNSURKRE = #{todshohpnsurkre}
+    ,TODTJGHPNSURKRE = #{todtjghpnsurkre}
+    ,TODKAIHPN = #{todkaihpn}
+    ,TOMTJYURISUR = #{tomtjyurisur}
+    ,TOMSHOURISUR = #{tomshourisur}
+    ,TOMTJGURISUR = #{tomtjgurisur}
+    ,TOMKDASYASUR = #{tomkdasyasur}
+    ,TOMKDAURISUR = #{tomkdaurisur}
+    ,TOMTCYURISUR = #{tomtcyurisur}
+    ,TOMEXPURISUR = #{tomexpurisur}
+    ,TOMTHNURISUR = #{tomthnurisur}
+    ,TOMKEHSYOSUR = #{tomkehsyosur}
+    ,TOMTJYURISURKRE = #{tomtjyurisurkre}
+    ,TOMSHOURISURKRE = #{tomshourisurkre}
+    ,TOMTJGURISURKRE = #{tomtjgurisurkre}
+    ,TOMKAIURI = #{tomkaiuri}
+    ,TOMTJYHPNSUR = #{tomtjyhpnsur}
+    ,TOMSHOHPNSUR = #{tomshohpnsur}
+    ,TOMTJGHPNSUR = #{tomtjghpnsur}
+    ,TOMTCYHPNSUR = #{tomtcyhpnsur}
+    ,TOMEXPHPNSUR = #{tomexphpnsur}
+    ,TOMTHNHPNSUR = #{tomthnhpnsur}
+    ,TOMTJYHPNSURKRE = #{tomtjyhpnsurkre}
+    ,TOMSHOHPNSURKRE = #{tomshohpnsurkre}
+    ,TOMTJGHPNSURKRE = #{tomtjghpnsurkre}
+    ,TOMKAIHPN = #{tomkaihpn}
+    ,URISURRUI = #{urisurrui}
+    ,URISURRUIKRE = #{urisurruikre}
+    ,HPNSURRUI = #{hpnsurrui}
+    ,HPNSURRUIKRE = #{hpnsurruikre}
+    ,OLDAVISFLG = #{oldavisflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</update>
+
+<delete id="delete" parameterType="EigyoshobetsuHinbanUriageEntity">
+  delete from AESALE01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+    and KIGBNG = #{kigbng}
+  </where>
+</delete>
+
+</mapper>
+

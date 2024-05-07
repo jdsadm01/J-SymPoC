@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.zaiko.GeneratedZaikoKakuhoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,SKOCOD
+    ,KJYDTE8KT
+    ,EIGCOD
+    ,ZKHTOKSYYKBN
+    ,TOKCOD
+    ,DSCOD
+    ,ZAIKHOKBN
+    ,ZAIKHOKHASUR
+    ,ZAIKHOCMT
+    ,CPUFULID
+    ,INPDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ZaikoKakuhoEntity">
+  insert into AESTOC05
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{skocod}
+    ,#{kjydte8kt}
+    ,#{eigcod}
+    ,#{zkhtoksyykbn}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{zaikhokbn}
+    ,#{zaikhokhasur}
+    ,#{zaikhocmt}
+    ,#{cpufulid}
+    ,#{inpdte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESTOC05
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+    and KJYDTE8KT = #{kjydte8kt}
+    and EIGCOD = #{eigcod}
+    and ZKHTOKSYYKBN = #{zkhtoksyykbn}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and ZAIKHOKBN = #{zaikhokbn}
+  </where>
+</sql>
+
+<select id="select" resultType="ZaikoKakuhoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ZaikoKakuhoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ZaikoKakuhoEntity">
+  update AESTOC05
+  <set>
+    ,ZAIKHOKHASUR = #{zaikhokhasur}
+    ,ZAIKHOCMT = #{zaikhocmt}
+    ,CPUFULID = #{cpufulid}
+    ,INPDTE = #{inpdte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+    and KJYDTE8KT = #{kjydte8kt}
+    and EIGCOD = #{eigcod}
+    and ZKHTOKSYYKBN = #{zkhtoksyykbn}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and ZAIKHOKBN = #{zaikhokbn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ZaikoKakuhoEntity">
+  delete from AESTOC05
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and SKOCOD = #{skocod}
+    and KJYDTE8KT = #{kjydte8kt}
+    and EIGCOD = #{eigcod}
+    and ZKHTOKSYYKBN = #{zkhtoksyykbn}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and ZAIKHOKBN = #{zaikhokbn}
+  </where>
+</delete>
+
+</mapper>
+

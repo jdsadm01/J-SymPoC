@@ -14,7 +14,12 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 tasks.named("bootWar") {
-//	rootSpec.exclude "**/register/**"
+  String env = "dev";
+  if (project.hasProperty("env")) {
+    env = getProperty("env");
+  }
+  ant.replaceregexp(file: "src/main/resources/application.yml", match: "(^.*active:\\s+)(.*)", replace: "\\1" + env, byline: "true", encoding: "UTF-8")
+	rootSpec.exclude "**/register/**"
 	rootSpec.exclude "**/*.map"
 }
 tasks.named("war") {

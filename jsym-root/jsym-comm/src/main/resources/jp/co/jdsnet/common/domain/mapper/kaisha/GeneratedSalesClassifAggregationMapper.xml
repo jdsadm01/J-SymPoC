@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedSalesClassifAggregationMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,URIBUNSYYPTNCOD
+    ,URIBUNSYYCOD
+    ,URIBUNSYYNM
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SalesClassifAggregationEntity">
+  insert into VTBUBN01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{uribunsyyptncod}
+    ,#{uribunsyycod}
+    ,#{uribunsyynm}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBUBN01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and URIBUNSYYPTNCOD = #{uribunsyyptncod}
+    and URIBUNSYYCOD = #{uribunsyycod}
+  </where>
+</sql>
+
+<select id="select" resultType="SalesClassifAggregationEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SalesClassifAggregationEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SalesClassifAggregationEntity">
+  update VTBUBN01
+  <set>
+    ,URIBUNSYYNM = #{uribunsyynm}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and URIBUNSYYPTNCOD = #{uribunsyyptncod}
+    and URIBUNSYYCOD = #{uribunsyycod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SalesClassifAggregationEntity">
+  delete from VTBUBN01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and URIBUNSYYPTNCOD = #{uribunsyyptncod}
+    and URIBUNSYYCOD = #{uribunsyycod}
+  </where>
+</delete>
+
+</mapper>
+

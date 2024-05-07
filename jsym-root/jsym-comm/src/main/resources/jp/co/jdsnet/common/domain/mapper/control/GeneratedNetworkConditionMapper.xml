@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.control.GeneratedNetworkConditionMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,NWKSKBCOD
+    ,NWKNNSKEY
+    ,USRIDHZOFLG
+    ,PWDHZOFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,DVINNSCHKFLG
+    ,NWKCMT
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="NetworkConditionEntity">
+  insert into MTBCNL01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{nwkskbcod}
+    ,#{nwknnskey}
+    ,#{usridhzoflg}
+    ,#{pwdhzoflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{dvinnschkflg}
+    ,#{nwkcmt}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from MTBCNL01
+  <where>
+    and NWKSKBCOD = #{nwkskbcod}
+    and NWKNNSKEY = #{nwknnskey}
+  </where>
+</sql>
+
+<select id="select" resultType="NetworkConditionEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="NetworkConditionEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="NetworkConditionEntity">
+  update MTBCNL01
+  <set>
+    ,USRIDHZOFLG = #{usridhzoflg}
+    ,PWDHZOFLG = #{pwdhzoflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,DVINNSCHKFLG = #{dvinnschkflg}
+    ,NWKCMT = #{nwkcmt}
+  </set>
+  <where>
+    and NWKSKBCOD = #{nwkskbcod}
+    and NWKNNSKEY = #{nwknnskey}
+  </where>
+</update>
+
+<delete id="delete" parameterType="NetworkConditionEntity">
+  delete from MTBCNL01
+  <where>
+    and NWKSKBCOD = #{nwkskbcod}
+    and NWKNNSKEY = #{nwknnskey}
+  </where>
+</delete>
+
+</mapper>
+

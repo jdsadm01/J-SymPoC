@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedSokobetsuTorokumeiHinbanGroupMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SKOCOD
+    ,KAISKBCOD
+    ,TRKNM
+    ,SEQ
+    ,SESHNB
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SokobetsuTorokumeiHinbanGroupEntity">
+  insert into AEWARE17
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{skocod}
+    ,#{kaiskbcod}
+    ,#{trknm}
+    ,#{seq}
+    ,#{seshnb}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE17
+  <where>
+    and SKOCOD = #{skocod}
+    and KAISKBCOD = #{kaiskbcod}
+    and TRKNM = #{trknm}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="SokobetsuTorokumeiHinbanGroupEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SokobetsuTorokumeiHinbanGroupEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SokobetsuTorokumeiHinbanGroupEntity">
+  update AEWARE17
+  <set>
+    ,SESHNB = #{seshnb}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SKOCOD = #{skocod}
+    and KAISKBCOD = #{kaiskbcod}
+    and TRKNM = #{trknm}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SokobetsuTorokumeiHinbanGroupEntity">
+  delete from AEWARE17
+  <where>
+    and SKOCOD = #{skocod}
+    and KAISKBCOD = #{kaiskbcod}
+    and TRKNM = #{trknm}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

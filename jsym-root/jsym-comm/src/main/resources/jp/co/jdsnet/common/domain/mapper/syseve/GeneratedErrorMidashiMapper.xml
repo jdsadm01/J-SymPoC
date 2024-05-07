@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedErrorMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,BSHCOD
+    ,LSTID
+    ,RECSEQ
+    ,SSEDTE
+    ,SSEJKK
+    ,KAISKBCOD
+    ,TTLMSISUU
+    ,WSSEQNO
+    ,TRMNO
+    ,TRNKBN
+    ,JUCKBN
+    ,TOKCOD
+    ,DSCOD
+    ,SKOCOD
+    ,EIGCOD
+    ,TERCOD
+    ,HACBNG
+    ,RMCOD
+    ,SJCOD
+    ,CCHSKP
+    ,CHZMSKP
+    ,KDAKBN
+    ,KINHJIKBN
+    ,KNRKBN
+    ,SMT
+    ,YKKCOD
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,HPNRELNO
+    ,ERRRECSUU
+    ,JSNRECSUU
+    ,SSNRECSUU
+    ,ABKBN
+    ,MSO
+    ,SSO
+    ,TOMZNMKBN
+    ,UTKBNG
+    ,ERRCOD
+    ,TRNNMCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ErrorMidashiEntity">
+  insert into AESYSE08
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{bshcod}
+    ,#{lstid}
+    ,#{recseq}
+    ,#{ssedte}
+    ,#{ssejkk}
+    ,#{kaiskbcod}
+    ,#{ttlmsisuu}
+    ,#{wsseqno}
+    ,#{trmno}
+    ,#{trnkbn}
+    ,#{juckbn}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{skocod}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{hacbng}
+    ,#{rmcod}
+    ,#{sjcod}
+    ,#{cchskp}
+    ,#{chzmskp}
+    ,#{kdakbn}
+    ,#{kinhjikbn}
+    ,#{knrkbn}
+    ,#{smt}
+    ,#{ykkcod}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{hpnrelno}
+    ,#{errrecsuu}
+    ,#{jsnrecsuu}
+    ,#{ssnrecsuu}
+    ,#{abkbn}
+    ,#{mso}
+    ,#{sso}
+    ,#{tomznmkbn}
+    ,#{utkbng}
+    ,#{errcod}
+    ,#{trnnmcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE08
+  <where>
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and RECSEQ = #{recseq}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ErrorMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ErrorMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ErrorMidashiEntity">
+  update AESYSE08
+  <set>
+    ,TTLMSISUU = #{ttlmsisuu}
+    ,WSSEQNO = #{wsseqno}
+    ,TRMNO = #{trmno}
+    ,TRNKBN = #{trnkbn}
+    ,JUCKBN = #{juckbn}
+    ,TOKCOD = #{tokcod}
+    ,DSCOD = #{dscod}
+    ,SKOCOD = #{skocod}
+    ,EIGCOD = #{eigcod}
+    ,TERCOD = #{tercod}
+    ,HACBNG = #{hacbng}
+    ,RMCOD = #{rmcod}
+    ,SJCOD = #{sjcod}
+    ,CCHSKP = #{cchskp}
+    ,CHZMSKP = #{chzmskp}
+    ,KDAKBN = #{kdakbn}
+    ,KINHJIKBN = #{kinhjikbn}
+    ,KNRKBN = #{knrkbn}
+    ,SMT = #{smt}
+    ,YKKCOD = #{ykkcod}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,HPNRELNO = #{hpnrelno}
+    ,ERRRECSUU = #{errrecsuu}
+    ,JSNRECSUU = #{jsnrecsuu}
+    ,SSNRECSUU = #{ssnrecsuu}
+    ,ABKBN = #{abkbn}
+    ,MSO = #{mso}
+    ,SSO = #{sso}
+    ,TOMZNMKBN = #{tomznmkbn}
+    ,UTKBNG = #{utkbng}
+    ,ERRCOD = #{errcod}
+    ,TRNNMCOD = #{trnnmcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and RECSEQ = #{recseq}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ErrorMidashiEntity">
+  delete from AESYSE08
+  <where>
+    and BSHCOD = #{bshcod}
+    and LSTID = #{lstid}
+    and RECSEQ = #{recseq}
+    and SSEDTE = #{ssedte}
+    and SSEJKK = #{ssejkk}
+    and KAISKBCOD = #{kaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

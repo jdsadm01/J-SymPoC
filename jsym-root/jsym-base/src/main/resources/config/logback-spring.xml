@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
-	<include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+  <!-- Stop output INFO at start -->
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+  
+  <!-- デフォルト設定読み込み -->
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+  <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
 
-    <!-- ログ -->
-	<appender name="app_log" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_PATH}/jsymApplication.log</file>
-        <encoder>
-			<charset>${FILE_LOG_CHARSET}</charset>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
+  <!-- ログ -->
+  <appender name="app_log" class="ch.qos.logback.core.FileAppender">
+    <file>${LOG_PATH}/jsymApplication.log</file>
+    <encoder>
+      <charset>${FILE_LOG_CHARSET}</charset>
+      <pattern>${FILE_LOG_PATTERN}</pattern>
+    </encoder>
+  </appender>
 
-    <!-- エラーログ -->
-    <appender name="app_error" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_PATH}/jsymApplication.err</file>
-        <encoder>
-			<charset>${FILE_LOG_CHARSET}</charset>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
-        </encoder>
-	    <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-             <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+  <!-- エラーログ -->
+  <appender name="app_error" class="ch.qos.logback.core.FileAppender">
+    <file>${LOG_PATH}/jsymApplication.err</file>
+    <encoder>
+      <charset>${FILE_LOG_CHARSET}</charset>
+      <pattern>${FILE_LOG_PATTERN}</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
 
-    <!-- アクセスログ -->
-    <springProperty name="ACCESS_LOG_PATTERN" source="logging.accesslog.pattern"/>
-	<appender name="access_log" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_PATH}/jsymAccess.log</file>
-        <encoder>
-			<charset>${FILE_LOG_CHARSET}</charset>
-            <pattern>${ACCESS_LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
+  <!-- 操作ログ -->
+  <springProperty name="OPERATION_LOG_PATTERN" source="logging.operationlog.pattern" />
+  <appender name="operation_log" class="ch.qos.logback.core.FileAppender">
+    <file>${LOG_PATH}/jsymOperation.log</file>
+    <encoder>
+      <charset>${FILE_LOG_CHARSET}</charset>
+      <pattern>${OPERATION_LOG_PATTERN}</pattern>
+    </encoder>
+  </appender>
 
-    <logger name="jp.co.jdsnet">
-        <appender-ref ref="app_log" />
-        <appender-ref ref="app_error" />
-        <appender-ref ref="CONSOLE" />
-    </logger>
+  <logger name="jp.co.jdsnet">
+    <appender-ref ref="app_log" />
+    <appender-ref ref="app_error" />
+    <appender-ref ref="CONSOLE" />
+  </logger>
 
-    <logger name="AccessLog" level="INFO">
-        <appender-ref ref="access_log" />
-    </logger>
+  <logger name="OperationLog" level="INFO">
+    <appender-ref ref="operation_log" />
+  </logger>
+
+  <root level="INFO">
+    <appender-ref ref="app_log" />
+    <appender-ref ref="app_error" />
+    <appender-ref ref="CONSOLE" />
+  </root>
 </configuration>

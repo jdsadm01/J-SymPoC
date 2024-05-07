@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.uriagejisseki.EigyoshobetsuHinbanUriageMapper">
-    <select id="getUrisurruiSummary" resultType="integer">
-        SELECT sum(URISURRUI)
-        FROM AESALE01
-        <where>
-            DAIKAISKBCOD = #{daikaiskbcod}
-            AND KIGBNG = #{kigbng}
-        </where>
-        WITH UR
-    </select>
+  <select id="getUrisurruiSummary" resultType="integer">
+    select sum(URISURRUI)
+    from AESALE01
+    <where>
+      DAIKAISKBCOD = #{daikaiskbcod}
+      and KIGBNG = #{kigbng}
+    </where>
+    with ur
+  </select>
 </mapper>
+

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedDaihyoKaishaJokenMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,CYZUPDKBN
+    ,CHZSTEKJYKBN
+    ,GAMMKRFLG
+    ,GAMMKRKYOJUCKBN
+    ,EIJZFXSSNARIFLG
+    ,KYJZFXSSNARIFLG
+    ,SKRTANGRPCODSUU
+    ,SKRKRTGRPCODSUU
+    ,RKKKAICOD
+    ,SINDENDTEKJNKBN
+    ,SINHSOMTNHJIFLG
+    ,SINHSOMTNHJIJN
+    ,SINSHDSTIKANFLG
+    ,YKESYAHTIHUKKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,RECTAKMKRFLG
+    ,SINTUIKYSURIKANFLG
+    ,KSHHSDMTNHJIFLG
+    ,KSHHSDMTNHJIJN
+    ,SINKCYSYANSUUSEFLG
+    ,HNBTOKDELKBNCKN
+    ,HNBTOKHZONSUCKN
+    ,HNBTOKURIKJUKBNHBI
+    ,RKNOBJKBN
+    ,GMNDENKSNKBN
+    ,KYSURIRDOHATKBN
+    ,JKSHJIFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DaihyoKaishaJokenEntity">
+  insert into AECOMP16
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{cyzupdkbn}
+    ,#{chzstekjykbn}
+    ,#{gammkrflg}
+    ,#{gammkrkyojuckbn}
+    ,#{eijzfxssnariflg}
+    ,#{kyjzfxssnariflg}
+    ,#{skrtangrpcodsuu}
+    ,#{skrkrtgrpcodsuu}
+    ,#{rkkkaicod}
+    ,#{sindendtekjnkbn}
+    ,#{sinhsomtnhjiflg}
+    ,#{sinhsomtnhjijn}
+    ,#{sinshdstikanflg}
+    ,#{ykesyahtihukkbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{rectakmkrflg}
+    ,#{sintuikysurikanflg}
+    ,#{kshhsdmtnhjiflg}
+    ,#{kshhsdmtnhjijn}
+    ,#{sinkcysyansuuseflg}
+    ,#{hnbtokdelkbnckn}
+    ,#{hnbtokhzonsuckn}
+    ,#{hnbtokurikjukbnhbi}
+    ,#{rknobjkbn}
+    ,#{gmndenksnkbn}
+    ,#{kysurirdohatkbn}
+    ,#{jkshjiflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP16
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="DaihyoKaishaJokenEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DaihyoKaishaJokenEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DaihyoKaishaJokenEntity">
+  update AECOMP16
+  <set>
+    ,CYZUPDKBN = #{cyzupdkbn}
+    ,CHZSTEKJYKBN = #{chzstekjykbn}
+    ,GAMMKRFLG = #{gammkrflg}
+    ,GAMMKRKYOJUCKBN = #{gammkrkyojuckbn}
+    ,EIJZFXSSNARIFLG = #{eijzfxssnariflg}
+    ,KYJZFXSSNARIFLG = #{kyjzfxssnariflg}
+    ,SKRTANGRPCODSUU = #{skrtangrpcodsuu}
+    ,SKRKRTGRPCODSUU = #{skrkrtgrpcodsuu}
+    ,RKKKAICOD = #{rkkkaicod}
+    ,SINDENDTEKJNKBN = #{sindendtekjnkbn}
+    ,SINHSOMTNHJIFLG = #{sinhsomtnhjiflg}
+    ,SINHSOMTNHJIJN = #{sinhsomtnhjijn}
+    ,SINSHDSTIKANFLG = #{sinshdstikanflg}
+    ,YKESYAHTIHUKKBN = #{ykesyahtihukkbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,RECTAKMKRFLG = #{rectakmkrflg}
+    ,SINTUIKYSURIKANFLG = #{sintuikysurikanflg}
+    ,KSHHSDMTNHJIFLG = #{kshhsdmtnhjiflg}
+    ,KSHHSDMTNHJIJN = #{kshhsdmtnhjijn}
+    ,SINKCYSYANSUUSEFLG = #{sinkcysyansuuseflg}
+    ,HNBTOKDELKBNCKN = #{hnbtokdelkbnckn}
+    ,HNBTOKHZONSUCKN = #{hnbtokhzonsuckn}
+    ,HNBTOKURIKJUKBNHBI = #{hnbtokurikjukbnhbi}
+    ,RKNOBJKBN = #{rknobjkbn}
+    ,GMNDENKSNKBN = #{gmndenksnkbn}
+    ,KYSURIRDOHATKBN = #{kysurirdohatkbn}
+    ,JKSHJIFLG = #{jkshjiflg}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DaihyoKaishaJokenEntity">
+  delete from AECOMP16
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

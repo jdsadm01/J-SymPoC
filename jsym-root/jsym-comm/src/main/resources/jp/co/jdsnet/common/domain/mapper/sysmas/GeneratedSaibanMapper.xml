@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedSaibanMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SIBID
+    ,SIBCPUFULID
+    ,SIBKAISKBCOD
+    ,SIBSKOCOD
+    ,SIBTRNCOD
+    ,SIBTOKCOD
+    ,SIBTRNFULCOD
+    ,CURNO
+    ,JOGNO
+    ,KAGNO
+    ,TODSTTNO
+    ,TOMSTTNO
+    ,CLEMTHCOD
+    ,ZKAPRCDTE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SaibanEntity">
+  insert into AESYSM01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{sibid}
+    ,#{sibcpufulid}
+    ,#{sibkaiskbcod}
+    ,#{sibskocod}
+    ,#{sibtrncod}
+    ,#{sibtokcod}
+    ,#{sibtrnfulcod}
+    ,#{curno}
+    ,#{jogno}
+    ,#{kagno}
+    ,#{todsttno}
+    ,#{tomsttno}
+    ,#{clemthcod}
+    ,#{zkaprcdte}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM01
+  <where>
+    and SIBID = #{sibid}
+    and SIBCPUFULID = #{sibcpufulid}
+    and SIBKAISKBCOD = #{sibkaiskbcod}
+    and SIBSKOCOD = #{sibskocod}
+    and SIBTRNCOD = #{sibtrncod}
+    and SIBTOKCOD = #{sibtokcod}
+    and SIBTRNFULCOD = #{sibtrnfulcod}
+  </where>
+</sql>
+
+<select id="select" resultType="SaibanEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SaibanEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SaibanEntity">
+  update AESYSM01
+  <set>
+    ,CURNO = #{curno}
+    ,JOGNO = #{jogno}
+    ,KAGNO = #{kagno}
+    ,TODSTTNO = #{todsttno}
+    ,TOMSTTNO = #{tomsttno}
+    ,CLEMTHCOD = #{clemthcod}
+    ,ZKAPRCDTE = #{zkaprcdte}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SIBID = #{sibid}
+    and SIBCPUFULID = #{sibcpufulid}
+    and SIBKAISKBCOD = #{sibkaiskbcod}
+    and SIBSKOCOD = #{sibskocod}
+    and SIBTRNCOD = #{sibtrncod}
+    and SIBTOKCOD = #{sibtokcod}
+    and SIBTRNFULCOD = #{sibtrnfulcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SaibanEntity">
+  delete from AESYSM01
+  <where>
+    and SIBID = #{sibid}
+    and SIBCPUFULID = #{sibcpufulid}
+    and SIBKAISKBCOD = #{sibkaiskbcod}
+    and SIBSKOCOD = #{sibskocod}
+    and SIBTRNCOD = #{sibtrncod}
+    and SIBTOKCOD = #{sibtokcod}
+    and SIBTRNFULCOD = #{sibtrnfulcod}
+  </where>
+</delete>
+
+</mapper>
+

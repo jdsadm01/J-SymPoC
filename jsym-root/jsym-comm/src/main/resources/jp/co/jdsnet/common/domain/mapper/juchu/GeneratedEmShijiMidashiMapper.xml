@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedEmShijiMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,SEQ
+    ,HATBSHCOD
+    ,KYODENBNG
+    ,DENDTE
+    ,PRCKRUFLG
+    ,ERRARIFLG
+    ,TOKCOD
+    ,DSCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="EmShijiMidashiEntity">
+  insert into AERORD18
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{seq}
+    ,#{hatbshcod}
+    ,#{kyodenbng}
+    ,#{dendte}
+    ,#{prckruflg}
+    ,#{errariflg}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD18
+  <where>
+    and INPDTE = #{inpdte}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="EmShijiMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="EmShijiMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="EmShijiMidashiEntity">
+  update AERORD18
+  <set>
+    ,HATBSHCOD = #{hatbshcod}
+    ,KYODENBNG = #{kyodenbng}
+    ,DENDTE = #{dendte}
+    ,PRCKRUFLG = #{prckruflg}
+    ,ERRARIFLG = #{errariflg}
+    ,TOKCOD = #{tokcod}
+    ,DSCOD = #{dscod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="EmShijiMidashiEntity">
+  delete from AERORD18
+  <where>
+    and INPDTE = #{inpdte}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

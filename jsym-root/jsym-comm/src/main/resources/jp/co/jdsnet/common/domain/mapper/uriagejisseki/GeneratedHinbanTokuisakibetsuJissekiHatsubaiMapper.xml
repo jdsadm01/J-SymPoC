@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.uriagejisseki.GeneratedHinbanTokuisakibetsuJissekiHatsubaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,TOKCOD
+    ,SINURISURTTL
+    ,HBMURISURTTL
+    ,HBG1MMURISURTTL
+    ,URISURTTL
+    ,HPNSURTTL
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HinbanTokuisakibetsuJissekiHatsubaiEntity">
+  insert into AESALE15
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{tokcod}
+    ,#{sinurisurttl}
+    ,#{hbmurisurttl}
+    ,#{hbg1mmurisurttl}
+    ,#{urisurttl}
+    ,#{hpnsurttl}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESALE15
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+  </where>
+</sql>
+
+<select id="select" resultType="HinbanTokuisakibetsuJissekiHatsubaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HinbanTokuisakibetsuJissekiHatsubaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HinbanTokuisakibetsuJissekiHatsubaiEntity">
+  update AESALE15
+  <set>
+    ,SINURISURTTL = #{sinurisurttl}
+    ,HBMURISURTTL = #{hbmurisurttl}
+    ,HBG1MMURISURTTL = #{hbg1mmurisurttl}
+    ,URISURTTL = #{urisurttl}
+    ,HPNSURTTL = #{hpnsurttl}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HinbanTokuisakibetsuJissekiHatsubaiEntity">
+  delete from AESALE15
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+  </where>
+</delete>
+
+</mapper>
+

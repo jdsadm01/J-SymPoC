@@ -1,6 +1,4 @@
-#  messages:
-#      basename: messages
-
+#アプリケーションBeanプロパティ
 property:
   session:
     userInfoKey: LOGIN_USER_SESSION
@@ -38,20 +36,27 @@ spring:
   main:
     banner-mode: off
     log-startup-info: false
-  mvc:
-    throw-exception-if-no-handler-found: true
+    allow-bean-definition-overriding: true
   messages:
-    basename: i18n/messages,i18n/ValidationMessages,i18n/titlelabel
+    basename: i18n/messages,i18n/ValidationMessages,i18n/itemlabel,i18n/titlelabel
     encoding: UTF-8
-    cache-duration: -1
+    cache-duration: 12h
     fallback-to-system-locale: false
-#  web:
-#    resources:
-#      add-mappings: false
+  web:
+    resources:
+      cache:
+        period: 365d
+        use-last-modified: false
+      chain:
+        enabled: true
+        strategy:
+          content:
+            enabled: true
+            paths: /css/**,/js/**
 
 #ログ設定
 logging:
-#  config: classpath:config/logback-spring.xml
+  config: classpath:config/logback-spring.xml
   group:
     db: 
       - jp.co.jdsnet.common.domain.mapper
@@ -67,7 +72,15 @@ logging:
   charset:
     file: cp943
   pattern:
-    file: "%d{yyyy/MM/dd HH:mm:ss.SSS} %-5p %-40.40logger{39} : %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %-40.40logger{39} : %msg%n"
     console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n"
-  accesslog:
-    pattern: "%d{MM/dd HH:mm:ss} %p %m %n"
+  operationlog:
+    pattern: "%d{yyyy-MM-dd HH:mm:ss} %p %m %n"
+
+#トランザクショントークン設定
+keel:
+  transaction:
+    token:
+      exclude-path-patterns:
+      - /resources/**
+      - /error/**/*.html

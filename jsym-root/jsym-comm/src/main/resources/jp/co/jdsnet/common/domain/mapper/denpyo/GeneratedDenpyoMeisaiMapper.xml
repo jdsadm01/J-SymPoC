@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.denpyo.GeneratedDenpyoMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,HATBSHCOD
+    ,TRNCOD
+    ,DAIKAISKBCOD
+    ,MKRDENBNG
+    ,DENDTE
+    ,TOKHACSAKCOD
+    ,DSCOD
+    ,SEQ
+    ,KYODENBNG
+    ,KYODENEDA
+    ,HATSKOCOD
+    ,SGYOBJTNKBN
+    ,SINSTOTNB
+    ,SINPICTNB
+    ,KYUSTOTNB
+    ,KYUPICTNB
+    ,KYUSTOEDTTNB
+    ,KYUPICEDTTNB
+    ,JUCHNB
+    ,HATHNB
+    ,JUCSUR
+    ,SYASUR
+    ,EMSGN
+    ,EMMAEJUCSUR
+    ,EMMAESYASUR
+    ,SKRTAN
+    ,RMCOD
+    ,THCMEMOHDBGYBTUK
+    ,KIN
+    ,CMTCODGUN
+    ,PICSUU
+    ,SETSUU
+    ,DENTYO
+    ,EIGCOD
+    ,TERCOD
+    ,MKRBUNCOD
+    ,CTGCOD
+    ,KETCOD
+    ,KRESYAKHIKBN
+    ,KREHYOKBN
+    ,MKRDENKETGRPCOD
+    ,KIGKTA
+    ,TOMRAKCOD
+    ,JUCHATMSIDTIKEY
+    ,SKOSJIHATMSIDTIKEY
+    ,STDMSIDTIKEY
+    ,JUCMSISEQ
+    ,DENMSIOUTJN
+    ,CHD
+    ,HJIHNB
+    ,SRYHNB
+    ,STDBNG
+    ,TNAYTEHINSGN
+    ,HTLINPFLG
+    ,KYYARE
+    ,HNYDENHATERRKBN
+    ,KKIDTE4KT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,SSBCOD
+    ,KAISKBCOD
+    ,SYADENBNG
+    ,SYASJISUR
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DenpyoMeisaiEntity">
+  insert into AESLIP02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{hatbshcod}
+    ,#{trncod}
+    ,#{daikaiskbcod}
+    ,#{mkrdenbng}
+    ,#{dendte}
+    ,#{tokhacsakcod}
+    ,#{dscod}
+    ,#{seq}
+    ,#{kyodenbng}
+    ,#{kyodeneda}
+    ,#{hatskocod}
+    ,#{sgyobjtnkbn}
+    ,#{sinstotnb}
+    ,#{sinpictnb}
+    ,#{kyustotnb}
+    ,#{kyupictnb}
+    ,#{kyustoedttnb}
+    ,#{kyupicedttnb}
+    ,#{juchnb}
+    ,#{hathnb}
+    ,#{jucsur}
+    ,#{syasur}
+    ,#{emsgn}
+    ,#{emmaejucsur}
+    ,#{emmaesyasur}
+    ,#{skrtan}
+    ,#{rmcod}
+    ,#{thcmemohdbgybtuk}
+    ,#{kin}
+    ,#{cmtcodgun}
+    ,#{picsuu}
+    ,#{setsuu}
+    ,#{dentyo}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{mkrbuncod}
+    ,#{ctgcod}
+    ,#{ketcod}
+    ,#{kresyakhikbn}
+    ,#{krehyokbn}
+    ,#{mkrdenketgrpcod}
+    ,#{kigkta}
+    ,#{tomrakcod}
+    ,#{juchatmsidtikey}
+    ,#{skosjihatmsidtikey}
+    ,#{stdmsidtikey}
+    ,#{jucmsiseq}
+    ,#{denmsioutjn}
+    ,#{chd}
+    ,#{hjihnb}
+    ,#{sryhnb}
+    ,#{stdbng}
+    ,#{tnaytehinsgn}
+    ,#{htlinpflg}
+    ,#{kyyare}
+    ,#{hnydenhaterrkbn}
+    ,#{kkidte4kt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{ssbcod}
+    ,#{kaiskbcod}
+    ,#{syadenbng}
+    ,#{syasjisur}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESLIP02
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCOD = #{trncod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKHACSAKCOD = #{tokhacsakcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="DenpyoMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DenpyoMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DenpyoMeisaiEntity">
+  update AESLIP02
+  <set>
+    ,KYODENBNG = #{kyodenbng}
+    ,KYODENEDA = #{kyodeneda}
+    ,HATSKOCOD = #{hatskocod}
+    ,SGYOBJTNKBN = #{sgyobjtnkbn}
+    ,SINSTOTNB = #{sinstotnb}
+    ,SINPICTNB = #{sinpictnb}
+    ,KYUSTOTNB = #{kyustotnb}
+    ,KYUPICTNB = #{kyupictnb}
+    ,KYUSTOEDTTNB = #{kyustoedttnb}
+    ,KYUPICEDTTNB = #{kyupicedttnb}
+    ,JUCHNB = #{juchnb}
+    ,HATHNB = #{hathnb}
+    ,JUCSUR = #{jucsur}
+    ,SYASUR = #{syasur}
+    ,EMSGN = #{emsgn}
+    ,EMMAEJUCSUR = #{emmaejucsur}
+    ,EMMAESYASUR = #{emmaesyasur}
+    ,SKRTAN = #{skrtan}
+    ,RMCOD = #{rmcod}
+    ,THCMEMOHDBGYBTUK = #{thcmemohdbgybtuk}
+    ,KIN = #{kin}
+    ,CMTCODGUN = #{cmtcodgun}
+    ,PICSUU = #{picsuu}
+    ,SETSUU = #{setsuu}
+    ,DENTYO = #{dentyo}
+    ,EIGCOD = #{eigcod}
+    ,TERCOD = #{tercod}
+    ,MKRBUNCOD = #{mkrbuncod}
+    ,CTGCOD = #{ctgcod}
+    ,KETCOD = #{ketcod}
+    ,KRESYAKHIKBN = #{kresyakhikbn}
+    ,KREHYOKBN = #{krehyokbn}
+    ,MKRDENKETGRPCOD = #{mkrdenketgrpcod}
+    ,KIGKTA = #{kigkta}
+    ,TOMRAKCOD = #{tomrakcod}
+    ,JUCHATMSIDTIKEY = #{juchatmsidtikey}
+    ,SKOSJIHATMSIDTIKEY = #{skosjihatmsidtikey}
+    ,STDMSIDTIKEY = #{stdmsidtikey}
+    ,JUCMSISEQ = #{jucmsiseq}
+    ,DENMSIOUTJN = #{denmsioutjn}
+    ,CHD = #{chd}
+    ,HJIHNB = #{hjihnb}
+    ,SRYHNB = #{sryhnb}
+    ,STDBNG = #{stdbng}
+    ,TNAYTEHINSGN = #{tnaytehinsgn}
+    ,HTLINPFLG = #{htlinpflg}
+    ,KYYARE = #{kyyare}
+    ,HNYDENHATERRKBN = #{hnydenhaterrkbn}
+    ,KKIDTE4KT = #{kkidte4kt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,SSBCOD = #{ssbcod}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,SYADENBNG = #{syadenbng}
+    ,SYASJISUR = #{syasjisur}
+  </set>
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCOD = #{trncod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKHACSAKCOD = #{tokhacsakcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DenpyoMeisaiEntity">
+  delete from AESLIP02
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCOD = #{trncod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKHACSAKCOD = #{tokhacsakcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

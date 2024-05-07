@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedLightKaishaMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KAISKBCOD
+    ,USRID
+    ,PWD
+    ,BSHCOD
+    ,KAINMKJ
+    ,KAIRLTFLG
+    ,KAIYBNNO
+    ,KAIADR1KJ
+    ,KAIADR2KJ
+    ,KAITELNO
+    ,KAIFAXBNG
+    ,KAILOGO
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,CHKIP
+    ,ACSCHKKBN
+    ,HYOKBN
+    ,KAISMB
+    ,HACSYOPTN
+    ,KAINMKJ2
+    ,JSMUSRID
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="LightKaishaEntity">
+  insert into FTBKAI01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kaiskbcod}
+    ,#{usrid}
+    ,#{pwd}
+    ,#{bshcod}
+    ,#{kainmkj}
+    ,#{kairltflg}
+    ,#{kaiybnno}
+    ,#{kaiadr1kj}
+    ,#{kaiadr2kj}
+    ,#{kaitelno}
+    ,#{kaifaxbng}
+    ,#{kailogo}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{chkip}
+    ,#{acschkkbn}
+    ,#{hyokbn}
+    ,#{kaismb}
+    ,#{hacsyoptn}
+    ,#{kainmkj2}
+    ,#{jsmusrid}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from FTBKAI01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and USRID = #{usrid}
+    and PWD = #{pwd}
+  </where>
+</sql>
+
+<select id="select" resultType="LightKaishaEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="LightKaishaEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="LightKaishaEntity">
+  update FTBKAI01
+  <set>
+    ,BSHCOD = #{bshcod}
+    ,KAINMKJ = #{kainmkj}
+    ,KAIRLTFLG = #{kairltflg}
+    ,KAIYBNNO = #{kaiybnno}
+    ,KAIADR1KJ = #{kaiadr1kj}
+    ,KAIADR2KJ = #{kaiadr2kj}
+    ,KAITELNO = #{kaitelno}
+    ,KAIFAXBNG = #{kaifaxbng}
+    ,KAILOGO = #{kailogo}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,CHKIP = #{chkip}
+    ,ACSCHKKBN = #{acschkkbn}
+    ,HYOKBN = #{hyokbn}
+    ,KAISMB = #{kaismb}
+    ,HACSYOPTN = #{hacsyoptn}
+    ,KAINMKJ2 = #{kainmkj2}
+    ,JSMUSRID = #{jsmusrid}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and USRID = #{usrid}
+    and PWD = #{pwd}
+  </where>
+</update>
+
+<delete id="delete" parameterType="LightKaishaEntity">
+  delete from FTBKAI01
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KAISKBCOD = #{kaiskbcod}
+    and USRID = #{usrid}
+    and PWD = #{pwd}
+  </where>
+</delete>
+
+</mapper>
+

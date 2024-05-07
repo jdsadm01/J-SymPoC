@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedKyotsuTokuisakiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,TOKCOD
+    ,TOKNMKN1
+    ,TOKNMKN2
+    ,TOKNMKNKKC
+    ,TOKNM1
+    ,TOKNM2
+    ,TOKNMKKC
+    ,TOKADRKN1
+    ,TOKADRKN2
+    ,TOKADRKNKKC
+    ,TOKADR1
+    ,TOKADR2
+    ,TOKADRKKC
+    ,TOKYBNBNG
+    ,TOKTELBNG
+    ,TOKFAXBNG
+    ,TIKCOD
+    ,TDFCOD
+    ,JUCBLKCOD
+    ,KRERNTKBN
+    ,EDITNTTENCOD
+    ,EDIOUTBSHCOD
+    ,VANPRCSTEJKK
+    ,NOHDENBDNCODGUN
+    ,STDKBN
+    ,MKRBDNKBN
+    ,ZKKFAXBNG1
+    ,ZKKFAXBNG2
+    ,THCBNGTEKKBN
+    ,TOKYBNBNG7KT
+    ,MSESYB
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KyotsuTokuisakiEntity">
+  insert into AECUST01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{tokcod}
+    ,#{toknmkn1}
+    ,#{toknmkn2}
+    ,#{toknmknkkc}
+    ,#{toknm1}
+    ,#{toknm2}
+    ,#{toknmkkc}
+    ,#{tokadrkn1}
+    ,#{tokadrkn2}
+    ,#{tokadrknkkc}
+    ,#{tokadr1}
+    ,#{tokadr2}
+    ,#{tokadrkkc}
+    ,#{tokybnbng}
+    ,#{toktelbng}
+    ,#{tokfaxbng}
+    ,#{tikcod}
+    ,#{tdfcod}
+    ,#{jucblkcod}
+    ,#{krerntkbn}
+    ,#{editnttencod}
+    ,#{edioutbshcod}
+    ,#{vanprcstejkk}
+    ,#{nohdenbdncodgun}
+    ,#{stdkbn}
+    ,#{mkrbdnkbn}
+    ,#{zkkfaxbng1}
+    ,#{zkkfaxbng2}
+    ,#{thcbngtekkbn}
+    ,#{tokybnbng7kt}
+    ,#{msesyb}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST01
+  <where>
+    and TOKCOD = #{tokcod}
+  </where>
+</sql>
+
+<select id="select" resultType="KyotsuTokuisakiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KyotsuTokuisakiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KyotsuTokuisakiEntity">
+  update AECUST01
+  <set>
+    ,TOKNMKN1 = #{toknmkn1}
+    ,TOKNMKN2 = #{toknmkn2}
+    ,TOKNMKNKKC = #{toknmknkkc}
+    ,TOKNM1 = #{toknm1}
+    ,TOKNM2 = #{toknm2}
+    ,TOKNMKKC = #{toknmkkc}
+    ,TOKADRKN1 = #{tokadrkn1}
+    ,TOKADRKN2 = #{tokadrkn2}
+    ,TOKADRKNKKC = #{tokadrknkkc}
+    ,TOKADR1 = #{tokadr1}
+    ,TOKADR2 = #{tokadr2}
+    ,TOKADRKKC = #{tokadrkkc}
+    ,TOKYBNBNG = #{tokybnbng}
+    ,TOKTELBNG = #{toktelbng}
+    ,TOKFAXBNG = #{tokfaxbng}
+    ,TIKCOD = #{tikcod}
+    ,TDFCOD = #{tdfcod}
+    ,JUCBLKCOD = #{jucblkcod}
+    ,KRERNTKBN = #{krerntkbn}
+    ,EDITNTTENCOD = #{editnttencod}
+    ,EDIOUTBSHCOD = #{edioutbshcod}
+    ,VANPRCSTEJKK = #{vanprcstejkk}
+    ,NOHDENBDNCODGUN = #{nohdenbdncodgun}
+    ,STDKBN = #{stdkbn}
+    ,MKRBDNKBN = #{mkrbdnkbn}
+    ,ZKKFAXBNG1 = #{zkkfaxbng1}
+    ,ZKKFAXBNG2 = #{zkkfaxbng2}
+    ,THCBNGTEKKBN = #{thcbngtekkbn}
+    ,TOKYBNBNG7KT = #{tokybnbng7kt}
+    ,MSESYB = #{msesyb}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and TOKCOD = #{tokcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KyotsuTokuisakiEntity">
+  delete from AECUST01
+  <where>
+    and TOKCOD = #{tokcod}
+  </where>
+</delete>
+
+</mapper>
+

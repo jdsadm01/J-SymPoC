@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hatchu.GeneratedHatchuWorkMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,CPUFULID
+    ,WSSEQ5KT
+    ,DAIKAISKBCOD
+    ,HACWKRELNO
+    ,HACKAICOD
+    ,KAISKBCOD
+    ,HACSAKCOD
+    ,SHNTHNHINKBN
+    ,HACDENRENKBN
+    ,RENKBN2
+    ,KETKBN
+    ,MKRBUNCOD
+    ,HACDENKBN
+    ,SMPSGN
+    ,HACTRNKBN
+    ,HACSINKYUKBN
+    ,HBIDTE
+    ,CTGCOD
+    ,KIGBNG
+    ,HACSYBKBN
+    ,PRDSIRKBN
+    ,KETCOD
+    ,SETKIG
+    ,BHNKBN
+    ,BHNEDA
+    ,HACSUR
+    ,NYASAKCOD
+    ,MSCOD
+    ,NKI
+    ,FUKSZIKNRCOD
+    ,AUTMNLKBN
+    ,SIYPTN
+    ,RYUCOD
+    ,HACTNTCOD
+    ,TYNSUU
+    ,SETSUU
+    ,JAKNKI
+    ,JAKHACSAKCOD
+    ,HACMTDBNG
+    ,HACMTDGYB
+    ,HACMTDDTE
+    ,RMCOD
+    ,BATFLG
+    ,BSHCOD
+    ,EIGCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HatchuWorkEntity">
+  insert into AESORD02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{cpufulid}
+    ,#{wsseq5kt}
+    ,#{daikaiskbcod}
+    ,#{hacwkrelno}
+    ,#{hackaicod}
+    ,#{kaiskbcod}
+    ,#{hacsakcod}
+    ,#{shnthnhinkbn}
+    ,#{hacdenrenkbn}
+    ,#{renkbn2}
+    ,#{ketkbn}
+    ,#{mkrbuncod}
+    ,#{hacdenkbn}
+    ,#{smpsgn}
+    ,#{hactrnkbn}
+    ,#{hacsinkyukbn}
+    ,#{hbidte}
+    ,#{ctgcod}
+    ,#{kigbng}
+    ,#{hacsybkbn}
+    ,#{prdsirkbn}
+    ,#{ketcod}
+    ,#{setkig}
+    ,#{bhnkbn}
+    ,#{bhneda}
+    ,#{hacsur}
+    ,#{nyasakcod}
+    ,#{mscod}
+    ,#{nki}
+    ,#{fuksziknrcod}
+    ,#{autmnlkbn}
+    ,#{siyptn}
+    ,#{ryucod}
+    ,#{hactntcod}
+    ,#{tynsuu}
+    ,#{setsuu}
+    ,#{jaknki}
+    ,#{jakhacsakcod}
+    ,#{hacmtdbng}
+    ,#{hacmtdgyb}
+    ,#{hacmtddte}
+    ,#{rmcod}
+    ,#{batflg}
+    ,#{bshcod}
+    ,#{eigcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESORD02
+  <where>
+    and CPUFULID = #{cpufulid}
+    and WSSEQ5KT = #{wsseq5kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACWKRELNO = #{hacwkrelno}
+  </where>
+</sql>
+
+<select id="select" resultType="HatchuWorkEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HatchuWorkEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HatchuWorkEntity">
+  update AESORD02
+  <set>
+    ,HACKAICOD = #{hackaicod}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,HACSAKCOD = #{hacsakcod}
+    ,SHNTHNHINKBN = #{shnthnhinkbn}
+    ,HACDENRENKBN = #{hacdenrenkbn}
+    ,RENKBN2 = #{renkbn2}
+    ,KETKBN = #{ketkbn}
+    ,MKRBUNCOD = #{mkrbuncod}
+    ,HACDENKBN = #{hacdenkbn}
+    ,SMPSGN = #{smpsgn}
+    ,HACTRNKBN = #{hactrnkbn}
+    ,HACSINKYUKBN = #{hacsinkyukbn}
+    ,HBIDTE = #{hbidte}
+    ,CTGCOD = #{ctgcod}
+    ,KIGBNG = #{kigbng}
+    ,HACSYBKBN = #{hacsybkbn}
+    ,PRDSIRKBN = #{prdsirkbn}
+    ,KETCOD = #{ketcod}
+    ,SETKIG = #{setkig}
+    ,BHNKBN = #{bhnkbn}
+    ,BHNEDA = #{bhneda}
+    ,HACSUR = #{hacsur}
+    ,NYASAKCOD = #{nyasakcod}
+    ,MSCOD = #{mscod}
+    ,NKI = #{nki}
+    ,FUKSZIKNRCOD = #{fuksziknrcod}
+    ,AUTMNLKBN = #{autmnlkbn}
+    ,SIYPTN = #{siyptn}
+    ,RYUCOD = #{ryucod}
+    ,HACTNTCOD = #{hactntcod}
+    ,TYNSUU = #{tynsuu}
+    ,SETSUU = #{setsuu}
+    ,JAKNKI = #{jaknki}
+    ,JAKHACSAKCOD = #{jakhacsakcod}
+    ,HACMTDBNG = #{hacmtdbng}
+    ,HACMTDGYB = #{hacmtdgyb}
+    ,HACMTDDTE = #{hacmtddte}
+    ,RMCOD = #{rmcod}
+    ,BATFLG = #{batflg}
+    ,BSHCOD = #{bshcod}
+    ,EIGCOD = #{eigcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and CPUFULID = #{cpufulid}
+    and WSSEQ5KT = #{wsseq5kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACWKRELNO = #{hacwkrelno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HatchuWorkEntity">
+  delete from AESORD02
+  <where>
+    and CPUFULID = #{cpufulid}
+    and WSSEQ5KT = #{wsseq5kt}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and HACWKRELNO = #{hacwkrelno}
+  </where>
+</delete>
+
+</mapper>
+

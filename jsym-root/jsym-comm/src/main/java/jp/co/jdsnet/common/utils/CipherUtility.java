@@ -4,26 +4,25 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * 暗号化・復号ユーティリティクラス。
  * 暗号と復号には共通鍵を使用します。アルゴリズムはAES。128bit。
  *
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CipherUtility {
 	
 	private static final String CIPHER_AES_ALGORITHM = "AES";
 	private static final String CIPHER_KEY ="p@$%hqN02Xp+;R5/";
 	private static final String CIPHER_TRANS_FORMATION = "AES/ECB/PKCS5Padding";
-	
-	// インスタンス化の禁止
-	private CipherUtility(){}
 	
 	/**
 	 * パラメータとして渡されたStringを暗号化してStringにて返却します。

@@ -11,12 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import io.micrometer.common.util.StringUtils;
 import jp.co.jdsnet.base.webapp.parts.UserInfoVO;
+import jp.co.jdsnet.common.domain.entity.menu.EventEntity.Gmnkbn;
 import jp.co.jdsnet.common.domain.entity.soko.GameKyotsuTokuisakiHenkanEntity;
 import jp.co.jdsnet.common.domain.entity.tokuisaki.KyotsuTokuisakiEntity;
 import jp.co.jdsnet.common.domain.mapper.soko.GameKyotsuTokuisakiHenkanMapper;
 import jp.co.jdsnet.common.domain.mapper.tokuisaki.KyotsuTokuisakiMapper;
-import jp.co.jdsnet.common.logic.CheckSharedService;
-import jp.co.jdsnet.common.logic.DataGetSharedService;
+import jp.co.jdsnet.common.logic.CommonCheckSharedService;
+import jp.co.jdsnet.common.logic.CommonCheckSharedService.ServiceTime;
+import jp.co.jdsnet.common.logic.KaishaRelatedSharedService;
 import jp.co.jdsnet.master.domain.dto.NohsakEntryDTO;
 import jp.co.jdsnet.master.domain.dto.NohsakEntryDetailDTO;
 import jp.co.jdsnet.master.domain.service.NohsakEntryService;
@@ -26,8 +28,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class NohsakEntryServiceImpl implements NohsakEntryService {
 
-  private final CheckSharedService checkSharedService;
-  private final DataGetSharedService dataGetSharedService;
+  private final CommonCheckSharedService checkSharedService;
+  private final KaishaRelatedSharedService dataGetSharedService;
   private final GameKyotsuTokuisakiHenkanMapper gameKyotsuTokuisakiHenkanMapper;
   private final KyotsuTokuisakiMapper kyotsuTokuisakiMapper;
 
@@ -36,22 +38,13 @@ public class NohsakEntryServiceImpl implements NohsakEntryService {
    */
   @Override
   public NohsakEntryDTO init(UserInfoVO vo) throws Exception {
-    boolean isOnline = CheckSharedService.SERVICETIME_ONLINE.equals(checkSharedService
-        .checkServiceTime(vo.getDaikaiskbcod(), vo.getUsrbun(), "VMJ026", "001", "O"));
+    boolean isOnline =
+        ServiceTime.ONLINE == checkSharedService.checkServiceTime(vo.getDaikaiskbcod(),
+            vo.getUsrbun(), "VMJ026", "001", Gmnkbn.ServiceTimeCheck);
 
     return NohsakEntryDTO.builder().userInfo(vo).yykflg("0").yykdte("").bshcod(vo.getBshcod())
         .prckbn("S").detailList(createDetailList(90)).build();
   }
-
-  // private List<LabelData> createPrckbnList() {
-  // List<LabelData> prckbnList = new ArrayList<>();
-  // prckbnList.add(LabelData.builder().value("T").text("S 得意先コード照会").build());
-  // prckbnList.add(LabelData.builder().value("S").text("S 納品先コード照会").build());
-  // prckbnList.add(LabelData.builder().value("U").text("U 納品先コード更新").build());
-  // prckbnList.add(LabelData.builder().value("A").text("A 納品先コード登録").build());
-  // prckbnList.add(LabelData.builder().value("D").text("D 納品先コード削除").build());
-  // return prckbnList;
-  // }
 
   private List<NohsakEntryDetailDTO> createDetailList(int msisuu) {
     List<NohsakEntryDetailDTO> detailList = new ArrayList<>();
@@ -95,8 +88,7 @@ public class NohsakEntryServiceImpl implements NohsakEntryService {
         continue;
       }
       List<GameKyotsuTokuisakiHenkanEntity> entityList = gameKyotsuTokuisakiHenkanMapper
-          .selectWithNameByGyktokcod(GameKyotsuTokuisakiHenkanEntity.builder()
-              .bshcod(dto.getBshcod()).gkytokcod(detail.getGkytokcod()).build());
+          .selectWithNameByGkytokcod(dto.getBshcod(), detail.getGkytokcod());
 
       List<NohsakEntryDetailDTO> subList = entityList.stream().map(t -> {
         return NohsakEntryDetailDTO.builder().tokcod(t.getTokcod()).gkytokcod(t.getGkytokcod())
@@ -116,17 +108,12 @@ public class NohsakEntryServiceImpl implements NohsakEntryService {
   public NohsakEntryDTO checkDetail(NohsakEntryDTO dto) throws Exception {
     List<NohsakEntryDetailDTO> detailList =
         dto.getDetailList().stream().filter(t -> !StringUtils.isBlank(t.getTokcod())).map(t -> {
-          KyotsuTokuisakiEntity entity;
-          try {
-            entity = kyotsuTokuisakiMapper.selectWithoutLogicalDelete(
-                KyotsuTokuisakiEntity.builder().tokcod(t.getGkytokcod()).build());
-          } catch (Exception e) {
+          KyotsuTokuisakiEntity entity = kyotsuTokuisakiMapper
+                .select(KyotsuTokuisakiEntity.builder().tokcod(t.getGkytokcod()).build());
+          if (Objects.isNull(entity)) {
             entity = KyotsuTokuisakiEntity.builder().build();
-            e.printStackTrace();
           }
-          return t.toBuilder()
-              .gkytoknm(entity.getToknm1() + entity.getToknm2())
-              .build();
+          return t.toBuilder().gkytoknm(entity.getToknm1() + entity.getToknm2()).build();
         }).collect(Collectors.toList());
     return dto.toBuilder().detailList(detailList).build();
   }
@@ -142,15 +129,14 @@ public class NohsakEntryServiceImpl implements NohsakEntryService {
     int systime = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("HHmmss")));
     dto.getDetailList().forEach(t -> {
       GameKyotsuTokuisakiHenkanEntity lock =
-          gameKyotsuTokuisakiHenkanMapper.selectForUpdate(GameKyotsuTokuisakiHenkanEntity.builder()
-              .bshcod(dto.getBshcod()).tokcod(t.getTokcod()).dscod(t.getDscod()).build());
+          gameKyotsuTokuisakiHenkanMapper.selectWithLockForUpdate(GameKyotsuTokuisakiHenkanEntity
+              .builder().bshcod(dto.getBshcod()).tokcod(t.getTokcod()).dscod(t.getDscod()).build());
 
       if (Objects.nonNull(lock)) {
         gameKyotsuTokuisakiHenkanMapper.update(lock.toBuilder().gkytokcod(t.getGkytokcod())
-            .updkbn("U").upddte(sysdate).updjkk(systime).build());
+            .updkbn(dto.getPrckbn()).upddte(sysdate).updjkk(systime).build());
       }
     });
-    // throw new RuntimeException();
     return dto;
   }
 }

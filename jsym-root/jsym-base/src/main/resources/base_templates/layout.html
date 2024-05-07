@@ -1,36 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<body>
 
-		<!--header-->
-		<div th:fragment="header(title_icon, title)">
-			<header>
-				<script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
-				<script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
-				<div class="container-fluid bg-primary bg-gradient text-light row">
-					<div class="col-auto mt-2">
-						<h3>
-							<span class="bi bi-${title_icon}"/>
-							<span th:text="${title}"/>
-						</h3>
-					</div>
-					<div class="col-auto ms-auto">
-						<span class="fs-6 text-end col">
-							<!--<div>画面ID : <span th:text="${gmnId}"/></div>-->
-							<div>最終更新 <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy/MM/dd HH:mm:ss')}"/></div>
-						</span>
-					</div>
-				</div>
-			</header>
-		</div>
-		<!--footer-->
-		<div th:fragment="footer">
-			<footer class="footer mt-auto bg-light">
-				<div class="container-fluid py-2 bg-primary text-center">
-					<span class="text-light small" th:text="#{label.footer}"></span>
-				</div>
-			</footer>
-		</div>
+<body>
 
-	</body>
+  <!--header-->
+  <div th:fragment="header(title_icon, title)">
+    <header>
+      <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/common.js}"></script>
+      <div class="container-fluid bg-primary bg-gradient text-light row">
+        <div class="col-auto mt-2">
+          <h3>
+            <span class="bi bi-${title_icon}" />
+            <span th:text="${title}" />
+          </h3>
+        </div>
+        <div class="col-auto ms-auto">
+          <span class="fs-6 text-end col">
+            <!--<div>画面ID : <span th:text="${gmnId}"/></div>-->
+            <div>最終更新 <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy/MM/dd HH:mm:ss')}" /></div>
+          </span>
+        </div>
+      </div>
+    </header>
+  </div>
+  <!--footer-->
+  <div th:fragment="footer">
+    <footer class="footer mt-auto bg-light">
+      <div class="container-fluid py-2 bg-primary text-center">
+        <span class="text-light small" th:text="#{label.footer}"></span>
+      </div>
+    </footer>
+  </div>
+  <!--ユーザー確認-->
+  <div th:fragment="userconfirm">
+    <button type="button" id="showModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUserconfirm"></button>
+    <div class="modal fade" id="modalUserconfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form role="form" id="userconfirm" name="userconfirm">
+          <!-- Modal ヘッダー -->
+          <div class="modal-header">
+            <p>一定時間操作が無かったため、ロックしています。\nログインしているユーザーIDとパスワードを入力してください。</p>
+          </div>
+            <!-- Modal ボディー -->
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="usrid">ユーザーID：</label>
+                <input type="text" name="usrid" id="usrid" autocomplete="off">
+                <label for="password">パスワード：</label>
+                <input type="password" name="password" id="password" autocomplete="off">
+                <input type="hidden" name="count" id="count" value="0">
+              </div>
+            </div>
+            <!-- Modal フッター -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" id="confirmCancel" onclick="confirmuser();">キャンセル</button>
+              <button type="button" class="btn btn-primary" id="confirm" onclick="confirmuser();">認証</button>
+              <button type="button" class="btn btn-default" data-bs-dismiss="modal" id="confirmClose">閉じる</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>

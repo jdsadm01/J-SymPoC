@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.KaishaMapper">
-    <select id="selectAll" resultType="KaishaEntity">
-        SELECT *
-        FROM AECOMP01
-        ORDER BY KAISKBCOD
-    </select>
-    <select id="selectKaiskbcodList" resultType="String">
-        SELECT KAISKBCOD
-        FROM AECOMP01
-        <where>
-            DAIKAISKBCOD = #{daikaiskbcod}
-        </where>
-        ORDER BY KAISKBCOD
-        WITH UR
-    </select>
-    <select id="selectDaikaiskbcodList" resultType="String">
-        select comp01.DAIKAISKBCOD
-        from AECOMP01 as comp01
-        <if test = "usrbun != 'JDS' and usrbun != 'MKR'">
-			inner join FTBKAI11 as kai11
-			on comp01.DAIKAISKBCOD = kai11.KAISKBCOD
-			and kai11.USRBUN = #{usrbun}
-			and kai11.KAIBUN = '0'
-			and kai11.UPDKBN <![CDATA[<>]]> 'D'
-		</if>
-        <where>
-            comp01.KAIBUNKBN = '0'
-            AND comp01.UPDKBN <![CDATA[<>]]> 'D'
-        </where>
-        order by comp01.DAIKAISKBCOD
-        with ur
-    </select>
+  <select id="getDaikaiskbcodList" resultType="String">
+    select comp01.DAIKAISKBCOD
+    from AECOMP01 as comp01
+    <if test = "usrbun != 'JDS' and usrbun != 'MKR'">
+      inner join FTBKAI11 as kai11
+      on comp01.DAIKAISKBCOD = kai11.KAISKBCOD
+      and kai11.USRBUN = #{usrbun}
+      and kai11.KAIBUN = '0'
+      and kai11.UPDKBN <![CDATA[<>]]> 'D'
+    </if>
+    <where>
+      comp01.KAIBUNKBN = '0'
+      and comp01.UPDKBN <![CDATA[<>]]> 'D'
+    </where>
+    with ur
+  </select>
+  
+  <select id="getKaiskbcodList" resultType="String">
+    select KAISKBCOD
+    from AECOMP01
+    <where>
+      DAIKAISKBCOD = #{daikaiskbcod}
+      and UPDKBN <![CDATA[<>]]> 'D'
+    </where>
+    with ur
+  </select>
 </mapper>
+

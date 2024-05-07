@@ -13,22 +13,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-	private static final String[] STATIC_RESOURCES = {
-			"/css/**", "/js/**", "/img/**", "/**.ico",
-	};
-	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authz -> authz
-//              .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-//              .requestMatchers("/").permitAll()
-//              .requestMatchers("/general").hasRole("GENERAL")
-//              .requestMatchers("/admin").hasRole("ADMIN")
-//				.requestMatchers(STATIC_RESOURCES).permitAll()
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				.anyRequest().permitAll()
         );
-//		http.csrf().disable();
 		return http.build();
 	}
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.user.GeneratedKojinScheduleMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,SCHDTE
+    ,SEQ
+    ,TXT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KojinScheduleEntity">
+  insert into VTBUSR05
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{schdte}
+    ,#{seq}
+    ,#{txt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBUSR05
+  <where>
+    and USRID = #{usrid}
+    and SCHDTE = #{schdte}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="KojinScheduleEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KojinScheduleEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KojinScheduleEntity">
+  update VTBUSR05
+  <set>
+    ,TXT = #{txt}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and USRID = #{usrid}
+    and SCHDTE = #{schdte}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KojinScheduleEntity">
+  delete from VTBUSR05
+  <where>
+    and USRID = #{usrid}
+    and SCHDTE = #{schdte}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

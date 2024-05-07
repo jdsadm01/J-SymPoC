@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedServiceMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SVCID
+    ,SVCNM
+    ,SVCPGMID
+    ,INPDTARNKKBN
+    ,INPDTAID
+    ,TRDSVCPGMID
+    ,SVCGRPID
+    ,TAJKIDKANFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ServiceEntity">
+  insert into AESYSM19
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{svcid}
+    ,#{svcnm}
+    ,#{svcpgmid}
+    ,#{inpdtarnkkbn}
+    ,#{inpdtaid}
+    ,#{trdsvcpgmid}
+    ,#{svcgrpid}
+    ,#{tajkidkanflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM19
+  <where>
+    and SVCID = #{svcid}
+  </where>
+</sql>
+
+<select id="select" resultType="ServiceEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ServiceEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ServiceEntity">
+  update AESYSM19
+  <set>
+    ,SVCNM = #{svcnm}
+    ,SVCPGMID = #{svcpgmid}
+    ,INPDTARNKKBN = #{inpdtarnkkbn}
+    ,INPDTAID = #{inpdtaid}
+    ,TRDSVCPGMID = #{trdsvcpgmid}
+    ,SVCGRPID = #{svcgrpid}
+    ,TAJKIDKANFLG = #{tajkidkanflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SVCID = #{svcid}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ServiceEntity">
+  delete from AESYSM19
+  <where>
+    and SVCID = #{svcid}
+  </where>
+</delete>
+
+</mapper>
+

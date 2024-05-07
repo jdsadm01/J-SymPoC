@@ -5,6 +5,8 @@ spring:
     password: AETAPL
     hikari:
       schema: AET
+  messages:
+    cache-duration: -1
 
 logging:
   level:

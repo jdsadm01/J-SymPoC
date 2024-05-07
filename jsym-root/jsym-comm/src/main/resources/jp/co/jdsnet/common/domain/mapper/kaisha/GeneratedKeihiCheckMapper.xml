@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedKeihiCheckMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KAISKBCOD
+    ,KEIKBN
+    ,KEICOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KeihiCheckEntity">
+  insert into VTBDBC17
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kaiskbcod}
+    ,#{keikbn}
+    ,#{keicod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBDBC17
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and KEIKBN = #{keikbn}
+    and KEICOD = #{keicod}
+  </where>
+</sql>
+
+<select id="select" resultType="KeihiCheckEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KeihiCheckEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KeihiCheckEntity">
+  update VTBDBC17
+  <set>
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and KEIKBN = #{keikbn}
+    and KEICOD = #{keicod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KeihiCheckEntity">
+  delete from VTBDBC17
+  <where>
+    and KAISKBCOD = #{kaiskbcod}
+    and KEIKBN = #{keikbn}
+    and KEICOD = #{keicod}
+  </where>
+</delete>
+
+</mapper>
+

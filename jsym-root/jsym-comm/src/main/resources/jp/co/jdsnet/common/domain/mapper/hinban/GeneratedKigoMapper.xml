@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.hinban.GeneratedKigoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNGKIGBBN
+    ,KIGBNGBNGBBNFRM
+    ,KIGBNGBNGBBNTO
+    ,KAISKBCOD
+    ,MKRBUNCOD
+    ,KIGKTA
+    ,PRICODKTA
+    ,KIGHKNUMU
+    ,CTGCOD
+    ,KETCOD
+    ,STDKETGRPCOD
+    ,STDBDNGRPCOD
+    ,KRESYAKHIKBN
+    ,RNTSYAKHIKBN
+    ,KREHYOKBN
+    ,GBNSGN
+    ,SSBCOD
+    ,SETSUU
+    ,SETCOD
+    ,TNPKBN
+    ,TNPHNB
+    ,KITHINDAIHNBFLG
+    ,TBIFKAFLG
+    ,SKNSUU
+    ,TSKKES
+    ,YRY
+    ,JRY
+    ,JRYTANIKBN
+    ,ZNKHITSTEFLG
+    ,ZNMRAKCOD
+    ,TOMRAKCOD
+    ,YKMRAKCOD
+    ,SOFFLG
+    ,SOFDTE
+    ,ZAIKNRHUYFLG
+    ,SHNTHNHINKBN
+    ,HPNTAIHINKBN
+    ,BZISGN
+    ,SIRKRTIPN
+    ,SIRTANIPN
+    ,SKRTANKTIKBN
+    ,SKRKRTGRPCOD
+    ,SKRKRTIPN
+    ,SKRKRTKRE
+    ,SKRTANIPN
+    ,SKRTANKRE
+    ,HSHSKRTANIPN
+    ,HSHSKRKRTIPN
+    ,ZNUPRI
+    ,JASRACUSR
+    ,JASRACHOK
+    ,ILKBN
+    ,EXPFKAFLG
+    ,AFKOBJKBN
+    ,SZOKGN
+    ,JHTOBJSGN
+    ,JUCHACHIN
+    ,FUKSZIKNRCOD
+    ,FUKSZISIY
+    ,PRSMKRCOD
+    ,JYTPRSMKR
+    ,FUKSZIMKRCOD
+    ,ETCMKRCOD
+    ,PRDSIRKBN
+    ,TERGRPCOD
+    ,TAKSHOGRPCOD
+    ,NOHDENBDNGRPCOD
+    ,URIGRPCOD
+    ,HPNGRPCOD
+    ,GNRCOD
+    ,JANCOD
+    ,HNBINFKOKKBN
+    ,MNGFLG
+    ,SRTCOD
+    ,TKAKSNKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KigoEntity">
+  insert into AEPROD07
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbngkigbbn}
+    ,#{kigbngbngbbnfrm}
+    ,#{kigbngbngbbnto}
+    ,#{kaiskbcod}
+    ,#{mkrbuncod}
+    ,#{kigkta}
+    ,#{pricodkta}
+    ,#{kighknumu}
+    ,#{ctgcod}
+    ,#{ketcod}
+    ,#{stdketgrpcod}
+    ,#{stdbdngrpcod}
+    ,#{kresyakhikbn}
+    ,#{rntsyakhikbn}
+    ,#{krehyokbn}
+    ,#{gbnsgn}
+    ,#{ssbcod}
+    ,#{setsuu}
+    ,#{setcod}
+    ,#{tnpkbn}
+    ,#{tnphnb}
+    ,#{kithindaihnbflg}
+    ,#{tbifkaflg}
+    ,#{sknsuu}
+    ,#{tskkes}
+    ,#{yry}
+    ,#{jry}
+    ,#{jrytanikbn}
+    ,#{znkhitsteflg}
+    ,#{znmrakcod}
+    ,#{tomrakcod}
+    ,#{ykmrakcod}
+    ,#{sofflg}
+    ,#{sofdte}
+    ,#{zaiknrhuyflg}
+    ,#{shnthnhinkbn}
+    ,#{hpntaihinkbn}
+    ,#{bzisgn}
+    ,#{sirkrtipn}
+    ,#{sirtanipn}
+    ,#{skrtanktikbn}
+    ,#{skrkrtgrpcod}
+    ,#{skrkrtipn}
+    ,#{skrkrtkre}
+    ,#{skrtanipn}
+    ,#{skrtankre}
+    ,#{hshskrtanipn}
+    ,#{hshskrkrtipn}
+    ,#{znupri}
+    ,#{jasracusr}
+    ,#{jasrachok}
+    ,#{ilkbn}
+    ,#{expfkaflg}
+    ,#{afkobjkbn}
+    ,#{szokgn}
+    ,#{jhtobjsgn}
+    ,#{juchachin}
+    ,#{fuksziknrcod}
+    ,#{fukszisiy}
+    ,#{prsmkrcod}
+    ,#{jytprsmkr}
+    ,#{fukszimkrcod}
+    ,#{etcmkrcod}
+    ,#{prdsirkbn}
+    ,#{tergrpcod}
+    ,#{takshogrpcod}
+    ,#{nohdenbdngrpcod}
+    ,#{urigrpcod}
+    ,#{hpngrpcod}
+    ,#{gnrcod}
+    ,#{jancod}
+    ,#{hnbinfkokkbn}
+    ,#{mngflg}
+    ,#{srtcod}
+    ,#{tkaksnkbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEPROD07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNGKIGBBN = #{kigbngkigbbn}
+    and KIGBNGBNGBBNFRM = #{kigbngbngbbnfrm}
+  </where>
+</sql>
+
+<select id="select" resultType="KigoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KigoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KigoEntity">
+  update AEPROD07
+  <set>
+    ,KIGBNGBNGBBNTO = #{kigbngbngbbnto}
+    ,KAISKBCOD = #{kaiskbcod}
+    ,MKRBUNCOD = #{mkrbuncod}
+    ,KIGKTA = #{kigkta}
+    ,PRICODKTA = #{pricodkta}
+    ,KIGHKNUMU = #{kighknumu}
+    ,CTGCOD = #{ctgcod}
+    ,KETCOD = #{ketcod}
+    ,STDKETGRPCOD = #{stdketgrpcod}
+    ,STDBDNGRPCOD = #{stdbdngrpcod}
+    ,KRESYAKHIKBN = #{kresyakhikbn}
+    ,RNTSYAKHIKBN = #{rntsyakhikbn}
+    ,KREHYOKBN = #{krehyokbn}
+    ,GBNSGN = #{gbnsgn}
+    ,SSBCOD = #{ssbcod}
+    ,SETSUU = #{setsuu}
+    ,SETCOD = #{setcod}
+    ,TNPKBN = #{tnpkbn}
+    ,TNPHNB = #{tnphnb}
+    ,KITHINDAIHNBFLG = #{kithindaihnbflg}
+    ,TBIFKAFLG = #{tbifkaflg}
+    ,SKNSUU = #{sknsuu}
+    ,TSKKES = #{tskkes}
+    ,YRY = #{yry}
+    ,JRY = #{jry}
+    ,JRYTANIKBN = #{jrytanikbn}
+    ,ZNKHITSTEFLG = #{znkhitsteflg}
+    ,ZNMRAKCOD = #{znmrakcod}
+    ,TOMRAKCOD = #{tomrakcod}
+    ,YKMRAKCOD = #{ykmrakcod}
+    ,SOFFLG = #{sofflg}
+    ,SOFDTE = #{sofdte}
+    ,ZAIKNRHUYFLG = #{zaiknrhuyflg}
+    ,SHNTHNHINKBN = #{shnthnhinkbn}
+    ,HPNTAIHINKBN = #{hpntaihinkbn}
+    ,BZISGN = #{bzisgn}
+    ,SIRKRTIPN = #{sirkrtipn}
+    ,SIRTANIPN = #{sirtanipn}
+    ,SKRTANKTIKBN = #{skrtanktikbn}
+    ,SKRKRTGRPCOD = #{skrkrtgrpcod}
+    ,SKRKRTIPN = #{skrkrtipn}
+    ,SKRKRTKRE = #{skrkrtkre}
+    ,SKRTANIPN = #{skrtanipn}
+    ,SKRTANKRE = #{skrtankre}
+    ,HSHSKRTANIPN = #{hshskrtanipn}
+    ,HSHSKRKRTIPN = #{hshskrkrtipn}
+    ,ZNUPRI = #{znupri}
+    ,JASRACUSR = #{jasracusr}
+    ,JASRACHOK = #{jasrachok}
+    ,ILKBN = #{ilkbn}
+    ,EXPFKAFLG = #{expfkaflg}
+    ,AFKOBJKBN = #{afkobjkbn}
+    ,SZOKGN = #{szokgn}
+    ,JHTOBJSGN = #{jhtobjsgn}
+    ,JUCHACHIN = #{juchachin}
+    ,FUKSZIKNRCOD = #{fuksziknrcod}
+    ,FUKSZISIY = #{fukszisiy}
+    ,PRSMKRCOD = #{prsmkrcod}
+    ,JYTPRSMKR = #{jytprsmkr}
+    ,FUKSZIMKRCOD = #{fukszimkrcod}
+    ,ETCMKRCOD = #{etcmkrcod}
+    ,PRDSIRKBN = #{prdsirkbn}
+    ,TERGRPCOD = #{tergrpcod}
+    ,TAKSHOGRPCOD = #{takshogrpcod}
+    ,NOHDENBDNGRPCOD = #{nohdenbdngrpcod}
+    ,URIGRPCOD = #{urigrpcod}
+    ,HPNGRPCOD = #{hpngrpcod}
+    ,GNRCOD = #{gnrcod}
+    ,JANCOD = #{jancod}
+    ,HNBINFKOKKBN = #{hnbinfkokkbn}
+    ,MNGFLG = #{mngflg}
+    ,SRTCOD = #{srtcod}
+    ,TKAKSNKBN = #{tkaksnkbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNGKIGBBN = #{kigbngkigbbn}
+    and KIGBNGBNGBBNFRM = #{kigbngbngbbnfrm}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KigoEntity">
+  delete from AEPROD07
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNGKIGBBN = #{kigbngkigbbn}
+    and KIGBNGBNGBBNFRM = #{kigbngbngbbnfrm}
+  </where>
+</delete>
+
+</mapper>
+

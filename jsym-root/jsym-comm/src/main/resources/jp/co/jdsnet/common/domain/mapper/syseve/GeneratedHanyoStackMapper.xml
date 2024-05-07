@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedHanyoStackMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,CPUID
+    ,TMLID
+    ,STANO
+    ,BSHCOD
+    ,STACNLSEQ
+    ,JSNRECBDY
+    ,STAKJYZFLG
+    ,DELFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HanyoStackEntity">
+  insert into AESYSE14
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{cpuid}
+    ,#{tmlid}
+    ,#{stano}
+    ,#{bshcod}
+    ,#{stacnlseq}
+    ,#{jsnrecbdy}
+    ,#{stakjyzflg}
+    ,#{delflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE14
+  <where>
+    and INPDTE = #{inpdte}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and STANO = #{stano}
+    and BSHCOD = #{bshcod}
+    and STACNLSEQ = #{stacnlseq}
+  </where>
+</sql>
+
+<select id="select" resultType="HanyoStackEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HanyoStackEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HanyoStackEntity">
+  update AESYSE14
+  <set>
+    ,JSNRECBDY = #{jsnrecbdy}
+    ,STAKJYZFLG = #{stakjyzflg}
+    ,DELFLG = #{delflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and STANO = #{stano}
+    and BSHCOD = #{bshcod}
+    and STACNLSEQ = #{stacnlseq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HanyoStackEntity">
+  delete from AESYSE14
+  <where>
+    and INPDTE = #{inpdte}
+    and CPUID = #{cpuid}
+    and TMLID = #{tmlid}
+    and STANO = #{stano}
+    and BSHCOD = #{bshcod}
+    and STACNLSEQ = #{stacnlseq}
+  </where>
+</delete>
+
+</mapper>
+

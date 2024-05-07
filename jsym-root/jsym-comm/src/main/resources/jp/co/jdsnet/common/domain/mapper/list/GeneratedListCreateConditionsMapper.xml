@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.list.GeneratedListCreateConditionsMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,CHYDTAFLEID
+    ,SEQNO
+    ,SSEJKNNM
+    ,SSEJKNNO
+    ,SSEJKN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ListCreateConditionsEntity">
+  insert into VTBLST06
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{chydtafleid}
+    ,#{seqno}
+    ,#{ssejknnm}
+    ,#{ssejknno}
+    ,#{ssejkn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBLST06
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+    and SEQNO = #{seqno}
+  </where>
+</sql>
+
+<select id="select" resultType="ListCreateConditionsEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ListCreateConditionsEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ListCreateConditionsEntity">
+  update VTBLST06
+  <set>
+    ,SSEJKNNM = #{ssejknnm}
+    ,SSEJKNNO = #{ssejknno}
+    ,SSEJKN = #{ssejkn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+    and SEQNO = #{seqno}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ListCreateConditionsEntity">
+  delete from VTBLST06
+  <where>
+    and CHYDTAFLEID = #{chydtafleid}
+    and SEQNO = #{seqno}
+  </where>
+</delete>
+
+</mapper>
+

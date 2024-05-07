@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.user.GeneratedSssExcelTemplateHeaderMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,USRID
+    ,FORMBNG
+    ,FORMNM
+    ,TBLID
+    ,HZNFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SssExcelTemplateHeaderEntity">
+  insert into VTBSSS04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{usrid}
+    ,#{formbng}
+    ,#{formnm}
+    ,#{tblid}
+    ,#{hznflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBSSS04
+  <where>
+    and USRID = #{usrid}
+    and FORMBNG = #{formbng}
+  </where>
+</sql>
+
+<select id="select" resultType="SssExcelTemplateHeaderEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SssExcelTemplateHeaderEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SssExcelTemplateHeaderEntity">
+  update VTBSSS04
+  <set>
+    ,FORMNM = #{formnm}
+    ,TBLID = #{tblid}
+    ,HZNFLG = #{hznflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and USRID = #{usrid}
+    and FORMBNG = #{formbng}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SssExcelTemplateHeaderEntity">
+  delete from VTBSSS04
+  <where>
+    and USRID = #{usrid}
+    and FORMBNG = #{formbng}
+  </where>
+</delete>
+
+</mapper>
+

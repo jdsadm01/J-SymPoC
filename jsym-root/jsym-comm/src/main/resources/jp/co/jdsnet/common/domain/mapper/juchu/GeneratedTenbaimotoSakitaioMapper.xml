@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedTenbaimotoSakitaioMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,JUCDTE
+    ,TBMTOKCOD
+    ,TBMDSCOD
+    ,TBMSEQ
+    ,TBSTOKCOD
+    ,TBSDSCOD
+    ,TBSSEQ
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TenbaimotoSakitaioEntity">
+  insert into AERORD14
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{jucdte}
+    ,#{tbmtokcod}
+    ,#{tbmdscod}
+    ,#{tbmseq}
+    ,#{tbstokcod}
+    ,#{tbsdscod}
+    ,#{tbsseq}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD14
+  <where>
+    and JUCDTE = #{jucdte}
+    and TBMTOKCOD = #{tbmtokcod}
+    and TBMDSCOD = #{tbmdscod}
+    and TBMSEQ = #{tbmseq}
+  </where>
+</sql>
+
+<select id="select" resultType="TenbaimotoSakitaioEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TenbaimotoSakitaioEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TenbaimotoSakitaioEntity">
+  update AERORD14
+  <set>
+    ,TBSTOKCOD = #{tbstokcod}
+    ,TBSDSCOD = #{tbsdscod}
+    ,TBSSEQ = #{tbsseq}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and JUCDTE = #{jucdte}
+    and TBMTOKCOD = #{tbmtokcod}
+    and TBMDSCOD = #{tbmdscod}
+    and TBMSEQ = #{tbmseq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TenbaimotoSakitaioEntity">
+  delete from AERORD14
+  <where>
+    and JUCDTE = #{jucdte}
+    and TBMTOKCOD = #{tbmtokcod}
+    and TBMDSCOD = #{tbmdscod}
+    and TBMSEQ = #{tbmseq}
+  </where>
+</delete>
+
+</mapper>
+

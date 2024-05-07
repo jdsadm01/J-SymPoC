@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.uriagejisseki.GeneratedShinpuJuchuJissekiTerritoryBetsuSummaryMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,EIGCOD
+    ,TERCOD
+    ,SINBNG
+    ,SINGYB
+    ,KAISKBCOD
+    ,KIGBNG
+    ,HBIDTE
+    ,URIGRPCOD
+    ,SINKCYSUR
+    ,SINKCYSURIPN
+    ,SINKCYSURKRE
+    ,SINTUISUR
+    ,SINTUISURIPN
+    ,SINTUISURKRE
+    ,SINJUCKIN
+    ,SINJUCKINIPN
+    ,SINJUCKINKRE
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuJuchuJissekiTerritoryBetsuSummaryEntity">
+  insert into AESALE04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{eigcod}
+    ,#{tercod}
+    ,#{sinbng}
+    ,#{singyb}
+    ,#{kaiskbcod}
+    ,#{kigbng}
+    ,#{hbidte}
+    ,#{urigrpcod}
+    ,#{sinkcysur}
+    ,#{sinkcysuripn}
+    ,#{sinkcysurkre}
+    ,#{sintuisur}
+    ,#{sintuisuripn}
+    ,#{sintuisurkre}
+    ,#{sinjuckin}
+    ,#{sinjuckinipn}
+    ,#{sinjuckinkre}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESALE04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+    and TERCOD = #{tercod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuJuchuJissekiTerritoryBetsuSummaryEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuJuchuJissekiTerritoryBetsuSummaryEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuJuchuJissekiTerritoryBetsuSummaryEntity">
+  update AESALE04
+  <set>
+    ,KAISKBCOD = #{kaiskbcod}
+    ,KIGBNG = #{kigbng}
+    ,HBIDTE = #{hbidte}
+    ,URIGRPCOD = #{urigrpcod}
+    ,SINKCYSUR = #{sinkcysur}
+    ,SINKCYSURIPN = #{sinkcysuripn}
+    ,SINKCYSURKRE = #{sinkcysurkre}
+    ,SINTUISUR = #{sintuisur}
+    ,SINTUISURIPN = #{sintuisuripn}
+    ,SINTUISURKRE = #{sintuisurkre}
+    ,SINJUCKIN = #{sinjuckin}
+    ,SINJUCKINIPN = #{sinjuckinipn}
+    ,SINJUCKINKRE = #{sinjuckinkre}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+    and TERCOD = #{tercod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuJuchuJissekiTerritoryBetsuSummaryEntity">
+  delete from AESALE04
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+    and TERCOD = #{tercod}
+    and SINBNG = #{sinbng}
+    and SINGYB = #{singyb}
+  </where>
+</delete>
+
+</mapper>
+

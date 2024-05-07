@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedTokuteiKadobiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KADDTE8KT
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="TokuteiKadobiEntity">
+  insert into AESYSM36
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kaddte8kt}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSM36
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KADDTE8KT = #{kaddte8kt}
+  </where>
+</sql>
+
+<select id="select" resultType="TokuteiKadobiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="TokuteiKadobiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="TokuteiKadobiEntity">
+  update AESYSM36
+  <set>
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KADDTE8KT = #{kaddte8kt}
+  </where>
+</update>
+
+<delete id="delete" parameterType="TokuteiKadobiEntity">
+  delete from AESYSM36
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KADDTE8KT = #{kaddte8kt}
+  </where>
+</delete>
+
+</mapper>
+

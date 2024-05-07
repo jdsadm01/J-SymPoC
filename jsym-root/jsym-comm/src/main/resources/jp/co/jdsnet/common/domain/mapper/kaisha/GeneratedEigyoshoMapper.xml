@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedEigyoshoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,EIGCOD
+    ,EIGNMKN
+    ,EIGNMKNKKC
+    ,EIGNM
+    ,EIGNMKKC
+    ,EIBCOD
+    ,TOMEIGNSU
+    ,EIGYSN
+    ,URIKJUARIFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="EigyoshoEntity">
+  insert into AECOMP02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{eigcod}
+    ,#{eignmkn}
+    ,#{eignmknkkc}
+    ,#{eignm}
+    ,#{eignmkkc}
+    ,#{eibcod}
+    ,#{tomeignsu}
+    ,#{eigysn}
+    ,#{urikjuariflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECOMP02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+  </where>
+</sql>
+
+<select id="select" resultType="EigyoshoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="EigyoshoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="EigyoshoEntity">
+  update AECOMP02
+  <set>
+    ,EIGNMKN = #{eignmkn}
+    ,EIGNMKNKKC = #{eignmknkkc}
+    ,EIGNM = #{eignm}
+    ,EIGNMKKC = #{eignmkkc}
+    ,EIBCOD = #{eibcod}
+    ,TOMEIGNSU = #{tomeignsu}
+    ,EIGYSN = #{eigysn}
+    ,URIKJUARIFLG = #{urikjuariflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="EigyoshoEntity">
+  delete from AECOMP02
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and EIGCOD = #{eigcod}
+  </where>
+</delete>
+
+</mapper>
+

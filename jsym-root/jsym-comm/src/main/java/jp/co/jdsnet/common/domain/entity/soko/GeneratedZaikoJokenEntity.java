@@ -10,24 +10,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * 在庫条件Entityクラス
+ *
+ * @author ソース生成ツールによる自動生成
+ */
 @Data
 @Setter(AccessLevel.NONE)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class GeneratedZaikoJokenEntity implements EntityInterface {
+
+  // 永続属性 ↓
   /** 代表会社識別コード */
-  @Keyfield(index = 0)
+  @Keyfield(index = 1)
   @Builder.Default
   private String daikaiskbcod = "";
 
   /** 記号番号 */
-  @Keyfield(index = 1)
+  @Keyfield(index = 2)
   @Builder.Default
   private String kigbng = "";
 
   /** 倉庫コード */
-  @Keyfield(index = 2)
+  @Keyfield(index = 3)
   @Builder.Default
   private String skocod = "";
 

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.kashidashi.GeneratedKashidashiReinyuMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,KDAREIDTE
+    ,TOKCOD
+    ,DSCOD
+    ,SEQ
+    ,KDAREIJKK
+    ,TRNFULCOD
+    ,RMCOD
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,TANKINHJIFLG
+    ,SSAYTEDTE
+    ,CPUFULID
+    ,WSSEQ7KT
+    ,REISTSKBN
+    ,INPCHKERRKBN
+    ,KDSSKOCOD
+    ,KDSDAIKAISKBCOD
+    ,KDSMKRDENBNG
+    ,KDSDENDTE
+    ,STASTEFLG
+    ,STAKJYZFLG
+    ,DELFLG
+    ,ERRARIFLG
+    ,SKRKRT
+    ,SKRKRTSTEFLG
+    ,THCBNG
+    ,KDAKBN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,TMUSTEFLG
+    ,TMUKJYZFLG
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="KashidashiReinyuMidashiEntity">
+  insert into AELEND03
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{kdareidte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{seq}
+    ,#{kdareijkk}
+    ,#{trnfulcod}
+    ,#{rmcod}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{tankinhjiflg}
+    ,#{ssaytedte}
+    ,#{cpufulid}
+    ,#{wsseq7kt}
+    ,#{reistskbn}
+    ,#{inpchkerrkbn}
+    ,#{kdsskocod}
+    ,#{kdsdaikaiskbcod}
+    ,#{kdsmkrdenbng}
+    ,#{kdsdendte}
+    ,#{stasteflg}
+    ,#{stakjyzflg}
+    ,#{delflg}
+    ,#{errariflg}
+    ,#{skrkrt}
+    ,#{skrkrtsteflg}
+    ,#{thcbng}
+    ,#{kdakbn}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{tmusteflg}
+    ,#{tmukjyzflg}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AELEND03
+  <where>
+    and KDAREIDTE = #{kdareidte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="KashidashiReinyuMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="KashidashiReinyuMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="KashidashiReinyuMidashiEntity">
+  update AELEND03
+  <set>
+    ,KDAREIJKK = #{kdareijkk}
+    ,TRNFULCOD = #{trnfulcod}
+    ,RMCOD = #{rmcod}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,TANKINHJIFLG = #{tankinhjiflg}
+    ,SSAYTEDTE = #{ssaytedte}
+    ,CPUFULID = #{cpufulid}
+    ,WSSEQ7KT = #{wsseq7kt}
+    ,REISTSKBN = #{reistskbn}
+    ,INPCHKERRKBN = #{inpchkerrkbn}
+    ,KDSSKOCOD = #{kdsskocod}
+    ,KDSDAIKAISKBCOD = #{kdsdaikaiskbcod}
+    ,KDSMKRDENBNG = #{kdsmkrdenbng}
+    ,KDSDENDTE = #{kdsdendte}
+    ,STASTEFLG = #{stasteflg}
+    ,STAKJYZFLG = #{stakjyzflg}
+    ,DELFLG = #{delflg}
+    ,ERRARIFLG = #{errariflg}
+    ,SKRKRT = #{skrkrt}
+    ,SKRKRTSTEFLG = #{skrkrtsteflg}
+    ,THCBNG = #{thcbng}
+    ,KDAKBN = #{kdakbn}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,TMUSTEFLG = #{tmusteflg}
+    ,TMUKJYZFLG = #{tmukjyzflg}
+  </set>
+  <where>
+    and KDAREIDTE = #{kdareidte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="KashidashiReinyuMidashiEntity">
+  delete from AELEND03
+  <where>
+    and KDAREIDTE = #{kdareidte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

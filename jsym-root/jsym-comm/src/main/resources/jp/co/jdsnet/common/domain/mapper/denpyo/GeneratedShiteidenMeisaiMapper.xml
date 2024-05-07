@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.denpyo.GeneratedShiteidenMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,STDSSEDTE
+    ,BSHCOD
+    ,STDRELNO
+    ,SEQ
+    ,STDMSIDTIKEY
+    ,THCMEMO
+    ,ARN
+    ,HNM
+    ,SYASUR
+    ,GKATAN
+    ,GKAKIN
+    ,BKATAN
+    ,BKAKIN
+    ,EMSGN
+    ,EMMAESYASUR
+    ,EMMAEGKATAN
+    ,EMMAEGKAKIN
+    ,EMMAEBKATAN
+    ,EMMAEBKAKIN
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShiteidenMeisaiEntity">
+  insert into AESLIP04
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{stdssedte}
+    ,#{bshcod}
+    ,#{stdrelno}
+    ,#{seq}
+    ,#{stdmsidtikey}
+    ,#{thcmemo}
+    ,#{arn}
+    ,#{hnm}
+    ,#{syasur}
+    ,#{gkatan}
+    ,#{gkakin}
+    ,#{bkatan}
+    ,#{bkakin}
+    ,#{emsgn}
+    ,#{emmaesyasur}
+    ,#{emmaegkatan}
+    ,#{emmaegkakin}
+    ,#{emmaebkatan}
+    ,#{emmaebkakin}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESLIP04
+  <where>
+    and STDSSEDTE = #{stdssedte}
+    and BSHCOD = #{bshcod}
+    and STDRELNO = #{stdrelno}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="ShiteidenMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShiteidenMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShiteidenMeisaiEntity">
+  update AESLIP04
+  <set>
+    ,STDMSIDTIKEY = #{stdmsidtikey}
+    ,THCMEMO = #{thcmemo}
+    ,ARN = #{arn}
+    ,HNM = #{hnm}
+    ,SYASUR = #{syasur}
+    ,GKATAN = #{gkatan}
+    ,GKAKIN = #{gkakin}
+    ,BKATAN = #{bkatan}
+    ,BKAKIN = #{bkakin}
+    ,EMSGN = #{emsgn}
+    ,EMMAESYASUR = #{emmaesyasur}
+    ,EMMAEGKATAN = #{emmaegkatan}
+    ,EMMAEGKAKIN = #{emmaegkakin}
+    ,EMMAEBKATAN = #{emmaebkatan}
+    ,EMMAEBKAKIN = #{emmaebkakin}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and STDSSEDTE = #{stdssedte}
+    and BSHCOD = #{bshcod}
+    and STDRELNO = #{stdrelno}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShiteidenMeisaiEntity">
+  delete from AESLIP04
+  <where>
+    and STDSSEDTE = #{stdssedte}
+    and BSHCOD = #{bshcod}
+    and STDRELNO = #{stdrelno}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

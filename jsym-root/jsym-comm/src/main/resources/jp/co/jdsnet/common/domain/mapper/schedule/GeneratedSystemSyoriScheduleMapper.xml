@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.schedule.GeneratedSystemSyoriScheduleMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,SCHSEQ
+    ,SCHDTE
+    ,SYSPRCID
+    ,DAIKAISKBCOD
+    ,USRBUN
+    ,SCHSSI
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="SystemSyoriScheduleEntity">
+  insert into VTBSCH01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{schseq}
+    ,#{schdte}
+    ,#{sysprcid}
+    ,#{daikaiskbcod}
+    ,#{usrbun}
+    ,#{schssi}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from VTBSCH01
+  <where>
+    and SCHSEQ = #{schseq}
+  </where>
+</sql>
+
+<select id="select" resultType="SystemSyoriScheduleEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="SystemSyoriScheduleEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="SystemSyoriScheduleEntity">
+  update VTBSCH01
+  <set>
+    ,SCHDTE = #{schdte}
+    ,SYSPRCID = #{sysprcid}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,USRBUN = #{usrbun}
+    ,SCHSSI = #{schssi}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and SCHSEQ = #{schseq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="SystemSyoriScheduleEntity">
+  delete from VTBSCH01
+  <where>
+    and SCHSEQ = #{schseq}
+  </where>
+</delete>
+
+</mapper>
+

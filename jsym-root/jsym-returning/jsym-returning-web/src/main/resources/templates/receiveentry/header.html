@@ -35,10 +35,14 @@
 						<input type="hidden" th:field="*{trncodList[__${st.index}__].text}">
 					</th:block>
 				</div>
-				<div class="flex-col col-lg-4">
+				<div class="flex-col col-lg-3">
 					<label for="tokcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{tokcod}"></label>
 					<input class="form-control p-1 text-uppercase" id="tokcod" type="text" th:field="*{tokcod}" maxlength="8" aria-label="得意先">
 				</div>
+        <div class="flex-col col-lg-2">
+          <label for="dscod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{dscod}"></label>
+          <input class="form-control p-1 text-uppercase" id="dscod" type="text" th:field="*{dscod}" maxlength="8" aria-label="DS">
+        </div>
 				<div class="flex-col col-lg-2">
 					<label for="rmcod" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{rmcod}"></label>
 					<select name="rmcod" class="form-select" aria-label="リマーク">
@@ -53,7 +57,7 @@
 					<label for="hpnjurdte" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{hpnjurdte}"></label>
 					<input class="form-control p-1 text-uppercase" id="hpnjurdte" type="text" th:field="*{hpnjurdte}" maxlength="6" aria-label="受領日">
 				</div>
-				<div class="flex-col col-lg-3">
+				<div class="flex-col col-lg-2">
 					<label for="hpnutkbng" class="form-label px-1 border-start border-primary border-5 fw-bolder" th:text="#{hpnutkbng}"></label>
 					<input class="form-control p-1 text-uppercase" id="hpnutkbng" type="text" th:field="*{hpnutkbng}" maxlength="5" aria-label="受付No.">
 				</div>
@@ -182,21 +186,17 @@
 			</div>
 			<div class="d-flex flex-row p-2">
 				<div class="col-2">
-					<button class="btn btn-outline-secondary" type="submit" name="btn_checkHeader">明細入力</button>
+          <button class="btn btn-outline-secondary" type="button" name="btn_checkHeader" onclick="sendForm(this.name);">明細入力</button>
+					<!--<button class="btn btn-outline-secondary" type="submit" name="btn_checkHeader">明細入力</button>-->
 				</div>
 			</div>
 			<div>
-				<ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
-				    <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
-				</ul>
-				<th:block th:text="${errors}"></th:block>
-				<!--
-				<table>
-					<tr th:if="${validationError}" th:each="error : ${validationError}">
-			            <td style="color: red;" th:text="${error}"></td>
-			        </tr>
-				</table>
-				-->
+        <ul th:if="${errors != null}"> <!--/* (1) */-->
+            <li th:each="err : ${errors}" th:text="${err}"></li> <!--/* (2) */-->
+        </ul>
+        <ul th:if="${#fields.hasAnyErrors()}"> <!--/* (1) */-->
+            <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li> <!--/* (2) */-->
+        </ul>
 			</div>
 		</div>
 

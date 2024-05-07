@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.denpyo.GeneratedDenpyoMidashiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,HATBSHCOD
+    ,TRNCOD
+    ,DAIKAISKBCOD
+    ,MKRDENBNG
+    ,DENDTE
+    ,TOKHACSAKCOD
+    ,DSCOD
+    ,KYODENBNG
+    ,HATDTE
+    ,HATJKK
+    ,THCBNGHDBGYBTUK
+    ,SJCOD
+    ,YKNCOD
+    ,MSCOD
+    ,FMG1
+    ,FMG2
+    ,TANKINHJIFLG
+    ,MTDDTE
+    ,MTDBNG
+    ,CPUFULID
+    ,WSSEQ4KT
+    ,JUCDTE
+    ,JUCJKK
+    ,JUCKBN
+    ,JUCBSHCOD
+    ,KOGSUU
+    ,KONSZINMGUN
+    ,KONSZISUUGUN
+    ,KRSNMGUN
+    ,KRSSUUGUN
+    ,BDNPRCKBN
+    ,STDKBN
+    ,KRERNTKBN
+    ,HSOHMNBLKCOD
+    ,EMSGN
+    ,STDBNGFRM
+    ,STDBNGTO
+    ,SYADTE
+    ,PAGBNG
+    ,PAGBNGENDSGN
+    ,KYYARE
+    ,YGDOVRFLG
+    ,HBIDTE
+    ,PRCDTE
+    ,DENSSEOUTKBN
+    ,MSOCOD
+    ,SSOCOD
+    ,KDAKBN
+    ,ETCSYAKNRKBN
+    ,ZEIKBN
+    ,SMPSGN
+    ,TOMZMMZAIKBN
+    ,ABZAIKBN
+    ,SMTCOD
+    ,KAMCOD
+    ,HPNUTKBNG
+    ,HPNRYUKBN
+    ,TKIHPNKINHCNBNG
+    ,HIBHPNKIN
+    ,KHBHPNKIN
+    ,FRYHPNKIN
+    ,HNSKIN
+    ,TOKDENBNG1
+    ,TOKDENBNG2
+    ,HPNJURNYADTE
+    ,SSAYTEDTE
+    ,LOCBNG
+    ,DENTANISEKKBNSKSFLG
+    ,KOGBDNPAGBNG
+    ,KCYPRCTUIJUCPRCDTE
+    ,KCYDENOUTJNTJSJKK
+    ,URIZAIUPDKRUFLG
+    ,URIZAIUPDDTE
+    ,SINTOKEDISTSKBN
+    ,SINTOKEDIDTE
+    ,SINJRDEDIZFLG
+    ,SINJRDEDIDTE
+    ,SINSYAPRFSSESTSKBN
+    ,SINSYAPRFSSEDTE
+    ,COMSSESTSKBN
+    ,COMSSEDTE
+    ,KHAPRCKJYZFLG
+    ,KHADTE
+    ,SINCSHSTSKBNDNKJ
+    ,SINCSHSTSKBNHBKJ
+    ,SINCSHSTSKBNSBKJ
+    ,DENSSEDTE
+    ,DENSSEJKK
+    ,EDIZFLG
+    ,EDIDTE
+    ,EDIJKK
+    ,GPROSSNZFLG
+    ,GPROSSNDTE
+    ,GPROSSNJKK
+    ,DENTGUINPZFLG
+    ,DENTGUINPDTE
+    ,DENTGUINPJKK
+    ,DENTRNSSEZFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,HSODTE
+    ,SKOSYADTE
+    ,HSOINFSJIMDSUTKNO
+    ,HSOROTCOD
+    ,NCHDENTRNSSNZFLG
+    ,NCHDENTRNSSNDTE
+    ,NCHDENTRNSSNJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="DenpyoMidashiEntity">
+  insert into AESLIP01
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{hatbshcod}
+    ,#{trncod}
+    ,#{daikaiskbcod}
+    ,#{mkrdenbng}
+    ,#{dendte}
+    ,#{tokhacsakcod}
+    ,#{dscod}
+    ,#{kyodenbng}
+    ,#{hatdte}
+    ,#{hatjkk}
+    ,#{thcbnghdbgybtuk}
+    ,#{sjcod}
+    ,#{ykncod}
+    ,#{mscod}
+    ,#{fmg1}
+    ,#{fmg2}
+    ,#{tankinhjiflg}
+    ,#{mtddte}
+    ,#{mtdbng}
+    ,#{cpufulid}
+    ,#{wsseq4kt}
+    ,#{jucdte}
+    ,#{jucjkk}
+    ,#{juckbn}
+    ,#{jucbshcod}
+    ,#{kogsuu}
+    ,#{konszinmgun}
+    ,#{konszisuugun}
+    ,#{krsnmgun}
+    ,#{krssuugun}
+    ,#{bdnprckbn}
+    ,#{stdkbn}
+    ,#{krerntkbn}
+    ,#{hsohmnblkcod}
+    ,#{emsgn}
+    ,#{stdbngfrm}
+    ,#{stdbngto}
+    ,#{syadte}
+    ,#{pagbng}
+    ,#{pagbngendsgn}
+    ,#{kyyare}
+    ,#{ygdovrflg}
+    ,#{hbidte}
+    ,#{prcdte}
+    ,#{densseoutkbn}
+    ,#{msocod}
+    ,#{ssocod}
+    ,#{kdakbn}
+    ,#{etcsyaknrkbn}
+    ,#{zeikbn}
+    ,#{smpsgn}
+    ,#{tomzmmzaikbn}
+    ,#{abzaikbn}
+    ,#{smtcod}
+    ,#{kamcod}
+    ,#{hpnutkbng}
+    ,#{hpnryukbn}
+    ,#{tkihpnkinhcnbng}
+    ,#{hibhpnkin}
+    ,#{khbhpnkin}
+    ,#{fryhpnkin}
+    ,#{hnskin}
+    ,#{tokdenbng1}
+    ,#{tokdenbng2}
+    ,#{hpnjurnyadte}
+    ,#{ssaytedte}
+    ,#{locbng}
+    ,#{dentanisekkbnsksflg}
+    ,#{kogbdnpagbng}
+    ,#{kcyprctuijucprcdte}
+    ,#{kcydenoutjntjsjkk}
+    ,#{urizaiupdkruflg}
+    ,#{urizaiupddte}
+    ,#{sintokedistskbn}
+    ,#{sintokedidte}
+    ,#{sinjrdedizflg}
+    ,#{sinjrdedidte}
+    ,#{sinsyaprfssestskbn}
+    ,#{sinsyaprfssedte}
+    ,#{comssestskbn}
+    ,#{comssedte}
+    ,#{khaprckjyzflg}
+    ,#{khadte}
+    ,#{sincshstskbndnkj}
+    ,#{sincshstskbnhbkj}
+    ,#{sincshstskbnsbkj}
+    ,#{denssedte}
+    ,#{denssejkk}
+    ,#{edizflg}
+    ,#{edidte}
+    ,#{edijkk}
+    ,#{gprossnzflg}
+    ,#{gprossndte}
+    ,#{gprossnjkk}
+    ,#{dentguinpzflg}
+    ,#{dentguinpdte}
+    ,#{dentguinpjkk}
+    ,#{dentrnssezflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{hsodte}
+    ,#{skosyadte}
+    ,#{hsoinfsjimdsutkno}
+    ,#{hsorotcod}
+    ,#{nchdentrnssnzflg}
+    ,#{nchdentrnssndte}
+    ,#{nchdentrnssnjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESLIP01
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCOD = #{trncod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKHACSAKCOD = #{tokhacsakcod}
+    and DSCOD = #{dscod}
+  </where>
+</sql>
+
+<select id="select" resultType="DenpyoMidashiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="DenpyoMidashiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="DenpyoMidashiEntity">
+  update AESLIP01
+  <set>
+    ,KYODENBNG = #{kyodenbng}
+    ,HATDTE = #{hatdte}
+    ,HATJKK = #{hatjkk}
+    ,THCBNGHDBGYBTUK = #{thcbnghdbgybtuk}
+    ,SJCOD = #{sjcod}
+    ,YKNCOD = #{ykncod}
+    ,MSCOD = #{mscod}
+    ,FMG1 = #{fmg1}
+    ,FMG2 = #{fmg2}
+    ,TANKINHJIFLG = #{tankinhjiflg}
+    ,MTDDTE = #{mtddte}
+    ,MTDBNG = #{mtdbng}
+    ,CPUFULID = #{cpufulid}
+    ,WSSEQ4KT = #{wsseq4kt}
+    ,JUCDTE = #{jucdte}
+    ,JUCJKK = #{jucjkk}
+    ,JUCKBN = #{juckbn}
+    ,JUCBSHCOD = #{jucbshcod}
+    ,KOGSUU = #{kogsuu}
+    ,KONSZINMGUN = #{konszinmgun}
+    ,KONSZISUUGUN = #{konszisuugun}
+    ,KRSNMGUN = #{krsnmgun}
+    ,KRSSUUGUN = #{krssuugun}
+    ,BDNPRCKBN = #{bdnprckbn}
+    ,STDKBN = #{stdkbn}
+    ,KRERNTKBN = #{krerntkbn}
+    ,HSOHMNBLKCOD = #{hsohmnblkcod}
+    ,EMSGN = #{emsgn}
+    ,STDBNGFRM = #{stdbngfrm}
+    ,STDBNGTO = #{stdbngto}
+    ,SYADTE = #{syadte}
+    ,PAGBNG = #{pagbng}
+    ,PAGBNGENDSGN = #{pagbngendsgn}
+    ,KYYARE = #{kyyare}
+    ,YGDOVRFLG = #{ygdovrflg}
+    ,HBIDTE = #{hbidte}
+    ,PRCDTE = #{prcdte}
+    ,DENSSEOUTKBN = #{densseoutkbn}
+    ,MSOCOD = #{msocod}
+    ,SSOCOD = #{ssocod}
+    ,KDAKBN = #{kdakbn}
+    ,ETCSYAKNRKBN = #{etcsyaknrkbn}
+    ,ZEIKBN = #{zeikbn}
+    ,SMPSGN = #{smpsgn}
+    ,TOMZMMZAIKBN = #{tomzmmzaikbn}
+    ,ABZAIKBN = #{abzaikbn}
+    ,SMTCOD = #{smtcod}
+    ,KAMCOD = #{kamcod}
+    ,HPNUTKBNG = #{hpnutkbng}
+    ,HPNRYUKBN = #{hpnryukbn}
+    ,TKIHPNKINHCNBNG = #{tkihpnkinhcnbng}
+    ,HIBHPNKIN = #{hibhpnkin}
+    ,KHBHPNKIN = #{khbhpnkin}
+    ,FRYHPNKIN = #{fryhpnkin}
+    ,HNSKIN = #{hnskin}
+    ,TOKDENBNG1 = #{tokdenbng1}
+    ,TOKDENBNG2 = #{tokdenbng2}
+    ,HPNJURNYADTE = #{hpnjurnyadte}
+    ,SSAYTEDTE = #{ssaytedte}
+    ,LOCBNG = #{locbng}
+    ,DENTANISEKKBNSKSFLG = #{dentanisekkbnsksflg}
+    ,KOGBDNPAGBNG = #{kogbdnpagbng}
+    ,KCYPRCTUIJUCPRCDTE = #{kcyprctuijucprcdte}
+    ,KCYDENOUTJNTJSJKK = #{kcydenoutjntjsjkk}
+    ,URIZAIUPDKRUFLG = #{urizaiupdkruflg}
+    ,URIZAIUPDDTE = #{urizaiupddte}
+    ,SINTOKEDISTSKBN = #{sintokedistskbn}
+    ,SINTOKEDIDTE = #{sintokedidte}
+    ,SINJRDEDIZFLG = #{sinjrdedizflg}
+    ,SINJRDEDIDTE = #{sinjrdedidte}
+    ,SINSYAPRFSSESTSKBN = #{sinsyaprfssestskbn}
+    ,SINSYAPRFSSEDTE = #{sinsyaprfssedte}
+    ,COMSSESTSKBN = #{comssestskbn}
+    ,COMSSEDTE = #{comssedte}
+    ,KHAPRCKJYZFLG = #{khaprckjyzflg}
+    ,KHADTE = #{khadte}
+    ,SINCSHSTSKBNDNKJ = #{sincshstskbndnkj}
+    ,SINCSHSTSKBNHBKJ = #{sincshstskbnhbkj}
+    ,SINCSHSTSKBNSBKJ = #{sincshstskbnsbkj}
+    ,DENSSEDTE = #{denssedte}
+    ,DENSSEJKK = #{denssejkk}
+    ,EDIZFLG = #{edizflg}
+    ,EDIDTE = #{edidte}
+    ,EDIJKK = #{edijkk}
+    ,GPROSSNZFLG = #{gprossnzflg}
+    ,GPROSSNDTE = #{gprossndte}
+    ,GPROSSNJKK = #{gprossnjkk}
+    ,DENTGUINPZFLG = #{dentguinpzflg}
+    ,DENTGUINPDTE = #{dentguinpdte}
+    ,DENTGUINPJKK = #{dentguinpjkk}
+    ,DENTRNSSEZFLG = #{dentrnssezflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,HSODTE = #{hsodte}
+    ,SKOSYADTE = #{skosyadte}
+    ,HSOINFSJIMDSUTKNO = #{hsoinfsjimdsutkno}
+    ,HSOROTCOD = #{hsorotcod}
+    ,NCHDENTRNSSNZFLG = #{nchdentrnssnzflg}
+    ,NCHDENTRNSSNDTE = #{nchdentrnssndte}
+    ,NCHDENTRNSSNJKK = #{nchdentrnssnjkk}
+  </set>
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCOD = #{trncod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKHACSAKCOD = #{tokhacsakcod}
+    and DSCOD = #{dscod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="DenpyoMidashiEntity">
+  delete from AESLIP01
+  <where>
+    and HATBSHCOD = #{hatbshcod}
+    and TRNCOD = #{trncod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and MKRDENBNG = #{mkrdenbng}
+    and DENDTE = #{dendte}
+    and TOKHACSAKCOD = #{tokhacsakcod}
+    and DSCOD = #{dscod}
+  </where>
+</delete>
+
+</mapper>
+

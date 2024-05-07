@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.JsymMsMapper">
+  <select id="selectWithoutLogicalDelete" resultType="JsymMsEntity">
+    select
+    <include refid="jp.co.jdsnet.common.domain.mapper.sysmas.GeneratedJsymMsMapper.fields"/>
+    from VTBMSG01
+    <where>
+      KAISKBCOD = #{kaiskbcod}
+      and MSCOD = #{mscod}
+      and UPDKBN <![CDATA[<>]]> 'D'
+    </where>
+    with ur
+  </select>
+</mapper>
+

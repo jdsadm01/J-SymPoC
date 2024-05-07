@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedHinbanTokuisakiKakeritsuTankaMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,DAIKAISKBCOD
+    ,KIGBNG
+    ,TOKCOD
+    ,TOKSYYKBN
+    ,KRTTANKBN
+    ,SKRKRT
+    ,SKRTAN
+    ,KKNFRM
+    ,KKNTO
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="HinbanTokuisakiKakeritsuTankaEntity">
+  insert into AECUST15
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{daikaiskbcod}
+    ,#{kigbng}
+    ,#{tokcod}
+    ,#{toksyykbn}
+    ,#{krttankbn}
+    ,#{skrkrt}
+    ,#{skrtan}
+    ,#{kknfrm}
+    ,#{kknto}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AECUST15
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and TOKSYYKBN = #{toksyykbn}
+  </where>
+</sql>
+
+<select id="select" resultType="HinbanTokuisakiKakeritsuTankaEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="HinbanTokuisakiKakeritsuTankaEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="HinbanTokuisakiKakeritsuTankaEntity">
+  update AECUST15
+  <set>
+    ,KRTTANKBN = #{krttankbn}
+    ,SKRKRT = #{skrkrt}
+    ,SKRTAN = #{skrtan}
+    ,KKNFRM = #{kknfrm}
+    ,KKNTO = #{kknto}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and TOKSYYKBN = #{toksyykbn}
+  </where>
+</update>
+
+<delete id="delete" parameterType="HinbanTokuisakiKakeritsuTankaEntity">
+  delete from AECUST15
+  <where>
+    and DAIKAISKBCOD = #{daikaiskbcod}
+    and KIGBNG = #{kigbng}
+    and TOKCOD = #{tokcod}
+    and TOKSYYKBN = #{toksyykbn}
+  </where>
+</delete>
+
+</mapper>
+

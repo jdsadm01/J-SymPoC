@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.juchu.GeneratedJuchuMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,JUCDTE
+    ,TOKCOD
+    ,DSCOD
+    ,JUCMDSSEQ
+    ,SEQ
+    ,PRCKRUFLG
+    ,DAIKAISKBCOD
+    ,JUCHNB
+    ,HATYTEHNB
+    ,JUCSUR
+    ,HATSUR
+    ,TANKINSTEKBN
+    ,SKRTAN
+    ,RMCOD
+    ,THCMEMO
+    ,KIN
+    ,MKRSTESKOCOD
+    ,INPCHKERRKBN
+    ,YKESYAFLG
+    ,YKESYAKHASKOCOD
+    ,YKESYAHATZFLG
+    ,YKESYARYUKBN
+    ,CHZFLG
+    ,SINCHZDELFLG
+    ,ERRCOD
+    ,ERRARIFLG
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+    ,RDOHATBKTARIFLG
+    ,SYADENBNG
+    ,SYASJISUR
+    ,SYASJIKBN
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="JuchuMeisaiEntity">
+  insert into AERORD02
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{jucdte}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{jucmdsseq}
+    ,#{seq}
+    ,#{prckruflg}
+    ,#{daikaiskbcod}
+    ,#{juchnb}
+    ,#{hatytehnb}
+    ,#{jucsur}
+    ,#{hatsur}
+    ,#{tankinstekbn}
+    ,#{skrtan}
+    ,#{rmcod}
+    ,#{thcmemo}
+    ,#{kin}
+    ,#{mkrsteskocod}
+    ,#{inpchkerrkbn}
+    ,#{ykesyaflg}
+    ,#{ykesyakhaskocod}
+    ,#{ykesyahatzflg}
+    ,#{ykesyaryukbn}
+    ,#{chzflg}
+    ,#{sinchzdelflg}
+    ,#{errcod}
+    ,#{errariflg}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+    ,#{rdohatbktariflg}
+    ,#{syadenbng}
+    ,#{syasjisur}
+    ,#{syasjikbn}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AERORD02
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCMDSSEQ = #{jucmdsseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="JuchuMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="JuchuMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="JuchuMeisaiEntity">
+  update AERORD02
+  <set>
+    ,PRCKRUFLG = #{prckruflg}
+    ,DAIKAISKBCOD = #{daikaiskbcod}
+    ,JUCHNB = #{juchnb}
+    ,HATYTEHNB = #{hatytehnb}
+    ,JUCSUR = #{jucsur}
+    ,HATSUR = #{hatsur}
+    ,TANKINSTEKBN = #{tankinstekbn}
+    ,SKRTAN = #{skrtan}
+    ,RMCOD = #{rmcod}
+    ,THCMEMO = #{thcmemo}
+    ,KIN = #{kin}
+    ,MKRSTESKOCOD = #{mkrsteskocod}
+    ,INPCHKERRKBN = #{inpchkerrkbn}
+    ,YKESYAFLG = #{ykesyaflg}
+    ,YKESYAKHASKOCOD = #{ykesyakhaskocod}
+    ,YKESYAHATZFLG = #{ykesyahatzflg}
+    ,YKESYARYUKBN = #{ykesyaryukbn}
+    ,CHZFLG = #{chzflg}
+    ,SINCHZDELFLG = #{sinchzdelflg}
+    ,ERRCOD = #{errcod}
+    ,ERRARIFLG = #{errariflg}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+    ,RDOHATBKTARIFLG = #{rdohatbktariflg}
+    ,SYADENBNG = #{syadenbng}
+    ,SYASJISUR = #{syasjisur}
+    ,SYASJIKBN = #{syasjikbn}
+  </set>
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCMDSSEQ = #{jucmdsseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="JuchuMeisaiEntity">
+  delete from AERORD02
+  <where>
+    and JUCDTE = #{jucdte}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and JUCMDSSEQ = #{jucmdsseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

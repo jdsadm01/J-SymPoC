@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.soko.GeneratedShinpuHaisoMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,BSHCOD
+    ,TOKCOD
+    ,DSCOD
+    ,DAIKAISKBCOD
+    ,HSOROTCOD
+    ,HSOROTEDA
+    ,HSOSRTCOD
+    ,HSOBLKCOD
+    ,HSONPOSSECOD
+    ,SHOOKRSSECOD
+    ,SHOSWKCOD
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="ShinpuHaisoEntity">
+  insert into AEWARE05
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{bshcod}
+    ,#{tokcod}
+    ,#{dscod}
+    ,#{daikaiskbcod}
+    ,#{hsorotcod}
+    ,#{hsoroteda}
+    ,#{hsosrtcod}
+    ,#{hsoblkcod}
+    ,#{hsonpossecod}
+    ,#{shookrssecod}
+    ,#{shoswkcod}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AEWARE05
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</sql>
+
+<select id="select" resultType="ShinpuHaisoEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="ShinpuHaisoEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="ShinpuHaisoEntity">
+  update AEWARE05
+  <set>
+    ,HSOROTCOD = #{hsorotcod}
+    ,HSOROTEDA = #{hsoroteda}
+    ,HSOSRTCOD = #{hsosrtcod}
+    ,HSOBLKCOD = #{hsoblkcod}
+    ,HSONPOSSECOD = #{hsonpossecod}
+    ,SHOOKRSSECOD = #{shookrssecod}
+    ,SHOSWKCOD = #{shoswkcod}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</update>
+
+<delete id="delete" parameterType="ShinpuHaisoEntity">
+  delete from AEWARE05
+  <where>
+    and BSHCOD = #{bshcod}
+    and TOKCOD = #{tokcod}
+    and DSCOD = #{dscod}
+    and DAIKAISKBCOD = #{daikaiskbcod}
+  </where>
+</delete>
+
+</mapper>
+

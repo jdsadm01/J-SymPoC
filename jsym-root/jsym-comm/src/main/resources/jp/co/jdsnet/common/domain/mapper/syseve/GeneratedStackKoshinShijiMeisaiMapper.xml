@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.jdsnet.common.domain.mapper.syseve.GeneratedStackKoshinShijiMeisaiMapper">
+<sql id="fields">
+  <trim prefixOverrides=",">
+    ,INPDTE
+    ,KAISKBCOD
+    ,STAUPDSJIMDSSEQ
+    ,SEQ
+    ,STAUPDKBN
+    ,TRNFULCOD
+    ,STAKJYDTEOLD
+    ,STAKJYDTENEW
+    ,STAINPDTE
+    ,CPUID
+    ,TMLID
+    ,STANO
+    ,STACNLSEQ
+    ,UPDKBN
+    ,UPDDTE
+    ,UPDJKK
+  </trim>
+</sql>
+
+<insert id="insert" parameterType="StackKoshinShijiMeisaiEntity">
+  insert into AESYSE21
+  <trim prefix=" (" prefixOverrides="," suffix=")">
+    <include refid="fields" />
+  </trim>
+  <trim prefix="values (" prefixOverrides="," suffix=")">
+    ,#{inpdte}
+    ,#{kaiskbcod}
+    ,#{staupdsjimdsseq}
+    ,#{seq}
+    ,#{staupdkbn}
+    ,#{trnfulcod}
+    ,#{stakjydteold}
+    ,#{stakjydtenew}
+    ,#{stainpdte}
+    ,#{cpuid}
+    ,#{tmlid}
+    ,#{stano}
+    ,#{stacnlseq}
+    ,#{updkbn}
+    ,#{upddte}
+    ,#{updjkk}
+  </trim>
+</insert>
+
+<sql id="selectCommon">
+  select
+  <include refid="fields" />
+  from AESYSE21
+  <where>
+    and INPDTE = #{inpdte}
+    and KAISKBCOD = #{kaiskbcod}
+    and STAUPDSJIMDSSEQ = #{staupdsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</sql>
+
+<select id="select" resultType="StackKoshinShijiMeisaiEntity">
+  <include refid="selectCommon" />
+  with ur
+</select>
+
+<select id="selectWithLockForUpdate" resultType="StackKoshinShijiMeisaiEntity">
+  <include refid="selectCommon" />
+  for update with rs
+</select>
+
+<update id="update" parameterType="StackKoshinShijiMeisaiEntity">
+  update AESYSE21
+  <set>
+    ,STAUPDKBN = #{staupdkbn}
+    ,TRNFULCOD = #{trnfulcod}
+    ,STAKJYDTEOLD = #{stakjydteold}
+    ,STAKJYDTENEW = #{stakjydtenew}
+    ,STAINPDTE = #{stainpdte}
+    ,CPUID = #{cpuid}
+    ,TMLID = #{tmlid}
+    ,STANO = #{stano}
+    ,STACNLSEQ = #{stacnlseq}
+    ,UPDKBN = #{updkbn}
+    ,UPDDTE = #{upddte}
+    ,UPDJKK = #{updjkk}
+  </set>
+  <where>
+    and INPDTE = #{inpdte}
+    and KAISKBCOD = #{kaiskbcod}
+    and STAUPDSJIMDSSEQ = #{staupdsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</update>
+
+<delete id="delete" parameterType="StackKoshinShijiMeisaiEntity">
+  delete from AESYSE21
+  <where>
+    and INPDTE = #{inpdte}
+    and KAISKBCOD = #{kaiskbcod}
+    and STAUPDSJIMDSSEQ = #{staupdsjimdsseq}
+    and SEQ = #{seq}
+  </where>
+</delete>
+
+</mapper>
+

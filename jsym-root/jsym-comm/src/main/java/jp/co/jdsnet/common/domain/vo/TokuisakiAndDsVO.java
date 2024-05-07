@@ -16,13 +16,11 @@ import lombok.Setter;
 public class TokuisakiAndDsVO {
 
   @Builder.Default
-  private final KyotsuTokuisakiEntity kyotsuTokuisaki
-    = KyotsuTokuisakiEntity.builder().build();
+  private final KyotsuTokuisakiEntity kyotsuTokuisaki = null;
 
   @Builder.Default
-  private final DsEntity ds = DsEntity.builder().build();
+  private final DsEntity ds = null;
 
   @Builder.Default
-  private final KakushaTokuisakiEntity kakushaTokuisaki
-    = KakushaTokuisakiEntity.builder().build();
+  private final KakushaTokuisakiEntity kakushaTokuisaki = null;
 }

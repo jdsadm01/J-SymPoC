@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.hinban.HinbanMapper">
-    <select id="select" resultType="HinbanEntity">
-        SELECT *
-        FROM AEPROD01
-        <where>
-            DAIKAISKBCOD = #{daikaiskbcod}
-            AND KIGBNG = #{kigbng}
-		</where>
-        WITH UR
-    </select>
-    <select id="selectByInputKigbng" resultType="HinbanEntity">
-        select *
-        from AEPROD01
-        <where>
-            DAIKAISKBCOD = #{daikaiskbcod}
-            and (KIGBNG = #{inpKigbng}
-                 or SRYHNB = #{inpKigbng}
-                 or JANCOD = #{inpKigbng})
-		</where>
-		order by UPDDTE desc, UPDJKK desc, KIGBNG
-        with ur
-    </select>
+  <select id="selectByInputKigbng" resultType="HinbanEntity">
+    select
+    <include refid="jp.co.jdsnet.common.domain.mapper.hinban.GeneratedHinbanMapper.fields" />
+    from AEPROD01
+    <where>
+      DAIKAISKBCOD = #{daikaiskbcod}
+      and (KIGBNG = #{kigbng}
+          or SRYHNB = #{kigbng}
+          or JANCOD = #{kigbng})
+      <if test="daikaiskbcod != kaiskbcod">
+        and KAISKBCOD = #{kaiskbcod}
+      </if>
+    </where>
+    with ur
+  </select>
 </mapper>
+
