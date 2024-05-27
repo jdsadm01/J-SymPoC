@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import io.micrometer.common.util.StringUtils;
@@ -15,15 +13,16 @@ import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDTO;
 import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDetailDTO;
 import jp.co.jdsnet.backlendcost.domain.service.BackDeleteService;
 import jp.co.jdsnet.base.webapp.parts.LabelData;
-import jp.co.jdsnet.common.domain.entity.chuzan.ChuzanEntity;
-import jp.co.jdsnet.common.domain.entity.chuzan.GeneratedChuzanEntity;
 import jp.co.jdsnet.common.domain.entity.hinban.HinbanEntity;
 import jp.co.jdsnet.common.domain.entity.kaisha.KaishaEntity;
-import jp.co.jdsnet.common.domain.mapper.chuzan.ChuzanMapper;
+import jp.co.jdsnet.common.domain.entity.menu.EventEntity.Gmnkbn;
+import jp.co.jdsnet.common.domain.mapper.juchu.ChuzanMapper;
 import jp.co.jdsnet.common.domain.vo.TokuisakiAndDsVO;
-import jp.co.jdsnet.common.logic.CheckSharedService;
-import jp.co.jdsnet.common.logic.DataGetSharedService;
-import jp.co.jdsnet.common.logic.KigbngCheckSharedService;
+import jp.co.jdsnet.common.logic.CommonCheckSharedService;
+import jp.co.jdsnet.common.logic.CommonCheckSharedService.ServiceTime;
+import jp.co.jdsnet.common.logic.KaishaRelatedSharedService;
+import jp.co.jdsnet.common.logic.KigbngRelatedSharedService;
+import jp.co.jdsnet.common.logic.TokuisakiRelatedSharedService;
 import jp.co.jdsnet.common.utils.StringUtility;
 import lombok.RequiredArgsConstructor;
 
@@ -31,24 +30,19 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class BackDeleteServiceImpl implements BackDeleteService {
 
-  private final CheckSharedService checkSharedService;
-  private final KigbngCheckSharedService kigbngCheckSharedService;
-  private final DataGetSharedService dataGetSharedService;
+  private final CommonCheckSharedService checkSharedService;
+  private final KigbngRelatedSharedService kigbngCheckSharedService;
+  private final KaishaRelatedSharedService dataGetSharedService;
+  private final TokuisakiRelatedSharedService tokuisakiRelatedSharedService;
   private final ChuzanMapper chuzanMapper;
   private final String SHUYAKUTENMODE = "2";
-  private String FLG_ON = "1";
 
   /**
    * 画面OPEN時の処理
    */
   public BackDeleteDTO init(String daikaiskbcod, String usrbun) {
 
-    boolean isOnline = false;
-    if (CheckSharedService.SERVICETIME_ONLINE
-        .equals(checkSharedService.checkServiceTime(daikaiskbcod, usrbun, "VAJ008", "001", "O"))) {
-      isOnline = true;
-    }
-
+    boolean isOnline = isServiceTime(daikaiskbcod, usrbun, Gmnkbn.ServiceTimeCheck);
 
     // 項目の初期化
     return BackDeleteDTO.builder().kaiskbcod(daikaiskbcod).updkbnList(createUpdkbnList())
@@ -66,11 +60,7 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     boolean errflg = false;
 
     // サービス時間チェック
-    boolean isOnline = false;
-    if (CheckSharedService.SERVICETIME_ONLINE
-        .equals(checkSharedService.checkServiceTime(daikaiskbcod, usrbun, "VHJ002", "001", "O"))) {
-      isOnline = true;
-    }
+    boolean isOnline = isServiceTime(daikaiskbcod, usrbun, Gmnkbn.ServiceTimeCheck);
 
     // 権限チェック
 
@@ -157,8 +147,8 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     // 得意先情報取得
     if (!StringUtils.isBlank(dto.getTokcod())) {
-      TokuisakiAndDsVO tokuisakiAndDsVO = dataGetSharedService
-          .getKyotsuAndKakushaTokuisakiData(dto.getKaiskbcod(), dto.getTokcod());
+      TokuisakiAndDsVO tokuisakiAndDsVO = tokuisakiRelatedSharedService
+          .getTokuisakiAndDsFullData(dto.getKaiskbcod(), dto.getTokcod(), dto.getDscod());
 
       toknm = tokuisakiAndDsVO.getKyotsuTokuisaki().getToknm1()
           + tokuisakiAndDsVO.getKyotsuTokuisaki().getToknm2();
@@ -196,180 +186,180 @@ public class BackDeleteServiceImpl implements BackDeleteService {
   public BackDeleteDTO getChuzanData(BackDeleteDTO dto, int pageNo, String pageKey) {
 
     BackDeleteDetailDTO detailDto = null;
-
-    // 前100、次100の場合のページキー
-
-
-    int jucdtefrom = 0;
-    int jucdteto = 0;
-    int hbidtefrom = 0;
-    int hbidteto = 0;
-
-    // intの項目
-    if (!StringUtils.isBlank(dto.getJucdtefrom())) {
-      jucdtefrom = Integer.valueOf(dto.getJucdtefrom());
-      if (StringUtils.isBlank(dto.getJucdteto())) {
-        jucdteto = 999999;
-      }
-    }
-    if (!StringUtils.isBlank(dto.getJucdteto())) {
-      jucdteto = Integer.valueOf(dto.getJucdteto());
-      if (StringUtils.isBlank(dto.getJucdteto())) {
-        jucdtefrom = 0;
-      }
-    }
-    if (!StringUtils.isBlank(dto.getHbidtefrom())) {
-      hbidtefrom = Integer.valueOf(dto.getHbidtefrom());
-      if (StringUtils.isBlank(dto.getHbidteto())) {
-        hbidteto = 999999;
-      }
-    }
-    if (!StringUtils.isBlank(dto.getHbidteto())) {
-      hbidteto = Integer.valueOf(dto.getHbidteto());
-      if (StringUtils.isBlank(dto.getHbidtefrom())) {
-        hbidtefrom = 0;
-      }
-    }
-
-    ChuzanEntity input = ChuzanEntity.builder().kaiskbcod(dto.getKaiskbcod().toUpperCase())
-        .daikaiskbcod(dto.getKaiskbcod().toUpperCase()).pageKey(pageKey).skocod(dto.getSkocod())
-        .mkrbuncod(dto.getMkrbuncod().toUpperCase()).kigbng(dto.getKigbng())
-        .tokcod(dto.getTokcod()).dscod(dto.getDscod()).eigcod(dto.getEigcod())
-        .tercod(dto.getTercod()).jucdtefrom(jucdtefrom).jucdteto(jucdteto).hbidtefrom(hbidtefrom)
-        .hbidteto(hbidteto).tokkbn(dto.getTokkbn())
-        .usrDaikaiskbcod(dto.getUserInfo().getDaikaiskbcod())
-        .usrKaiskbcod(dto.getUserInfo().getKaiskbcod()).build();
-
-    // 1.注残データの"件数"を取得する
-    int chuzanDataCnt = chuzanMapper.selectCount(input);
-
-    if (chuzanDataCnt == 0) {
-      // 0件エラー
-      // errors.notExistData
-      return BackDeleteDTO.builder().build();
-    } else if (chuzanDataCnt >= 10000) {
-      // 件数上限突破エラー
-      // errors.exceed.reinput
-      return BackDeleteDTO.builder().build();
-    }
-
-    // 注残数の合計を取得する
-    int chuzanTotalchzSur = chuzanMapper.selectTotalchzSur(input);
-
-    // 注残データを取得する
-    List<ChuzanEntity> chuzanEntityList = chuzanMapper.select(input);
-
-    // 3.代表会社設定(品番検索で必要)
-    String inputkaiskbcod = dto.getUserInfo().getDaikaiskbcod(); // ユーザー代表会社
-    if (dto.getKaiskbcod().equals(dto.getUserInfo().getKaiskbcod())
-        && "MKR".equals(dto.getUserInfo().getUsrbun())) {
-
-      inputkaiskbcod = dto.getKaiskbcod();
-    }
-
-    // 4.追加情報設定、リストに追加していく
-    List<BackDeleteDetailDTO> detailDTO = new ArrayList<>();
-    List<String> lastDataList = new ArrayList<>();// 100件目保持する用リスト
-
-    // 明細Noを設定
-    AtomicInteger meiNo = new AtomicInteger(0);
-
-    meiNo.addAndGet(pageNo * 100);
-
-    // ===================ここからstreamスタート
-    chuzanEntityList.stream().forEach(t -> {
-
-      // 2のリストに品番、得意先、注残削除区分を追加してリストを更新する。
-      String addchzdelkbn = "";
-      HinbanEntity hinbanEntity = null;
-      TokuisakiAndDsVO tokuisakiAndDsVO = null;
-      try {
-        // 品番情報取得
-        if (!StringUtils.isBlank(t.getKigbng())) {
-          hinbanEntity = getHinban(dto.getKaiskbcod().toUpperCase(), t.getKigbng());
-          // 記号番号取得
-        }
-
-        // 得意先情報取得
-        if (!StringUtils.isBlank(t.getTokcod())) {
-          tokuisakiAndDsVO = dataGetSharedService
-              .getKyotsuAndKakushaTokuisakiData(dto.getKaiskbcod().toUpperCase(), t.getTokcod());
-          // 得意先情報取得
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-
-      // 取得したレコードで比較。注残削除日区分を追加する
-      if (t.getChzdeldte() > t.getChzdelkjndte()) {
-        addchzdelkbn = "E";
-      } else if ("B".equals(t.getRmcod())) {
-        addchzdelkbn = "N";
-      } else {
-        addchzdelkbn = "";
-      }
-
-      String hjihnb = "";
-      String tomrakcod = "";
-      String hbidte = "";
-      String toknm = "";
-
-      if (Objects.nonNull(hinbanEntity)) {
-        hjihnb = hinbanEntity.getHjihnb();
-        tomrakcod = hinbanEntity.getTomrakcod();
-        hbidte = String.valueOf(hinbanEntity.getHbidte());
-      }
-
-      if (Objects.nonNull(tokuisakiAndDsVO)) {
-        toknm = tokuisakiAndDsVO.getKyotsuTokuisaki().getToknm1()
-            + tokuisakiAndDsVO.getKyotsuTokuisaki().getToknm2();
-      }
-
-      // 取得した注残データを格納
-      detailDTO.add(BackDeleteDetailDTO.builder().no(meiNo.incrementAndGet())// 明細No
-          .skocod(t.getChzskocod()).kigbng(t.getKigbng()).hjihnb(hjihnb) // 実際には追加品番情報から取得
-          .chzsur(t.getChzsur()).tomrakcod(tomrakcod) // 実際には追加品番情報から取得
-          .hbidte(hbidte) // 実際には追加品番情報から取得
-          .usnjndte(String.valueOf(t.getChzdte())).urisyytencod(t.getUrisyytencod())
-          .tokcod(t.getTokcod()).dscod(t.getDscod())
-          .toknm(toknm) // 実際には追加得意先情報から取得
-          .jucdte(String.valueOf(t.getJucdte()))
-          .chzdeldte(String.valueOf(t.getJucdte())).chzdelKbn(addchzdelkbn)
-          .jucmdsseq(t.getJucmdsseq())
-          .jucmeiseq(t.getJucmsiseq()).seq(t.getSeq()).build());
-
-    });
-    // ===================streamおわり
-
-    // 5.100件目は別で保持
-    pageKey = "";
-    chuzanEntityList.stream().skip(99).limit(1).forEach(t -> {
-
-      lastDataList.add(String.valueOf(t.getChzdte()));
-      lastDataList.add(String.valueOf(t.getChzjkk()));
-      lastDataList.add(String.valueOf(t.getChzrelno()));
-      lastDataList.add(t.getEigcod());
-      lastDataList.add(t.getKigbng());
-      lastDataList.add(t.getTokcod());
-      lastDataList.add(t.getDscod());
-
-    });
-
-    if (0 != lastDataList.size()) {
-      pageKey = getKey(lastDataList);
-    }
-
-    // 注残の取得データと100件目の明細を返却
-    return BackDeleteDTO.builder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
-        .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
-        .chzCnt(chuzanDataCnt).chzsurTotal(chuzanTotalchzSur)
-        .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
-        .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
-        .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto())
-        .updkbnList(createUpdkbnList()).radioTokcod(initRadioTokcod()).detailList(detailDTO)
-        .pageNo(pageNo)
-        .pageKeyPrev(dto.getPageKeyPrev()).pageKeyNow(dto.getPageKeyNow()).pageKeyNext(pageKey)
-        .build();
+    return BackDeleteDTO.builder().build();
+    // // 前100、次100の場合のページキー
+    //
+    //
+    // int jucdtefrom = 0;
+    // int jucdteto = 0;
+    // int hbidtefrom = 0;
+    // int hbidteto = 0;
+    //
+    // // intの項目
+    // if (!StringUtils.isBlank(dto.getJucdtefrom())) {
+    // jucdtefrom = Integer.valueOf(dto.getJucdtefrom());
+    // if (StringUtils.isBlank(dto.getJucdteto())) {
+    // jucdteto = 999999;
+    // }
+    // }
+    // if (!StringUtils.isBlank(dto.getJucdteto())) {
+    // jucdteto = Integer.valueOf(dto.getJucdteto());
+    // if (StringUtils.isBlank(dto.getJucdteto())) {
+    // jucdtefrom = 0;
+    // }
+    // }
+    // if (!StringUtils.isBlank(dto.getHbidtefrom())) {
+    // hbidtefrom = Integer.valueOf(dto.getHbidtefrom());
+    // if (StringUtils.isBlank(dto.getHbidteto())) {
+    // hbidteto = 999999;
+    // }
+    // }
+    // if (!StringUtils.isBlank(dto.getHbidteto())) {
+    // hbidteto = Integer.valueOf(dto.getHbidteto());
+    // if (StringUtils.isBlank(dto.getHbidtefrom())) {
+    // hbidtefrom = 0;
+    // }
+    // }
+    //
+    // ChuzanEntity input = ChuzanEntity.builder().kaiskbcod(dto.getKaiskbcod().toUpperCase())
+    // .daikaiskbcod(dto.getKaiskbcod().toUpperCase()).pageKey(pageKey).skocod(dto.getSkocod())
+    // .mkrbuncod(dto.getMkrbuncod().toUpperCase()).kigbng(dto.getKigbng())
+    // .tokcod(dto.getTokcod()).dscod(dto.getDscod()).eigcod(dto.getEigcod())
+    // .tercod(dto.getTercod()).jucdtefrom(jucdtefrom).jucdteto(jucdteto).hbidtefrom(hbidtefrom)
+    // .hbidteto(hbidteto).tokkbn(dto.getTokkbn())
+    // .usrDaikaiskbcod(dto.getUserInfo().getDaikaiskbcod())
+    // .usrKaiskbcod(dto.getUserInfo().getKaiskbcod()).build();
+    //
+    // // 1.注残データの"件数"を取得する
+    // int chuzanDataCnt = chuzanMapper.selectCount(input);
+    //
+    // if (chuzanDataCnt == 0) {
+    // // 0件エラー
+    // // errors.notExistData
+    // return BackDeleteDTO.builder().build();
+    // } else if (chuzanDataCnt >= 10000) {
+    // // 件数上限突破エラー
+    // // errors.exceed.reinput
+    // return BackDeleteDTO.builder().build();
+    // }
+    //
+    // // 注残数の合計を取得する
+    // int chuzanTotalchzSur = chuzanMapper.selectTotalchzSur(input);
+    //
+    // // 注残データを取得する
+    // List<ChuzanEntity> chuzanEntityList = chuzanMapper.select(input);
+    //
+    // // 3.代表会社設定(品番検索で必要)
+    // String inputkaiskbcod = dto.getUserInfo().getDaikaiskbcod(); // ユーザー代表会社
+    // if (dto.getKaiskbcod().equals(dto.getUserInfo().getKaiskbcod())
+    // && "MKR".equals(dto.getUserInfo().getUsrbun())) {
+    //
+    // inputkaiskbcod = dto.getKaiskbcod();
+    // }
+    //
+    // // 4.追加情報設定、リストに追加していく
+    // List<BackDeleteDetailDTO> detailDTO = new ArrayList<>();
+    // List<String> lastDataList = new ArrayList<>();// 100件目保持する用リスト
+    //
+    // // 明細Noを設定
+    // AtomicInteger meiNo = new AtomicInteger(0);
+    //
+    // meiNo.addAndGet(pageNo * 100);
+    //
+    // // ===================ここからstreamスタート
+    // chuzanEntityList.stream().forEach(t -> {
+    //
+    // // 2のリストに品番、得意先、注残削除区分を追加してリストを更新する。
+    // String addchzdelkbn = "";
+    // HinbanEntity hinbanEntity = null;
+    // TokuisakiAndDsVO tokuisakiAndDsVO = null;
+    // try {
+    // // 品番情報取得
+    // if (!StringUtils.isBlank(t.getKigbng())) {
+    // hinbanEntity = getHinban(dto.getKaiskbcod().toUpperCase(), t.getKigbng());
+    // // 記号番号取得
+    // }
+    //
+    // // 得意先情報取得
+    // if (!StringUtils.isBlank(t.getTokcod())) {
+    // tokuisakiAndDsVO = dataGetSharedService
+    // .getKyotsuAndKakushaTokuisakiData(dto.getKaiskbcod().toUpperCase(), t.getTokcod());
+    // // 得意先情報取得
+    // }
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    //
+    // // 取得したレコードで比較。注残削除日区分を追加する
+    // if (t.getChzdeldte() > t.getChzdelkjndte()) {
+    // addchzdelkbn = "E";
+    // } else if ("B".equals(t.getRmcod())) {
+    // addchzdelkbn = "N";
+    // } else {
+    // addchzdelkbn = "";
+    // }
+    //
+    // String hjihnb = "";
+    // String tomrakcod = "";
+    // String hbidte = "";
+    // String toknm = "";
+    //
+    // if (Objects.nonNull(hinbanEntity)) {
+    // hjihnb = hinbanEntity.getHjihnb();
+    // tomrakcod = hinbanEntity.getTomrakcod();
+    // hbidte = String.valueOf(hinbanEntity.getHbidte());
+    // }
+    //
+    // if (Objects.nonNull(tokuisakiAndDsVO)) {
+    // toknm = tokuisakiAndDsVO.getKyotsuTokuisaki().getToknm1()
+    // + tokuisakiAndDsVO.getKyotsuTokuisaki().getToknm2();
+    // }
+    //
+    // // 取得した注残データを格納
+    // detailDTO.add(BackDeleteDetailDTO.builder().no(meiNo.incrementAndGet())// 明細No
+    // .skocod(t.getChzskocod()).kigbng(t.getKigbng()).hjihnb(hjihnb) // 実際には追加品番情報から取得
+    // .chzsur(t.getChzsur()).tomrakcod(tomrakcod) // 実際には追加品番情報から取得
+    // .hbidte(hbidte) // 実際には追加品番情報から取得
+    // .usnjndte(String.valueOf(t.getChzdte())).urisyytencod(t.getUrisyytencod())
+    // .tokcod(t.getTokcod()).dscod(t.getDscod())
+    // .toknm(toknm) // 実際には追加得意先情報から取得
+    // .jucdte(String.valueOf(t.getJucdte()))
+    // .chzdeldte(String.valueOf(t.getJucdte())).chzdelKbn(addchzdelkbn)
+    // .jucmdsseq(t.getJucmdsseq())
+    // .jucmeiseq(t.getJucmsiseq()).seq(t.getSeq()).build());
+    //
+    // });
+    // // ===================streamおわり
+    //
+    // // 5.100件目は別で保持
+    // pageKey = "";
+    // chuzanEntityList.stream().skip(99).limit(1).forEach(t -> {
+    //
+    // lastDataList.add(String.valueOf(t.getChzdte()));
+    // lastDataList.add(String.valueOf(t.getChzjkk()));
+    // lastDataList.add(String.valueOf(t.getChzrelno()));
+    // lastDataList.add(t.getEigcod());
+    // lastDataList.add(t.getKigbng());
+    // lastDataList.add(t.getTokcod());
+    // lastDataList.add(t.getDscod());
+    //
+    // });
+    //
+    // if (0 != lastDataList.size()) {
+    // pageKey = getKey(lastDataList);
+    // }
+    //
+    // // 注残の取得データと100件目の明細を返却
+    // return BackDeleteDTO.builder().kaiskbcod(dto.getKaiskbcod()).mkrbuncod(dto.getMkrbuncod())
+    // .skocod(dto.getSkocod()).kigbng(dto.getKigbng()).tokcod(dto.getTokcod())
+    // .chzCnt(chuzanDataCnt).chzsurTotal(chuzanTotalchzSur)
+    // .dscod(dto.getDscod()).eigcod(dto.getEigcod()).tercod(dto.getTercod())
+    // .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
+    // .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto())
+    // .updkbnList(createUpdkbnList()).radioTokcod(initRadioTokcod()).detailList(detailDTO)
+    // .pageNo(pageNo)
+    // .pageKeyPrev(dto.getPageKeyPrev()).pageKeyNow(dto.getPageKeyNow()).pageKeyNext(pageKey)
+    // .build();
 
   }
   
@@ -395,26 +385,27 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     // 削除チェック個数
     // ※ここの都合でlong型
-    long delcnt = dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk())).count();
+    // long delcnt = dto.getDetailList().stream().filter(t ->
+    // FLG_ON.equals(t.getDeletechk())).count();
+    //
+    // // 一括削除にチェックされている場合は更新あり、明細行すべてにチェックをいれる
+    // if (FLG_ON.equals(dto.getAllDeletechk())) {
+    // delcnt = (long) dto.getDetailList().size();;
+    // }
 
-    // 一括削除にチェックされている場合は更新あり、明細行すべてにチェックをいれる
-    if (FLG_ON.equals(dto.getAllDeletechk())) {
-      delcnt = (long) dto.getDetailList().size();;
-    }
-
-    if (0 != delcnt) {
-
-      if (0 != pageNo - 1) {
-        prevflg = true;
-      }
-      if (0 < dto.getChzCnt() - (pageNo) * 100) {
-        nextflg = true;
-      }
-
-      // チェックされている明細があるので次のページに進めません
-      return dto.toBuilder().prevFlg(prevflg).nextFlg(nextflg).radioTokcod(initRadioTokcod())
-          .build();
-    }
+    // if (0 != delcnt) {
+    //
+    // if (0 != pageNo - 1) {
+    // prevflg = true;
+    // }
+    // if (0 < dto.getChzCnt() - (pageNo) * 100) {
+    // nextflg = true;
+    // }
+    //
+    // // チェックされている明細があるので次のページに進めません
+    // return dto.toBuilder().prevFlg(prevflg).nextFlg(nextflg).radioTokcod(initRadioTokcod())
+    // .build();
+    // }
 
     // 以下検索処理と同じ
     BackDeleteDTO newdto;
@@ -448,27 +439,28 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     //削除チェック個数
     // ※ここの都合でlong型
-    long delcnt = dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk())).count();
+    // long delcnt = dto.getDetailList().stream().filter(t ->
+    // FLG_ON.equals(t.getDeletechk())).count();
     //注残数サマリ
     long chzsurTotal = 0;
-    
-    //一括削除にチェックされている場合は更新あり、明細行すべてにチェックをいれる
-    if (FLG_ON.equals(dto.getAllDeletechk())) {
-      updflg = true;
-
-      dto.getDetailList().stream().forEach(i -> {
-        i.toBuilder().deletechk(FLG_ON);
-      });
-
-      chzsurTotal = dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk()))
-          .mapToLong(i -> delcnt)
-          .sum();
-    }
-
-    if(0 == delcnt) {
-      //処理に該当するデータが存在しません。
-      return dto.toBuilder().nextGamenMode("").radioTokcod(initRadioTokcod()).build();
-    }
+    //
+    // //一括削除にチェックされている場合は更新あり、明細行すべてにチェックをいれる
+    // if (FLG_ON.equals(dto.getAllDeletechk())) {
+    // updflg = true;
+    //
+    // dto.getDetailList().stream().forEach(i -> {
+    // i.toBuilder().deletechk(FLG_ON);
+    // });
+    //
+    // chzsurTotal = dto.getDetailList().stream().filter(t -> FLG_ON.equals(t.getDeletechk()))
+    // .mapToLong(i -> delcnt)
+    // .sum();
+    // }
+    //
+    // if(0 == delcnt) {
+    // //処理に該当するデータが存在しません。
+    // return dto.toBuilder().nextGamenMode("").radioTokcod(initRadioTokcod()).build();
+    // }
 
     // ▼▼▼▼▼▼▼▼強引にintにキャスト
     return dto.toBuilder().chzsurTotal((int) chzsurTotal).nextGamenMode("submit")
@@ -503,23 +495,23 @@ public class BackDeleteServiceImpl implements BackDeleteService {
 
     for (BackDeleteDetailDTO t : submitList) {
 
-      if (!FLG_ON.equals(t.getDeletechk())) {
-        // チェックされていない明細は対象としない
-        continue;
-      }
-
-      ChuzanEntity updData = ChuzanEntity.builder().jucdte(Integer.valueOf(t.getJucdte()))
-          .tokcod(t.getTokcod()).dscod(t.getDscod()).jucmdsseq(t.getJucmdsseq())
-          .jucmsiseq(t.getJucmeiseq()).seq(t.getSeq()).build();
-
-      // 注残データを取得する
-      GeneratedChuzanEntity updChuzanEntityList = chuzanMapper.selectOnly(updData);
-      
-      updChuzanEntityList = updChuzanEntityList.toBuilder().delflg(FLG_ON).updkbn("U")
-          .upddte(sysdate).updjkk(systime).build();
-
-      chuzanMapper.update(updChuzanEntityList);
-      System.out.println("update= " + updChuzanEntityList);
+      // if (!FLG_ON.equals(t.getDeletechk())) {
+      // // チェックされていない明細は対象としない
+      // continue;
+      // }
+      //
+      // ChuzanEntity updData = ChuzanEntity.builder().jucdte(Integer.valueOf(t.getJucdte()))
+      // .tokcod(t.getTokcod()).dscod(t.getDscod()).jucmdsseq(t.getJucmdsseq())
+      // .jucmsiseq(t.getJucmeiseq()).seq(t.getSeq()).build();
+      //
+      // // 注残データを取得する
+      // GeneratedChuzanEntity updChuzanEntityList = chuzanMapper.selectOnly(updData);
+      //
+      // updChuzanEntityList = updChuzanEntityList.toBuilder().delflg(FLG_ON).updkbn("U")
+      // .upddte(sysdate).updjkk(systime).build();
+      //
+      // chuzanMapper.update(updChuzanEntityList);
+      // System.out.println("update= " + updChuzanEntityList);
     }
 
   }
@@ -571,6 +563,11 @@ public class BackDeleteServiceImpl implements BackDeleteService {
     return hinbanEntity;
   }
 
+
+  private boolean isServiceTime(String daikaiskbcod, String usrbun, Gmnkbn checkKbn) {
+    return ServiceTime.ONLINE == checkSharedService.checkServiceTime(daikaiskbcod, usrbun, "VAJ008",
+        "001", checkKbn);
+  }
 
   private List<LabelData> createUpdkbnList() {
     List<LabelData> updkbnList = new ArrayList<>();

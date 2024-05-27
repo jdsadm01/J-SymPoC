@@ -3,6 +3,39 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.hatchu.HatchuMapper">
+  <select id="getNkiMostRecently" resultType="integer">
+    select min(nki)
+    from AESORD03
+    <where>
+      DAIKAISKBCOD = #{daikaiskbcod}
+      <if test="daikaiskbcod != kaiskbcod">
+        and KAISKBCOD = #{kaiskbcod}
+      </if>
+      and KIGBNG = #{kigbng}
+      and HACSYBKBN = '1'
+      and KNUSGN <![CDATA[<>]]> '1'
+      and (DELSGN = ' ' or DELSGN = '0')
+      and SMPSGN = ' '
+    </where>
+    with ur
+  </select>
 
+  <select id="getNyukoYoteisuu" resultType="integer">
+    select sum(HACSUR - NYASUR)
+    from AESORD03
+    <where>
+      DAIKAISKBCOD = #{daikaiskbcod}
+      <if test="daikaiskbcod != kaiskbcod">
+        and KAISKBCOD = #{kaiskbcod}
+      </if>
+      and KIGBNG = #{kigbng}
+      and HACSYBKBN = '1'
+      and nki = #{nki}
+      and KNUSGN <![CDATA[<>]]> '1'
+      and (DELSGN = ' ' or DELSGN = '0')
+      and SMPSGN = ' '
+    </where>
+    with ur
+  </select>
 </mapper>
 

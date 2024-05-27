@@ -3,25 +3,33 @@ package jp.co.jdsnet.common.logic.implement;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import jp.co.jdsnet.common.domain.entity.kaisha.EigyoshoShuyakuMeisaiEntity;
 import jp.co.jdsnet.common.domain.entity.kaisha.EigyoshoShuyakuSokoShuyakuMidashiEntity;
+import jp.co.jdsnet.common.domain.entity.kaisha.KaishaBunruiEntity;
+import jp.co.jdsnet.common.domain.entity.kaisha.KaishaEntity;
 import jp.co.jdsnet.common.domain.entity.kaisha.KaishaQueryControlEntity;
 import jp.co.jdsnet.common.domain.entity.kaisha.SokoShuyakuMeisaiEntity;
+import jp.co.jdsnet.common.domain.entity.menu.GamenTrncodControlEntity;
 import jp.co.jdsnet.common.domain.entity.sysmas.JokenEntity;
 import jp.co.jdsnet.common.domain.mapper.kaisha.EigyoshoShuyakuMeisaiMapper;
 import jp.co.jdsnet.common.domain.mapper.kaisha.EigyoshoShuyakuSokoShuyakuMidashiMapper;
+import jp.co.jdsnet.common.domain.mapper.kaisha.KaishaBunruiMapper;
 import jp.co.jdsnet.common.domain.mapper.kaisha.KaishaMapper;
 import jp.co.jdsnet.common.domain.mapper.kaisha.KaishaQueryControlMapper;
 import jp.co.jdsnet.common.domain.mapper.kaisha.SokoShuyakuMeisaiMapper;
+import jp.co.jdsnet.common.domain.mapper.menu.GamenTrncodControlMapper;
 import jp.co.jdsnet.common.domain.mapper.sysmas.JokenMapper;
 import jp.co.jdsnet.common.domain.vo.EigyoshoSokoGroupVo;
 import jp.co.jdsnet.common.domain.vo.KaishaProcDateInfo;
 import jp.co.jdsnet.common.logic.KaishaRelatedSharedService;
+import jp.co.jdsnet.common.utils.GlobalConstants.Usrbun;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -35,6 +43,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class KaishaRelatedSharedServiceImpl implements KaishaRelatedSharedService {
 
+  private final MessageSource messageSource;
   private final KaishaQueryControlMapper kaishaQueryControlMapper;
   private final KaishaMapper kaishaMapper;
   // private final EigyoshoSokoRelationMapper eigyoshoSokoRelationMapper;
@@ -42,6 +51,8 @@ public class KaishaRelatedSharedServiceImpl implements KaishaRelatedSharedServic
   private final EigyoshoShuyakuMeisaiMapper eigyoshoShuyakuMeisaiMapper;
   private final SokoShuyakuMeisaiMapper sokoShuyakuMeisaiMapper;
   private final JokenMapper jokenMapper;
+  private final GamenTrncodControlMapper gamenTrncodControlMapper;
+  private final KaishaBunruiMapper kaishaBunruiMapper;
 
   @Override
   public List<String> getKaiQueryList(String daikaiskbcod, String kaiskbcod, String tblnm) {
@@ -138,5 +149,50 @@ public class KaishaRelatedSharedServiceImpl implements KaishaRelatedSharedServic
 
     return procDateInfoList.stream().filter(v -> daikaiskbcod.equals(v.getDaikaiskbcod()))
         .findFirst().orElseThrow(() -> new NoSuchElementException("会社の情報が登録されていません。"));
+  }
+
+  @Override
+  public List<GamenTrncodControlEntity> getPulldownTrncodList(String daikaiskbcod, String mnuptncod,
+      String gmnid) {
+
+    Comparator<GamenTrncodControlEntity> compare =
+        Comparator.comparing(GamenTrncodControlEntity::getSeqno)
+            .thenComparing(Comparator.comparing(GamenTrncodControlEntity::getTrncod));
+
+    return gamenTrncodControlMapper.selectTrncodList(daikaiskbcod, mnuptncod, gmnid).stream()
+        .sorted(compare).toList();
+  }
+
+  @Override
+  public KaishaEntity getKaisha(String kaiskbcod, Usrbun usrbun) throws NoSuchElementException {
+
+    KaishaEntity kaishaEntity = kaishaMapper
+        .selectWithoutLogicalDelete(KaishaEntity.builder().kaiskbcod(kaiskbcod).build());
+
+    if (Objects.isNull(kaishaEntity)) {
+      throw new NoSuchElementException(messageSource.getMessage("error.errors",
+          new Object[] {messageSource.getMessage("kaiskbcod", null, Locale.getDefault())},
+          Locale.getDefault()));
+    }
+
+    if (Usrbun.MKR != usrbun) {
+      if (!"0".equals(kaishaEntity.getKaibunkbn())) {
+        throw new NoSuchElementException(messageSource.getMessage("error.errors",
+            new Object[] {messageSource.getMessage("kaiskbcod", null, Locale.getDefault())},
+            Locale.getDefault()));
+      }
+
+      if (Usrbun.JDS != usrbun) {
+        KaishaBunruiEntity kaishaBunruiEntity = kaishaBunruiMapper.select(KaishaBunruiEntity
+            .builder().usrbun(usrbun.name()).kaiskbcod(kaiskbcod).kaibun("0").build());
+        if (Objects.isNull(kaishaBunruiEntity)) {
+          throw new NoSuchElementException(messageSource.getMessage("error.errors",
+              new Object[] {messageSource.getMessage("arg.kaikyy", null, Locale.getDefault())},
+              Locale.getDefault()));
+        }
+      }
+    }
+
+    return kaishaEntity;
   }
 }

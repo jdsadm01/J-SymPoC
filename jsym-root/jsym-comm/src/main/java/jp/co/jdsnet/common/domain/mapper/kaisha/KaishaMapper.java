@@ -3,6 +3,7 @@ package jp.co.jdsnet.common.domain.mapper.kaisha;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import jp.co.jdsnet.common.domain.entity.kaisha.KaishaEntity;
 
 /**
  * 会社Mapperインターフェース
@@ -27,4 +28,12 @@ public interface KaishaMapper extends GeneratedKaishaMapper {
    * @return 会社識別コードリスト
    */
   public List<String> getKaiskbcodList(@Param("daikaiskbcod") String daikaiskbcod);
+
+  /**
+   * 論理削除を除外した主キー検索を実施
+   *
+   * @param entity 主キーをセットしたEntity
+   * @return KaishaEntity
+   */
+  public KaishaEntity selectWithoutLogicalDelete(KaishaEntity entity);
 }

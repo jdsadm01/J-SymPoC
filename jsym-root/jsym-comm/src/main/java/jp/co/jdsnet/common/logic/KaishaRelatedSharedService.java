@@ -2,8 +2,11 @@ package jp.co.jdsnet.common.logic;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import jp.co.jdsnet.common.domain.entity.kaisha.KaishaEntity;
+import jp.co.jdsnet.common.domain.entity.menu.GamenTrncodControlEntity;
 import jp.co.jdsnet.common.domain.vo.EigyoshoSokoGroupVo;
 import jp.co.jdsnet.common.domain.vo.KaishaProcDateInfo;
+import jp.co.jdsnet.common.utils.GlobalConstants.Usrbun;
 
 /**
  * 会社関連の共通処理サービス
@@ -46,4 +49,29 @@ public interface KaishaRelatedSharedService {
      */
     public KaishaProcDateInfo getKaishaProcDateInfo(String daikaiskbcod)
         throws NoSuchElementException;
+
+    /**
+     * 利用可能なトランコードを取得する。
+     *
+     * @param daikaiskbcod 代表会社識別コード
+     * @param mnuptncod メニューパターンコード
+     * @param gmnid 画面ID
+     * @return 取得したデータ
+     */
+    public List<GamenTrncodControlEntity> getPulldownTrncodList(String daikaiskbcod,
+        String mnuptncod, String gmnid);
+
+    /**
+     * 各種会社チェックを行い、会社マスターのデータを取得する
+     *
+     * <p>
+     * 会社識別コードのマスターチェック、代表会社チェック、物流拠点チェックを行う。<br>
+     * ユーザーの代表会社識別コードがJDSの場合のみ実施。メーカーユーザーはデータの取得のみ。
+     * 
+     * @param kaiskbcod 会社識別コード
+     * @param usrbun ユーザー分類
+     * @return KaishaEntity
+     * @throws NoSuchElementException 各種チェックでエラーになった場合
+     */
+    public KaishaEntity getKaisha(String kaiskbcod, Usrbun usrbun) throws NoSuchElementException;
 }

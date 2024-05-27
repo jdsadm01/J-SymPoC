@@ -2,28 +2,47 @@ package jp.co.jdsnet.common.logic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import java.util.List;
+import java.util.Locale;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
+import jp.co.jdsnet.common.domain.entity.kaisha.KaishaBunruiEntity;
+import jp.co.jdsnet.common.domain.entity.kaisha.KaishaEntity;
 import jp.co.jdsnet.common.domain.entity.sysmas.JokenEntity;
+import jp.co.jdsnet.common.domain.mapper.kaisha.KaishaBunruiMapper;
+import jp.co.jdsnet.common.domain.mapper.kaisha.KaishaMapper;
 import jp.co.jdsnet.common.domain.mapper.sysmas.JokenMapper;
 import jp.co.jdsnet.common.domain.vo.KaishaProcDateInfo;
 import jp.co.jdsnet.common.logic.implement.KaishaRelatedSharedServiceImpl;
+import jp.co.jdsnet.common.utils.GlobalConstants.Usrbun;
 import lombok.RequiredArgsConstructor;
 
 @SpringBootTest(classes = KaishaRelatedSharedService.class)
-public class KaishaRelatedSharedServiceServiceTest {
+public class KaishaRelatedSharedServiceTest {
 
   @InjectMocks
   private KaishaRelatedSharedServiceImpl target;
 
   @Mock
   private JokenMapper jokenMapper;
+  @Mock
+  private KaishaMapper kaishaMapper;
+  @Mock
+  private KaishaBunruiMapper kaishaBunruiMapper;
+  @Mock
+  private MessageSource messageSource;
 
   @Nested
   class getKaishaProcDateInfo {
@@ -62,5 +81,84 @@ public class KaishaRelatedSharedServiceServiceTest {
           () -> assertThat(result.getLastWeeklyprcdte()).isEqualTo(210709),
           () -> assertThat(result.getLastEndOfMonthprcdte()).isEqualTo(210630));
     }
+  }
+
+  @Nested
+  class getKaisha {
+    @RequiredArgsConstructor
+    enum Param1 {
+      CASE1_MKR(Usrbun.MKR), CASE2_JDS(Usrbun.JDS), CASE3_JAR(Usrbun.JAR), CASE4_TAK(Usrbun.TAK);
+
+      private final Usrbun usrbun;
+
+      public KaishaEntity getKaishaEntity() {
+        return KaishaEntity.builder().daikaiskbcod("TST").kaibunkbn("0").build();
+      }
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    void 正常終了(Param1 param) {
+      when(kaishaMapper.selectWithoutLogicalDelete(Mockito.any())).thenReturn(param.getKaishaEntity());
+      when(kaishaBunruiMapper.select(Mockito.any())).thenReturn(KaishaBunruiEntity.builder().build());
+      
+      KaishaEntity result = target.getKaisha("", param.usrbun);
+      assertThat(result.toString()).isEqualTo(param.getKaishaEntity().toString());
+    }
+
+    @RequiredArgsConstructor
+    enum Param2 {
+      CASE1_会社マスタ無し(Usrbun.MKR, "0", List.of("kaiskbcod", "error.errors")) {
+        @Override
+        public KaishaEntity getKaishaEntity() {
+          return null;
+        }
+      },
+      CASE2_受託設定(Usrbun.JDS, "1", List.of("kaiskbcod", "error.errors")), 
+      CASE3_物流拠点NG_JAR(Usrbun.JAR, "0", List.of("arg.kaikyy", "error.errors")) {
+        @Override
+        public KaishaBunruiEntity getKaishaBunruiEntity() {
+          return null;
+        }
+      },
+      CASE4__物流拠点NG_TAK(Usrbun.TAK, "0", List.of("arg.kaikyy", "error.errors")) {
+        @Override
+        public KaishaBunruiEntity getKaishaBunruiEntity() {
+          return null;
+        }
+      };
+
+      private final Usrbun usrbun;
+      private final String kaibunkbn;
+      private final List<String> msgkeys;
+
+      public KaishaEntity getKaishaEntity() {
+        return KaishaEntity.builder().daikaiskbcod("TST").kaibunkbn(this.kaibunkbn).build();
+      }
+
+      public KaishaBunruiEntity getKaishaBunruiEntity() {
+        return KaishaBunruiEntity.builder().build();
+      }
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    void 異常終了(Param2 param) {
+      final ArgumentCaptor<String> cap = ArgumentCaptor.forClass(String.class);
+      when(kaishaMapper.selectWithoutLogicalDelete(Mockito.any()))
+          .thenReturn(param.getKaishaEntity());
+      when(kaishaBunruiMapper.select(Mockito.any())).thenReturn(param.getKaishaBunruiEntity());
+      when(messageSource.getMessage(Mockito.anyString(), Mockito.any(), Mockito.any(Locale.class)))
+          .thenReturn("").thenReturn("");
+
+      Throwable ex = assertThrows(Exception.class, () -> target.getKaisha("", param.usrbun));
+      assertAll("Exception検証",
+          () -> assertThat(ex.getClass()).isEqualTo(NoSuchElementException.class),
+          () -> verify(messageSource, times(2)).getMessage(cap.capture(), Mockito.any(),
+              Mockito.any(Locale.class)),
+          () -> assertThat(cap.getAllValues().get(0)).isEqualTo(param.msgkeys.get(0)),
+          () -> assertThat(cap.getAllValues().get(1)).isEqualTo(param.msgkeys.get(1)));
+    }
+
   }
 }

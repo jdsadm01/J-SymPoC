@@ -51,7 +51,7 @@ public class EntryServiceForHenpinTest {
 
   @ParameterizedTest
   @EnumSource
-  void 返品指示見出生成(Param param) throws Exception {
+  void 返品指示見出ID生成(Param param) throws Exception {
     HenpinShijiMidashiEntity entity =
         HenpinShijiMidashiEntity.builder().inpdte(param.inpdte).bshcod(param.bshcod).build();
     Method method = EntryServiceForHenpin.class.getDeclaredMethod("createHnpsjimdsid",
@@ -125,20 +125,5 @@ public class EntryServiceForHenpinTest {
     return TargetEntity.builder().trnfulcod("trn").motsvcid("aaa").saksvcid("bbb")
         .kenkey("240301bsh 000010").tgtstskbn("0").inpdte(240301).inpjkk(120000).updkbn("A ")
         .upddte(240301).updjkk(120000).build();
-  }
-
-  
-  private enum test {
-    TEST("1234567890", "abcdefg"), TEST2("1234567890", "abcdefg"),
-    TEST3("1234567890","abcdefg"), TEST4("1234567890", "abcdefg"), 
-    TEST5("1234567890", "abcdefg"), TEST6("1234567890", "abcdefg"), 
-    TEST7("1234567890", "abcdefg"), TEST8("1234567890","abcdefg"), 
-    TEST9("1234567890", "abcdefg"), TEST10("1234567890", "abcdefg");
-    private String a;
-    private String b;
-    test(String a, String b) {
-      this.a = a;
-      this.b = b;
-    }
   }
 }

@@ -29,5 +29,16 @@
     </where>
     with ur
   </select>
+  
+  <select id="selectWithoutLogicalDelete" resultType="KaishaEntity">
+    select
+    <include refid="jp.co.jdsnet.common.domain.mapper.kaisha.GeneratedKaishaMapper.fields" />
+    from AECOMP01
+    <where>
+      and KAISKBCOD = #{kaiskbcod}
+      and UPDKBN <![CDATA[<>]]> 'D'
+    </where>
+    with ur
+  </select>
+  
 </mapper>
-

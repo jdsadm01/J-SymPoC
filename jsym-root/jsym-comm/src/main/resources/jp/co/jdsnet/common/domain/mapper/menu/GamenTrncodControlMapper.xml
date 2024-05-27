@@ -3,6 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.menu.GamenTrncodControlMapper">
-
+  <select id="selectTrncodList" resultType="GamenTrncodControlEntity">
+    select
+      mnu12.TRNCOD as TRNCOD, sys31.TRNNM as TRNNM, mnu12.SEQNO as SEQNO
+    from VTBMNU12 mnu12
+    inner join VTBMNU11 mnu11
+      on mnu12.GMNID = mnu11.GMNID
+      and mnu12.TRNCOD = mnu11.TRNCOD
+      and mnu12.SEQNO = mnu11.SEQNO
+    inner join AESYSM31 sys31
+      on mnu12.TRNCOD = sys31.TRNCOD
+      and mnu12.SEQNO = sys31.SEQ
+    <where>
+      mnu12.DAIKAISKBCOD = #{daikaiskbcod}
+      and mnu12.MNUPTNCOD = #{mnuptncod}
+      and mnu12.GMNID = #{gmnid}
+      and sys31.TRNHJIKBN = '2'
+      and sys31.UPDKBN <![CDATA[<>]]> 'D'
+      and mnu12.UPDKBN <![CDATA[<>]]> 'D'
+      and mnu11.UPDKBN <![CDATA[<>]]> 'D'
+    </where>
+    with ur
+  </select>
 </mapper>
 

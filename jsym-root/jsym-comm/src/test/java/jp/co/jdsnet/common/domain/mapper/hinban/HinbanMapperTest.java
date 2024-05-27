@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,15 @@ public class HinbanMapperTest {
           assertThat(ret.get(i).toString()).isEqualTo(exp.get(i).toString());
         }
       });
+    }
+  }
+
+  @Nested
+  class test {
+    @Test
+    void testInsert() {
+      HinbanEntity e = HinbanEntity.builder().daikaiskbcod("SME").kigbng("TEST000000001").build();
+      target.insert(e);
     }
   }
 }

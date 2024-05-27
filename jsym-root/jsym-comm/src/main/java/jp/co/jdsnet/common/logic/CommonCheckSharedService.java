@@ -1,7 +1,9 @@
 package jp.co.jdsnet.common.logic;
 
 import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
 import jp.co.jdsnet.common.domain.entity.menu.EventEntity;
+import jp.co.jdsnet.common.domain.entity.menu.EventEntity.Gmnkbn;
 import jp.co.jdsnet.common.utils.GlobalConstants.Rmcod;
 import jp.co.jdsnet.common.utils.GlobalConstants.Trncod;
 import jp.co.jdsnet.common.utils.GlobalConstants.Usrbun;
@@ -21,9 +23,10 @@ public interface CommonCheckSharedService {
    * @param gmnseq チェック対象の画面SEQ
    * @param gmnkbn チェック対象の画面区分
    * @return サービス時間の判定結果
+   * @throws NoSuchElementException テーブル登録無しの場合
    */
   public ServiceTime checkServiceTime(String daikaiskbcod, String usrbun, String gmnid,
-      String gmnseq, EventEntity.Gmnkbn gmnkbn);
+      String gmnseq, EventEntity.Gmnkbn gmnkbn) throws NoSuchElementException;
 
   /**
    * MSコードが利用可能かどうかをチェックする。 特定MSコードは利用不可の判定とする。
@@ -120,6 +123,52 @@ public interface CommonCheckSharedService {
    * @param baseDte8kt 基準日８桁
    * @return 稼働日８桁
    * @throws DateTimeParseException 存在しない日付を指定した場合
+   * @throws NoSuchElementException １ヵ月後まで稼働日が存在しない場合
    */
-  public String getNextKadoDte(String baseDte8kt) throws DateTimeParseException;
+  public String getNextKadoDte(String baseDte8kt)
+      throws DateTimeParseException, NoSuchElementException;
+
+  /**
+   * スタックチェック
+   * <p>
+   * スタック日付のチェックとスタックNOの取得を行う。
+   *
+   * @param stakjydte スタック解除日
+   * @param usrid ユーザーID
+   * @param tmlid 端末ID
+   * @param stano スタックNO
+   * @param daikaiskbcod 代表会社識別コード
+   * @param usrbun ユーザー分類
+   * @param gmnid 画面ID
+   * @param gmnseqno 画面SEQ
+   * @param gmnkbn 画面区分
+   * @return スタックNo
+   * @throws Exception
+   */
+  public String checkStack(String stakjydte, String usrid, String tmlid, String stano,
+      String daikaiskbcod, String usrbun, String gmnid, String gmnseqno, Gmnkbn gmnkbn)
+      throws Exception;
+
+  /**
+   * スタックチェック
+   * <p>
+   * スタック日付のチェックとスタックNOの取得を行う。<br>
+   * トランコードにより受注出荷無し稼働日をエラーとする。
+   * 
+   * @param stakjydte スタック解除日
+   * @param usrid ユーザーID
+   * @param tmlid 端末ID
+   * @param stano スタックNO
+   * @param daikaiskbcod 代表会社識別コード
+   * @param usrbun ユーザー分類
+   * @param gmnid 画面ID
+   * @param gmnseqno 画面SEQ
+   * @param gmnkbn 画面区分
+   * @param trncod トランコード
+   * @return スタックNo
+   * @throws Exception
+   */
+  public String checkStack(String stakjydte, String usrid, String tmlid, String stano,
+      String daikaiskbcod, String usrbun, String gmnid, String gmnseqno, Gmnkbn gmnkbn,
+      Trncod trncod) throws Exception;
 }

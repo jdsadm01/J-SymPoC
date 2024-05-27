@@ -21,16 +21,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.ValidationUtils;
-import org.springframework.web.servlet.FlashMap;
 import jp.co.jdsnet.backlendcost.JsymBacklendcostApplication;
 import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDTO;
 import jp.co.jdsnet.backlendcost.domain.service.BackDeleteService;
-import jp.co.jdsnet.backlendcost.domain.service.implement.BackDeleteServiceImpl;
 import jp.co.jdsnet.backlendcost.webapp.form.BackDeleteForm;
-import jp.co.jdsnet.base.interceptor.AccessLogInterceptor;
+import jp.co.jdsnet.base.interceptor.OperationLogInterceptor;
 import jp.co.jdsnet.base.interceptor.SessionCheckInterceptor;
 
 
@@ -46,7 +43,7 @@ public class BackDeleteControllerTest {
   @MockBean
   SessionCheckInterceptor interceptorS;
   @MockBean
-  AccessLogInterceptor interceptorA;
+  OperationLogInterceptor interceptorA;
 
   @InjectMocks
   BackDeleteController backDeleteController;
@@ -111,33 +108,4 @@ public class BackDeleteControllerTest {
 
     return BackDeleteForm.toForm(testDto);
   }
-
-  @Nested
-  class chkInputDeleteData {
-
-    @Test
-    void displayMode() throws Exception {
-
-      targetController = new BackDeleteController(targetService, any());
-
-      BackDeleteServiceImpl mockService = new BackDeleteServiceImpl(any(), any(), any(), any());
-
-      ResultActions results = mockmvc.perform(get("/backdelete")).andDo(print())
-          .andExpect(model().attribute("backDeleteForm", hasProperty("kaiskbcod", is("TST"))));
-
-      FlashMap flashMap = results.andReturn().getFlashMap();
-
-      mockmvc = MockMvcBuilders.standaloneSetup(targetController).build();
-
-      // when(targetService.chkInputDeleteData(any()))
-      // .thenReturn(BackDeleteDTO.builder().nextGamenMode("submit").build());
-      //
-      // String test = backDeleteController.chkInputDeleteData(testForm(), any(), any());
-      //
-      // assertAll("結果確認", () -> assertEquals("backdelete/submit", test, "送信前"));
-
-    }
-
-  }
-
 }

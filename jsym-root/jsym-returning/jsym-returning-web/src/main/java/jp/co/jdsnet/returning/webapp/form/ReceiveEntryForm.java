@@ -34,7 +34,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 // @CheckRelationDate(firstField = "tokcod", secondField = "hpnjurdte", mode = CheckMode.AFTER)
-// @NotBlankAny(fields = {"fmg2", "mscod", "fmg1"})
+// @NotBlankAny(fields = {/* "fmg2", */"mscod", "fmg1"})
 @CheckRelationRequired(checkField = "tokcod", condField = "dscod")
 public class ReceiveEntryForm implements FormInterface<ReceiveEntryDTO>, Serializable {
 

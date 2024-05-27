@@ -8,7 +8,7 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jp.co.jdsnet.base.annotation.CheckRelationRequired;
-import jp.co.jdsnet.base.support.MessageUtility;
+import jp.co.jdsnet.base.support.MessageHelper;
 
 public class CheckRelationRequiredValidator
     implements ConstraintValidator<CheckRelationRequired, Object> {
@@ -16,7 +16,7 @@ public class CheckRelationRequiredValidator
   private String checkField;
 
   @Autowired
-  private MessageUtility messageUtility;
+  private MessageHelper messageUtility;
 
   @Override
   public void initialize(CheckRelationRequired annotation) {

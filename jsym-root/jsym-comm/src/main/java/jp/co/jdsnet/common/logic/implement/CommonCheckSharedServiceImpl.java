@@ -1,5 +1,6 @@
 package jp.co.jdsnet.common.logic.implement;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,26 +9,36 @@ import java.time.format.ResolverStyle;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import io.micrometer.common.util.StringUtils;
 import jp.co.jdsnet.common.domain.entity.control.ServiceControlEntity;
 import jp.co.jdsnet.common.domain.entity.menu.EventEntity;
+import jp.co.jdsnet.common.domain.entity.menu.EventEntity.Gmnkbn;
+import jp.co.jdsnet.common.domain.entity.sysmas.DaihyoKaishaCalendarEntity;
 import jp.co.jdsnet.common.domain.entity.sysmas.JdsCalendarEntity;
 import jp.co.jdsnet.common.domain.entity.sysmas.JokenEntity;
 import jp.co.jdsnet.common.domain.entity.sysmas.JsymMsEntity;
 import jp.co.jdsnet.common.domain.mapper.control.ServiceControlMapper;
 import jp.co.jdsnet.common.domain.mapper.menu.EventMapper;
+import jp.co.jdsnet.common.domain.mapper.sysmas.DaihyoKaishaCalendarMapper;
 import jp.co.jdsnet.common.domain.mapper.sysmas.JdsCalendarMapper;
 import jp.co.jdsnet.common.domain.mapper.sysmas.JokenMapper;
 import jp.co.jdsnet.common.domain.mapper.sysmas.JsymMsMapper;
 import jp.co.jdsnet.common.logic.CommonCheckSharedService;
+import jp.co.jdsnet.common.logic.UserRelatedSharedService;
+import jp.co.jdsnet.common.logic.UserRelatedSharedService.CurrentNoGetType;
+import jp.co.jdsnet.common.utils.FormatUtility;
 import jp.co.jdsnet.common.utils.GlobalConstants;
 import jp.co.jdsnet.common.utils.GlobalConstants.Flg;
 import jp.co.jdsnet.common.utils.GlobalConstants.Rmcod;
 import jp.co.jdsnet.common.utils.GlobalConstants.Trncod;
 import jp.co.jdsnet.common.utils.GlobalConstants.Usrbun;
+import jp.co.jdsnet.common.utils.StringUtility;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -40,15 +51,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class CommonCheckSharedServiceImpl implements CommonCheckSharedService {
 
+  private final MessageSource messageSource;
   private final EventMapper eventMapper;
   private final ServiceControlMapper serviceControlMapper;
   private final JsymMsMapper msMapper;
   private final JokenMapper jokenMapper;
   private final JdsCalendarMapper jdsCalendarMapper;
+  private final DaihyoKaishaCalendarMapper daihyoKaishaCalendarMapper;
+  private final UserRelatedSharedService userRelatedSharedService;
 
   @Override
   public ServiceTime checkServiceTime(String daikaiskbcod, String usrbun, String gmnid,
-      String gmnseq, EventEntity.Gmnkbn gmnkbn) {
+      String gmnseq, EventEntity.Gmnkbn gmnkbn) throws NoSuchElementException {
 
     EventEntity eventEntity = eventMapper
         .select(
@@ -270,19 +284,27 @@ public class CommonCheckSharedServiceImpl implements CommonCheckSharedService {
   }
 
   private boolean isUsableRmcod(Rmcod rmcod, Trncod trncod, String checkKey, Flg detailFlg) {
+    try {
+      Set<String> resultSet = getUsableRmcod(trncod, checkKey, detailFlg);
+      if (resultSet.isEmpty() || !resultSet.contains(rmcod.getCode())) {
+        return false;
+      }
+    } catch (NoSuchElementException e) {
+      return false;
+    }
+    return true;
+  }
+
+  private Set<String> getUsableRmcod(Trncod trncod, String checkKey, Flg detailFlg)
+      throws NoSuchElementException {
     String keyfld = "RMV" + detailFlg.getCode() + trncod.getCode().trim() + checkKey;
 
     JokenEntity entity = jokenMapper
         .selectWithoutLogicalDelete(JokenEntity.builder().kaiskbcod("JDS").keyfld(keyfld).build());
     if (Objects.isNull(entity)) {
-      return false;
+      throw new NoSuchElementException();
     }
-    Set<String> resultSet = expandTxt(entity.getTxt(), 2, 2);
-    if (resultSet.isEmpty() || !resultSet.contains(rmcod.getCode())) {
-      return false;
-    }
-
-    return true;
+    return expandTxt(entity.getTxt(), 2, 2);
   }
 
   /**
@@ -312,7 +334,8 @@ public class CommonCheckSharedServiceImpl implements CommonCheckSharedService {
   }
 
   @Override
-  public String getNextKadoDte(String baseDte8kt) throws DateTimeParseException {
+  public String getNextKadoDte(String baseDte8kt)
+      throws DateTimeParseException, NoSuchElementException {
     LocalDate ld = DateTimeFormatter.ofPattern("uuuuMMdd").withResolverStyle(ResolverStyle.STRICT)
         .parse(baseDte8kt, LocalDate::from);
 
@@ -325,6 +348,110 @@ public class CommonCheckSharedServiceImpl implements CommonCheckSharedService {
     return calenderEntity.stream()
         .filter(t -> "0".equals(t.getKaddtekbn()))
         .sorted(Comparator.comparing(JdsCalendarEntity::getDte8kt)).findFirst()
+        .map(t -> String.valueOf(t.getDte8kt()))
+        .orElseThrow(() -> new NoSuchElementException(messageSource.getMessage("error.ismissing",
+            new Object[] {
+                messageSource.getMessage("arg.applicabledata", null, Locale.getDefault())},
+            Locale.getDefault())));
+  }
+
+
+  @Override
+  public String checkStack(String stakjydte, String usrid, String tmlid, String stano,
+      String daikaiskbcod, String usrbun, String gmnid, String gmnseqno, Gmnkbn gmnkbn)
+      throws Exception {
+    return checkStack(stakjydte, usrid, tmlid, stano, daikaiskbcod, usrbun, gmnid, gmnseqno, gmnkbn,
+        null);
+  }
+
+  @Override
+  public String checkStack(String stakjydte, String usrid, String tmlid, String stano,
+      String daikaiskbcod, String usrbun, String gmnid, String gmnseqno, Gmnkbn gmnkbn,
+      Trncod trncod) throws Exception {
+
+    if (!StringUtils.isBlank(stakjydte) && "0".equals(stakjydte)) {
+      checkStackDateRange(stakjydte);
+      if (ServiceTime.ONLINE == checkServiceTime(daikaiskbcod, usrbun, gmnid, gmnseqno, gmnkbn)) {
+        boolean isJuchuShukkaAriTrn = Objects.nonNull(trncod) && trncod.isOnlyJuAriKadoTrn();
+        if (checkNextKadoDate(stakjydte, daikaiskbcod, isJuchuShukkaAriTrn)) {
+
+        }
+      }
+    }
+
+    if (StringUtils.isBlank(stano)) {
+      int curno = userRelatedSharedService.getCurrentNo(usrid, usrbun,
+          CurrentNoGetType.VALUEPLUSONE_UPDATE);
+      stano = createStaNo(tmlid, String.valueOf(curno));
+    }
+    return stano;
+  }
+
+  private void checkStackDateRange(String stakjydte) throws DateTimeException {
+    try {
+      LocalDate stack =
+          DateTimeFormatter.ofPattern("uuuuMMdd").withResolverStyle(ResolverStyle.STRICT).parse(
+              String.valueOf(FormatUtility.convertYYYYMMDD(Integer.parseInt(stakjydte))),
+              LocalDate::from);
+
+      LocalDate now = LocalDate.now();
+      if (stack.isBefore(now) || stack.isEqual(now)) {
+        throw new DateTimeException("過去日付");
+      }
+
+      if (stack.isAfter(now.plusMonths(1))) {
+        throw new DateTimeException("１か月オーバー");
+      }
+    } catch (DateTimeException e) {
+      throw e;
+    }
+  }
+
+  private boolean checkNextKadoDate(String stakjydte, String daikaiskbcod,
+      boolean isJuchuShukkaAri) {
+    JdsCalendarEntity entity = jdsCalendarMapper.select(JdsCalendarEntity.builder()
+        .dte8kt(FormatUtility.convertYYYYMMDD(Integer.valueOf(stakjydte))).build());
+    if (!"0".equals(entity.getKaddtekbn())) {
+      return false;
+    } else if (isJuchuShukkaAri) {
+      DaihyoKaishaCalendarEntity daihyoKaishaCalendar =
+          daihyoKaishaCalendarMapper.select(DaihyoKaishaCalendarEntity.builder()
+              .daikaiskbcod(daikaiskbcod).dte8kt(Integer.valueOf(stakjydte)).build());
+      if (!"0".equals(daihyoKaishaCalendar.getNotegydteflg())) {
+        return false;
+      }
+    }
+
+    String nextKadoDte = null;
+    if (isJuchuShukkaAri) {
+      nextKadoDte = getNextJuchuShukkaAriKadoDte(daikaiskbcod);
+    } else {
+      nextKadoDte = getNextKadoDte(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+    }
+
+    if (StringUtils.isBlank(nextKadoDte) || nextKadoDte.equals(String.valueOf(stakjydte))) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private String getNextJuchuShukkaAriKadoDte(String daikaiskbcod) {
+    LocalDate ld = LocalDate.now();
+    int from8kt = Integer.parseInt(ld.plusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+    int to8kt = Integer.parseInt(ld.plusMonths(1).format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+
+    List<DaihyoKaishaCalendarEntity> calenderEntity =
+        daihyoKaishaCalendarMapper.selectListByFromToDate(daikaiskbcod, from8kt, to8kt);
+
+    return calenderEntity.stream().filter(t -> "0".equals(t.getKaddtekbn()))
+        .filter(t -> "0".equals(t.getNotegydteflg()))
+        .sorted(Comparator.comparing(DaihyoKaishaCalendarEntity::getDte8kt)).findFirst()
         .map(t -> String.valueOf(t.getDte8kt())).orElse(null);
   }
+
+  private String createStaNo(String tmlId, String staNo) {
+    return tmlId + "-" + StringUtility.lpad(staNo, 4, "0");
+  }
+
 }

@@ -52,4 +52,119 @@ public class StringUtilityTest {
           () -> assertThat(ex.getMessage()).isEqualTo(param.message));
     }
   }
+
+  @Nested
+  class isAscii {
+    @RequiredArgsConstructor
+    enum Param {
+      CASE1("A", true), CASE2("a", true), CASE3("1", true), CASE4("ｱ", false), CASE5("あ", false),
+      CASE6("$", true);
+
+      private final String arg;
+      private final boolean exp;
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    void TEST(Param param) {
+      boolean result = StringUtility.isAscii(param.arg);
+      assertThat(result).isEqualTo(param.exp);
+    }
+  }
+
+  @Nested
+  class isAsciiNoLowercase {
+    @RequiredArgsConstructor
+    enum Param {
+      CASE1("A", true), CASE2("a", false), CASE3("1", true), CASE4("ｱ", false), CASE5("あ", false),
+      CASE6("$", true);
+
+      private final String arg;
+      private final boolean exp;
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    void TEST(Param param) {
+      boolean result = StringUtility.isAsciiNoLowercase(param.arg);
+      assertThat(result).isEqualTo(param.exp);
+    }
+  }
+
+  @Nested
+  class isAsciiDigit {
+    @RequiredArgsConstructor
+    enum Param {
+      CASE1("A", false), CASE2("a", false), CASE3("1", true), CASE4("ｱ", false), 
+      CASE5("あ", false), CASE6("$", false);
+
+      private final String arg;
+      private final boolean exp;
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    void TEST(Param param) {
+      boolean result = StringUtility.isAsciiDigit(param.arg);
+      assertThat(result).isEqualTo(param.exp);
+    }
+  }
+
+  @Nested
+  class isHankaku {
+    @RequiredArgsConstructor
+    enum Param {
+      CASE1("A", true), CASE2("a", true), CASE3("1", true), CASE4("ｱ", true), CASE5("あ", false),
+      CASE6("$", true);
+
+      private final String arg;
+      private final boolean exp;
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    void TEST(Param param) {
+      boolean result = StringUtility.isHankaku(param.arg);
+      assertThat(result).isEqualTo(param.exp);
+    }
+  }
+
+  @Nested
+  class isHankakuNoLowercase {
+    @RequiredArgsConstructor
+    enum Param {
+      CASE1("A", true), CASE2("a", false), CASE3("1", true), CASE4("ｱ", true), CASE5("あ", false),
+      CASE6("$", true);
+
+      private final String arg;
+      private final boolean exp;
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    void TEST(Param param) {
+      boolean result = StringUtility.isHankakuNoLowercase(param.arg);
+      assertThat(result).isEqualTo(param.exp);
+    }
+  }
+
+  @Nested
+  class isZenkaku {
+    @RequiredArgsConstructor
+    enum Param {
+      CASE1("A", false), CASE2("a", false), CASE3("1", false), CASE4("ｱ", false), CASE5("あ", true),
+      CASE6("$", false), CASE7("凜", false), CASE8("煕", false), CASE9("①", false), CASE10("㈱", true),
+      CASE11("〜", true), CASE12("～", true), CASE13("?", false), CASE14("~", false), CASE15("\\", false);
+
+      private final String arg;
+      private final boolean exp;
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    void TEST(Param param) {
+      boolean result = StringUtility.isZenkaku(param.arg);
+      assertThat(result).isEqualTo(param.exp);
+    }
+  }
 }

@@ -21,7 +21,7 @@ public class EntryServiceFactory {
    * サービス判定に使用する
    */
   public enum ServiceId {
-    Juchu, Kashidashi, Henpin, Hatchu, Sokoshiji, Haisosaki;
+    Juchu, Reinyu, Henpin, Hatchu, Sokoshiji, Haisosaki;
 
     public String getClassName() {
       return "EntryServiceFor" + name();

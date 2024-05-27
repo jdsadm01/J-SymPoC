@@ -3,6 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.sysmas.DaihyoKaishaCalendarMapper">
+  <select id="selectListByFromToDate" resultType="DaihyoKaishaCalendarEntity">
+    select
+      a.DAIKAISKBCOD
+      ,a.DTE8KT
+      ,a.NOTEGYDTEFLG
+      ,a.SYJPRCARIFLG
+      ,b.KADDTEKBN
+    from AESYSM09 a
+    inner join AESYSM08 b
+    on a.DTE8kt = b.DTE8kt
+    <where>
+      a.DAIKAISKBCOD = #{daikaiskbcod}
+      and a.DTE8KT between #{fromDate8kt} and #{toDate8kt}
+      and a.UPDKBN <![CDATA[<>]]> 'D'
+      and b.UPDKBN <![CDATA[<>]]> 'D'
+    </where>
+    with ur
+  </select>
 
 </mapper>
 

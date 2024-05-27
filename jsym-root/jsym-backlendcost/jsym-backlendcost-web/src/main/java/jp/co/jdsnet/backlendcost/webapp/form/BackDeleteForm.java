@@ -14,8 +14,9 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import jp.co.jdsnet.backlendcost.domain.dto.BackDeleteDTO;
 import jp.co.jdsnet.backlendcost.webapp.copydata.BackDeleteCBData;
-import jp.co.jdsnet.base.annotation.CheckAsciiDigit;
-import jp.co.jdsnet.base.annotation.FormatDate;
+import jp.co.jdsnet.base.annotation.CheckDate;
+import jp.co.jdsnet.base.annotation.CheckString;
+import jp.co.jdsnet.base.annotation.CheckString.CheckStyle;
 import jp.co.jdsnet.base.webapp.form.DBCopyForm;
 import jp.co.jdsnet.base.webapp.form.FormInterface;
 import jp.co.jdsnet.base.webapp.parts.LabelData;
@@ -49,42 +50,42 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
   private String kigbng; // 記号番号
 
   @Size(max = 8)
-  @CheckAsciiDigit
+  @CheckString(style = CheckStyle.ASCII_DIGIT)
   private String tokcod; // 得意先
 
   @Size(max = 3)
-  @CheckAsciiDigit
+  @CheckString(style = CheckStyle.ASCII_DIGIT)
   private String dscod; // DS
 
   @Size(max = 2)
-  @CheckAsciiDigit
+  @CheckString(style = CheckStyle.ASCII_DIGIT)
   private String eigcod; // 営業所
 
   @Size(max = 4)
-  @CheckAsciiDigit
+  @CheckString(style = CheckStyle.ASCII_DIGIT)
   private String tercod; // テリトリー
 
 
   private String updkbn; // 処理区分
 
   @Size(max = 6)
-  @CheckAsciiDigit
-  @FormatDate(format = FormatDate.FormatType.YYMMDD)
+  @CheckString(style = CheckStyle.ASCII_DIGIT)
+  @CheckDate(format = CheckDate.FormatType.YYMMDD)
   private String jucdtefrom; // 受注日From
 
   @Size(max = 6)
-  @CheckAsciiDigit
-  @FormatDate(format = FormatDate.FormatType.YYMMDD)
+  @CheckString(style = CheckStyle.ASCII_DIGIT)
+  @CheckDate(format = CheckDate.FormatType.YYMMDD)
   private String jucdteto; // 受注日To
 
   @Size(max = 6)
-  @CheckAsciiDigit
-  @FormatDate(format = FormatDate.FormatType.YYMMDD)
+  @CheckString(style = CheckStyle.ASCII_DIGIT)
+  @CheckDate(format = CheckDate.FormatType.YYMMDD)
   private String hbidtefrom; // 発売日From
 
   @Size(max = 6)
-  @CheckAsciiDigit
-  @FormatDate(format = FormatDate.FormatType.YYMMDD)
+  @CheckString(style = CheckStyle.ASCII_DIGIT)
+  @CheckDate(format = CheckDate.FormatType.YYMMDD)
   private String hbidteto; // 発売日To
 
   @AssertTrue(message = "M分類、記号番号、得意先、受注日、発売日いずれかを入力してください")
@@ -155,8 +156,7 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
         .dscod(this.dscod).eigcod(this.eigcod).tercod(this.tercod).updkbn(this.updkbn)
         .jucdtefrom(this.jucdtefrom).jucdteto(this.jucdteto).hbidtefrom(this.hbidtefrom)
         .hbidteto(this.hbidteto).titnm(this.titnm).artnm(this.artnm).toknm(this.toknm)
-        .tokkbn(this.tokkbn)
-        .dsnm(this.dsnm).chzCnt(this.chzCnt).chzsurTotal(this.chzsurTotal)
+        .tokkbn(this.tokkbn).dsnm(this.dsnm).chzCnt(this.chzCnt).chzsurTotal(this.chzsurTotal)
         .allDeletechk(this.allDeletechk).detailBottomList(this.detailBottomList)
         .tokkbnList(this.tokkbnList).updkbnList(this.updkbnList).checkBoxDelete(this.checkBoxDelete)
         .detailList(Optional.ofNullable(this.detailList).stream().flatMap(x -> x.stream())
@@ -165,8 +165,7 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
             .map(t -> t.toDTO()).collect(Collectors.toList()))
         .pageKeyPrev(this.pageKeyPrev).pageKeyNow(this.pageKeyNow).pageKeyNext(this.pageKeyNext)
         .pageNo(this.pageNo).prevFlg(this.prevFlg).nextFlg(this.nextFlg)
-        .nextGamenMode(this.nextGamenMode)
-        .radioTokcod(this.radioTokcod).build();
+        .nextGamenMode(this.nextGamenMode).radioTokcod(this.radioTokcod).build();
   }
 
   /**
@@ -183,8 +182,8 @@ public class BackDeleteForm extends DBCopyForm<BackDeleteCBData>
         .updkbn(dto.getUpdkbn()).jucdtefrom(dto.getJucdtefrom()).jucdteto(dto.getJucdteto())
         .hbidtefrom(dto.getHbidtefrom()).hbidteto(dto.getHbidteto()).titnm(dto.getTitnm())
         .artnm(dto.getArtnm()).toknm(dto.getToknm()).dsnm(dto.getDsnm()).tokkbn(dto.getTokkbn())
-        .chzCnt(dto.getChzCnt())
-        .chzsurTotal(dto.getChzsurTotal()).allDeletechk(dto.getAllDeletechk())
+        .chzCnt(dto.getChzCnt()).chzsurTotal(dto.getChzsurTotal())
+        .allDeletechk(dto.getAllDeletechk())
         .detailBottomList(dto.getDetailBottomList()).updkbnList(dto.getUpdkbnList())
         .tokkbnList(dto.getTokkbnList()).pageKeyPrev(dto.getPageKeyPrev())
         .pageKeyNow(dto.getPageKeyNow()).pageKeyNext(dto.getPageKeyNext()).pageNo(dto.getPageNo())

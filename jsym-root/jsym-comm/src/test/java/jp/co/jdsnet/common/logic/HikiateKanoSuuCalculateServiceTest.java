@@ -3,17 +3,22 @@ package jp.co.jdsnet.common.logic;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 import jp.co.jdsnet.common.domain.entity.hinban.HinbanEntity;
 import jp.co.jdsnet.common.domain.entity.kaisha.DaihyoKaishaJokenEntity;
 import jp.co.jdsnet.common.domain.entity.tokuisaki.KakushaTokuisakiEntity;
@@ -50,6 +55,8 @@ public class HikiateKanoSuuCalculateServiceTest {
   TantoTerritoryMapper tantoTerritoryMapper;
   @Mock
   ZaikoKakuhoMapper zaikoKakuhoMapper;
+  @Mock
+  private MessageSource messageSource;
 
   @Nested
   class getHatKnoSuuTest {
@@ -357,12 +364,44 @@ public class HikiateKanoSuuCalculateServiceTest {
       when(azaikoMapper.selectForCalcurateKanosuu(Mockito.any())).thenReturn(azailist.get(0))
           .thenReturn(azailist.get(1)).thenReturn(azailist.get(2));
       when(daihyoKaishaJokenMapper.select(Mockito.any())).thenReturn(daikaijkn);
+      when(messageSource.getMessage(Mockito.anyString(), Mockito.any(), Mockito.any(Locale.class)))
+          .thenReturn("").thenReturn("");
+      final ArgumentCaptor<String> cap = ArgumentCaptor.forClass(String.class);
 
       Throwable ex = assertThrows(RuntimeException.class,
           () -> target.getHatKnoSuu("", "", skolist, trncod, rmcod, isMinus));
       assertAll("Exception検証",
           () -> assertThat(ex.getClass()).isEqualTo(NoSuchElementException.class),
-          () -> assertThat(ex.getMessage()).isEqualTo("代表会社条件が存在しません。"));
+          () -> verify(messageSource, times(2)).getMessage(cap.capture(), Mockito.any(),
+              Mockito.any(Locale.class)),
+          () -> assertThat(cap.getAllValues().get(0)).isEqualTo("arg.table.daihyokaishajoken"),
+          () -> assertThat(cap.getAllValues().get(1)).isEqualTo("error.notexist"));
+    }
+
+    @Test
+    void A在庫無し() {
+      boolean isMinus = true;
+      Rmcod rmcod = Rmcod.SHITEINASHI;
+      Trncod trncod = Trncod.TSUJO_URIAGE;
+      String skolist[] = {"111", "222", "333"};
+
+      DaihyoKaishaJokenEntity daikaijkn = createKaishaJoken("");
+
+      when(azaikoMapper.selectForCalcurateKanosuu(Mockito.any())).thenReturn(null).thenReturn(null)
+          .thenReturn(null);
+      when(daihyoKaishaJokenMapper.select(Mockito.any())).thenReturn(daikaijkn);
+      when(messageSource.getMessage(Mockito.anyString(), Mockito.any(), Mockito.any(Locale.class)))
+          .thenReturn("").thenReturn("");
+      final ArgumentCaptor<String> cap = ArgumentCaptor.forClass(String.class);
+
+      Throwable ex = assertThrows(RuntimeException.class,
+          () -> target.getHatKnoSuu("", "", skolist, trncod, rmcod, isMinus));
+      assertAll("Exception検証",
+          () -> assertThat(ex.getClass()).isEqualTo(NoSuchElementException.class),
+          () -> verify(messageSource, times(2)).getMessage(cap.capture(), Mockito.any(),
+              Mockito.any(Locale.class)),
+          () -> assertThat(cap.getAllValues().get(0)).isEqualTo("arg.table.azaiko"),
+          () -> assertThat(cap.getAllValues().get(1)).isEqualTo("error.notexist"));
     }
 
     private List<AzaikoEntity> createAzaiko(int skosuu, Syacod syacod) {

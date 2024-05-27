@@ -28,4 +28,19 @@ public interface EntryService<T> {
    * @return クラス名
    */
   public String getServiceId();
+
+  /**
+   * 受注状況テーブルの登録
+   *
+   * @param entity 指示テーブルに登録したデータ
+   * @param usrid ユーザーID
+   * @param cpuid CPUID
+   * @param tmlid 端末ID
+   * @param usrbshcod ユーザー場所コード
+   * @param isKyodoJuchu 共同受注かどうか
+   */
+  default public void insertEny01(T entity, String usrid, String cpuid, String tmlid,
+      String usrbshcod, boolean isKyodoJuchu) {
+    // 登録が必要なエントリーサービスでのみ実装する
+  }
 }

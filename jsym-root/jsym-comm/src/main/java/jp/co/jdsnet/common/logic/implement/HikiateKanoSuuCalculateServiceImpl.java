@@ -2,9 +2,11 @@ package jp.co.jdsnet.common.logic.implement;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import jp.co.jdsnet.common.domain.entity.hinban.HinbanEntity;
 import jp.co.jdsnet.common.domain.entity.kaisha.DaihyoKaishaJokenEntity;
@@ -36,6 +38,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class HikiateKanoSuuCalculateServiceImpl implements HikiateKanoSuuCalculateService {
 
+  private final MessageSource messageSource;
   private final DaihyoKaishaJokenMapper daihyoKaishaJokenMapper;
   private final AzaikoMapper azaikoMapper;
   private final KakushaTokuisakiMapper kakushaTokuisakiMapper;
@@ -45,7 +48,7 @@ public class HikiateKanoSuuCalculateServiceImpl implements HikiateKanoSuuCalcula
 
   @Override
   public HikiateKanosuuVo getHatKnoSuu(String daikaiskbcod, String kigbng, String[] skocodList,
-      Trncod trncod, Rmcod rmcod, boolean isMinus) {
+      Trncod trncod, Rmcod rmcod, boolean isMinus) throws NoSuchElementException {
     DaihyoKaishaJokenEntity kaishaJokenEntity = getDaihyoKaishaJoken(daikaiskbcod);
     HikiateKanosuuVo.builder builder = new HikiateKanosuuVo.builder();
     Arrays.stream(skocodList).forEach(s -> {
@@ -58,7 +61,7 @@ public class HikiateKanoSuuCalculateServiceImpl implements HikiateKanoSuuCalcula
 
   @Override
   public HikiateKanosuuVo getHatKnoSuu(String daikaiskbcod, String kigbng, String[] skocodList,
-      Trncod trncod, Rmcod rmcod, String tokcod, boolean isMinus) {
+      Trncod trncod, Rmcod rmcod, String tokcod, boolean isMinus) throws NoSuchElementException {
     DaihyoKaishaJokenEntity kaishaJokenEntity = getDaihyoKaishaJoken(daikaiskbcod);
     HikiateKanosuuVo.builder builder = new HikiateKanosuuVo.builder();
     Arrays.stream(skocodList).forEach(s -> {
@@ -75,7 +78,10 @@ public class HikiateKanoSuuCalculateServiceImpl implements HikiateKanoSuuCalcula
     DaihyoKaishaJokenEntity entity = daihyoKaishaJokenMapper
         .select(DaihyoKaishaJokenEntity.builder().daikaiskbcod(daikaiskbcod).build());
     if (Objects.isNull(entity)) {
-      throw new NoSuchElementException("代表会社条件が存在しません。");
+      throw new NoSuchElementException(messageSource.getMessage("error.notexist",
+          new Object[] {
+              messageSource.getMessage("arg.table.daihyokaishajoken", null, Locale.getDefault())},
+          Locale.getDefault()));
     }
     return entity;
   }
@@ -85,6 +91,11 @@ public class HikiateKanoSuuCalculateServiceImpl implements HikiateKanoSuuCalcula
 
     AzaikoEntity azaikoEntity = azaikoMapper.selectForCalcurateKanosuu(AzaikoEntity.builder()
         .daikaiskbcod(kaishaJokenEntity.getDaikaiskbcod()).kigbng(kigbng).skocod(skocod).build());
+    if (Objects.isNull(azaikoEntity)) {
+      throw new NoSuchElementException(messageSource.getMessage("error.notexist",
+          new Object[] {messageSource.getMessage("arg.table.azaiko", null, Locale.getDefault())},
+          Locale.getDefault()));
+    }
 
     CalculateBean calbean = new CalculateBean(azaikoEntity);
     calbean.adjustMinusData();

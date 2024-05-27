@@ -3,6 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.jdsnet.common.domain.mapper.tokuisaki.HinbanTokuisakiKakeritsuTankaMapper">
-
+  <select id="selectKrtTan" resultType="HinbanTokuisakiKakeritsuTankaEntity">
+    select
+    <include refid="jp.co.jdsnet.common.domain.mapper.tokuisaki.GeneratedHinbanTokuisakiKakeritsuTankaMapper.fields" />
+    from AECUST15
+    <where>
+      DAIKAISKBCOD = #{daikaiskbcod}
+      and KIGBNG = #{kigbng}
+      and TOKCOD = #{tokcod}
+      and TOKSYYKBN = #{toksyykbn}
+      and KKNFRM <![CDATA[ <= ]]> #{kkn}
+      and KKNTO <![CDATA[ >= ]]> #{kkn}
+      and UPDKBN <![CDATA[ <> ]]> 'D'
+    </where>
+    with ur
+  </select>
 </mapper>
 

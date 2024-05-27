@@ -1,5 +1,6 @@
 package jp.co.jdsnet.common.logic;
 
+import java.util.NoSuchElementException;
 import jp.co.jdsnet.common.domain.vo.HikiateKanosuuVo;
 import jp.co.jdsnet.common.utils.GlobalConstants.Rmcod;
 import jp.co.jdsnet.common.utils.GlobalConstants.Trncod;
@@ -22,9 +23,10 @@ public interface HikiateKanoSuuCalculateService {
    * @param rmcod リマーク
    * @param isMinus true・・・可能数がマイナス値の場合はそのまま、false・・・マイナス値になったら０とする
    * @return 算出された引当可能数VO
+   * @throws NoSuchElementException マスター不整合時
    */
   public HikiateKanosuuVo getHatKnoSuu(String daikaiskbcod, String kigbng, String[] skocodList,
-      Trncod trncod, Rmcod rmcod, boolean isMinus);
+      Trncod trncod, Rmcod rmcod, boolean isMinus) throws NoSuchElementException;
 
   /**
    * 引当可能数を算出する（在庫確保数まで参照する）
@@ -38,7 +40,8 @@ public interface HikiateKanoSuuCalculateService {
    * @param jucsur 受注数
    * @param isMinus true・・・可能数がマイナス値の場合はそのまま、false・・・マイナス値になったら０とする
    * @return 算出された引当可能数VO
+   * @throws NoSuchElementException マスター不整合時
    */
   public HikiateKanosuuVo getHatKnoSuu(String daikaiskbcod, String kigbng, String[] skocodList,
-      Trncod trncod, Rmcod rmcod, String tokcod, boolean isMinus);
+      Trncod trncod, Rmcod rmcod, String tokcod, boolean isMinus) throws NoSuchElementException;
 }
